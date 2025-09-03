@@ -53,18 +53,13 @@
 }
 
 .meu-botao {
-  --background: #60e0a5;
-  --background-activated: #50c18d;
-  --background-hover: #50c18d;
-  --border-radius: 50px;
-  --box-shadow: none;
-  width: 85%;
-  max-width: 400px;
-  height: 50px;
-  font-size: 1.1em;
+--background: #6fce8a; /* verde da imagem */
+  --color: #ffffff;
   font-weight: bold;
-  color: #ffffff;
-}
+  --border-radius: 25px;
+  height: 50px;
+  --box-shadow: none; /* remove sombra padrão do Ionic */
+  width: 250px;}
 
 ion-back-button {
   --color: #333;

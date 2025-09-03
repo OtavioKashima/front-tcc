@@ -1,0 +1,53 @@
+/* home.page.scss */
+.home-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centraliza verticalmente */
+    align-items: center;     /* centraliza horizontalmente */
+    height: 100%;
+    background-color: #ffffff;
+  }
+  
+  .logo-container { 
+    img{
+      
+      margin-top: 200px;
+      width: 80%; // 80% do container pai
+      height: auto; // mantém a proporção
+      min-width: 250px; // limita o tamanho máximo
+    } 
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .logo-container img {
+    width: 120px; /* ajuste o tamanho conforme a imagem */
+    height: auto;
+  }
+  
+  .button-container {
+    width: 80%;
+    display: flex;
+    gap: 15px; /* espaço entre os botões */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .btn-entrar, .btn-cadastrar {
+    --background: #6fce8a; /* verde da imagem */
+    --color: #ffffff;
+    font-weight: bold;
+    --border-radius: 25px;
+    height: 50px;
+    --box-shadow: none; /* remove sombra padrão do Ionic */
+    width: 250px;
+  }
+  
