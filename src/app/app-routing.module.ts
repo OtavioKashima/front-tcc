@@ -22,7 +22,7 @@ export class AppRoutingModule {}
 const tela1teste: Routes = [
   {
     path: './src/app/tab1/tab1.page.html',
-    component: Tab1Page,
+    component: Tab1Page, 
   },
   {
     path: './src/app/tab2/tab2.page.html',

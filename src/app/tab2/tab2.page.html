@@ -1,16 +1,49 @@
-<ion-content [fullscreen]="true" class="ion-padding">
-  ...
-  <div id="container">
-    <img class="logo1" src="https://i.pinimg.com/736x/18/e7/9a/18e79a4afd519301fe6d3ef6fa4e7594.jpg" alt="Logo">
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-title>Doe</ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-    <a class="link" routerLink="/tabs/tab3">
-    <ion-button expand="block" class="ion-margin-top meu-botao">
-         Entrar
-        </ion-button>
-      </a>
+<ion-content class="page-content">
 
-    <ion-button expand="block" class="ion-margin-top meu-botao">
-      Cadastrar
-    </ion-button>
+  <div class="doacoes-wrapper">
+    <!-- Card 1 -->
+    <ion-card class="doacao-card">
+      <ion-card-header class="doacao-header">
+        <ion-card-title>Ajude o Jorge</ion-card-title>
+      </ion-card-header>
+      <div class="doacao-body">
+        <ion-img src="https://placekitten.com/300/200"></ion-img>
+        <p>Recentemente eu descobri que meu gato tem alopecia, e infelizmente eu não tenho...</p>
+      </div>
+    </ion-card>
+
+    <!-- Card 2 -->
+    <ion-card class="doacao-card">
+      <ion-card-header class="doacao-header">
+        <ion-card-title>Falta de ração</ion-card-title>
+      </ion-card-header>
+      <div class="doacao-body">
+        <ion-img src="https://placedog.net/400?id=21"></ion-img>
+        <p>Eu sou dono de um abrigo pra cachorros, eu mesmo cuido deles e todo o custo da comida vem...</p>
+      </div>
+    </ion-card>
+
+    <!-- Card 3 -->
+    <ion-card class="doacao-card">
+      <ion-card-header class="doacao-header">
+        <ion-card-title>Remedios</ion-card-title>
+      </ion-card-header>
+      <div class="doacao-body">
+        <ion-img src="https://placedog.net/400?id=25"></ion-img>
+        <p>Eu tenho o Tor desde pequeno e agora ele já tá velhinho, mas eu infelizmente não tenho dinheiro pra...</p>
+      </div>
+    </ion-card>
   </div>
+
 </ion-content>
