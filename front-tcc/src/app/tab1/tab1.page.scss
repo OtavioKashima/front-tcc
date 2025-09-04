@@ -1,14 +1,148 @@
-#container {
+.page-content {
+  padding: 16px;
+  /* espaço extra em baixo para o footer + FAB */
+  padding-bottom: 110px;
+}
+
+/* cards */
+.cards-wrapper ion-card {
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 14px;
+  --box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.card-header {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+ion-img {
+  height: 160px;
+  object-fit: cover;
+}
+
+/* FAB (central) */
+.add-fab {
+  /* levanta um pouco o FAB para ficar sobre o footer */
+  transform: translateY(-28px);
+  z-index: 20;
+}
+
+/* footer */
+.app-footer {
+  --background: #fff;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  height: 64px;
+}
+
+/* grupos esquerda/direita */
+.footer-left,
+.footer-right {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+/* botões do footer (ícone em cima do label) */
+.footer-btn {
+  --min-width: 0;
+  padding: 0 8px;
+  height: 64px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  margin-top: 170px;
+  color: #444;
 }
 
-.logo1 {
-  width: 380px;
-  height: 380px;
-  margin-bottom: 20px;
+/* ícone maior */
+.footer-btn ion-icon {
+  font-size: 22px;
 }
+
+/* label pequeno */
+.footer-btn ion-label {
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-top: 1px solid #e8e8e8;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 12px 0 0;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: #999;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.nav-item.active {
+  color: #4CAF50;
+}
+
+.nav-item ion-icon {
+  font-size: 22px;
+}
+
+.add-button {
+  background: #4CAF50;
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0 8px;
+}
+
+.add-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+}
+
+
+.add-button ion-icon {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
