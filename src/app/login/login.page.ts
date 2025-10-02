@@ -14,7 +14,7 @@ export class LoginPage {
 
   goToLogin() {
     // Navega para a tela de Login (Tab 2)
-    this.navCtrl.navigateForward('/tabs/tab2');
+    this.navCtrl.navigateForward('/adocoes');
   }
 
   goToRegistration() {

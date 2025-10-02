@@ -8,20 +8,24 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
+        path: 'adocoes',
         loadChildren: () => import('../adocoes/adocoes.module').then(m => m.AdocoesPageModule)
       },
       {
-        path: 'tab2',
+        path: 'login',
         loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule)
       },
       {
-        path: 'tab3',
+        path: 'registro',
         loadChildren: () => import('../registro/registro.module').then(m => m.RegistroPageModule)
       },
       {
+        path: 'perfil',
+        loadChildren: () => import('../perfil/perfil.module').then(m => m.PerfilPageModule)
+      },
+      {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/login',
         pathMatch: 'full'
       }
     ]

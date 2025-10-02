@@ -5,6 +5,7 @@ import { LoginPage } from './login/login.page';
 import { RegistroPage } from './registro/registro.page';
 import { AdocoesPage } from './adocoes/adocoes.page';
 import { DoacoesPage } from './doacoes/doacoes.page';
+import { PerfilPage } from './perfil/perfil.page';
 
 const routes: Routes = [
   {
@@ -27,6 +28,11 @@ const routes: Routes = [
     path: 'registro',
     loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
   },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+
 
 
 
@@ -55,5 +61,9 @@ const tela1teste: Routes = [
   {
     path: './src/app/doacoes/doacoes.page.html',
     component: DoacoesPage,
+  },
+  {
+    path: './src/app/perfil/perfil.page.html',
+    component: PerfilPage,
   },
 ];
