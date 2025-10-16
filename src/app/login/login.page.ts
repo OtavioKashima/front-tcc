@@ -12,13 +12,13 @@ export class LoginPage {
 
   constructor(private navCtrl: NavController) {}
 
-  goToLogin() {
+  goToCadastroPage() {
     // Navega para a tela de Login (Tab 2)
-    this.navCtrl.navigateForward('/adocoes');
+    this.navCtrl.navigateForward('/registro');
   }
 
-  goToRegistration() {
-    // Navega para a tela de Cadastro (Tab 3)
-    this.navCtrl.navigateForward('/registro');
+  goToLoginPage() {
+    // Navega para a tela de Login (Tab 2)
+    this.navCtrl.navigateForward('/login');
   }
 }
