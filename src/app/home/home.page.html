@@ -1,0 +1,51 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- Toolbar vazia, design clean -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="home-container">
+    <!-- Logo -->
+    <div class="logo-container">
+      <div class="logo-circle">
+        <img src="../../assets/logo.png" alt="Logo PetConnect">
+      </div>
+    </div>
+
+    <!-- Título e subtítulo -->
+    <h1 class="welcome-title">
+      Bem vindo ao<br>
+      <span class="app-name">PetConnect</span>
+    </h1>
+    
+    <p class="welcome-subtitle">
+      O app totalmente direcionado a ajudar animais
+    </p>
+    
+    <!-- Botões de ação -->
+    <div class="buttons-container">
+      <ion-button 
+        class="action-button" 
+        expand="block" 
+        shape="round"
+        (click)="goToLogin()">
+        Login
+      </ion-button>
+      
+      <ion-button 
+        class="action-button" 
+        expand="block" 
+        shape="round"
+        (click)="goToRegistration()">
+        Cadastro
+      </ion-button>
+    </div>
+    
+    <!-- Texto da comunidade -->
+    <p class="community-text">
+      Junte-se a nossa<br>
+      comunidade!
+    </p>
+  </div>
+</ion-content>
