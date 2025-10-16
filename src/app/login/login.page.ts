@@ -20,5 +20,15 @@ export class LoginPage {
   goToLoginPage() {
     // Navega para a tela de Login (Tab 2)
     this.navCtrl.navigateForward('/login');
+
   }
+
+  goToHome(){
+    this.navCtrl.navigateForward('/home');
+  }
+
+  goToAdocoes(){
+    this.navCtrl.navigateForward('/adocoes');
+  }
+
 }

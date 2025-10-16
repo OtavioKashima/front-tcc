@@ -18,9 +18,15 @@ export class RegistroPage  {
     // Se a sua estrutura de rotas for diferente, ajuste o caminho
     this.navCtrl.navigateBack('/login'); 
   }
+  
   goToCadastroPage() {
     // Navega para a página de login
     this.navCtrl.navigateBack('/login');
   }
+
+  goToHome(){
+    this.navCtrl.navigateForward('/home');
+  }
+
 
 }
