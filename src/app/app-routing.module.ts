@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home', // página inicial
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -30,7 +30,7 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then(m => m.PerfilPageModule)
-  },
+  }
 ];
 
 @NgModule({
