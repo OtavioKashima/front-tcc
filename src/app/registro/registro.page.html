@@ -1,0 +1,89 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goToLoginPage()" fill="clear">
+        <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+   
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Cadastro</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="login-container">
+    <div class="logo-container">
+      <div class="logo-circle">
+        <ion-icon name="paw" class="logo-icon"></ion-icon>
+      </div>
+    </div>
+
+    <h1 class="login-title">Cadastro</h1>
+    
+    <div class="form-container">
+      <div class="input-group">
+        <ion-input 
+          class="custom-input" 
+          placeholder="Usuário" 
+          fill="outline"
+          type="text">
+        </ion-input>
+      </div>
+      
+      <div class="input-group">
+        <ion-input 
+          class="custom-input" 
+          placeholder="CPF" 
+          fill="outline"
+          type="number">
+        </ion-input>
+      </div>
+
+      <div class="input-group">
+        <ion-input 
+          class="custom-input" 
+          placeholder="Email" 
+          fill="outline"
+          type="email">
+        </ion-input>
+      </div>
+      
+      <div class="input-group">
+        <ion-input 
+          class="custom-input" 
+          placeholder="Senha" 
+          fill="outline"
+          type="password">
+        </ion-input>
+      </div>
+
+      <div class="input-group">
+        <ion-input 
+          class="custom-input" 
+          placeholder="Confirmar senha" 
+          fill="outline"
+          type="password">
+        </ion-input>
+      </div>
+      
+    </div>
+    
+    <div class="button-container">
+      <ion-button 
+        class="login-button" 
+        expand="block" 
+        shape="round">
+        Cadastrar
+      </ion-button>
+      
+      <div class="no-account">
+        <span (click)="goToCadastroPage()">Já tenho conta</span>
+      </div>
+    </div>
+  </div>
+</ion-content>
