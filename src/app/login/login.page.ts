@@ -28,7 +28,7 @@ export class LoginPage {
   }
 
   goToAdocoes(){
-    this.navCtrl.navigateForward('/adocoes');
+    this.navCtrl.navigateForward('/tabs/adocoes');
   }
 
 }

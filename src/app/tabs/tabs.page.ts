@@ -10,4 +10,8 @@ export class TabsPage {
 
   constructor() {}
 
+  adicionar(){
+    console.log('Adotar botão clicado');
+  }
+
 }
