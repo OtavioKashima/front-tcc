@@ -5,7 +5,6 @@
         <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
       </ion-button>
     </ion-buttons>
-   
   </ion-toolbar>
 </ion-header>
 
@@ -19,44 +18,48 @@
   <div class="login-container">
     <div class="logo-container">
       <div class="logo-circle">
-        <ion-icon name="paw" class="logo-icon"></ion-icon> </div>
+        <ion-icon name="paw" class="logo-icon"></ion-icon>
+      </div>
     </div>
 
     <h1 class="login-title">Login</h1>
-    
+
     <div class="form-container">
       <div class="input-group">
         <ion-input 
           class="custom-input" 
-          placeholder="Usuário" 
+          placeholder="CPF" 
           fill="outline"
-          type="text">
+          type="text"
+          [(ngModel)]="usuario"
+          (ionInput)="maskCPF()">
         </ion-input>
       </div>
-      
+
       <div class="input-group">
         <ion-input 
           class="custom-input" 
           placeholder="Senha" 
           fill="outline"
-          type="password">
+          type="password"
+          [(ngModel)]="senha">
         </ion-input>
       </div>
-      
+
       <div class="forgot-password">
         <span>Esqueci a senha</span>
       </div>
     </div>
-    
+
     <div class="button-container">
       <ion-button 
         class="login-button" 
         expand="block" 
         shape="round"
-        (click)="goToAdocoes()">
+        (click)="login()">
         Entrar
       </ion-button>
-      
+
       <div class="no-account">
         <span (click)="goToCadastroPage()">Não tenho conta</span>
       </div>

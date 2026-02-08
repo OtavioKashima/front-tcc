@@ -5,7 +5,6 @@
         <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
       </ion-button>
     </ion-buttons>
-   
   </ion-toolbar>
 </ion-header>
 
@@ -24,65 +23,98 @@
     </div>
 
     <h1 class="login-title">Cadastro</h1>
-    
+
     <div class="form-container">
+
+      <!-- Nome -->
       <div class="input-group">
-        <ion-input 
-          class="custom-input" 
-          placeholder="Usuário" 
+        <ion-input
+          class="custom-input"
+          placeholder="Usuário"
           fill="outline"
-          type="text">
-        </ion-input>
-      </div>
-      
-      <div class="input-group">
-        <ion-input 
-          class="custom-input" 
-          placeholder="CPF" 
-          fill="outline"
-          type="number">
+          type="text"
+          maxlength="50"
+          [(ngModel)]="nome">
         </ion-input>
       </div>
 
+      <!-- CPF -->
       <div class="input-group">
-        <ion-input 
-          class="custom-input" 
-          placeholder="Email" 
+        <ion-input
+          class="custom-input"
+          placeholder="CPF"
           fill="outline"
-          type="email">
-        </ion-input>
-      </div>
-      
-      <div class="input-group">
-        <ion-input 
-          class="custom-input" 
-          placeholder="Senha" 
-          fill="outline"
-          type="password">
+          type="text"
+          maxlength="14"
+          [(ngModel)]="cpf"
+          (ionInput)="maskCPF()">
         </ion-input>
       </div>
 
+      <!-- Telefone -->
       <div class="input-group">
-        <ion-input 
-          class="custom-input" 
-          placeholder="Confirmar senha" 
+        <ion-input
+          class="custom-input"
+          placeholder="Telefone"
           fill="outline"
-          type="password">
+          type="text"
+          maxlength="15"
+          [(ngModel)]="telefone"
+          (ionInput)="maskTelefone()">
         </ion-input>
       </div>
-      
+
+      <!-- Email -->
+      <div class="input-group">
+        <ion-input
+          class="custom-input"
+          placeholder="Email"
+          fill="outline"
+          type="email"
+          [(ngModel)]="email"
+          (ionInput)="validarEmail()">
+        </ion-input>
+        <div *ngIf="emailInvalido" class="error-message">
+          O e-mail deve conter '@' e um domínio válido
+        </div>
+      </div>
+
+      <!-- Senha -->
+      <div class="input-group">
+        <ion-input
+          class="custom-input"
+          placeholder="Senha"
+          fill="outline"
+          type="password"
+          [(ngModel)]="senha">
+        </ion-input>
+      </div>
+
+      <!-- Confirmar senha -->
+      <div class="input-group">
+        <ion-input
+          class="custom-input"
+          placeholder="Confirmar senha"
+          fill="outline"
+          type="password"
+          [(ngModel)]="confirmarSenha">
+        </ion-input>
+      </div>
+
     </div>
-    
+
     <div class="button-container">
-      <ion-button 
-        class="login-button" 
-        expand="block" 
-        shape="round">
+      <ion-button
+        class="login-button"
+        expand="block"
+        shape="round"
+        (click)="registrar()"
+        [disabled]="emailInvalido">
         Cadastrar
       </ion-button>
-      
+
       <div class="no-account">
-        <span (click)="goToCadastroPage()">Já tenho conta</span>
+        <span (click)="goToLoginPage()">Já tenho conta</span>
       </div>
     </div>
   </div>
