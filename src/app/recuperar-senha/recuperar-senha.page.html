@@ -9,12 +9,6 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Cadastro</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <div class="login-container">
     <div class="logo-container">
       <div class="logo-circle">
@@ -22,22 +16,10 @@
       </div>
     </div>
 
-    <h1 class="login-title">Cadastro</h1>
+    <h1 class="login-title">Recuperar Senha</h1>
 
     <div class="form-container">
-
-      <!-- Nome -->
-      <div class="input-group">
-        <ion-input
-          class="custom-input"
-          placeholder="Usuário"
-          fill="outline"
-          type="text"
-          maxlength="50"
-          [(ngModel)]="nome">
-        </ion-input>
-      </div>
-
+      
       <!-- CPF -->
       <div class="input-group">
         <ion-input
@@ -48,20 +30,6 @@
           maxlength="14"
           [(ngModel)]="cpf"
           (ionInput)="maskCPF()"
-          (keypress)="somenteNumeros($event)">
-        </ion-input>
-      </div>
-
-      <!-- Telefone -->
-      <div class="input-group">
-        <ion-input
-          class="custom-input"
-          placeholder="Telefone"
-          fill="outline"
-          type="text"
-          maxlength="15"
-          [(ngModel)]="telefone"
-          (ionInput)="maskTelefone()"
           (keypress)="somenteNumeros($event)">
         </ion-input>
       </div>
@@ -81,28 +49,6 @@
         </div>
       </div>
 
-      <!-- Senha -->
-      <div class="input-group">
-        <ion-input
-          class="custom-input"
-          placeholder="Senha"
-          fill="outline"
-          type="password"
-          [(ngModel)]="senha">
-        </ion-input>
-      </div>
-
-      <!-- Confirmar senha -->
-      <div class="input-group">
-        <ion-input
-          class="custom-input"
-          placeholder="Confirmar senha"
-          fill="outline"
-          type="password"
-          [(ngModel)]="confirmarSenha">
-        </ion-input>
-      </div>
-
     </div>
 
     <div class="button-container">
@@ -110,14 +56,10 @@
         class="login-button"
         expand="block"
         shape="round"
-        (click)="registrar()"
+        (click)="recuperarSenha()"
         [disabled]="emailInvalido">
-        Cadastrar
+        Recuperar Senha
       </ion-button>
-
-      <div class="no-account">
-        <span (click)="goToLoginPage()">Já tenho conta</span>
-      </div>
     </div>
   </div>
 </ion-content>

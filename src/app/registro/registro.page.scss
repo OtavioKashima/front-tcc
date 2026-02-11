@@ -169,3 +169,10 @@ img{
     font-size: 24px; // Aumente este valor para deixar a seta maior
     margin-left: 20px; // Isso empurra a seta para a direita
   }
+  .error-message {
+  color: #e74c3c; /* vermelho padrão de erro */
+  font-size: 0.8rem;
+  text-align: left;
+  margin-top: 4px;
+  font-weight: 500;
+}

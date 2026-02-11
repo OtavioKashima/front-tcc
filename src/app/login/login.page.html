@@ -20,6 +20,7 @@
       <h1 class="login-title">Login</h1>
 
       <div class="form-container">
+        <!-- CPF -->
         <div class="input-group">
           <ion-input 
             class="custom-input" 
@@ -28,10 +29,12 @@
             type="text"
             [(ngModel)]="usuario"
             (ionInput)="maskCPF()"
+            (keypress)="somenteNumeros($event)"
             maxlength="14">
           </ion-input>
         </div>
 
+        <!-- Senha -->
         <div class="input-group">
           <ion-input 
             class="custom-input" 
@@ -42,8 +45,11 @@
           </ion-input>
         </div>
 
+        <!-- Esqueci a senha -->
         <div class="forgot-password">
-          <span>Esqueci a senha</span>
+          <span (click)="goToRecuperarSenha()" class="forgot-link">
+            Esqueci a senha
+          </span>
         </div>
       </div>
 

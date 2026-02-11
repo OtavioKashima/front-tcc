@@ -26,14 +26,13 @@ export class RegistroPage {
   goToLoginPage() { this.navCtrl.navigateBack('/login'); }
   goToHome(){ this.navCtrl.navigateForward('/home'); }
 
-  // Validação do email em tempo real
   validarEmail() {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     this.emailInvalido = !emailRegex.test(this.email);
   }
 
   registrar() {
-    // Validação campos obrigatórios
+
     if (!this.nome || !this.cpf || !this.telefone || !this.email || !this.senha) {
       alert('Preencha todos os campos!');
       return;
@@ -86,4 +85,14 @@ export class RegistroPage {
     this.telefone = this.telefone.replace(/^(\d{2})(\d)/, '($1)$2');
     this.telefone = this.telefone.replace(/(\d{5})(\d)/, '$1-$2');
   }
+
+  // 🔒 BLOQUEIO DE LETRAS (ADICIONADO)
+  somenteNumeros(event: any) {
+    const charCode = event.which ? event.which : event.keyCode;
+
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
+
 }
