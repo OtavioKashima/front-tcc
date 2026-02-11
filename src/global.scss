@@ -35,3 +35,28 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+/* Força fundo branco em todo o app */
+/* Fundo branco do app, sem afetar o header */
+ion-app, ion-content, body {
+  background-color: #ffffff !important;
+  overscroll-behavior-y: none;
+}
+
+/* Header e toolbar com fundo branco e ícones visíveis */
+ion-header, ion-toolbar {
+  --background: #ffffff;
+  background-color: #ffffff !important;
+  color: #000000; /* força cor do texto e ícones para preto */
+}
+
+/* Header e toolbar branco, texto/ícones visíveis */
+ion-header, ion-toolbar {
+  --background: #ffffff;
+  background-color: #ffffff !important;
+  color: #000000;
+}
+
+/* Seta de voltar preta */
+ion-icon.seta-voltar {
+  color: #000000;
+}

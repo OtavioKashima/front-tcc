@@ -36,14 +36,27 @@ export class LoginPage {
     });
   }
 
-  maskCPF() {
-    // aqui você coloca a função para formatar o CPF automaticamente
-    let v = this.usuario.replace(/\D/g, '');
-    if(v.length > 3) v = v.replace(/(\d{3})(\d)/, '$1.$2');
-    if(v.length > 6) v = v.replace(/(\d{3})(\d)/, '$1.$2');
-    if(v.length > 9) v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-    this.usuario = v;
+maskCPF() {
+  // Remove tudo que não é número
+  let v = this.usuario.replace(/\D/g, '');
+
+  // Limita a 11 dígitos
+  if(v.length > 11) {
+    v = v.slice(0, 11);
   }
+
+  // Adiciona a formatação: 000.000.000-00
+  if(v.length > 9) {
+    v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+  } else if(v.length > 6) {
+    v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+  } else if(v.length > 3) {
+    v = v.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+  }
+
+  this.usuario = v;
+}
+
 
   goToHome() {
     this.router.navigate(['/home']);
