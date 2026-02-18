@@ -19,7 +19,7 @@ export class RegistroPage {
 
   emailInvalido: boolean = false;
 
-  private API_URL = 'http://localhost:3000/auth/register';
+  private API_URL = 'http://localhost:3000/user/register';
 
   constructor(private navCtrl: NavController, private http: HttpClient) {}
 

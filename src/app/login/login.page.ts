@@ -13,7 +13,7 @@ export class LoginPage {
   usuario: string = ''; // aqui será o CPF
   senha: string = '';
 
-  private API_URL = 'http://localhost:3000/auth/login';
+  private API_URL = 'http://localhost:3000/usuarios/login';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -28,7 +28,7 @@ export class LoginPage {
     this.http.post<any>(this.API_URL, dados).subscribe({
       next: (res) => {
         localStorage.setItem('token', res.token);
-        this.router.navigate(['/adocoes']); // ir para página de adocoes
+        this.router.navigate(['/tabs/adocoes']); // ir para página de adocoes
       },
       error: (err) => {
         alert(err.error.message || 'CPF ou senha inválidos');

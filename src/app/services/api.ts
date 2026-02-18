@@ -6,27 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private apiUrl = 'https://sua-api.com/api'; // Sua URL da API
-
+  private API_URL = 'http://localhost:3000';
   constructor(private http: HttpClient) { }
 
-  // GET
-  get<T>(endpoint: string): Observable<T> {
-    return this.http.get<T>(`${this.apiUrl}/${endpoint}`);
+  readData(){
+    return this.http.get('${this.API_URL}/usuarios');
   }
 
-  // POST
-  post<T>(endpoint: string, data: any): Observable<T> {
-    return this.http.post<T>(`${this.apiUrl}/${endpoint}`, data);
-  }
-
-  // PUT
-  put<T>(endpoint: string, data: any): Observable<T> {
-    return this.http.put<T>(`${this.apiUrl}/${endpoint}`, data);
-  }
-
-  // DELETE
-  delete<T>(endpoint: string): Observable<T> {
-    return this.http.delete<T>(`${this.apiUrl}/${endpoint}`);
-  }
 }
