@@ -11,8 +11,8 @@ import { AdocoesPage } from './adocoes.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AdocoesPageRoutingModule
-  ],
-  declarations: [AdocoesPage]
+    AdocoesPageRoutingModule,
+    AdocoesPage   // ✅ aqui
+  ]
 })
 export class AdocoesPageModule {}
