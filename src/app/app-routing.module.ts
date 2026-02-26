@@ -11,11 +11,11 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
+    loadComponent: () => import('./login/login.page').then(m => m.LoginPage)
   },
   {
     path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then(m => m.RegistroPageModule)
+    loadComponent: () => import('./registro/registro.page').then(m => m.RegistroPage)
   },  
 
   // ROTA PRINCIPAL QUE CARREGA O LAYOUT DE TABS
@@ -30,7 +30,12 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home', // Ou 'login', dependendo da sua lógica de app
     pathMatch: 'full'
+  },
+  {
+    path: 'recuperar-senha',
+    loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then( m => m.RecuperarSenhaPageModule)
   }
+
   // As rotas 'adocoes', 'doacoes', 'perfil', 'denuncias' FORAM REMOVIDAS DAQUI
 ];
 
