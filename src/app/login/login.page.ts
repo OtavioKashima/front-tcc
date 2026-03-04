@@ -1,34 +1,104 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
+import { ToastController, NavController, IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: false,
-  
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class LoginPage {
 
-  constructor(private navCtrl: NavController) {}
+  usuario: string = '';
+  senha: string = '';
+
+  private API_URL = 'http://localhost:3000';
+
+  constructor(
+    private http: HttpClient,
+    private toastController: ToastController,
+    private navCtrl: NavController
+  ) {}
+
+  // =========================
+  // Navegação
+  // =========================
+
+  goToHome() {
+    this.navCtrl.navigateRoot('/home');
+  }
 
   goToCadastroPage() {
-    // Navega para a tela de Login (Tab 2)
-    this.navCtrl.navigateForward('/registro');
+    this.navCtrl.navigateRoot('/registro');
   }
 
-  goToLoginPage() {
-    // Navega para a tela de Login (Tab 2)
-    this.navCtrl.navigateForward('/login');
-
+  goToTabsPage() {
+    this.navCtrl.navigateRoot('/tabs');
   }
 
-  goToHome(){
-    this.navCtrl.navigateForward('/home');
+  goToRecuperarSenha() {
+    this.mostrarToast('Tela de recuperação ainda não implementada.');
   }
 
-  goToAdocoes(){
-    this.navCtrl.navigateForward('/adocoes');
+  // =========================
+  // Máscaras
+  // =========================
+
+  somenteNumeros(event: any) {
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
   }
 
+  maskCPF() {
+    this.usuario = this.usuario
+      .replace(/\D/g, '')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d)/, '$1.$2')
+      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+  }
+
+  // =========================
+  // Login
+  // =========================
+
+  async login() {
+
+    if (!this.usuario || !this.senha) {
+      this.mostrarToast('Preencha todos os campos.');
+      return;
+    }
+
+    this.http.post<any>(`${this.API_URL}/login`, {
+      identificador: this.usuario,
+      senha: this.senha
+    }).subscribe({
+      next: async (res) => {
+        localStorage.setItem('token', res.token);
+        await this.mostrarToast('Login realizado com sucesso!');
+        this.navCtrl.navigateRoot('/tabs');
+      },
+      error: async (err) => {
+        if (err.status === 401) {
+          this.mostrarToast('Credenciais inválidas.');
+        } else {
+          this.mostrarToast('Erro ao conectar com servidor.');
+        }
+      }
+    });
+  }
+
+  async mostrarToast(mensagem: string) {
+    const toast = await this.toastController.create({
+      message: mensagem,
+      duration: 2000,
+      color: 'primary'
+    });
+    toast.present();
+  }
 }
