@@ -64,4 +64,8 @@ export class RecuperarSenhaPage {
     alert('Se o CPF e Email estiverem corretos, você receberá instruções no email.');
   }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> origin/main

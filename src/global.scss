@@ -42,6 +42,7 @@ ion-app, ion-content, body {
   overscroll-behavior-y: none;
 }
 
+<<<<<<< HEAD
 /* Header e toolbar com fundo branco e ícones visíveis */
 ion-header, ion-toolbar {
   --background: #ffffff;
@@ -54,6 +55,14 @@ ion-header, ion-toolbar {
   --background: #ffffff;
   background-color: #ffffff !important;
   color: #000000;
+=======
+/* Header e toolbar branco, texto/ícones visíveis */
+ion-header, ion-toolbar {
+    --background: linear-gradient(135deg, #66d9a6 0%, #4eca88 100%);
+  background-color: #ffffff !important;
+  color: #ffffff;
+
+>>>>>>> origin/main
 }
 
 /* Seta de voltar preta */
