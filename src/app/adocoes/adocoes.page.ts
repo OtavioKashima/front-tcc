@@ -5,7 +5,7 @@ import { Location } from '@angular/common';
   standalone: false,
   selector: 'app-adocoes',
   templateUrl: './adocoes.page.html',
-  styleUrls: ['./adocoes.page.scss']
+  styleUrls: ['./adocoes.page.scss'],
 })
 export class AdocoesPage {
 
