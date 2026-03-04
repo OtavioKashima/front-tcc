@@ -7,12 +7,15 @@ const routes: Routes = [
   // Rotas que NÃO TÊM a barra de tabs
   {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+    loadChildren: () =>
+      import('./home/home.module').then(m => m.HomePageModule)
   },
+
   {
     path: 'login',
     loadComponent: () => import('./login/login.page').then(m => m.LoginPage)
   },
+
   {
     path: 'registro',
     loadComponent: () => import('./registro/registro.page').then(m => m.RegistroPage)
@@ -31,6 +34,7 @@ const routes: Routes = [
     redirectTo: 'home', // Ou 'login', dependendo da sua lógica de app
     pathMatch: 'full'
   },
+
   {
     path: 'recuperar-senha',
     loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then( m => m.RecuperarSenhaPageModule)
