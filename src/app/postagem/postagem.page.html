@@ -1,0 +1,126 @@
+<ion-header>
+  <ion-toolbar class="toolbar-custom">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nova Postagem</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="container">
+
+    <!-- CABEÇALHO BONITO -->
+    <div class="intro">
+      <h2>Criar Postagem</h2>
+      <p>Escolha o tipo de publicação para continuar</p>
+    </div>
+
+    <!-- SELECT ESTILIZADO -->
+    <ion-card class="select-card">
+
+      <div class="select-wrapper">
+    
+        <div class="icon-box">
+          <ion-icon name="paw-outline"></ion-icon>
+        </div>
+    
+        <ion-select 
+          placeholder="Selecione o tipo de postagem"
+          interface="popover"
+          (ionChange)="mudarTipo($event)">
+          
+          <ion-select-option value="adocao">Adoção</ion-select-option>
+          <ion-select-option value="perdido">Animal Perdido</ion-select-option>
+          <ion-select-option value="encontrado">Animal Encontrado</ion-select-option>
+    
+        </ion-select>
+    
+      </div>
+    
+    </ion-card>
+
+    <!-- CAMPOS DINÂMICOS -->
+
+    <!-- 🔹 ADOÇÃO -->
+    <div *ngIf="tipoSelecionado === 'adocao'">
+
+      <div class="campo">
+        <label>Raça do animal:</label>
+        <ion-input></ion-input>
+      </div>
+
+      <div class="campo-select">
+        <ion-select placeholder="Gênero">
+          <ion-select-option value="macho">Macho</ion-select-option>
+          <ion-select-option value="femea">Fêmea</ion-select-option>
+        </ion-select>
+      </div>
+
+      <div class="campo">
+        <label>Idade do animal:</label>
+        <ion-input type="number"></ion-input>
+      </div>
+
+    </div>
+
+
+    <!-- 🔹 PERDIDO -->
+    <div *ngIf="tipoSelecionado === 'perdido'">
+
+      <div class="campo">
+        <label>Último local visto:</label>
+        <ion-input></ion-input>
+      </div>
+
+      <div class="campo">
+        <label>Data que desapareceu:</label>
+        <ion-input type="date"></ion-input>
+      </div>
+
+    </div>
+
+
+    <!-- 🔹 ENCONTRADO -->
+    <div *ngIf="tipoSelecionado === 'encontrado'">
+
+      <div class="campo">
+        <label>Local encontrado:</label>
+        <ion-input></ion-input>
+      </div>
+
+      <div class="campo">
+        <label>Estado do animal:</label>
+        <ion-input></ion-input>
+      </div>
+
+    </div>
+
+
+    <!-- FOTO (aparece para todos) -->
+    <div *ngIf="tipoSelecionado">
+
+      <div class="campo">
+        <label>Foto:</label>
+        <div class="foto-box">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Descrição:</label>
+        <ion-textarea></ion-textarea>
+      </div>
+
+      <div class="btn-area">
+        <ion-button class="btn-postar">
+          Postar
+        </ion-button>
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

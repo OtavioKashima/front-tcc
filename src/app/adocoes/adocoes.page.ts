@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
+  standalone: false,
   selector: 'app-adocoes',
   templateUrl: './adocoes.page.html',
   styleUrls: ['./adocoes.page.scss']
