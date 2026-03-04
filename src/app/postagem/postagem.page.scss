@@ -1,0 +1,147 @@
+:host {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+}
+
+/* HEADER */
+.toolbar-custom {
+  --background: #79c89b;
+  --color: #ffffff;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* INTRO */
+.intro {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.intro h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.intro p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #777;
+}
+
+/* Fundo geral mais moderno */
+ion-content {
+  --background: #ffffff;
+}
+
+/* Card principal */
+.select-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  border: 1px solid #eeeeee;
+  padding: 4px;
+}
+
+/* Wrapper interno */
+.select-wrapper {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+}
+
+/* Ícone dentro de círculo */
+.icon-box {
+  width: 38px;
+  height: 38px;
+  background: #e8f7ef;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.icon-box ion-icon {
+  font-size: 18px;
+  color: #79c89b;
+}
+
+/* Select */
+ion-select {
+  flex: 1;
+  font-size: 14px;
+  color: #444;
+}
+
+/* Remove fundo estranho do Ionic */
+ion-select::part(text) {
+  padding-left: 4px;
+}
+ion-item {
+  --background: transparent;
+}
+
+ion-select {
+  width: 100%;
+  font-size: 15px;
+  color: #444;
+}
+
+/* CAMPOS */
+.campo {
+  margin-bottom: 22px;
+}
+
+.campo label {
+  display: block;
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+ion-input {
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+}
+
+ion-textarea {
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  height: 110px;
+}
+
+/* FOTO */
+.foto-box {
+  width: 100%;
+  height: 180px;
+  border-radius: 18px;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foto-box ion-icon {
+  font-size: 60px;
+  color: #79c89b;
+}
+
+/* BOTÃO */
+.btn-area {
+  margin-top: 30px;
+}
+
+.btn-postar {
+  --background: #79c89b;
+  --border-radius: 16px;
+  height: 45px;
+  font-weight: 600;
+}
