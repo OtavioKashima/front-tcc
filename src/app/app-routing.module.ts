@@ -2,6 +2,7 @@
 
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth-guard';
 
 const routes: Routes = [
   // Rotas que NÃO TÊM a barra de tabs
@@ -25,7 +26,8 @@ const routes: Routes = [
   // Todas as páginas com tabs (adocoes, perfil, etc.) virão DESTE módulo
   {
     path: 'tabs',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [AuthGuard]
   },
 
   // Redirecionamento padrão do app
