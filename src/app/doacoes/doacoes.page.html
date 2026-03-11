@@ -1,13 +1,85 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>doacoes</ion-title>
+<ion-header class="custom-header">
+  <ion-toolbar class="custom-toolbar">
+    <div class="header-content">
+
+      <div class="title-section">
+        <ion-icon name="cash-outline" size="large"></ion-icon>
+        <ion-title>Doe</ion-title>
+      </div>
+
+      <div class="search-section">
+        <ion-icon name="search-outline" size="large"></ion-icon>
+      </div>
+
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">doacoes</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+
+  <!-- Card 1 -->
+  <div class="donation-card">
+
+    <div class="donation-header">
+      Ajude o Jorge
+    </div>
+
+    <div class="donation-content">
+
+      <img 
+      src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400"
+      class="donation-image">
+
+      <div class="donation-info">
+        Recentemente eu descobri que meu gato tem alopecia, e infelizmente eu não tenho dinheiro para o tratamento.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Card 2 -->
+  <div class="donation-card">
+
+    <div class="donation-header">
+      Falta de ração
+    </div>
+
+    <div class="donation-content">
+
+      <img 
+      src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400"
+      class="donation-image">
+
+      <div class="donation-info">
+        Eu sou dono de um abrigo para cachorros e mesmo cuidando deles o custo da comida vem aumentando.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Card 3 -->
+  <div class="donation-card">
+
+    <div class="donation-header">
+      Remédios
+    </div>
+
+    <div class="donation-content">
+
+      <img 
+      src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400"
+      class="donation-image">
+
+      <div class="donation-info">
+        Eu tenho um cachorro idoso e ele precisa de remédios caros que infelizmente não consigo pagar.
+      </div>
+
+    </div>
+
+  </div>
+
 </ion-content>

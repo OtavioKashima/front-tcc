@@ -1,53 +1,83 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+
     <ion-buttons slot="start">
-      <ion-button fill="clear">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-      </ion-button>
+      <ion-icon name="arrow-back-outline" size="large"></ion-icon>
     </ion-buttons>
-    <ion-title>
-      Editar meu perfil
-    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-icon name="create-outline" size="large"></ion-icon>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="profile-container">
-    <div class="card-container">
-      <div class="avatar-container">
-        <!-- Ícone ou imagem de perfil -->
-        <ion-avatar>
-          <img src="https://i.pravatar.cc/150?u=a" alt="Foto de perfil">
-        </ion-avatar>
-      </div>
+<ion-content>
 
-      <div class="input-group">
-        <ion-label position="stacked">Nome:</ion-label>
-        <ion-input value="Paulo Cesar" class="custom-input"></ion-input>
-        <ion-icon name="create-outline" slot="end"></ion-icon>
-      </div>
+  <!-- PERFIL -->
+  <div class="perfil-container">
 
-      <div class="input-group">
-        <ion-label position="stacked">Contato:</ion-label>
-        <ion-input value="14 87453-2345" class="custom-input"></ion-input>
-        <ion-icon name="create-outline" slot="end"></ion-icon>
-      </div>
-      
-      <div class="input-group">
-        <ion-label position="stacked">Senha:</ion-label>
-        <ion-input value="**********" type="password" class="custom-input"></ion-input>
-        <ion-icon name="create-outline" slot="end"></ion-icon>
-      </div>
-    </div>
-  </div>
-  
-  <div class="buttons-container">
-    <ion-button expand="block" shape="round" class="botao">
-      Salvar
+    <img 
+    src="https://randomuser.me/api/portraits/men/32.jpg"
+    class="perfil-foto">
+
+    <h2>Benito M.</h2>
+
+    <p class="telefone">14 87453-2345</p>
+
+    <ion-button class="botao-post">
+      Nova postagem
     </ion-button>
-    
-    <ion-text class="delete-account-text">
-      Deletar minha conta
-    </ion-text>
+
   </div>
+
+  <div class="linha"></div>
+
+  <h3 class="titulo-post">Postagens Passadas</h3>
+
+
+  <!-- CARD 1 -->
+  <div class="post-card">
+
+    <div class="post-header">
+      Gato - Macho
+      <span>6 meses</span>
+    </div>
+
+    <div class="post-content">
+
+      <img 
+      src="https://cdn.pixabay.com/photo/2017/11/09/21/41/cat-2934720_640.jpg"
+      class="post-img">
+
+      <p>
+        A gata da minha irmã deu cria e ela não quer mais gatos, então estamos doando...
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- CARD 2 -->
+  <div class="post-card">
+
+    <div class="post-header">
+      Remédios
+    </div>
+
+    <div class="post-content">
+
+      <img 
+      src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400"
+      class="post-img">
+
+      <p>
+        Eu tenho o Thor desde pequeno e agora ele já está velhinho, mas infelizmente não tenho dinheiro para os remédios.
+      </p>
+
+    </div>
+
+  </div>
+
 </ion-content>

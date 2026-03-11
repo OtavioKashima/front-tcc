@@ -1,0 +1,337 @@
+// =============================================
+// Toolbar transparente — sem barra colorida
+// =============================================
+ion-toolbar.toolbar-transparente {
+  --background: transparent;
+  --border-style: none;
+  --box-shadow: none;
+}
+
+.btn-voltar {
+  --color: #4eca88;
+  margin-left: 8px;
+}
+
+.seta-voltar {
+  font-size: 26px;
+  color: #4eca88;
+  border: 2px solid #4eca88;
+  border-radius: 50%;
+  padding: 5px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(78, 202, 136, 0.2);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #4eca88;
+    color: white;
+  }
+}
+
+// =============================================
+// Fundo geral
+// =============================================
+:host {
+  --ion-background-color: #f0f4f2;
+}
+
+ion-content {
+  --background: #f0f4f2;
+}
+
+// =============================================
+// Container
+// =============================================
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 28px 40px;
+  max-width: 375px;
+  margin: 0 auto;
+}
+
+// =============================================
+// Intro / cabeçalho
+// =============================================
+.intro {
+  text-align: center;
+  margin-bottom: 28px;
+  width: 100%;
+  animation: slideUp 0.5s 0.1s ease both;
+}
+
+.logo-circle {
+  width: 82px;
+  height: 82px;
+  background: linear-gradient(145deg, #66d9a6, #38b87a);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 12px auto 16px;
+  box-shadow: 0 8px 28px rgba(78, 202, 136, 0.4);
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+.logo-icon {
+  font-size: 2.5rem;
+  color: white;
+}
+
+.intro h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1e2d28;
+  margin: 0 0 6px;
+  letter-spacing: -0.5px;
+}
+
+.intro p {
+  font-size: 0.88rem;
+  color: #8a9e97;
+  margin: 0;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+// =============================================
+// Card do formulário (igual ao login)
+// =============================================
+.select-card {
+  width: 100%;
+  background: #d6dbd8 !important;
+  border-radius: 24px !important;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.07) !important;
+  border: none !important;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  animation: slideUp 0.5s 0.2s ease both;
+}
+
+.select-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.icon-box {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+
+  ion-icon {
+    font-size: 18px;
+    color: #4eca88;
+  }
+}
+
+ion-select {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #444;
+
+  &::part(text) {
+    padding-left: 4px;
+  }
+}
+
+// =============================================
+// Campos dinâmicos — mesmo card cinza do login
+// =============================================
+.campos-dinamicos {
+  width: 100%;
+  background: #d6dbd8;
+  border-radius: 24px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.07);
+  animation: slideUp 0.4s ease both;
+}
+
+.campo {
+  margin-bottom: 16px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #5a7a6e;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+}
+
+// Inputs brancos iguais ao login
+.custom-input {
+  --background: white;
+  --border-radius: 14px;
+  --border-color: transparent;
+  --border-style: none;
+  --color: #444;
+  --placeholder-color: #aab5b0;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  height: 52px;
+  font-size: 1rem;
+  transition: box-shadow 0.2s ease;
+
+  &:focus-within {
+    --box-shadow: 0 0 0 2.5px #66d9a6, 0 4px 16px rgba(102, 217, 166, 0.2);
+  }
+}
+
+.campo-select {
+  background: white;
+  border-radius: 14px;
+  padding: 4px 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+
+  .custom-select {
+    width: 100%;
+    font-size: 0.95rem;
+    color: #444;
+  }
+}
+
+// =============================================
+// Caixa de foto
+// =============================================
+.foto-box {
+  width: 100%;
+  height: 160px;
+  border-radius: 14px;
+  background: white;
+  border: 2px dashed #b0c8bc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  ion-icon {
+    font-size: 44px;
+    color: #66d9a6;
+  }
+
+  span {
+    font-size: 0.82rem;
+    color: #8a9e97;
+  }
+
+  &:hover {
+    background: #f0faf5;
+    border-color: #66d9a6;
+  }
+}
+
+// =============================================
+// Textarea
+// =============================================
+.custom-textarea {
+  --background: white;
+  --border-radius: 14px;
+  --border-color: transparent;
+  --border-style: none;
+  --color: #444;
+  --placeholder-color: #aab5b0;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  min-height: 110px;
+  font-size: 0.95rem;
+
+  &:focus-within {
+    --box-shadow: 0 0 0 2.5px #66d9a6, 0 4px 16px rgba(102, 217, 166, 0.2);
+  }
+}
+
+// =============================================
+// Botão postar — igual ao botão Entrar do login
+// =============================================
+.btn-area {
+  width: 100%;
+  margin-top: 8px;
+  animation: slideUp 0.5s 0.35s ease both;
+}
+
+.btn-postar {
+  --background: linear-gradient(135deg, #66d9a6, #38b87a);
+  --color: white;
+  --border-radius: 50px;
+  --box-shadow: 0 6px 24px rgba(78, 202, 136, 0.4);
+  height: 52px;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+
+  &:hover {
+    --box-shadow: 0 10px 32px rgba(78, 202, 136, 0.5);
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// =============================================
+// Responsividade
+// =============================================
+@media (max-width: 480px) {
+  .logo-circle {
+    width: 70px;
+    height: 70px;
+  }
+
+  .logo-icon {
+    font-size: 2rem;
+  }
+
+  .intro h2 {
+    font-size: 1.6rem;
+  }
+
+  .custom-input {
+    height: 46px;
+    font-size: 0.95rem;
+  }
+
+  .btn-postar {
+    height: 46px;
+    font-size: 0.95rem;
+  }
+
+  .foto-box {
+    height: 130px;
+
+    ion-icon {
+      font-size: 36px;
+    }
+  }
+}

@@ -1,0 +1,124 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="toolbar-transparente">
+    <ion-buttons slot="start">
+      <ion-button (click)="goToHome()" fill="clear" class="btn-voltar">
+        <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <div class="container">
+
+    <!-- CABEÇALHO -->
+    <div class="intro">
+      <div class="logo-circle">
+        <ion-icon name="paw" class="logo-icon"></ion-icon>
+      </div>
+      <h2>Criar Postagem</h2>
+      <p>Escolha o tipo de publicação para continuar</p>
+    </div>
+
+    <!-- SELECT -->
+    <ion-card class="select-card">
+      <div class="select-wrapper">
+        <div class="icon-box">
+          <ion-icon name="paw-outline"></ion-icon>
+        </div>
+        <ion-select
+          placeholder="Selecione o tipo de postagem"
+          interface="popover"
+          (ionChange)="mudarTipo($event)">
+          <ion-select-option value="adocao">Adoção</ion-select-option>
+          <ion-select-option value="perdido">Animal Perdido</ion-select-option>
+          <ion-select-option value="encontrado">Animal Encontrado</ion-select-option>
+        </ion-select>
+      </div>
+    </ion-card>
+
+    <!-- CAMPOS DINÂMICOS -->
+
+    <!-- ADOÇÃO -->
+    <div *ngIf="tipoSelecionado === 'adocao'" class="campos-dinamicos">
+
+      <div class="campo">
+        <label>Raça do animal:</label>
+        <ion-input class="custom-input" placeholder="Ex: Labrador"></ion-input>
+      </div>
+
+      <div class="campo">
+        <label>Gênero:</label>
+        <div class="campo-select">
+          <ion-select placeholder="Selecione o gênero" class="custom-select">
+            <ion-select-option value="macho">Macho</ion-select-option>
+            <ion-select-option value="femea">Fêmea</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Idade do animal:</label>
+        <ion-input class="custom-input" type="number" placeholder="Ex: 2"></ion-input>
+      </div>
+
+    </div>
+
+    <!-- PERDIDO -->
+    <div *ngIf="tipoSelecionado === 'perdido'" class="campos-dinamicos">
+
+      <div class="campo">
+        <label>Último local visto:</label>
+        <ion-input class="custom-input" placeholder="Ex: Rua das Flores, 123"></ion-input>
+      </div>
+
+      <div class="campo">
+        <label>Data que desapareceu:</label>
+        <ion-input class="custom-input" type="date"></ion-input>
+      </div>
+
+    </div>
+
+    <!-- ENCONTRADO -->
+    <div *ngIf="tipoSelecionado === 'encontrado'" class="campos-dinamicos">
+
+      <div class="campo">
+        <label>Local encontrado:</label>
+        <ion-input class="custom-input" placeholder="Ex: Av. Central, 45"></ion-input>
+      </div>
+
+      <div class="campo">
+        <label>Estado do animal:</label>
+        <ion-input class="custom-input" placeholder="Ex: Saudável, machucado..."></ion-input>
+      </div>
+
+    </div>
+
+    <!-- FOTO E DESCRIÇÃO (aparece para todos) -->
+    <div *ngIf="tipoSelecionado" class="campos-dinamicos">
+
+      <div class="campo">
+        <label>Foto:</label>
+        <div class="foto-box">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          <span>Toque para adicionar foto</span>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Descrição:</label>
+        <ion-textarea class="custom-textarea" placeholder="Descreva o animal..."></ion-textarea>
+      </div>
+
+      <div class="btn-area">
+        <ion-button class="btn-postar" expand="block" shape="round" (click)="postar()">
+          Postar
+        </ion-button>
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

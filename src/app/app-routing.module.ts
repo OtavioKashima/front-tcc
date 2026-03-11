@@ -38,7 +38,23 @@ const routes: Routes = [
   {
     path: 'recuperar-senha',
     loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then( m => m.RecuperarSenhaPageModule)
+  },  {
+    path: 'adocao-detalhe',
+    loadChildren: () => import('./adocao-detalhe/adocao-detalhe.module').then( m => m.AdocaoDetalhePageModule)
+  },
+  {
+    path: 'comentario',
+    loadChildren: () => import('./comentario/comentario.module').then( m => m.ComentarioPageModule)
+  },
+  {
+    path: 'editar-perfil',
+    loadChildren: () => import('./editar-perfil/editar-perfil.module').then( m => m.EditarPerfilPageModule)
+  },
+  {
+    path: 'postagem',
+    loadChildren: () => import('./postagem/postagem.module').then( m => m.PostagemPageModule)
   }
+
 
   // As rotas 'adocoes', 'doacoes', 'perfil', 'denuncias' FORAM REMOVIDAS DAQUI
 ];

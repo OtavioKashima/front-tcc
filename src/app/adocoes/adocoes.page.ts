@@ -1,24 +1,24 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common';
+  import { Component } from '@angular/core';
+  import { Location } from '@angular/common';
 
-@Component({
-  selector: 'app-adocoes',
-  templateUrl: './adocoes.page.html',
-  styleUrls: ['./adocoes.page.scss'],
-  standalone: false
-})
-export class AdocoesPage {
+  @Component({
+    selector: 'app-adocoes',
+    templateUrl: './adocoes.page.html',
+    styleUrls: ['./adocoes.page.scss'],
+    standalone: false
+  })
+  export class AdocoesPage {
 
-  showSearch = false;
+    showSearch = false;
 
-  constructor(private location: Location) {}
+    constructor(private location: Location) {}
 
-  toggleSearch() {
-    this.showSearch = !this.showSearch;
+    toggleSearch() {
+      this.showSearch = !this.showSearch;
+    }
+
+    goBack() {
+      this.location.back();
+    }
+
   }
-
-  goBack() {
-    this.location.back();
-  }
-
-}

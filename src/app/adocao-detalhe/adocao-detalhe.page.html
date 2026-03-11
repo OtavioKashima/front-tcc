@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar class="custom-toolbar">
+
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" class="back-btn">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Pitbulls - Ambos Gêneros</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="page-content">
+
+  <div class="layout-wrapper">
+
+    <!-- Coluna esquerda: ícones de ação -->
+    <div class="side-actions">
+      <ion-icon name="chatbubble-outline" class="action-icon"></ion-icon>
+      <ion-icon name="arrow-redo-outline" class="action-icon"></ion-icon>
+    </div>
+
+    <!-- Coluna central: conteúdo do post -->
+    <div class="post-container">
+
+      <!-- Usuário -->
+      <div class="user-info">
+        <img
+          src="https://randomuser.me/api/portraits/women/44.jpg"
+          class="user-avatar"
+        />
+        <span class="user-name">Regina Almeida</span>
+      </div>
+
+      <!-- Imagem do pet -->
+      <div class="pet-image-container">
+        <img
+          src="https://i.pinimg.com/736x/d3/87/ce/d387cefdbee49054a82b283e5bc2f65f.jpg"
+          class="pet-image-large"
+          alt="Pitbulls"
+        />
+      </div>
+
+      <!-- Descrição -->
+      <div class="pet-description">
+        Minha cachorra deu muita cria e eu não tenho como cuidar de todos os filhotes,
+        então estou colocando eles pra adoção, até agora eu tenho 2 machos e 3 fêmeas,
+        todos de um ano. Caso esteja interessado entre em contato comigo pelo meu email:
+        fulaninha@gmail.com
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>
+
+<!-- Bottom Tab Bar -->
+<ion-footer>
+  <div class="bottom-tabs">
+
+    <div class="tab-button">
+      <ion-icon name="heart-outline"></ion-icon>
+      <span>Adoções</span>
+    </div>
+
+    <div class="tab-button">
+      <ion-icon name="cash-outline"></ion-icon>
+      <span>Doações</span>
+    </div>
+
+    <div class="fab-center">
+      <ion-icon name="add"></ion-icon>
+    </div>
+
+    <div class="tab-button">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <span>Denúncias</span>
+    </div>
+
+    <div class="tab-button">
+      <ion-icon name="person-outline"></ion-icon>
+      <span>Perfil</span>
+    </div>
+
+  </div>
+</ion-footer>
