@@ -16,7 +16,7 @@ export class LoginPage {
   usuario: string = '';
   senha: string = '';
 
-  private API_URL = 'http://localhost:3000';
+  private API_URL = 'http://localhost:3000/api';
 
   constructor(
     private http: HttpClient,

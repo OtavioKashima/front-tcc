@@ -24,13 +24,13 @@ export class RegistroPage {
 
   fotoSelecionada: File | null = null;
 
-  private API_URL = 'http://localhost:3000';
+  private API_URL = 'http://localhost:3000/api';
 
   constructor(
     private http: HttpClient,
     private toastController: ToastController,
     private navCtrl: NavController
-  ) {}
+  ) { }
 
   // =========================
   // Navegação
@@ -82,7 +82,6 @@ export class RegistroPage {
   // Registro
   // =========================
   async registrar() {
-
     if (this.senha !== this.confirmarSenha) {
       this.mostrarToast('As senhas não coincidem.');
       return;
@@ -93,18 +92,17 @@ export class RegistroPage {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('nome', this.nome);
-    formData.append('cpf', this.cpf);
-    formData.append('email', this.email);
-    formData.append('telefone', this.telefone);
-    formData.append('senha', this.senha);
+    // 👇 CRIANDO UM OBJETO JSON SIMPLES EM VEZ DE FORMDATA
+    const dadosUsuario = {
+      nome: this.nome,
+      cpf: this.cpf,
+      email: this.email,
+      telefone: this.telefone,
+      senha: this.senha
+    };
 
-    if (this.fotoSelecionada) {
-      formData.append('foto_perfil', this.fotoSelecionada);
-    }
-
-    this.http.post<any>(`${this.API_URL}/usuarios`, formData)
+    // 👇 ENVIANDO O OBJETO JSON
+    this.http.post<any>(`${this.API_URL}/usuarios`, dadosUsuario)
       .subscribe({
         next: async () => {
           await this.mostrarToast('Cadastro realizado com sucesso!');
@@ -114,12 +112,12 @@ export class RegistroPage {
           if (err.status === 409) {
             this.mostrarToast('Usuário já cadastrado.');
           } else {
-            this.mostrarToast(err);
+            this.mostrarToast('Erro ao cadastrar.');
+            console.error(err);
           }
         }
       });
-  }
-
+  } 
   async mostrarToast(mensagem: string) {
     const toast = await this.toastController.create({
       message: mensagem,
