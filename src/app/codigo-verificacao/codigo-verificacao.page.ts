@@ -11,6 +11,9 @@ export class CodigoVerificacaoPage {
 
 codigo: string = '';
 
+mensagemErro: string = '';
+mensagemSucesso: string = '';
+
 constructor(private router: Router) {}
 
 goToRecuperar(){
@@ -19,19 +22,38 @@ this.router.navigate(['/recuperar-senha']);
 
 verificarCodigo(){
 
+this.mensagemErro = '';
+this.mensagemSucesso = '';
+
 if(!this.codigo){
-alert('Digite o código!');
+
+this.mensagemErro = 'Digite o código!';
+
+setTimeout(()=>{
+this.mensagemErro = '';
+},3000);
+
 return;
 }
 
-alert('Código confirmado!');
+this.mensagemSucesso = 'Código confirmado!';
 
+setTimeout(()=>{
+this.mensagemSucesso = '';
 this.router.navigate(['/nova-senha']);
+},2000);
 
 }
 
 reenviarCodigo(){
-alert('Código reenviado para seu email!');
+
+this.mensagemErro = '';
+this.mensagemSucesso = 'Código reenviado para seu email!';
+
+setTimeout(()=>{
+this.mensagemSucesso = '';
+},3000);
+
 }
 
 }

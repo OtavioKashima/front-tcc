@@ -11,7 +11,12 @@ export class NovaSenhaPage {
 
   novaSenha: string = '';
   confirmarSenha: string = '';
-  mensagemErro: string = ''; // <-- mensagem para mostrar abaixo dos campos
+
+  mensagemErro: string = '';
+  mensagemSucesso: string = '';
+
+  showNovaSenha: boolean = false;
+  showConfirmarSenha: boolean = false;
 
   constructor(private navCtrl: NavController) {}
 
@@ -20,23 +25,50 @@ export class NovaSenhaPage {
   }
 
   redefinirSenha() {
-    this.mensagemErro = ''; // limpa mensagem antes de validar
+
+    this.mensagemErro = '';
+    this.mensagemSucesso = '';
 
     if (!this.novaSenha || !this.confirmarSenha) {
+
       this.mensagemErro = 'Preencha todos os campos.';
+
+      setTimeout(()=>{
+        this.mensagemErro = '';
+      },3000);
+
+      return;
+    }
+
+    if (this.novaSenha.length < 8) {
+
+      this.mensagemErro = 'A senha deve ter no mínimo 8 caracteres.';
+
+      setTimeout(()=>{
+        this.mensagemErro = '';
+      },3000);
+
       return;
     }
 
     if (this.novaSenha !== this.confirmarSenha) {
+
       this.mensagemErro = 'As senhas não coincidem.';
+
+      setTimeout(()=>{
+        this.mensagemErro = '';
+      },3000);
+
       return;
     }
 
-    // Simulação de sucesso
-    this.mensagemErro = 'Senha redefinida com sucesso!';
-    // Aqui você chamaria seu serviço de backend para atualizar a senha
-    // e depois redirecionar, se quiser:
-    // this.navCtrl.navigateRoot('/login');
+    this.mensagemSucesso = 'Senha redefinida com sucesso!';
+
+    setTimeout(()=>{
+      this.mensagemSucesso = '';
+      this.navCtrl.navigateRoot('/login');
+    },2000);
+
   }
 
 }

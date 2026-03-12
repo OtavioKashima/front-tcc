@@ -12,9 +12,11 @@ export class RecuperarSenhaPage {
   email: string = '';
   emailInvalido: boolean = false;
 
+  mensagemErro: string = '';
+  mensagemSucesso: string = '';
+
   constructor(private router: Router) {}
 
-  // Voltar para login
   goToLogin() {
     this.router.navigate(['/login']);
   }
@@ -26,19 +28,38 @@ export class RecuperarSenhaPage {
 
   recuperarSenha() {
 
-    if(!this.email) {
-      alert('Digite seu email!');
+    this.mensagemErro = '';
+    this.mensagemSucesso = '';
+
+    if (!this.email) {
+
+      this.mensagemErro = 'Digite seu email!';
+
+      setTimeout(() => {
+        this.mensagemErro = '';
+      }, 3000);
+
       return;
     }
 
-    if(this.emailInvalido) {
-      alert('Informe um email válido!');
+    if (this.emailInvalido) {
+
+      this.mensagemErro = 'Informe um email válido!';
+
+      setTimeout(() => {
+        this.mensagemErro = '';
+      }, 3000);
+
       return;
     }
 
-    alert('Código enviado para seu email!');
+    this.mensagemSucesso = 'Código enviado para seu email!';
 
-    this.router.navigate(['/codigo-verificacao']);
+    setTimeout(() => {
+      this.mensagemSucesso = '';
+      this.router.navigate(['/codigo-verificacao']);
+    }, 2000);
+
   }
 
 }

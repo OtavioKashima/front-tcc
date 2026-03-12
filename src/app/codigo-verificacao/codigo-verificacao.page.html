@@ -22,9 +22,12 @@
       <p class="descricao">Digite o código enviado para o seu e-mail</p>
 
       <div class="form-container">
+
         <div class="input-group">
+
           <div class="input-wrapper">
             <ion-icon name="key-outline" class="input-icon"></ion-icon>
+
             <ion-input
               class="custom-input"
               placeholder="Código de verificação"
@@ -32,8 +35,21 @@
               maxlength="6"
               [(ngModel)]="codigo">
             </ion-input>
+
           </div>
+
+          <!-- mensagem erro -->
+          <div *ngIf="mensagemErro" class="error-message">
+            {{ mensagemErro }}
+          </div>
+
+          <!-- mensagem sucesso -->
+          <div *ngIf="mensagemSucesso" class="success-message">
+            {{ mensagemSucesso }}
+          </div>
+
         </div>
+
       </div>
 
       <div class="button-container">
@@ -41,7 +57,9 @@
           class="login-button"
           expand="block"
           (click)="verificarCodigo()">
+
           enviar
+
         </ion-button>
       </div>
 

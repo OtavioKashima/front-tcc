@@ -28,6 +28,7 @@
 
         <div class="input-group">
           <div class="input-wrapper">
+
             <ion-icon name="mail-outline" class="input-icon"></ion-icon>
 
             <ion-input
@@ -40,9 +41,21 @@
 
           </div>
 
+          <!-- erro de email -->
           <div *ngIf="emailInvalido" class="error-message">
             O e-mail deve conter '@' e um domínio válido
           </div>
+
+          <!-- erro geral -->
+          <div *ngIf="mensagemErro" class="error-message">
+            {{ mensagemErro }}
+          </div>
+
+          <!-- sucesso -->
+          <div *ngIf="mensagemSucesso" class="success-message">
+            {{ mensagemSucesso }}
+          </div>
+
         </div>
 
       </div>
@@ -53,7 +66,9 @@
           expand="block"
           (click)="recuperarSenha()"
           [disabled]="emailInvalido">
+
           enviar
+
         </ion-button>
       </div>
 

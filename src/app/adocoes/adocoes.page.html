@@ -1,79 +1,60 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adote</title>
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.esm.js"></script>
-    <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core/dist/ionic/ionic.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core/css/ionic.bundle.css" />
-    
-</head>
-<body>
-    <ion-app>
-        <ion-header class="custom-header">
-            <ion-toolbar class="custom-toolbar">
-                <div class="header-content">
-                    <div class="title-section">
-                        <ion-icon name="heart" class="heart-icon" size="large"></ion-icon>
-                        <ion-title>Adote</ion-title>
-                    </div>
-                    <div class="search-section">
-                        <ion-icon name="search" class="search-icon" size="large"></ion-icon>
-                    </div>
-                </div>
-            </ion-toolbar>
-        </ion-header>
+<ion-header [translucent]="true">
+  <ion-toolbar class="custom-toolbar">
+    <div class="header-content">
+      <div class="title-section">
+        <ion-icon name="heart" class="header-icon"></ion-icon>
+        <span class="header-title">Adote</span>
+      </div>
+      <div class="search-section">
+        <ion-icon
+          [name]="showSearch ? 'close-outline' : 'search-outline'"
+          class="header-icon"
+          (click)="toggleSearch()">
+        </ion-icon>
+      </div>
+    </div>
 
-        <ion-content class="content-area">
-            <!-- Card Pitbulls -->
-            <div class="pet-card">
-                <div class="pet-header">
-                    <span>Pitbulls - Ambos Gêneros</span>
-                    <span>1 ano</span>
-                </div>
-                <div class="pet-content">
-                    <img src="https://i.pinimg.com/736x/d3/87/ce/d387cefdbee49054a82b283e5bc2f65f.jpg" alt="Pitbulls" class="pet-image">
-                    <div class="pet-info">
-                        Minha cachorra deu muita cria e eu não tenho como cuidar de todos os filhotes, então estou coloca...
-                    </div>
-                </div>
-            </div>
+    <!-- Barra de busca -->
+    <div class="search-bar-wrapper" [class.visible]="showSearch">
+      <div class="search-input-wrapper">
+        <ion-icon name="search-outline" class="search-input-icon"></ion-icon>
+        <input
+          class="search-input"
+          placeholder="Buscar animal..."
+          [(ngModel)]="termoBusca"
+          (input)="filtrar()">
+        <ion-icon
+          *ngIf="termoBusca"
+          name="close-circle-outline"
+          class="search-clear-icon"
+          (click)="limparBusca()">
+        </ion-icon>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
 
-            <!-- Card Maritaca -->
-            <div class="pet-card">
-                <div class="pet-header">
-                    <span>Maritaca - Macho</span>
-                    <span>3 anos</span>
-                </div>
-                <div class="pet-content">
-                    <img src="https://i.pinimg.com/1200x/6a/52/5a/6a525af45c71da21660ade37a065f733.jpg" alt="Maritaca" class="pet-image">
-                    <div class="pet-info">
-                        Eu comprei uma maritaca achando que ia ser legal, mas meu vizinho de baixo reclama do barulho...
-                    </div>
-                </div>
-            </div>
+<ion-content [scrollY]="true">
+  <div class="lista-adocoes">
 
-            <!-- Card Gato -->
-            <div class="pet-card">
-                <div class="pet-header">
-                    <span>Gato - Macho</span>
-                    <span>6 meses</span>
-                </div>
-                <div class="pet-content">
-                    <img src="https://i.pinimg.com/736x/47/a4/cc/47a4cc82153975f696ab99559f2ce9c8.jpg" alt="Gatinho" class="pet-image">
-                    <div class="pet-info">
-                        A gata da minha irmã deu cria e ela não quer mais gatos, ent estamos doando...
-                    </div>
-                </div>
-            </div>
+    <div *ngIf="petsFiltrados.length === 0" class="sem-resultados">
+      <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhum animal encontrado</p>
+    </div>
 
-        </ion-content>
+    <div
+      class="pet-card"
+      *ngFor="let pet of petsFiltrados"
+      (click)="abrirDetalhe(pet)">
+      <div class="pet-header">
+        <span>{{ pet.titulo }}</span>
+        <span>{{ pet.idade }}</span>
+      </div>
+      <div class="pet-content">
+        <img [src]="pet.imagem" [alt]="pet.titulo" class="pet-image">
+        <div class="pet-info">{{ pet.descricao }}</div>
+      </div>
+    </div>
 
-        
-     
-    </ion-app>
-  
-    <script src="script.js"></script>
-</body>
-</html>
+  </div>
+</ion-content>

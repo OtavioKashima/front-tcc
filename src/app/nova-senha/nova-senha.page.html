@@ -27,12 +27,19 @@
         <div class="input-group">
           <div class="input-wrapper">
             <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+
             <ion-input
               class="custom-input"
               placeholder="Nova senha"
-              type="password"
+              [type]="showNovaSenha ? 'text' : 'password'"
               [(ngModel)]="novaSenha">
             </ion-input>
+
+            <ion-icon
+              [name]="showNovaSenha ? 'eye-off-outline' : 'eye-outline'"
+              class="input-icon-right"
+              (click)="showNovaSenha = !showNovaSenha">
+            </ion-icon>
           </div>
         </div>
 
@@ -40,18 +47,30 @@
         <div class="input-group">
           <div class="input-wrapper">
             <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+
             <ion-input
               class="custom-input"
               placeholder="Confirmar senha"
-              type="password"
+              [type]="showConfirmarSenha ? 'text' : 'password'"
               [(ngModel)]="confirmarSenha">
             </ion-input>
+
+            <ion-icon
+              [name]="showConfirmarSenha ? 'eye-off-outline' : 'eye-outline'"
+              class="input-icon-right"
+              (click)="showConfirmarSenha = !showConfirmarSenha">
+            </ion-icon>
           </div>
         </div>
 
-        <!-- Mensagem de erro ou sucesso -->
-        <div *ngIf="mensagemErro" class="mensagem-erro" [ngClass]="{'sucesso': mensagemErro === 'Senha redefinida com sucesso!'}">
+        <!-- mensagem erro -->
+        <div *ngIf="mensagemErro" class="error-message">
           {{ mensagemErro }}
+        </div>
+
+        <!-- mensagem sucesso -->
+        <div *ngIf="mensagemSucesso" class="success-message">
+          {{ mensagemSucesso }}
         </div>
 
       </div>
@@ -61,7 +80,9 @@
           class="login-button"
           expand="block"
           (click)="redefinirSenha()">
+
           salvar
+
         </ion-button>
       </div>
 

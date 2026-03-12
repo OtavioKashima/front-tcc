@@ -22,6 +22,9 @@ export class RegistroPage {
   confirmarSenha = '';
   emailInvalido = false;
 
+  showSenha = false;
+  showConfirmarSenha = false;
+
   fotoSelecionada: File | null = null;
 
   private API_URL = 'http://localhost:3000';
@@ -32,9 +35,6 @@ export class RegistroPage {
     private navCtrl: NavController
   ) {}
 
-  // =========================
-  // Navegação
-  // =========================
   goToLoginPage() {
     this.navCtrl.navigateRoot('/login');
   }
@@ -42,10 +42,6 @@ export class RegistroPage {
   goToHome() {
     this.navCtrl.navigateRoot('/home');
   }
-
-  // =========================
-  // Máscaras e validações
-  // =========================
 
   somenteNumeros(event: any) {
     const charCode = event.which ? event.which : event.keyCode;
@@ -78,9 +74,6 @@ export class RegistroPage {
     this.fotoSelecionada = event.target.files[0];
   }
 
-  // =========================
-  // Registro
-  // =========================
   async registrar() {
 
     if (this.senha !== this.confirmarSenha) {
@@ -114,7 +107,7 @@ export class RegistroPage {
           if (err.status === 409) {
             this.mostrarToast('Usuário já cadastrado.');
           } else {
-            this.mostrarToast(err);
+            this.mostrarToast('Erro ao realizar cadastro.');
           }
         }
       });
@@ -124,7 +117,8 @@ export class RegistroPage {
     const toast = await this.toastController.create({
       message: mensagem,
       duration: 2000,
-      color: 'primary'
+      color: 'light',
+      cssClass: 'toast-custom'
     });
     toast.present();
   }

@@ -25,35 +25,15 @@ export class LoginPage {
     private navCtrl: NavController
   ) {}
 
-  // =========================
   // Navegação
-  // =========================
+  goToHome() { this.navCtrl.navigateRoot('/home'); }
+  goToCadastroPage() { this.navCtrl.navigateRoot('/registro'); }
+  goToRecuperarSenha() { this.navCtrl.navigateForward('/recuperar-senha'); }
 
-  goToHome() {
-    this.navCtrl.navigateRoot('/home');
-  }
-
-  goToCadastroPage() {
-    this.navCtrl.navigateRoot('/registro');
-  }
-
-  goToTabsPage() {
-    this.navCtrl.navigateRoot('/tabs');
-  }
-
-  goToRecuperarSenha() {
-    this.navCtrl.navigateForward('/recuperar-senha');  // ← corrigido
-  }
-
-  // =========================
-  // Máscaras
-  // =========================
-
+  // Máscaras e Validações
   somenteNumeros(event: any) {
     const charCode = event.which ? event.which : event.keyCode;
-    if (charCode < 48 || charCode > 57) {
-      event.preventDefault();
-    }
+    if (charCode < 48 || charCode > 57) event.preventDefault();
   }
 
   maskCPF() {
@@ -64,14 +44,10 @@ export class LoginPage {
       .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
   }
 
-  // =========================
-  // Login
-  // =========================
-
+  // Login com feedback visual
   async login() {
-
     if (!this.usuario || !this.senha) {
-      this.mostrarToast('Preencha todos os campos.');
+      this.mostrarToast('Por favor, preencha todos os campos.', 'erro');
       return;
     }
 
@@ -81,25 +57,25 @@ export class LoginPage {
     }).subscribe({
       next: async (res) => {
         localStorage.setItem('token', res.token);
-        await this.mostrarToast('Login realizado com sucesso!');
+        await this.mostrarToast('Bem-vindo(a) de volta!', 'sucesso');
         this.navCtrl.navigateRoot('/tabs');
       },
       error: async (err) => {
-        if (err.status === 401) {
-          this.mostrarToast('Credenciais inválidas.');
-        } else {
-          this.mostrarToast('Erro ao conectar com servidor.');
-        }
+        const msg = err.status === 401 ? 'CPF ou senha incorretos.' : 'Erro ao conectar com o servidor.';
+        this.mostrarToast(msg, 'erro');
       }
     });
   }
 
-  async mostrarToast(mensagem: string) {
+  // Toast customizado para o App
+  async mostrarToast(mensagem: string, tipo: 'sucesso' | 'erro') {
     const toast = await this.toastController.create({
       message: mensagem,
-      duration: 2000,
-      color: 'primary'
+      duration: 3000,
+      position: 'top', // Melhor visibilidade em mobile (evita o teclado)
+      cssClass: tipo === 'sucesso' ? 'toast-sucesso' : 'toast-erro',
+      buttons: [{ icon: 'close', role: 'cancel' }]
     });
-    toast.present();
+    await toast.present();
   }
 }
