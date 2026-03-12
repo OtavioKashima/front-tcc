@@ -1,0 +1,183 @@
+:host {
+    --ion-background-color: #ffffff;
+    --ion-text-color: #000000;
+  }
+  
+  /* HEADER */
+  .toolbar-custom {
+    --background: #79c89b;
+    --color: #ffffff;
+  }
+  
+  /* CONTAINER */
+  .container {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  /* INTRO */
+  .intro {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  .intro h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .intro p {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  /* Fundo geral mais moderno */
+  ion-content {
+    --background: #ffffff;
+  }
+  
+  /* Card principal */
+  .select-card {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    border: 1px solid #eeeeee;
+    padding: 4px;
+  }
+  
+  /* Wrapper interno */
+  .select-wrapper {
+    display: flex;
+    align-items: center;
+    padding: 10px 12px;
+  }
+  
+  /* Ícone dentro de círculo */
+  .icon-box {
+    width: 38px;
+    height: 38px;
+    background: #e8f7ef;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+  
+  .icon-box ion-icon {
+    font-size: 18px;
+    color: #79c89b;
+  }
+  
+  /* Select */
+  ion-select {
+    flex: 1;
+    font-size: 14px;
+    color: #444;
+  }
+  
+  /* Remove fundo estranho do Ionic */
+  ion-select::part(text) {
+    padding-left: 4px;
+  }
+  ion-item {
+    --background: transparent;
+  }
+  
+  ion-select {
+    width: 100%;
+    font-size: 15px;
+    color: #444;
+  }
+  
+  /* CAMPOS */
+  .campo {
+    margin-bottom: 5px; 
+  }
+  
+  .campo label {
+    display: block;
+    font-size: 13px;
+    color: #666;
+  }
+  
+  .campo-select {
+    padding: 5px;
+  }
+  
+  ion-input {
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    
+    /* Variáveis do Ionic para dar espaço INTERNO (texto longe da borda) */
+    --padding-start: 15px; /* Espaço à esquerda */
+    --padding-end: 15px;   /* Espaço à direita */
+    --padding-top: 12px;   /* Espaço em cima */
+    --padding-bottom: 12px;/* Espaço embaixo */
+    
+    /* Fundo branco para garantir que não fique transparente */
+    --background: #ffffff; 
+  }
+  
+  /* TEXTAREA */
+  ion-textarea {
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    height: 110px;
+    
+    /* Variáveis do Ionic para dar espaço INTERNO */
+    --padding-start: 15px;
+    --padding-end: 15px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    
+    --background: #ffffff;
+  }
+  
+  /* FOTO */
+  .foto-box {
+    width: fit-content; /* 👈 Faz a largura se adaptar à largura da foto! */
+    max-width: 100%;    /* 👈 Garante que a caixa não passe do limite do celular se a foto for gigante */
+    min-width: 150px;   /* 👈 Mantém um tamanho mínimo bonitinho quando está só com a nuvem */
+    min-height: 150px;
+    padding: 12px;     
+    margin: 0 auto;     /* 👈 Centraliza a caixa na tela para ficar bem alinhado com o formulário */
+    
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #f9f9f9;
+  }
+  
+  .preview-img {
+    max-width: 100%;   /* A foto não ultrapassa a largura da caixa */
+    max-height: 250px; /* Limita a altura máxima para a foto não ficar gigante na tela */
+    height: auto;      /* A altura se ajusta automaticamente para manter a proporção */
+    object-fit: contain;
+    border-radius: 6px; /* Dá uma leve arredondada nas bordas da própria foto, fica super elegante */
+  }
+  
+  .foto-box ion-icon {
+    font-size: 60px;
+    color: #79c89b;
+  }
+  
+  /* BOTÃO */
+  .btn-area {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .btn-postar {
+    --background: #79c89b;
+    --border-radius: 16px;
+    height: 45px;
+    font-weight: 600;
+  }

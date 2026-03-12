@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tabs',
@@ -7,11 +8,14 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class TabsPage {
+  
 
-  constructor() {}
+  constructor(
+    private navCtrl: NavController
+  ) {}
 
   adicionar(){
-    console.log('Adotar botão clicado');
+    this.navCtrl.navigateRoot('/postagem');
   }
 
 }
