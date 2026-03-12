@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
@@ -28,7 +27,6 @@ export class AdocaoDetalhePage implements OnInit {
   };
 
   constructor(
-    private location: Location,
     private router: Router,
     private navCtrl: NavController
   ) {}
@@ -56,6 +54,6 @@ export class AdocaoDetalhePage implements OnInit {
   }
 
   goBack(): void {
-    this.location.back();
+    this.navCtrl.navigateBack('/tabs/adocoes');
   }
 }
