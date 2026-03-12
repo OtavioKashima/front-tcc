@@ -53,6 +53,14 @@ const routes: Routes = [
   {
     path: 'postagem',
     loadChildren: () => import('./postagem/postagem.module').then( m => m.PostagemPageModule)
+  },
+  {
+    path: 'codigo-verificacao',
+    loadChildren: () => import('./codigo-verificacao/codigo-verificacao.module').then( m => m.CodigoVerificacaoPageModule)
+  },
+  {
+    path: 'nova-senha',
+    loadChildren: () => import('./nova-senha/nova-senha.module').then( m => m.NovaSenhaPageModule)
   }
 
 

@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="toolbar-transparente">
     <ion-buttons slot="start">
-      <ion-button (click)="goToHome()" fill="clear" class="btn-voltar">
+      <ion-button (click)="goToCodigo()" fill="clear" class="btn-voltar">
         <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -18,49 +18,40 @@
         </div>
       </div>
 
-      <h1 class="login-title">Login</h1>
+      <h1 class="login-title">Redefinir Senha</h1>
+      <p class="descricao">Digite a nova senha e confirme</p>
 
       <div class="form-container">
 
-        <!-- CPF -->
-        <div class="input-group">
-          <div class="input-wrapper">
-            <ion-icon name="card-outline" class="input-icon"></ion-icon>
-            <ion-input
-              class="custom-input"
-              placeholder="CPF"
-              type="text"
-              [(ngModel)]="usuario"
-              (ionInput)="maskCPF()"
-              (keypress)="somenteNumeros($event)"
-              maxlength="14">
-            </ion-input>
-          </div>
-        </div>
-
-        <!-- Senha -->
+        <!-- Nova senha -->
         <div class="input-group">
           <div class="input-wrapper">
             <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
             <ion-input
               class="custom-input"
-              placeholder="Senha"
-              [type]="showPassword ? 'text' : 'password'"
-              [(ngModel)]="senha">
+              placeholder="Nova senha"
+              type="password"
+              [(ngModel)]="novaSenha">
             </ion-input>
-            <ion-icon
-              [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"
-              class="input-icon-right"
-              (click)="showPassword = !showPassword">
-            </ion-icon>
           </div>
         </div>
 
-        <!-- Esqueci a senha -->
-        <div class="forgot-password">
-          <span (click)="goToRecuperarSenha()" class="forgot-link">
-            Esqueci a senha
-          </span>
+        <!-- Confirmar senha -->
+        <div class="input-group">
+          <div class="input-wrapper">
+            <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+            <ion-input
+              class="custom-input"
+              placeholder="Confirmar senha"
+              type="password"
+              [(ngModel)]="confirmarSenha">
+            </ion-input>
+          </div>
+        </div>
+
+        <!-- Mensagem de erro ou sucesso -->
+        <div *ngIf="mensagemErro" class="mensagem-erro" [ngClass]="{'sucesso': mensagemErro === 'Senha redefinida com sucesso!'}">
+          {{ mensagemErro }}
         </div>
 
       </div>
@@ -69,13 +60,9 @@
         <ion-button
           class="login-button"
           expand="block"
-          (click)="login()">
-          Entrar
+          (click)="redefinirSenha()">
+          salvar
         </ion-button>
-
-        <div class="no-account">
-          <span (click)="goToCadastroPage()">Não tenho conta</span>
-        </div>
       </div>
 
     </div>

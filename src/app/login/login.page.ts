@@ -15,6 +15,7 @@ export class LoginPage {
 
   usuario: string = '';
   senha: string = '';
+  showPassword: boolean = false;
 
   private API_URL = 'http://localhost:3000';
 
@@ -41,7 +42,7 @@ export class LoginPage {
   }
 
   goToRecuperarSenha() {
-    this.mostrarToast('Tela de recuperação ainda não implementada.');
+    this.navCtrl.navigateForward('/recuperar-senha');  // ← corrigido
   }
 
   // =========================

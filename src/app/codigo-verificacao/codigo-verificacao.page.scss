@@ -98,18 +98,20 @@ Título
   margin-top: 0.5rem;
   margin-bottom: 10px;
   letter-spacing: -0.5px;
+  width: 100%;
+  text-align: center;
   animation: slideUp 0.5s 0.1s ease both;
 }
 
 /* =============================================
-Texto explicativo
+Descrição
 ============================================= */
 
-.descricao-recuperar {
+.descricao {
   font-size: 0.85rem;
   color: #6b7c75;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   line-height: 1.4;
   animation: slideUp 0.5s 0.15s ease both;
 }
@@ -122,15 +124,15 @@ Formulário
   width: 100%;
   background: transparent;
   padding: 0;
-  margin-bottom: 10px;
+  margin-bottom: 4px; /* diminui espaço */
   animation: slideUp 0.5s 0.2s ease both;
 }
 
 .input-group {
-  margin-bottom: 12px;
+  margin-bottom: 6px; /* deixa mais junto */
 }
 
-/* campo do input */
+/* wrapper do input */
 
 .input-wrapper {
   position: relative;
@@ -143,12 +145,7 @@ Formulário
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.input-wrapper:focus-within {
-  border-color: #4eca88;
-  box-shadow: 0 0 0 3px rgba(78, 202, 136, 0.12);
-}
-
-/* ícone fixo na esquerda */
+/* ícone */
 
 .input-icon {
   position: absolute;
@@ -157,7 +154,7 @@ Formulário
   color: #aab5b0;
 }
 
-/* input centralizado */
+/* input */
 
 .custom-input {
   --background: transparent;
@@ -174,21 +171,12 @@ Formulário
   text-align: center;
 }
 
-/* centraliza texto interno do ionic */
+/* centralizar texto digitado */
 
 ion-input::part(native) {
   text-align: center;
-}
-
-/* =============================================
-Erro
-============================================= */
-
-.error-message {
-  color: #e05555;
-  font-size: 0.69rem;
-  text-align: center;
-  margin-top: 6px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* =============================================
@@ -197,7 +185,7 @@ Botão
 
 .button-container {
   width: 100%;
-  margin-top: -5px;
+  margin-top: 2px; /* aproxima do input */
   animation: slideUp 0.5s 0.35s ease both;
 }
 
@@ -207,16 +195,38 @@ Botão
   --border-radius: 12px;
   --box-shadow: 0 6px 24px rgba(78, 202, 136, 0.4);
   height: 52px;
+
   font-family: 'Nunito', sans-serif;
   font-size: 0.86rem;
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  transition: all 0.25s ease;
 }
 
 .login-button:hover {
   transform: translateY(-2px);
+}
+
+/* =============================================
+Reenviar código
+============================================= */
+
+.reenviar {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: #6b7c75;
+  font-weight: 600;
+}
+
+.reenviar span {
+  color: #4eca88;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.reenviar span:hover {
+  opacity: 0.75;
+  text-decoration: underline;
 }
 
 /* =============================================

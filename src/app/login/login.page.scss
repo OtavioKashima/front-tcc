@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
 // =============================================
-// Toolbar transparente — sem barra verde
+// Toolbar transparente
 // =============================================
 ion-toolbar.toolbar-transparente {
   --background: transparent;
@@ -13,7 +15,7 @@ ion-toolbar.toolbar-transparente {
 }
 
 .seta-voltar {
-  font-size: 26px;
+  font-size: 22px;
   color: #4eca88;
   border: 2px solid #4eca88;
   border-radius: 50%;
@@ -40,6 +42,7 @@ ion-toolbar.toolbar-transparente {
   padding: 2rem;
   min-height: calc(100vh - 56px);
   background: #f0f4f2;
+  font-family: 'Nunito', sans-serif;
 }
 
 .content-wrapper {
@@ -48,13 +51,15 @@ ion-toolbar.toolbar-transparente {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: -120px;
 }
 
 // =============================================
 // Logo
 // =============================================
 .logo-container {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.5rem !important;
+  padding-bottom: 0 !important;
   animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
@@ -84,12 +89,14 @@ ion-toolbar.toolbar-transparente {
 // Título
 // =============================================
 .login-title {
-  font-size: 1.9rem;
-  font-weight: 800;
+  font-size: 1.7rem;
+  font-weight: 600;
   color: #1e2d28;
-  margin-bottom: 1.8rem;
+  margin-top: 0.5rem !important;
+  margin-bottom: 1.2rem;
   letter-spacing: -0.5px;
   animation: slideUp 0.5s 0.1s ease both;
+  font-family: 'Nunito', sans-serif;
 }
 
 @keyframes slideUp {
@@ -102,40 +109,79 @@ ion-toolbar.toolbar-transparente {
 // =============================================
 .form-container {
   width: 100%;
-  background: #d6dbd8;
-  border-radius: 24px;
-  padding: 24px 20px 20px;
-  margin-bottom: 24px;
-  box-shadow:
-    inset 0 2px 6px rgba(0, 0, 0, 0.06),
-    0 4px 16px rgba(0, 0, 0, 0.07);
+  background: transparent;
+  padding: 0;
+  margin-bottom: 20px;
   animation: slideUp 0.5s 0.2s ease both;
 }
 
+// =============================================
+// Input wrapper
+// =============================================
 .input-group {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
+}
 
-  &:last-of-type {
-    margin-bottom: 0;
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background: white;
+  border-radius: 12px;
+  border: 1.5px solid #e4ebe7;
+  padding: 0 14px;
+  height: 52px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  &:focus-within {
+    border-color: #4eca88;
+    box-shadow: 0 0 0 3px rgba(78, 202, 136, 0.12);
+  }
+}
+
+.input-group:first-child .input-wrapper {
+  padding-right: 30px;
+}
+
+.input-icon {
+  font-size: 1.1rem;
+  color: #aab5b0;
+  flex-shrink: 0;
+  margin-right: 10px;
+}
+
+.input-icon-right {
+  font-size: 1.1rem;
+  color: #aab5b0;
+  flex-shrink: 0;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #4eca88;
   }
 }
 
 .custom-input {
-  --background: white;
-  --border-radius: 14px;
+  --background: transparent;
   --border-color: transparent;
   --border-style: none;
-  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-  --color: #444;
+  --box-shadow: none;
+  --color: #2d3d36;
   --placeholder-color: #aab5b0;
-  --padding-start: 16px;
-  --padding-end: 16px;
-  height: 52px;
-  font-size: 1rem;
-  transition: box-shadow 0.2s ease;
+  --padding-start: 0;
+  --padding-end: 0;
+  --placeholder-opacity: 1;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  flex: 1;
+  height: 100%;
+  text-align: center;
 
-  &:focus-within {
-    --box-shadow: 0 0 0 2.5px #66d9a6, 0 4px 16px rgba(102, 217, 166, 0.2);
+  &::part(native) {
+    text-align: center;
   }
 }
 
@@ -144,12 +190,15 @@ ion-toolbar.toolbar-transparente {
 // =============================================
 .forgot-password {
   text-align: center;
-  margin-top: 14px;
+  margin-top: 8px;
+  margin-bottom: 4px;
 }
 
 .forgot-link {
   color: #8a9e97;
-  font-size: 0.88rem;
+  font-size: 0.80rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
   cursor: pointer;
   transition: color 0.2s;
 
@@ -170,13 +219,15 @@ ion-toolbar.toolbar-transparente {
 .login-button {
   --background: linear-gradient(135deg, #66d9a6, #38b87a);
   --color: white;
-  --border-radius: 50px;
+  --border-radius: 12px;
   --box-shadow: 0 6px 24px rgba(78, 202, 136, 0.4);
   height: 52px;
-  font-size: 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  margin: 0;
   transition: all 0.25s ease;
 
   &:hover {
@@ -190,12 +241,14 @@ ion-toolbar.toolbar-transparente {
 // =============================================
 .no-account {
   text-align: center;
-  margin-top: 16px;
+  margin-top: 14px;
   animation: slideUp 0.5s 0.4s ease both;
 
   span {
     color: #8a9e97;
-    font-size: 0.9rem;
+    font-size: 0.82rem;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
     cursor: pointer;
     transition: color 0.2s;
 
@@ -224,20 +277,15 @@ ion-toolbar.toolbar-transparente {
   }
 
   .login-title {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
   }
 
-  .form-container {
-    padding: 1.5rem 1rem;
-  }
-
-  .custom-input {
+  .input-wrapper {
     height: 46px;
-    font-size: 0.95rem;
   }
 
   .login-button {
     height: 46px;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
   }
 }

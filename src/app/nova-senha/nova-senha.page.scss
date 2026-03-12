@@ -3,7 +3,6 @@
 /* =============================================
 Toolbar transparente
 ============================================= */
-
 ion-toolbar.toolbar-transparente {
   --background: transparent;
   --border-style: none;
@@ -34,7 +33,6 @@ ion-toolbar.toolbar-transparente {
 /* =============================================
 Container principal
 ============================================= */
-
 .login-container {
   display: flex;
   flex-direction: column;
@@ -59,7 +57,6 @@ Container principal
 /* =============================================
 Logo
 ============================================= */
-
 .logo-container {
   margin-bottom: 0.5rem;
   animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
@@ -90,7 +87,6 @@ Logo
 /* =============================================
 Título
 ============================================= */
-
 .login-title {
   font-size: 1.65rem;
   font-weight: 600;
@@ -98,18 +94,19 @@ Título
   margin-top: 0.5rem;
   margin-bottom: 10px;
   letter-spacing: -0.5px;
+  width: 100%;
+  text-align: center;
   animation: slideUp 0.5s 0.1s ease both;
 }
 
 /* =============================================
-Texto explicativo
+Descrição
 ============================================= */
-
-.descricao-recuperar {
+.descricao {
   font-size: 0.85rem;
   color: #6b7c75;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   line-height: 1.4;
   animation: slideUp 0.5s 0.15s ease both;
 }
@@ -117,20 +114,17 @@ Texto explicativo
 /* =============================================
 Formulário
 ============================================= */
-
 .form-container {
   width: 100%;
   background: transparent;
   padding: 0;
-  margin-bottom: 10px;
+  margin-bottom: 4px; /* aproxima botão */
   animation: slideUp 0.5s 0.2s ease both;
 }
 
 .input-group {
-  margin-bottom: 12px;
+  margin-bottom: 6px; /* deixa inputs mais próximos */
 }
-
-/* campo do input */
 
 .input-wrapper {
   position: relative;
@@ -143,21 +137,12 @@ Formulário
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.input-wrapper:focus-within {
-  border-color: #4eca88;
-  box-shadow: 0 0 0 3px rgba(78, 202, 136, 0.12);
-}
-
-/* ícone fixo na esquerda */
-
 .input-icon {
   position: absolute;
   left: 14px;
   font-size: 1.1rem;
   color: #aab5b0;
 }
-
-/* input centralizado */
 
 .custom-input {
   --background: transparent;
@@ -174,30 +159,32 @@ Formulário
   text-align: center;
 }
 
-/* centraliza texto interno do ionic */
-
 ion-input::part(native) {
   text-align: center;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* =============================================
-Erro
+Mensagem de erro ou sucesso
 ============================================= */
-
-.error-message {
-  color: #e05555;
-  font-size: 0.69rem;
+.mensagem-erro {
+  font-size: 0.85rem;
+  margin-top: 4px;
   text-align: center;
-  margin-top: 6px;
+  color: #e74c3c; /* vermelho por padrão */
+}
+
+.mensagem-erro.sucesso {
+  color: #4eca88; /* verde se sucesso */
 }
 
 /* =============================================
 Botão
 ============================================= */
-
 .button-container {
   width: 100%;
-  margin-top: -5px;
+  margin-top: 2px; /* aproxima do input */
   animation: slideUp 0.5s 0.35s ease both;
 }
 
@@ -207,12 +194,12 @@ Botão
   --border-radius: 12px;
   --box-shadow: 0 6px 24px rgba(78, 202, 136, 0.4);
   height: 52px;
+
   font-family: 'Nunito', sans-serif;
   font-size: 0.86rem;
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  transition: all 0.25s ease;
 }
 
 .login-button:hover {
@@ -222,7 +209,6 @@ Botão
 /* =============================================
 Animação
 ============================================= */
-
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
@@ -231,9 +217,7 @@ Animação
 /* =============================================
 Responsivo
 ============================================= */
-
 @media (max-width: 480px) {
-
   .logo-circle {
     width: 70px;
     height: 70px;
@@ -255,5 +239,4 @@ Responsivo
     height: 46px;
     font-size: 0.84rem;
   }
-
 }
