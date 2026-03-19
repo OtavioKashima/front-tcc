@@ -15,6 +15,7 @@ export class LoginPage {
 
   usuario: string = '';
   senha: string = '';
+  showPassword = false;
 
   private API_URL = 'http://localhost:3000/api';
 

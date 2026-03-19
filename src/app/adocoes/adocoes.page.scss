@@ -1,133 +1,172 @@
-/* Variáveis CSS para cores do Ionic */
-:root {
-    --ion-color-primary: #66d9a6;
-    --ion-color-primary-rgb: 107, 207, 127;
-    --ion-color-primary-contrast: #ffffff;
-    --ion-color-primary-contrast-rgb: 255, 255, 255;
-    --ion-color-primary-shade: #66d9a6;
-    --ion-color-primary-tint: #66d9a6;
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
-/* Header customizado */
-.custom-header {
-    --background: #66d9a6;
-    --color: white;
-}
-
-.custom-toolbar {
-    --background: #66d9a6;
-    --color: white;
+ion-toolbar.custom-toolbar {
+  --background: #4eca88;
+  --color: white;
+  --min-height: auto;
+  padding-bottom: 0;
 }
 
 .header-content {
-    display: flex;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
 }
 
 .title-section {
-    display: flex;
-    align-items: center;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+}
+
+.header-icon {
+  font-size: 1.6rem;
+  color: white;
+  cursor: pointer;
 }
 
 .search-section {
-    margin-left: auto;
+  display: flex;
+  align-items: center;
 }
 
-.heart-icon {
-    margin-right: 8px;
+// Barra de busca animada
+.search-bar-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 16px;
+
+  &.visible {
+    max-height: 60px;
+    padding: 0 16px 10px;
+  }
 }
 
-.search-icon {
-    margin-right: 8px;
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 0 10px;
+  height: 38px;
+  gap: 8px;
 }
 
-ion-title {
-    text-align: left;
-    padding-left: 0;
+.search-input-icon {
+  font-size: 1rem;
+  color: white;
+  flex-shrink: 0;
 }
 
-/* Content area */
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.search-clear-icon {
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+// Content
 ion-content {
-    --background: #f5f5f5;
+  --background: #f0f4f2;
 }
 
-.content-area {
-    padding-bottom: 80px;
-    background: #f5f5f5;
+.lista-adocoes {
+  padding: 8px 0 24px;
 }
 
-/* Cards dos pets */
+// Sem resultados
+.sem-resultados {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #aab5b0;
+
+  .sem-resultados-icon {
+    font-size: 3.5rem;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}
+
+// Cards
 .pet-card {
-    margin: 16px;
-    border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: transform 0.2s ease;
+  margin: 12px 16px;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  }
 }
 
 .pet-header {
-    background: #66d9a6;
-    color: white;
-    padding: 8px 16px;
-    font-weight: 500;
-    font-size: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  background: #4eca88;
+  color: white;
+  padding: 8px 16px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.88rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .pet-content {
-    padding: 16px;
-    display: flex;
-    gap: 12px;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  background: white;
 }
 
 .pet-image {
-    width: 80px;
-    height: 80px;
-    border-radius: 8px;
-    object-fit: cover;
-    flex-shrink: 0;
+  width: 85px;
+  height: 85px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
 .pet-info {
-    flex: 1;
-    color: #666;
-    font-size: 13px;
-    line-height: 1.4;
-}
-
-/* FAB Button */
-.fab-button {
-    --background: $primary-color;
-    --color: white;
-    position: fixed;
-    bottom: 90px;
-    right: 50%;
-    transform: translateX(50%);
-    z-index: 999;
-}
-
-/* Bottom Tabs */
-.bottom-tabs {
-    --background: $primary-color;
-    --color: rgba(255,255,255,0.8);
-    --color-selected: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-.tab-button {
-    --color: rgba(255,255,255,0.8);
-    --color-selected: white;
-    font-size: 11px;
-}
-
-.custom-fab {
-  --background: #4CAF50;
-  --color: white;
-  --box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  flex: 1;
+  color: #6b7c75;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.5;
 }

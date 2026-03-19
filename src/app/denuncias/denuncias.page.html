@@ -1,13 +1,87 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>denuncias</ion-title>
+<ion-header class="custom-header">
+  <ion-toolbar class="custom-toolbar">
+
+    <div class="header-content">
+
+      <div class="title-section">
+        <ion-icon name="alert-circle-outline" size="large"></ion-icon>
+        <ion-title>Denuncie</ion-title>
+      </div>
+
+      <div class="search-section">
+        <ion-icon name="search-outline" size="large"></ion-icon>
+      </div>
+
+    </div>
+
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">denuncias</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<ion-content>
+
+  <!-- Card 1 -->
+  <div class="denuncia-card">
+
+    <div class="denuncia-header">
+      Não seja enganado
+    </div>
+
+    <div class="denuncia-content">
+
+     <img 
+src="https://cdn.pixabay.com/photo/2017/09/25/13/12/dog-2785074_640.jpg"
+class="denuncia-image">
+
+      <div class="denuncia-info">
+        Meu vizinho se diz dono de um abrigo de animais, o que é pura fachada, ele pede dinheiro mas não ajuda os animais.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Card 2 -->
+  <div class="denuncia-card">
+
+    <div class="denuncia-header">
+      Veneno na comida
+    </div>
+
+    <div class="denuncia-content">
+
+      <img 
+      src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400"
+      class="denuncia-image">
+
+      <div class="denuncia-info">
+        Ultimamente eu e meus vizinhos percebemos várias mortes de animais na rua, tanto animais domésticos quanto de rua.
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Card 3 -->
+  <div class="denuncia-card">
+
+    <div class="denuncia-header">
+      Maus tratos
+    </div>
+
+    <div class="denuncia-content">
+
+      <img 
+      src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=400"
+      class="denuncia-image">
+
+      <div class="denuncia-info">
+        Eu peguei o cachorro do meu vizinho pra mim pelo simples motivo de que ele não cuidava do animal.
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content> 

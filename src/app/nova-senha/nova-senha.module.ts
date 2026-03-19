@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PerfilPageRoutingModule } from './perfil-routing.module';
+import { NovaSenhaPageRoutingModule } from './nova-senha-routing.module';
 
-import { PerfilPage } from './perfil.page';
+import { NovaSenhaPage } from './nova-senha.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilPageRoutingModule
+    NovaSenhaPageRoutingModule
   ],
-  declarations: [PerfilPage]
+  declarations: [NovaSenhaPage]
 })
-export class PerfilPageModule {}
+export class NovaSenhaPageModule {}

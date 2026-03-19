@@ -31,10 +31,10 @@ ion-toolbar.toolbar-transparente {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   text-align: center;
-  padding: 1.5rem 2rem 2rem;
-  min-height: 100%;
+  padding: 2rem;
+  min-height: calc(100vh - 56px);
   background: #f0f4f2;
   font-family: 'Nunito', sans-serif;
 }
@@ -45,18 +45,17 @@ ion-toolbar.toolbar-transparente {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 0;
+  margin-top: -180px;
 }
 
 .logo-container {
   margin-bottom: 0.5rem;
-  padding-bottom: 0;
   animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 @keyframes popIn {
   from { transform: scale(0.5); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
+  to   { transform: scale(1); opacity: 1; }
 }
 
 .logo-circle {
@@ -77,31 +76,36 @@ ion-toolbar.toolbar-transparente {
 }
 
 .login-title {
-  font-size: 1.7rem;
+  font-size: 1.65rem;
   font-weight: 600;
   color: #1e2d28;
   margin-top: 0.5rem;
-  margin-bottom: 1.2rem;
+  margin-bottom: 10px;
   letter-spacing: -0.5px;
+  width: 100%;
+  text-align: center;
   animation: slideUp 0.5s 0.1s ease both;
-  font-family: 'Nunito', sans-serif;
 }
 
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to   { transform: translateY(0);    opacity: 1; }
+.descricao {
+  font-size: 0.85rem;
+  color: #6b7c75;
+  text-align: center;
+  margin-bottom: 16px;
+  line-height: 1.4;
+  animation: slideUp 0.5s 0.15s ease both;
 }
 
 .form-container {
   width: 100%;
   background: transparent;
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 4px;
   animation: slideUp 0.5s 0.2s ease both;
 }
 
 .input-group {
-  margin-bottom: 12px;
+  margin-bottom: 6px;
 }
 
 .input-wrapper {
@@ -112,8 +116,8 @@ ion-toolbar.toolbar-transparente {
   border: 1.5px solid #e4ebe7;
   padding: 0 14px;
   height: 52px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &:focus-within {
     border-color: #4eca88;
@@ -133,6 +137,7 @@ ion-toolbar.toolbar-transparente {
   color: #aab5b0;
   flex-shrink: 0;
   margin-left: 8px;
+  margin-right: 14px;
   cursor: pointer;
   transition: color 0.2s;
 
@@ -143,36 +148,38 @@ ion-toolbar.toolbar-transparente {
 
 .custom-input {
   --background: transparent;
-  --border-color: transparent;
   --border-style: none;
   --box-shadow: none;
   --color: #2d3d36;
   --placeholder-color: #aab5b0;
-  --padding-start: 0;
-  --padding-end: 0;
-  --placeholder-opacity: 1;
   font-family: 'Nunito', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 600;
   flex: 1;
   height: 100%;
   text-align: center;
 
   &::part(native) {
-    text-align: left;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
-.error-message {
-  font-size: 0.75rem;
-  color: #e05c5c;
+.mensagem-erro {
+  font-size: 0.85rem;
   margin-top: 4px;
-  padding-left: 4px;
-  font-family: 'Nunito', sans-serif;
+  text-align: center;
+  color: #e74c3c;
+
+  &.sucesso {
+    color: #4eca88;
+  }
 }
 
 .button-container {
   width: 100%;
+  margin-top: 2px;
   animation: slideUp 0.5s 0.35s ease both;
 }
 
@@ -183,43 +190,57 @@ ion-toolbar.toolbar-transparente {
   --box-shadow: 0 6px 24px rgba(78, 202, 136, 0.4);
   height: 52px;
   font-family: 'Nunito', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   margin: 0;
-  transition: all 0.25s ease;
 
   &:hover {
-    --box-shadow: 0 10px 32px rgba(78, 202, 136, 0.5);
     transform: translateY(-2px);
   }
 }
 
-.no-account {
-  text-align: center;
-  margin-top: 14px;
-
-  span {
-    color: #8a9e97;
-    font-size: 0.82rem;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: color 0.2s;
-
-    &:hover {
-      color: #4eca88;
-      text-decoration: underline;
-    }
-  }
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
 }
 
 @media (max-width: 480px) {
-  .login-container { padding: 1rem 1.5rem 2rem; }
-  .logo-circle { width: 70px; height: 70px; }
-  .logo-icon { font-size: 2rem; }
-  .login-title { font-size: 1.5rem; }
-  .input-wrapper { height: 46px; }
-  .login-button { height: 46px; font-size: 0.85rem; }
+  .logo-circle {
+    width: 70px;
+    height: 70px;
+  }
+
+  .logo-icon {
+    font-size: 2rem;
+  }
+
+  .login-title {
+    font-size: 1.45rem;
+  }
+
+  .input-wrapper {
+    height: 46px;
+  }
+
+  .login-button {
+    height: 46px;
+    font-size: 0.84rem;
+  }
+}
+.error-message {
+  color: #e05555;
+  font-size: 0.72rem;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.success-message {
+  color: #38b87a;
+  font-size: 0.72rem;
+  text-align: center;
+  margin-top: 6px;
+  font-weight: 600;
 }

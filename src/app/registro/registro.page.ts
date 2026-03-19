@@ -14,6 +14,9 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegistroPage {
 
+  showSenha = false;
+  showConfirmarSenha = false;
+
   nome = '';
   cpf = '';
   email = '';

@@ -43,6 +43,26 @@ const routes: Routes = [
   },  {
     path: 'postagem',
     loadChildren: () => import('./postagem/postagem.module').then( m => m.PostagemPageModule)
+  },
+  {
+    path: 'adocoes-detalhes',
+    loadChildren: () => import('./adocoes-detalhes/adocoes-detalhes.module').then( m => m.AdocoesDetalhesPageModule)
+  },
+  {
+    path: 'editar-perfil',
+    loadChildren: () => import('./editar-perfil/editar-perfil.module').then( m => m.EditarPerfilPageModule)
+  },
+  {
+    path: 'codigo-verificacao',
+    loadChildren: () => import('./codigo-verificacao/codigo-verificacao.module').then( m => m.CodigoVerificacaoPageModule)
+  },
+  {
+    path: 'nova-senha',
+    loadChildren: () => import('./nova-senha/nova-senha.module').then( m => m.NovaSenhaPageModule)
+  },
+  {
+    path: 'comentario',
+    loadChildren: () => import('./comentario/comentario.module').then( m => m.ComentarioPageModule)
   }
 
 

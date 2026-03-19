@@ -1,6 +1,5 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <!-- A toolbar desta página inicial está vazia, o que é um design comum. -->
   </ion-toolbar>
 </ion-header>
 
@@ -19,32 +18,31 @@
     </div>
 
     <h1 class="welcome-title">
-      Bem vindo ao<br>
+      Bem-vindo ao<br>
       <span class="app-name">PetConnect</span>
     </h1>
-    
+
     <p class="welcome-subtitle">
       Seu app totalmente direcionado a ajudar animais
     </p>
-    
+
     <div class="buttons-container">
-      <ion-button 
-        class="action-button" 
-        expand="block" 
-        shape="round"
+      <ion-button
+        class="btn-login"
+        expand="block"
         (click)="goToLogin()">
         Login
       </ion-button>
-      
-      <ion-button 
-        class="action-button" 
-        expand="block" 
-        shape="round"
+
+      <ion-button
+        class="btn-cadastro"
+        expand="block"
+        fill="outline"
         (click)="goToRegistration()">
         Cadastro
       </ion-button>
     </div>
-    
+
     <p class="community-text">
       Junte-se a nossa<br>
       comunidade!
