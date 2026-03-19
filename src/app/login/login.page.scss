@@ -51,7 +51,7 @@ ion-toolbar.toolbar-transparente {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: -120px;
+  margin-top: -110px;
 }
 
 // =============================================
@@ -97,8 +97,10 @@ ion-toolbar.toolbar-transparente {
   letter-spacing: -0.5px;
   animation: slideUp 0.5s 0.1s ease both;
   font-family: 'Nunito', sans-serif;
+  text-align: center;
+  width: 100%;
+  padding: 0; // <-- garante que não tem padding nenhum deslocando
 }
-
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
@@ -140,7 +142,7 @@ ion-toolbar.toolbar-transparente {
 }
 
 .input-group:first-child .input-wrapper {
-  padding-right: 30px;
+  padding-right: 40px;
 }
 
 .input-icon {
@@ -178,11 +180,6 @@ ion-toolbar.toolbar-transparente {
   font-weight: 600;
   flex: 1;
   height: 100%;
-  text-align: center;
-
-  &::part(native) {
-    text-align: center;
-  }
 }
 
 // =============================================
@@ -213,6 +210,9 @@ ion-toolbar.toolbar-transparente {
 // =============================================
 .button-container {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   animation: slideUp 0.5s 0.35s ease both;
 }
 
@@ -221,6 +221,7 @@ ion-toolbar.toolbar-transparente {
   --color: white;
   --border-radius: 12px;
   --box-shadow: 0 6px 24px rgba(78, 202, 136, 0.4);
+  width: 100%;
   height: 52px;
   font-family: 'Nunito', sans-serif;
   font-size: 0.88rem;

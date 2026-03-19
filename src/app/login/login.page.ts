@@ -72,7 +72,7 @@ export class LoginPage {
     const toast = await this.toastController.create({
       message: mensagem,
       duration: 3000,
-      position: 'top', // Melhor visibilidade em mobile (evita o teclado)
+      position: 'top',
       cssClass: tipo === 'sucesso' ? 'toast-sucesso' : 'toast-erro',
       buttons: [{ icon: 'close', role: 'cancel' }]
     });

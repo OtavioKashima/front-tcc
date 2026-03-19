@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 
 interface Pet {
   titulo: string;
@@ -28,7 +28,8 @@ export class AdocaoDetalhePage implements OnInit {
 
   constructor(
     private router: Router,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
@@ -36,6 +37,23 @@ export class AdocaoDetalhePage implements OnInit {
     if (nav?.extras?.state?.['pet']) {
       this.pet = nav.extras.state['pet'];
     }
+  }
+
+  async queroAdotar() {
+    const toast = await this.toastController.create({
+      message: '🐾 Solicitação enviada! O tutor entrará em contato.',
+      duration: 3000,
+      position: 'top',
+      color: 'success'
+    });
+    await toast.present();
+  }
+
+  entrarEmContato() {
+    const numero = '5511999999999';
+    const mensagem = `Olá! Vi o anúncio do(a) ${this.pet.titulo} e tenho interesse em adotar.`;
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
   }
 
   irParaComentarios() {

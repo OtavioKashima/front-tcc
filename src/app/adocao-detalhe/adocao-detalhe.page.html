@@ -1,42 +1,81 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar class="custom-toolbar">
     <ion-buttons slot="start">
       <ion-button (click)="goBack()" class="back-btn">
-        <ion-icon name="arrow-back"></ion-icon>
+        <ion-icon name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{ pet.titulo }}</ion-title>
+    <ion-title>Detalhes</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="compartilhar()" class="back-btn">
+        <ion-icon name="arrow-redo-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="page-content" [scrollY]="true">
-  <div class="layout-wrapper">
+<ion-content [scrollY]="true">
 
-    <div class="side-actions">
-      <ion-icon name="chatbubble-outline" class="action-icon" (click)="irParaComentarios()"></ion-icon>
-      <ion-icon name="arrow-redo-outline" class="action-icon" (click)="compartilhar()"></ion-icon>
-    </div>
-
-    <div class="post-container">
-
-      <div class="user-info">
-        <img
-          src="https://randomuser.me/api/portraits/women/44.jpg"
-          class="user-avatar"/>
-        <span class="user-name">Regina Almeida</span>
-      </div>
-
-      <div class="pet-image-container">
-        <img
-          [src]="pet.imagem"
-          [alt]="pet.titulo"
-          class="pet-image-large"/>
-      </div>
-
-      <div class="pet-description">
-        {{ pet.descricaoCompleta }}
-      </div>
-
+  <!-- Imagem grande -->
+  <div class="hero-image-wrapper">
+    <img [src]="pet.imagem" [alt]="pet.titulo" class="hero-image">
+    <div class="hero-overlay">
+      <div class="hero-badge">Para Adoção</div>
+      <h1 class="hero-title">{{ pet.titulo }}</h1>
+      <span class="hero-age">
+        <ion-icon name="time-outline"></ion-icon>
+        {{ pet.idade }}
+      </span>
     </div>
   </div>
+
+  <div class="content-body">
+
+    <!-- Dono -->
+    <div class="owner-card">
+      <img
+        src="https://randomuser.me/api/portraits/women/44.jpg"
+        class="owner-avatar">
+      <div class="owner-info">
+        <span class="owner-label">Publicado por</span>
+        <span class="owner-name">Regina Almeida</span>
+      </div>
+      <button class="owner-contact-btn" (click)="entrarEmContato()">
+        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        Contato
+      </button>
+    </div>
+
+    <!-- Sobre -->
+    <div class="section">
+      <h2 class="section-title">Sobre o animal</h2>
+      <p class="section-text">{{ pet.descricaoCompleta }}</p>
+    </div>
+
+    <!-- Info chips -->
+    <div class="chips-row">
+      <div class="chip">
+        <ion-icon name="calendar-outline"></ion-icon>
+        {{ pet.idade }}
+      </div>
+      <div class="chip">
+        <ion-icon name="paw-outline"></ion-icon>
+        Animal doméstico
+      </div>
+      <div class="chip">
+        <ion-icon name="heart-outline"></ion-icon>
+        Precisa de lar
+      </div>
+    </div>
+
+  </div>
+
 </ion-content>
+
+<!-- Botão fixo de adotar -->
+<div class="bottom-bar">
+  <button class="adopt-btn" (click)="queroAdotar()">
+    <ion-icon name="paw"></ion-icon>
+    Quero Adotar
+  </button>
+</div>

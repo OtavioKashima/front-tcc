@@ -14,7 +14,6 @@
       </div>
     </div>
 
-    <!-- Barra de busca -->
     <div class="search-bar-wrapper" [class.visible]="showSearch">
       <div class="search-input-wrapper">
         <ion-icon name="search-outline" class="search-input-icon"></ion-icon>
@@ -35,26 +34,109 @@
 </ion-header>
 
 <ion-content [scrollY]="true">
-  <div class="lista-adocoes">
+  <div class="feed">
 
     <div *ngIf="petsFiltrados.length === 0" class="sem-resultados">
       <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>
       <p>Nenhum animal encontrado</p>
     </div>
 
-    <div
-      class="pet-card"
-      *ngFor="let pet of petsFiltrados"
-      (click)="abrirDetalhe(pet)">
-      <div class="pet-header">
-        <span>{{ pet.titulo }}</span>
-        <span>{{ pet.idade }}</span>
+    <div class="post-card" *ngFor="let pet of petsFiltrados">
+
+      <div class="post-header">
+        <div class="post-avatar">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="avatar">
+        </div>
+        <div class="post-meta">
+          <span class="post-username">Regina Almeida</span>
+          <span class="post-location">
+            <ion-icon name="location-outline"></ion-icon>
+            São Paulo, SP
+          </span>
+        </div>
+        <ion-icon name="ellipsis-horizontal" class="post-more"></ion-icon>
       </div>
-      <div class="pet-content">
-        <img [src]="pet.imagem" [alt]="pet.titulo" class="pet-image">
-        <div class="pet-info">{{ pet.descricao }}</div>
+
+      <div class="post-image-wrapper" (click)="onImageTap(pet)">
+        <img [src]="pet.imagem" [alt]="pet.titulo" class="post-image">
+        <div class="heart-burst" [class.show]="pet.showHeart">
+          <ion-icon name="heart"></ion-icon>
+        </div>
       </div>
+
+      <div class="post-actions">
+        <div class="actions-left">
+          <button class="action-icon" (click)="curtir(pet)">
+            <ion-icon [name]="pet.liked ? 'heart' : 'heart-outline'" [class.liked]="pet.liked"></ion-icon>
+          </button>
+          <button class="action-icon" (click)="abrirComentarios(pet)">
+            <ion-icon name="chatbubble-outline"></ion-icon>
+          </button>
+          <button class="action-icon" (click)="compartilhar(pet)">
+            <ion-icon name="arrow-redo-outline"></ion-icon>
+          </button>
+        </div>
+        <div class="actions-right">
+          <button class="action-icon">
+            <ion-icon name="bookmark-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="post-body">
+        <p class="post-description">
+          <span class="post-username-inline">{{ pet.titulo }}</span>
+          {{ pet.descricao }}
+        </p>
+        <p class="post-time">{{ pet.idade }} · Para adoção</p>
+        <button class="btn-ver-mais" (click)="abrirDetalhe(pet)">
+          <ion-icon name="paw-outline"></ion-icon>
+          Tenho interesse
+        </button>
+      </div>
+
     </div>
 
   </div>
 </ion-content>
+
+<ion-modal
+  [isOpen]="comentariosAbertos"
+  [breakpoints]="[0, 0.6, 0.9]"
+  [initialBreakpoint]="0.6"
+  (didDismiss)="fecharComentarios()">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Comentários</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="fecharComentarios()">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="comentarios-content">
+      <div class="comentarios-lista">
+        <div class="comentario-item" *ngFor="let c of comentarios">
+          <img [src]="c.avatar" class="comentario-avatar">
+          <div class="comentario-body">
+            <span class="comentario-nome">{{ c.nome }}</span>
+            <span class="comentario-texto">{{ c.texto }}</span>
+          </div>
+        </div>
+      </div>
+    </ion-content>
+
+    <div class="comentario-input-bar">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" class="comentario-avatar-small">
+      <input
+        class="comentario-input"
+        placeholder="Adicionar comentário..."
+        [(ngModel)]="novoComentario">
+      <button class="comentario-enviar" (click)="enviarComentario()" [disabled]="!novoComentario">
+        Publicar
+      </button>
+    </div>
+  </ng-template>
+</ion-modal>

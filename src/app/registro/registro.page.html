@@ -98,7 +98,8 @@
               class="custom-input"
               placeholder="Senha"
               [type]="showSenha ? 'text' : 'password'"
-              [(ngModel)]="senha">
+              [(ngModel)]="senha"
+              minlength="8">
             </ion-input>
             <ion-icon
               [name]="showSenha ? 'eye-off-outline' : 'eye-outline'"

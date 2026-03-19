@@ -76,6 +76,12 @@ export class RegistroPage {
 
   async registrar() {
 
+    // ✅ ADICIONADO (única mudança)
+    if (this.senha.length < 8) {
+      this.mostrarToast('A senha deve ter no mínimo 8 caracteres.');
+      return;
+    }
+
     if (this.senha !== this.confirmarSenha) {
       this.mostrarToast('As senhas não coincidem.');
       return;
