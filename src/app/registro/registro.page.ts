@@ -15,7 +15,6 @@ import { FormsModule } from '@angular/forms';
 export class RegistroPage {
 
   nome = '';
-  cpf = '';
   email = '';
   telefone = '';
   senha = '';
@@ -50,14 +49,6 @@ export class RegistroPage {
     }
   }
 
-  maskCPF() {
-    this.cpf = this.cpf
-      .replace(/\D/g, '')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d)/, '$1.$2')
-      .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-  }
-
   maskTelefone() {
     this.telefone = this.telefone
       .replace(/\D/g, '')
@@ -75,8 +66,16 @@ export class RegistroPage {
   }
 
   async registrar() {
+    if (!this.nome.trim()) {
+      this.mostrarToast('Informe seu nome de usuário.');
+      return;
+    }
 
-    // ✅ ADICIONADO (única mudança)
+    if (!this.email.trim() || this.emailInvalido) {
+      this.mostrarToast('Informe um e-mail válido.');
+      return;
+    }
+
     if (this.senha.length < 8) {
       this.mostrarToast('A senha deve ter no mínimo 8 caracteres.');
       return;
@@ -87,14 +86,8 @@ export class RegistroPage {
       return;
     }
 
-    if (this.emailInvalido) {
-      this.mostrarToast('Email inválido.');
-      return;
-    }
-
     const formData = new FormData();
     formData.append('nome', this.nome);
-    formData.append('cpf', this.cpf);
     formData.append('email', this.email);
     formData.append('telefone', this.telefone);
     formData.append('senha', this.senha);
@@ -106,8 +99,24 @@ export class RegistroPage {
     this.http.post<any>(`${this.API_URL}/usuarios`, formData)
       .subscribe({
         next: async () => {
-          await this.mostrarToast('Cadastro realizado com sucesso!');
-          this.navCtrl.navigateRoot('/login');
+          // Envia o código de verificação por e-mail
+          this.http.post<any>(`${this.API_URL}/usuarios/enviar-verificacao`, { email: this.email })
+            .subscribe({
+              next: async () => {
+                await this.mostrarToast('Código de verificação enviado para seu e-mail!');
+                // Redireciona passando o e-mail como state para a tela de verificação
+                this.navCtrl.navigateForward('/codigo-verificacao', {
+                  state: { email: this.email }
+                });
+              },
+              error: async () => {
+                // Mesmo que o envio falhe, redireciona para a tela de verificação
+                await this.mostrarToast('Cadastro realizado! Verifique seu e-mail.');
+                this.navCtrl.navigateForward('/codigo-verificacao', {
+                  state: { email: this.email }
+                });
+              }
+            });
         },
         error: async (err) => {
           if (err.status === 409) {

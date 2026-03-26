@@ -23,15 +23,12 @@
       <div class="form-container">
         <div class="input-group">
           <div class="input-wrapper">
-            <ion-icon name="card-outline" class="input-icon"></ion-icon>
+            <ion-icon name="mail-outline" class="input-icon"></ion-icon>
             <ion-input
               class="custom-input"
-              placeholder="CPF"
-              type="text"
-              [(ngModel)]="usuario"
-              (ionInput)="maskCPF()"
-              (keypress)="somenteNumeros($event)"
-              maxlength="14">
+              placeholder="Email"
+              type="email"
+              [(ngModel)]="usuario">
             </ion-input>
           </div>
         </div>

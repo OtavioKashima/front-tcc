@@ -38,23 +38,6 @@
           </div>
         </div>
 
-        <!-- CPF -->
-        <div class="input-group">
-          <div class="input-wrapper">
-            <ion-icon name="card-outline" class="input-icon"></ion-icon>
-            <ion-input
-              class="custom-input"
-              placeholder="CPF"
-              type="text"
-              [(ngModel)]="cpf"
-              (ionInput)="maskCPF()"
-              (keypress)="somenteNumeros($event)"
-              maxlength="14">
-            </ion-input>
-            <ion-icon name="eye-outline" class="input-icon-right" style="opacity: 0; pointer-events: none;"></ion-icon>
-          </div>
-        </div>
-
         <!-- Telefone -->
         <div class="input-group">
           <div class="input-wrapper">

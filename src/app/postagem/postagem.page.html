@@ -1,14 +1,9 @@
-<ion-header [translucent]="true">
-  <ion-toolbar class="toolbar-transparente">
-    <ion-buttons slot="start">
-      <ion-button (click)="goToHome()" fill="clear" class="btn-voltar">
-        <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true">
 
-<ion-content [fullscreen]="true" class="ion-padding">
+  <!-- BOTÃO VOLTAR FLUTUANTE -->
+  <ion-button (click)="goToHome()" fill="clear" class="btn-voltar">
+    <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+  </ion-button>
 
   <div class="container">
 
@@ -38,16 +33,12 @@
       </div>
     </ion-card>
 
-    <!-- CAMPOS DINÂMICOS -->
-
     <!-- ADOÇÃO -->
     <div *ngIf="tipoSelecionado === 'adocao'" class="campos-dinamicos">
-
       <div class="campo">
         <label>Raça do animal:</label>
         <ion-input class="custom-input" placeholder="Ex: Labrador"></ion-input>
       </div>
-
       <div class="campo">
         <label>Gênero:</label>
         <div class="campo-select">
@@ -57,47 +48,38 @@
           </ion-select>
         </div>
       </div>
-
       <div class="campo">
         <label>Idade do animal:</label>
         <ion-input class="custom-input" type="number" placeholder="Ex: 2"></ion-input>
       </div>
-
     </div>
 
     <!-- PERDIDO -->
     <div *ngIf="tipoSelecionado === 'perdido'" class="campos-dinamicos">
-
       <div class="campo">
         <label>Último local visto:</label>
         <ion-input class="custom-input" placeholder="Ex: Rua das Flores, 123"></ion-input>
       </div>
-
       <div class="campo">
         <label>Data que desapareceu:</label>
         <ion-input class="custom-input" type="date"></ion-input>
       </div>
-
     </div>
 
     <!-- ENCONTRADO -->
     <div *ngIf="tipoSelecionado === 'encontrado'" class="campos-dinamicos">
-
       <div class="campo">
         <label>Local encontrado:</label>
         <ion-input class="custom-input" placeholder="Ex: Av. Central, 45"></ion-input>
       </div>
-
       <div class="campo">
         <label>Estado do animal:</label>
         <ion-input class="custom-input" placeholder="Ex: Saudável, machucado..."></ion-input>
       </div>
-
     </div>
 
-    <!-- FOTO E DESCRIÇÃO (aparece para todos) -->
+    <!-- FOTO E DESCRIÇÃO -->
     <div *ngIf="tipoSelecionado" class="campos-dinamicos">
-
       <div class="campo">
         <label>Foto:</label>
         <div class="foto-box">
@@ -105,18 +87,15 @@
           <span>Toque para adicionar foto</span>
         </div>
       </div>
-
       <div class="campo">
         <label>Descrição:</label>
         <ion-textarea class="custom-textarea" placeholder="Descreva o animal..."></ion-textarea>
       </div>
-
       <div class="btn-area">
         <ion-button class="btn-postar" expand="block" shape="round" (click)="postar()">
           Postar
         </ion-button>
       </div>
-
     </div>
 
   </div>
