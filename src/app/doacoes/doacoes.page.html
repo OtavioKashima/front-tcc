@@ -1,85 +1,97 @@
 <ion-header class="custom-header">
   <ion-toolbar class="custom-toolbar">
     <div class="header-content">
-
       <div class="title-section">
-        <ion-icon name="cash-outline" size="large"></ion-icon>
+        <ion-icon name="heart" size="large"></ion-icon>
         <ion-title>Doe</ion-title>
       </div>
-
       <div class="search-section">
         <ion-icon name="search-outline" size="large"></ion-icon>
       </div>
-
     </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <!-- Card 1 -->
-  <div class="donation-card">
+  <!-- Hero -->
+  <div class="hero-banner">
+    <div class="paw-bg">🐾</div>
+    <div class="hero-text">
+      <span class="hero-tag">ONG Patinhas Felizes</span>
+      <h2>Doe qualquer valor</h2>
+      <p>Sua contribuição vai direto para a ONG, que decide como melhor ajudar os animais.</p>
+    </div>
+  </div>
 
-    <div class="donation-header">
-      Ajude o Jorge
+  <!-- Bloco principal de doação -->
+  <div class="donate-block">
+
+    <p class="donate-subtitle">Escolha ou insira o valor que deseja doar:</p>
+
+    <div class="valor-rapido">
+      <button onclick="setValor(10)">R$ 10</button>
+      <button onclick="setValor(25)">R$ 25</button>
+      <button onclick="setValor(50)">R$ 50</button>
+      <button onclick="setValor(100)">R$ 100</button>
     </div>
 
-    <div class="donation-content">
-
-      <img 
-      src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400"
-      class="donation-image">
-
-      <div class="donation-info">
-        Recentemente eu descobri que meu gato tem alopecia, e infelizmente eu não tenho dinheiro para o tratamento.
-      </div>
-
+    <div class="input-wrap">
+      <span class="input-prefix">R$</span>
+      <input type="number" id="valorDoacao" placeholder="Outro valor" class="input-valor" min="1">
     </div>
+
+    <button class="btn-pagar" onclick="processarDoacao()">
+      <img src="https://logospng.org/download/mercado-pago/logo-mercado-pago-icone-1024.png"
+           onerror="this.style.display='none'"
+           style="width:22px;height:22px;border-radius:4px;vertical-align:middle;margin-right:8px;">
+      Pagar com Mercado Pago
+    </button>
+
+    <p class="seguro-label">🔒 Pagamento 100% seguro via Mercado Pago</p>
 
   </div>
 
-
-  <!-- Card 2 -->
-  <div class="donation-card">
-
-    <div class="donation-header">
-      Falta de ração
+  <!-- Info sobre a ONG -->
+  <div class="ong-info-card">
+    <div class="ong-info-header">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      Como sua doação é usada?
     </div>
-
-    <div class="donation-content">
-
-      <img 
-      src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400"
-      class="donation-image">
-
-      <div class="donation-info">
-        Eu sou dono de um abrigo para cachorros e mesmo cuidando deles o custo da comida vem aumentando.
-      </div>
-
-    </div>
-
+    <p>A ONG recebe o valor e decide onde ele é mais necessário: ração, remédios, cirurgias, vacinas ou abrigo. Cada real conta!</p>
   </div>
 
+  <!-- Cards ilustrativos -->
+  <div class="section-title">Exemplos do que ajudamos</div>
 
-  <!-- Card 3 -->
   <div class="donation-card">
-
-    <div class="donation-header">
-      Remédios
-    </div>
-
     <div class="donation-content">
-
-      <img 
-      src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400"
-      class="donation-image">
-
+      <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400" class="donation-image">
       <div class="donation-info">
-        Eu tenho um cachorro idoso e ele precisa de remédios caros que infelizmente não consigo pagar.
+        <strong>Tratamentos de saúde</strong>
+        <p>Gatos e cachorros com doenças que precisam de atenção veterinária urgente.</p>
       </div>
-
     </div>
+  </div>
 
+  <div class="donation-card">
+    <div class="donation-content">
+      <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400" class="donation-image">
+      <div class="donation-info">
+        <strong>Alimentação no abrigo</strong>
+        <p>Custeamos a ração diária de dezenas de animais em nosso abrigo.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="donation-card">
+    <div class="donation-content">
+      <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400" class="donation-image">
+      <div class="donation-info">
+        <strong>Remédios e vacinas</strong>
+        <p>Mantemos a saúde dos animais em dia com medicamentos e vacinação.</p>
+      </div>
+    </div>
   </div>
 
 </ion-content>
