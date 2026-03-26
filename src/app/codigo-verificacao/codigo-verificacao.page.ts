@@ -1,80 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-codigo-verificacao',
-  templateUrl: './codigo-verificacao.page.html',
-  styleUrls: ['./codigo-verificacao.page.scss'],
-  standalone: false
+selector: 'app-codigo-verificacao',
+templateUrl: './codigo-verificacao.page.html',
+styleUrls: ['./codigo-verificacao.page.scss'],
+standalone: false
 })
-export class CodigoVerificacaoPage implements OnInit {
+export class CodigoVerificacaoPage {
 
-  codigo: string = '';
-  mensagemErro: string = '';
-  mensagemSucesso: string = '';
+codigo: string = '';
 
-  // 'cadastro'   → vai para /login após verificar
-  // 'recuperacao' → vai para /nova-senha após verificar
-  origem: string = 'cadastro';
-  email: string = '';
+mensagemErro: string = '';
+mensagemSucesso: string = '';
 
-  constructor(private router: Router) {}
+constructor(private router: Router) {}
 
-  ngOnInit() {
-    const nav = this.router.getCurrentNavigation();
-    const state = nav?.extras?.state;
+goToRecuperar(){
+this.router.navigate(['/recuperar-senha']);
+}
 
-    if (state) {
-      this.origem = state['origem'] || 'cadastro';
-      this.email  = state['email']  || '';
-    }
-  }
+verificarCodigo(){
 
-  goToRecuperar() {
-    if (this.origem === 'recuperacao') {
-      this.router.navigate(['/recuperar-senha']);
-    } else {
-      this.router.navigate(['/registro']);
-    }
-  }
+this.mensagemErro = '';
+this.mensagemSucesso = '';
 
-  verificarCodigo() {
-    this.mensagemErro = '';
-    this.mensagemSucesso = '';
+if(!this.codigo){
 
-    if (!this.codigo) {
-      this.mensagemErro = 'Digite o código!';
-      setTimeout(() => { this.mensagemErro = ''; }, 3000);
-      return;
-    }
+this.mensagemErro = 'Digite o código!';
 
-    // ── Aqui você pode chamar sua API para validar o código ──
-    // this.http.post('/verificar', { email: this.email, codigo: this.codigo })
+setTimeout(()=>{
+this.mensagemErro = '';
+},3000);
 
-    this.mensagemSucesso = 'Código confirmado!';
+return;
+}
 
-    setTimeout(() => {
-      this.mensagemSucesso = '';
+this.mensagemSucesso = 'Código confirmado!';
 
-      if (this.origem === 'recuperacao') {
-        // Veio da recuperação de senha → redefine senha
-        this.router.navigate(['/nova-senha'], {
-          state: { email: this.email }
-        });
-      } else {
-        // Veio do cadastro → vai direto pro login
-        this.router.navigate(['/login']);
-      }
+setTimeout(()=>{
+this.mensagemSucesso = '';
+this.router.navigate(['/nova-senha']);
+},2000);
 
-    }, 2000);
-  }
+}
 
-  reenviarCodigo() {
-    this.mensagemErro = '';
-    this.mensagemSucesso = 'Código reenviado para seu email!';
-    setTimeout(() => { this.mensagemSucesso = ''; }, 3000);
+reenviarCodigo(){
 
-    // ── Aqui você pode chamar sua API para reenviar ──
-    // this.http.post('/reenviar-codigo', { email: this.email })
-  }
+this.mensagemErro = '';
+this.mensagemSucesso = 'Código reenviado para seu email!';
+
+setTimeout(()=>{
+this.mensagemSucesso = '';
+},3000);
+
+}
+
 }
