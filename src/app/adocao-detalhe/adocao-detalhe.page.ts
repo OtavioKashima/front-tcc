@@ -8,6 +8,11 @@ interface Pet {
   imagem: string;
   descricao: string;
   descricaoCompleta: string;
+  usuario?: {
+    nome: string;
+    avatar: string;
+    cidade: string;
+  };
 }
 
 @Component({
@@ -36,17 +41,18 @@ export class AdocaoDetalhePage implements OnInit {
     const nav = this.router.getCurrentNavigation();
     if (nav?.extras?.state?.['pet']) {
       this.pet = nav.extras.state['pet'];
+    } else if (history.state?.pet) {
+      this.pet = history.state.pet;
     }
   }
 
-  async queroAdotar() {
-    const toast = await this.toastController.create({
-      message: '🐾 Solicitação enviada! O tutor entrará em contato.',
-      duration: 3000,
-      position: 'top',
-      color: 'success'
+  queroAdotar() {
+    this.navCtrl.navigateForward('/chat-ong', {
+      state: {
+        ong: this.pet.usuario,
+        pet: this.pet
+      }
     });
-    await toast.present();
   }
 
   entrarEmContato() {

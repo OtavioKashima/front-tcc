@@ -38,7 +38,8 @@ const routes: Routes = [
   {
     path: 'recuperar-senha',
     loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then( m => m.RecuperarSenhaPageModule)
-  },  {
+  },
+  {
     path: 'adocao-detalhe',
     loadChildren: () => import('./adocao-detalhe/adocao-detalhe.module').then( m => m.AdocaoDetalhePageModule)
   },
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: 'nova-senha',
     loadChildren: () => import('./nova-senha/nova-senha.module').then( m => m.NovaSenhaPageModule)
+  },
+  {
+    path: 'chat-ong',
+    loadChildren: () => import('./chat-ong/chat-ong.module').then( m => m.ChatOngPageModule)
   }
 
 
