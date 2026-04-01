@@ -97,7 +97,7 @@ export class PostagemPage {
           // Aqui você pode limpar os campos ou redirecionar o usuário
         },
         error: (err: any) => {
-          console.error('Erro ao salvar a postagem', err);
+          console.error('Erro ao salvar a postagem', err.error);
           alert('Erro ao enviar postagem. Verifique o console.');
         }
       });
