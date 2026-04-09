@@ -23,7 +23,7 @@ ion-toolbar.custom-toolbar {
 .header-title {
   font-family: 'Nunito', sans-serif;
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 400;
   color: white;
 }
 
@@ -31,10 +31,6 @@ ion-toolbar.custom-toolbar {
   font-size: 1.6rem;
   color: white;
   cursor: pointer;
-
-  &.filtro-ativo {
-    color: #ffe066;
-  }
 }
 
 .header-actions {
@@ -43,17 +39,11 @@ ion-toolbar.custom-toolbar {
   gap: 14px;
 }
 
-.search-section {
-  display: flex;
-  align-items: center;
-}
-
 .search-bar-wrapper {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease, padding 0.3s ease;
   padding: 0 16px;
-
   &.visible {
     max-height: 60px;
     padding: 0 16px 10px;
@@ -70,11 +60,7 @@ ion-toolbar.custom-toolbar {
   gap: 8px;
 }
 
-.search-input-icon {
-  font-size: 1rem;
-  color: white;
-  flex-shrink: 0;
-}
+.search-input-icon { font-size: 1rem; color: white; flex-shrink: 0; }
 
 .search-input {
   flex: 1;
@@ -85,23 +71,15 @@ ion-toolbar.custom-toolbar {
   font-family: 'Nunito', sans-serif;
   font-size: 0.9rem;
   font-weight: 600;
-
   &::placeholder { color: rgba(255,255,255,0.7); }
 }
 
-.search-clear-icon {
-  font-size: 1.1rem;
-  color: white;
-  cursor: pointer;
-  flex-shrink: 0;
-}
+.search-clear-icon { font-size: 1.1rem; color: white; cursor: pointer; flex-shrink: 0; }
 
-ion-content {
-  --background: #fafafa;
-}
+ion-content { --background: #f2f2f2; }
 
 // =============================================
-// PAINEL DE FILTROS
+// FILTROS
 // =============================================
 .filtros-painel {
   max-height: 0;
@@ -109,168 +87,76 @@ ion-content {
   transition: max-height 0.35s ease;
   background: white;
   border-bottom: 1px solid #eef2f0;
-
-  &.aberto {
-    max-height: 600px;
-  }
+  &.aberto { max-height: 200px; }
 }
 
-.filtros-inner {
-  padding: 16px 16px 20px;
-}
+.filtros-inner { padding: 16px 16px 20px; }
 
 .filtros-titulo {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 14px;
-
   span {
     font-family: 'Nunito', sans-serif;
     font-size: 0.95rem;
-    font-weight: 800;
-    color: #1e2d28;
+    font-weight: 400;
+    color: #8a9e97;
   }
 }
 
 .btn-limpar-todos {
-  background: none;
+  background: #f0f0f0;
   border: none;
   font-family: 'Nunito', sans-serif;
   font-size: 0.78rem;
   font-weight: 700;
-  color: #e05c5c;
+  color: #8a9e97;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: 4px 10px;
   border-radius: 8px;
-  background: #fff0f0;
 }
 
-.filtros-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.filtro-campo {
+.filtros-row {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-
-  &--full {
-    grid-column: 1 / -1;
-  }
-}
-
-.filtro-label {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: #5a7a6e;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-
-  ion-icon {
-    font-size: 0.85rem;
-    color: #4eca88;
-  }
-}
-
-.filtro-input-box {
-  display: flex;
-  align-items: center;
-  background: #f0f4f2;
-  border-radius: 10px;
-  padding: 0 10px;
-  height: 38px;
-  gap: 6px;
-
-  &.select-box {
-    position: relative;
-  }
-}
-
-.filtro-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #262626;
-  min-width: 0;
-
-  &::placeholder { color: #aab5b0; }
-}
-
-.filtro-select {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #262626;
-  appearance: none;
-  -webkit-appearance: none;
-  cursor: pointer;
-  min-width: 0;
-}
-
-.select-arrow {
-  font-size: 0.85rem;
-  color: #aab5b0;
-  pointer-events: none;
-  flex-shrink: 0;
-}
-
-.filtro-clear {
-  font-size: 1rem;
-  color: #c0ccc8;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-// Chips de idade
-.chips-scroll {
-  display: flex;
+  flex-wrap: wrap;
   gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 2px;
-  scrollbar-width: none;
-
-  &::-webkit-scrollbar { display: none; }
 }
 
-.chip {
-  flex-shrink: 0;
-  background: #f0f4f2;
-  border: none;
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.76rem;
-  font-weight: 700;
-  color: #5a7a6e;
-  cursor: pointer;
-  transition: all 0.18s ease;
-  white-space: nowrap;
+.filtro-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid #4eca88;
+  border-radius: 50px;
+  padding: 6px 28px 6px 14px;
+  background: white;
 
-  &.active {
-    background: #4eca88;
-    color: white;
-    box-shadow: 0 2px 8px rgba(78,202,136,0.35);
+  select {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #4eca88;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+
+    option { color: #333; }
+  }
+
+  &::after {
+    content: '▾';
+    position: absolute;
+    right: 10px;
+    font-size: 0.7rem;
+    color: #4eca88;
+    pointer-events: none;
   }
 }
 
-// =============================================
-// BADGE BAR — filtros ativos
-// =============================================
 .filtros-badge-bar {
   display: flex;
   align-items: center;
@@ -279,11 +165,16 @@ ion-content {
   background: #f5faf7;
   border-bottom: 1px solid #e8f0ec;
   gap: 8px;
+  .chips-scroll { flex: 1; padding-bottom: 0; }
+}
 
-  .chips-scroll {
-    flex: 1;
-    padding-bottom: 0;
-  }
+.chips-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
 }
 
 .badge-chip {
@@ -298,12 +189,7 @@ ion-content {
   font-size: 0.74rem;
   font-weight: 700;
   white-space: nowrap;
-
-  ion-icon {
-    font-size: 0.8rem;
-    cursor: pointer;
-    color: #4eca88;
-  }
+  ion-icon { font-size: 0.8rem; cursor: pointer; color: #4eca88; }
 }
 
 .resultado-count {
@@ -319,7 +205,7 @@ ion-content {
 // FEED
 // =============================================
 .feed {
-  padding-bottom: 100px;
+  padding: 12px 0 100px;
   display: flex;
   flex-direction: column;
 }
@@ -330,17 +216,15 @@ ion-content {
   align-items: center;
   justify-content: center;
   padding: 60px 20px;
-  color: #aab5b0;
+  color: #8a9e97;
 
-  .sem-resultados-icon {
-    font-size: 3.5rem;
-    margin-bottom: 12px;
-  }
+  .sem-resultados-icon { font-size: 3.5rem; margin-bottom: 12px; }
 
   p {
     font-family: 'Nunito', sans-serif;
     font-size: 1rem;
     font-weight: 600;
+    color: #8a9e97;
     margin: 0 0 4px;
   }
 }
@@ -349,18 +233,26 @@ ion-content {
   font-family: 'Nunito', sans-serif;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #c7c7c7;
+  color: #8a9e97;
 }
 
-.post-card {
-  background: white;
-  border-bottom: 1px solid #efefef;
-  margin-bottom: 8px;
+// =============================================
+// CARDS
+// =============================================
+.adote-card {
+  margin: 12px 16px;
+  border-radius: 20px;
+  background: #e9e9e9;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  overflow: hidden;
+  cursor: pointer;
   animation: fadeIn 0.3s ease both;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 
-  &:nth-child(1) { animation-delay: 0.05s; }
-  &:nth-child(2) { animation-delay: 0.1s; }
-  &:nth-child(3) { animation-delay: 0.15s; }
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
 }
 
 @keyframes fadeIn {
@@ -368,122 +260,31 @@ ion-content {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.post-header {
-  display: flex;
-  align-items: center;
-  padding: 10px 12px;
-  gap: 10px;
-  background: white;
-}
-
-.post-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-}
-
-.post-meta {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-}
-
-.post-username {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: #1a1a1a;
-}
-
-.post-cidade {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #8e8e8e;
-  display: flex;
-  align-items: center;
-  gap: 2px;
-
-  ion-icon {
-    font-size: 0.7rem;
-    color: #4eca88;
-  }
-}
-
-.post-more {
-  font-size: 1.3rem;
-  color: #262626;
-  cursor: pointer;
-  padding: 4px;
-}
-
-.post-image-wrapper {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-}
-
-.post-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.heart-burst {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  opacity: 0;
-  pointer-events: none;
-
-  ion-icon {
-    font-size: 5rem;
-    color: white;
-    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
-  }
-
-  &.show {
-    animation: heartPop 0.6s ease forwards;
-  }
-}
-
-@keyframes heartPop {
-  0%   { transform: translate(-50%, -50%) scale(0);   opacity: 1; }
-  40%  { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
-  70%  { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(1);   opacity: 0; }
-}
-
-.post-actions {
+.adote-header {
+  background: #cfcfcf;
+  padding: 10px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 4px 0;
-  background: white;
+
+  span {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #555;
+  }
 }
 
-.actions-left, .actions-right {
+.adote-acoes {
   display: flex;
   align-items: center;
+  gap: 0;
 }
 
-.action-icon {
+.acao-btn {
   background: none;
   border: none;
-  padding: 8px;
+  padding: 4px 6px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -491,19 +292,11 @@ ion-content {
   transition: transform 0.15s ease;
 
   ion-icon {
-    font-size: 1.6rem;
-    color: #262626;
+    font-size: 1.25rem;
+    color: #777;
     transition: color 0.2s ease, transform 0.2s ease;
 
-    // =============================================
-    // BOOKMARK SALVO — verde igual ao coração
-    // =============================================
     &.saved {
-      color: #4eca88;
-      transform: scale(1.2);
-    }
-
-    &.liked {
       color: #4eca88;
       transform: scale(1.2);
     }
@@ -512,152 +305,28 @@ ion-content {
   &:active { transform: scale(0.82); }
 }
 
-.post-body {
-  padding: 6px 14px 16px;
-  background: white;
-}
-
-.post-description {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: #262626;
-  line-height: 1.5;
-  margin: 0 0 4px;
-}
-
-.post-username-inline {
-  font-weight: 900;
-  color: #1a1a1a;
-  margin-right: 4px;
-}
-
-.post-time {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: #c7c7c7;
-  margin: 4px 0 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-}
-
-.btn-ver-mais {
-  width: 100%;
-  height: 40px;
-  background: linear-gradient(135deg, #66d9a6, #38b87a);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
+.adote-content {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(78,202,136,0.3);
-  transition: all 0.2s;
-
-  ion-icon { font-size: 1rem; }
-
-  &:active {
-    transform: scale(0.97);
-    box-shadow: 0 2px 6px rgba(78,202,136,0.2);
-  }
-}
-
-// =============================================
-// Modal comentários
-// =============================================
-.comentarios-content { --background: white; }
-
-.comentarios-lista {
+  gap: 12px;
   padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.comentario-item {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-}
-
-.comentario-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 0;
-}
-
-.comentario-body {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.comentario-nome {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: #1a1a1a;
-}
-
-.comentario-texto {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.84rem;
-  font-weight: 600;
-  color: #4a5e56;
-  line-height: 1.5;
-}
-
-.comentario-input-bar {
-  display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 16px 24px;
-  border-top: 1px solid #f0f4f2;
-  background: white;
 }
 
-.comentario-avatar-small {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
+.adote-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
   object-fit: cover;
   flex-shrink: 0;
 }
 
-.comentario-input {
-  flex: 1;
-  background: #f5f7f6;
-  border: none;
-  border-radius: 20px;
-  padding: 8px 14px;
+.adote-info { flex: 1; }
+
+.adote-descricao {
   font-family: 'Nunito', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #262626;
-  outline: none;
-
-  &::placeholder { color: #aab5b0; }
-}
-
-.comentario-enviar {
-  background: none;
-  border: none;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 800;
-  color: #4eca88;
-  cursor: pointer;
-  padding: 4px;
-
-  &:disabled { color: #c7c7c7; }
+  font-size: 13px;
+  font-weight: 400;
+  color: #666;
+  line-height: 1.4;
+  margin: 0;
 }
