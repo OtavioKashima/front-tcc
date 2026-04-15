@@ -16,7 +16,7 @@ export class PostagemPage {
   tipoSelecionado = '';
 
   // Variáveis do formulário (Banco de Dados)
-  tipo_postagem = ''; 
+  tipo_postagem = '';
   titulo = '';
   descricao = '';
   raca = '';
@@ -28,7 +28,7 @@ export class PostagemPage {
   fotoPreview: string | ArrayBuffer | null = null;
 
   // Injetando o HttpClient no construtor
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // 👇 Função para capturar a escolha do ion-select e ajustar para o MySQL
   mudarTipo(event: any) {
@@ -46,7 +46,7 @@ export class PostagemPage {
   // Função para capturar a foto do HTML
   selecionarFoto(event: any) {
     const file = event.target.files[0];
-    
+
     if (file) {
       this.fotoSelecionada = file;
 
@@ -60,6 +60,12 @@ export class PostagemPage {
 
   // Função para enviar para o Node.js
   enviarPostagem() {
+    console.log('Valores no Angular antes de enviar:', {
+      tipo: this.tipo_postagem,
+      titulo: this.titulo,
+      descricao: this.descricao
+    });
+
     // Trava para não enviar vazio
     if (!this.tipo_postagem) {
       alert('Por favor, selecione o tipo de postagem!');
@@ -67,23 +73,23 @@ export class PostagemPage {
     }
 
     const formData = new FormData();
-    
+
     formData.append('tipo_postagem', this.tipo_postagem);
     formData.append('titulo', this.titulo);
     formData.append('descricao', this.descricao);
-    
+
     // Anexa campos opcionais apenas se estiverem preenchidos
     if (this.raca) formData.append('raca', this.raca);
     if (this.genero) formData.append('genero', this.genero);
     if (this.idade) formData.append('idade', this.idade.toString());
-    
+
     // Anexa a foto
     if (this.fotoSelecionada) {
-      formData.append('foto', this.fotoSelecionada); 
+      formData.append('foto', this.fotoSelecionada);
     }
 
     // Pega o token (ajuste a chave se você salvou com outro nome no login)
-    const token = localStorage.getItem('token'); 
+    const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`

@@ -43,7 +43,7 @@
     <div *ngIf="tipoSelecionado">
       <div class="campo">
         <label>Titulo:</label>
-        <ion-input></ion-input>
+        <ion-input type="text" [(ngModel)]="titulo" name="titulo" placeholder="Digite o título"></ion-input>
       </div>
     </div>
 
@@ -65,7 +65,7 @@
 
       <div class="campo">
         <label>Idade do animal:</label>
-        <ion-input type="number"></ion-input>
+        <ion-input type="number" [(ngModel)]="idade" name="idade" placeholder="Idade"></ion-input>
       </div>
 
     </div>
@@ -123,7 +123,7 @@
 
       <div class="campo">
         <label>Descrição:</label>
-        <ion-textarea></ion-textarea>
+        <ion-textarea [(ngModel)]="descricao" name="descricao" placeholder="Digite a descrição"></ion-textarea>
       </div>
 
       <div class="btn-area">
