@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-postagem',
@@ -14,7 +14,7 @@ import { IonicModule } from '@ionic/angular';
 export class PostagemPage {
   // 👇 Variável para o HTML (mostra/esconde os campos baseados na seleção)
   tipoSelecionado = '';
-
+  
   // Variáveis do formulário (Banco de Dados)
   tipo_postagem = '';
   titulo = '';
@@ -22,22 +22,23 @@ export class PostagemPage {
   raca = '';
   genero = '';
   idade: number | null = null;
-
+  
   // Variáveis para a imagem
   fotoSelecionada: File | null = null;
   fotoPreview: string | ArrayBuffer | null = null;
-
+  
   // Injetando o HttpClient no construtor
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private navCtrl: NavController) { }
+  
 
   // 👇 Função para capturar a escolha do ion-select e ajustar para o MySQL
   mudarTipo(event: any) {
     this.tipoSelecionado = event.detail.value;
-
+    
     if (this.tipoSelecionado === 'adocao') {
-      this.tipo_postagem = 'adoção';
+      this.tipo_postagem = 'adocao';
     } else if (this.tipoSelecionado === 'doacao') {
-      this.tipo_postagem = 'doação';
+      this.tipo_postagem = 'doacao';
     } else if (this.tipoSelecionado === 'denuncia') {
       this.tipo_postagem = 'denuncia';
     }
@@ -100,6 +101,7 @@ export class PostagemPage {
         next: (res: any) => {
           console.log('Postagem salva com sucesso!', res);
           alert('Postagem enviada com sucesso!');
+          this.navCtrl.navigateRoot('/tabs');
           // Aqui você pode limpar os campos ou redirecionar o usuário
         },
         error: (err: any) => {

@@ -1,60 +1,57 @@
-<ion-header [translucent]="true">
-    <ion-toolbar class="custom-toolbar">
-      <div class="header-content">
-        <div class="title-section">
-          <ion-icon name="heart" class="header-icon"></ion-icon>
-          <span class="header-title">Adote</span>
-        </div>
-        <div class="search-section">
-          <ion-icon
-            [name]="showSearch ? 'close-outline' : 'search-outline'"
-            class="header-icon"
-            (click)="toggleSearch()">
-          </ion-icon>
-        </div>
-      </div>
-  
-      <!-- Barra de busca -->
-      <div class="search-bar-wrapper" [class.visible]="showSearch">
-        <div class="search-input-wrapper">
-          <ion-icon name="search-outline" class="search-input-icon"></ion-icon>
-          <input
-            class="search-input"
-            placeholder="Buscar animal..."
-            [(ngModel)]="termoBusca"
-            (input)="filtrar()">
-          <ion-icon
-            *ngIf="termoBusca"
-            name="close-circle-outline"
-            class="search-clear-icon"
-            (click)="limparBusca()">
-          </ion-icon>
-        </div>
-      </div>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content [scrollY]="true">
-    <div class="lista-adocoes">
-  
-      <div *ngIf="petsFiltrados.length === 0" class="sem-resultados">
-        <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>
-        <p>Nenhum animal encontrado</p>
-      </div>
-  
-      <div
-        class="pet-card"
-        *ngFor="let pet of petsFiltrados"
-        (click)="abrirDetalhe(pet)">
-        <div class="pet-header">
-          <span>{{ pet.titulo }}</span>
-          <span>{{ pet.idade }}</span>
-        </div>
-        <div class="pet-content">
-          <img [src]="pet.imagem" [alt]="pet.titulo" class="pet-image">
-          <div class="pet-info">{{ pet.descricao }}</div>
-        </div>
-      </div>
-  
-    </div>
-  </ion-content>
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Adoções</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleSearch()">
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="showSearch">
+    <ion-searchbar 
+      [(ngModel)]="termoBusca" 
+      (ionInput)="filtrar()" 
+      placeholder="Buscar pet..." 
+      animated="true">
+    </ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let pet of petsFiltrados">
+        <ion-card class="pet-card" (click)="abrirDetalhe(pet)">
+          <div class="image-container">
+            <img [src]="pet.imagem" alt="{{ pet.titulo }}" loading="lazy" />
+            <div class="category-badge">Adoção</div>
+          </div>
+
+          <ion-card-header>
+            <ion-card-title class="pet-title">{{ pet.titulo }}</ion-card-title>
+            <ion-card-subtitle class="pet-subtitle">
+              <ion-icon name="time-outline"></ion-icon> {{ pet.idade }}
+            </ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content class="pet-description">
+            {{ pet.descricao }}
+          </ion-card-content>
+          
+          <div class="card-footer">
+            <ion-button fill="clear" size="small">Ver Detalhes</ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="empty-state" *ngIf="petsFiltrados.length === 0">
+    <ion-icon name="paw-outline"></ion-icon>
+    <p>Nenhum pet encontrado por aqui...</p>
+  </div>
+</ion-content>

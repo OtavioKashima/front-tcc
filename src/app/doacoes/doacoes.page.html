@@ -1,85 +1,60 @@
-<ion-header class="custom-header">
+<ion-header [translucent]="true">
   <ion-toolbar class="custom-toolbar">
     <div class="header-content">
-
       <div class="title-section">
-        <ion-icon name="cash-outline" size="large"></ion-icon>
-        <ion-title>Doe</ion-title>
+        <ion-icon name="heart" class="header-icon"></ion-icon>
+        <span class="header-title">Doe</span>
       </div>
-
       <div class="search-section">
-        <ion-icon name="search-outline" size="large"></ion-icon>
+        <ion-icon
+          [name]="showSearch ? 'close-outline' : 'search-outline'"
+          class="header-icon"
+          (click)="toggleSearch()">
+        </ion-icon>
       </div>
+    </div>
 
+    <!-- Barra de busca -->
+    <div class="search-bar-wrapper" [class.visible]="showSearch">
+      <div class="search-input-wrapper">
+        <ion-icon name="search-outline" class="search-input-icon"></ion-icon>
+        <input
+          class="search-input"
+          placeholder="Buscar animal..."
+          [(ngModel)]="termoBusca"
+          (input)="filtrar()">
+        <ion-icon
+          *ngIf="termoBusca"
+          name="close-circle-outline"
+          class="search-clear-icon"
+          (click)="limparBusca()">
+        </ion-icon>
+      </div>
     </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [scrollY]="true">
+  <div class="lista-adocoes">
 
-  <!-- Card 1 -->
-  <div class="donation-card">
-
-    <div class="donation-header">
-      Ajude o Jorge
+    <div *ngIf="petsFiltrados.length === 0" class="sem-resultados">
+      <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhum animal encontrado</p>
     </div>
 
-    <div class="donation-content">
-
-      <img 
-      src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400"
-      class="donation-image">
-
-      <div class="donation-info">
-        Recentemente eu descobri que meu gato tem alopecia, e infelizmente eu não tenho dinheiro para o tratamento.
+    <div
+      class="pet-card"
+      *ngFor="let pet of petsFiltrados"
+      (click)="abrirDetalhe(pet)">
+      <div class="pet-header">
+        <span>{{ pet.titulo }}</span>
+        <span>{{ pet.idade }}</span>
       </div>
-
+      <div class="pet-content">
+        <img [src]="pet.imagem" [alt]="pet.titulo" class="pet-image">
+        <div class="pet-info">{{ pet.descricao }}</div>
+      </div>
     </div>
 
   </div>
-
-
-  <!-- Card 2 -->
-  <div class="donation-card">
-
-    <div class="donation-header">
-      Falta de ração
-    </div>
-
-    <div class="donation-content">
-
-      <img 
-      src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400"
-      class="donation-image">
-
-      <div class="donation-info">
-        Eu sou dono de um abrigo para cachorros e mesmo cuidando deles o custo da comida vem aumentando.
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- Card 3 -->
-  <div class="donation-card">
-
-    <div class="donation-header">
-      Remédios
-    </div>
-
-    <div class="donation-content">
-
-      <img 
-      src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400"
-      class="donation-image">
-
-      <div class="donation-info">
-        Eu tenho um cachorro idoso e ele precisa de remédios caros que infelizmente não consigo pagar.
-      </div>
-
-    </div>
-
-  </div>
-
 </ion-content>
