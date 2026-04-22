@@ -1,39 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-// Toolbar
-.custom-toolbar {
-  --background: transparent;
-  --color: white;
-  --border-style: none;
-  --box-shadow: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
-
-.back-btn {
-  --color: white;
-  --background: rgba(0,0,0,0.25);
-  --border-radius: 50%;
-  --padding-start: 8px;
-  --padding-end: 8px;
-  width: 36px;
-  height: 36px;
-  margin: 4px 8px;
-  border-radius: 50%;
-}
-
+// =============================================
+// Content sem header
+// =============================================
 ion-content {
   --background: #f5f7f6;
 }
 
+// =============================================
+// Botões flutuantes sobre a imagem
+// =============================================
+.floating-buttons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 12px 0;
+}
+
+.float-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 2px solid #4eca88;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(78, 202, 136, 0.2);
+  transition: all 0.2s ease;
+  padding: 0;
+
+  &:active {
+    background: #4eca88;
+
+    .seta-voltar {
+      color: white;
+    }
+  }
+}
+
+.seta-voltar {
+  font-size: 20px;
+  color: #4eca88;
+  transition: color 0.2s ease;
+}
+
+// =============================================
 // Hero
+// =============================================
 .hero-image-wrapper {
   position: relative;
   width: 100%;
-  height: 340px;
+  height: 360px;
   overflow: hidden;
 }
 
@@ -92,7 +116,9 @@ ion-content {
   }
 }
 
+// =============================================
 // Body
+// =============================================
 .content-body {
   padding: 16px 16px 100px;
   display: flex;
@@ -166,7 +192,9 @@ ion-content {
   }
 }
 
+// =============================================
 // Seção
+// =============================================
 .section {
   background: white;
   border-radius: 16px;
@@ -191,7 +219,9 @@ ion-content {
   margin: 0;
 }
 
+// =============================================
 // Chips
+// =============================================
 .chips-row {
   display: flex;
   flex-wrap: wrap;
@@ -217,7 +247,9 @@ ion-content {
   }
 }
 
+// =============================================
 // Botão fixo
+// =============================================
 .bottom-bar {
   position: fixed;
   bottom: 0;

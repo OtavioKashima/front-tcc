@@ -11,22 +11,22 @@ interface Comentario {
 interface Usuario {
   nome: string;
   avatar: string;
-  cidade: string; // "Cidade, UF"
+  cidade: string;
 }
 
 interface Pet {
   titulo: string;
-  tipoAnimal: string;    // cachorro, gato, pássaro...
+  tipoAnimal: string;
   raca: string;
-  idadeTexto: string;    // texto exibido: "6 meses", "3 anos"
-  idadeMeses: number;    // para filtro numérico
+  idadeTexto: string;
+  idadeMeses: number;
   imagem: string;
   descricao: string;
   descricaoCompleta: string;
   usuario: Usuario;
   liked?: boolean;
   showHeart?: boolean;
-  saved?: boolean;       // ← NOVO: controla o bookmark favorito
+  saved?: boolean;
 }
 
 interface Filtros {
@@ -34,7 +34,7 @@ interface Filtros {
   raca: string;
   cidade: string;
   estado: string;
-  idade: string; // '', 'filhote', 'jovem', 'adulto', 'idoso'
+  idade: string;
 }
 
 @Component({
@@ -63,38 +63,104 @@ export class AdocoesPage {
 
   pets: Pet[] = [
     {
-      titulo: 'Pitbulls - Ambos Gêneros',
-      tipoAnimal: 'cachorro',
-      raca: 'Pitbull',
-      idadeTexto: '1 ano',
-      idadeMeses: 12,
-      imagem: 'https://i.pinimg.com/736x/d3/87/ce/d387cefdbee49054a82b283e5bc2f65f.jpg',
-      descricao: 'Minha cachorra deu muita cria e eu não tenho como cuidar de todos os filhotes...',
-      descricaoCompleta: 'Minha cachorra deu muita cria e eu não tenho como cuidar de todos os filhotes.',
+      titulo: 'Gato - Fêmea',
+      tipoAnimal: 'gato',
+      raca: 'Vira-lata',
+      idadeTexto: 'Filhote',
+      idadeMeses: 4,
+      imagem: 'https://img.olx.com.br/images/26/263662263627797.jpg',
+      descricao: 'Gatinha fêmea, ainda filhote, muito dócil e carinhosa. Adora brincar e estar próxima das pessoas.',
+      descricaoCompleta: 'Gatinha fêmea, ainda filhote, muito dócil e carinhosa. Adora brincar e estar próxima das pessoas. Procura um lar responsável que ofereça cuidado, atenção e amor.',
       usuario: { nome: 'Regina Almeida', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', cidade: 'São Paulo, SP' }
     },
     {
-      titulo: 'Maritaca - Macho',
-      tipoAnimal: 'pássaro',
-      raca: 'Maritaca',
-      idadeTexto: '3 anos',
-      idadeMeses: 36,
-      imagem: 'https://i.pinimg.com/1200x/6a/52/5a/6a525af45c71da21660ade37a065f733.jpg',
-      descricao: 'Eu comprei uma maritaca achando que ia ser legal, mas meu vizinho reclama do barulho...',
-      descricaoCompleta: 'Eu comprei uma maritaca achando que ia ser legal, mas meu vizinho de baixo reclama do barulho.',
+      titulo: 'Gato - Macho',
+      tipoAnimal: 'gato',
+      raca: 'Vira-lata',
+      idadeTexto: 'Filhote',
+      idadeMeses: 4,
+      imagem: 'https://images.openai.com/static-rsc-4/NGLjatZFsVVQKPAjzU7PlEQmJYe6keV6GTh4OhqYLu6lHMQHZg7YaSfoKbcd7RTAWxXCmfNPCohcXzGSxut9nJDxCgcqlafolhgjURCDGIi89t66IW41SgCmopm1TURO39e6oWfipqgpBNTOoj1B-kQHGnPcj_7WATcUDo7PtT7yAX-TiaLGBIzpSHdXHiut?purpose=fullsize',
+      descricao: 'Gatinho macho, ainda filhote, dócil e muito carinhoso. É brincalhão, curioso e adora interagir com as pessoas.',
+      descricaoCompleta: 'Gatinho macho, ainda filhote, dócil e muito carinhoso. É brincalhão, curioso e adora interagir com as pessoas. Procura um lar responsável que ofereça cuidado, atenção e amor.',
       usuario: { nome: 'Marcos Oliveira', avatar: 'https://randomuser.me/api/portraits/men/22.jpg', cidade: 'Campinas, SP' }
     },
     {
       titulo: 'Gato - Macho',
       tipoAnimal: 'gato',
       raca: 'Vira-lata',
-      idadeTexto: '6 meses',
-      idadeMeses: 6,
-      imagem: 'https://i.pinimg.com/736x/47/a4/cc/47a4cc82153975f696ab99559f2ce9c8.jpg',
-      descricao: 'A gata da minha irmã deu cria e ela não quer mais gatos, estamos doando...',
-      descricaoCompleta: 'A gata da minha irmã deu cria e ela não quer mais gatos, então estamos doando os filhotes.',
+      idadeTexto: 'Adulto',
+      idadeMeses: 48,
+      imagem: 'https://cdn.shopify.com/s/files/1/0500/8965/6473/files/Cleiton2_480x480.jpg?v=1662048905',
+      descricao: 'Gatinho frajolinha, adulto, muito dócil e carinhoso. É tranquilo, companheiro e adora a presença das pessoas.',
+      descricaoCompleta: 'Gatinho frajolinha, adulto, muito dócil e carinhoso. É tranquilo, companheiro e adora a presença das pessoas. Procura um lar responsável que ofereça cuidado, atenção e muito amor.',
       usuario: { nome: 'Fernanda Costa', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', cidade: 'Curitiba, PR' }
-    }
+    },
+    {
+      titulo: 'Gato - Macho',
+      tipoAnimal: 'gato',
+      raca: 'Vira-lata',
+      idadeTexto: 'Adulto',
+      idadeMeses: 36,
+      imagem: 'https://cdn.crusoe.com.br/uploads/2025/08/pexels-furkanakt-28934306-scaled.jpg',
+      descricao: 'Gato laranja, adulto, dócil e muito carinhoso. É tranquilo, companheiro e adora a presença das pessoas.',
+      descricaoCompleta: 'Gato laranja, adulto, dócil e muito carinhoso. É tranquilo, companheiro e adora a presença das pessoas. Procura um lar responsável que ofereça cuidado, atenção e muito amor.',
+      usuario: { nome: 'Lucas Pereira', avatar: 'https://randomuser.me/api/portraits/men/45.jpg', cidade: 'Belo Horizonte, MG' }
+    },
+    {
+      titulo: 'Cachorro - Macho',
+      tipoAnimal: 'cachorro',
+      raca: 'Vira-lata',
+      idadeTexto: 'Filhote',
+      idadeMeses: 4,
+      imagem: 'https://adotar.com.br/painel/upload/2023-05/animais_imagem988506.jpg',
+      descricao: 'Cachorrinho, ainda filhote, muito dócil e carinhoso. É brincalhão, cheio de energia e adora a companhia das pessoas.',
+      descricaoCompleta: 'Cachorrinho, ainda filhote, muito dócil e carinhoso. É brincalhão, cheio de energia e adora a companhia das pessoas. Procura um lar responsável que ofereça cuidado, atenção e muito amor.',
+      usuario: { nome: 'Juliana Santos', avatar: 'https://randomuser.me/api/portraits/women/30.jpg', cidade: 'Porto Alegre, RS' }
+    },
+    {
+      titulo: 'Cadela - Fêmea',
+      tipoAnimal: 'cachorro',
+      raca: 'Vira-lata',
+      idadeTexto: 'Filhote',
+      idadeMeses: 5,
+      imagem: 'https://www.patasdacasa.com.br/sites/default/files/noticias/2021/06/cachorro-vira-lata-filhote-quais-os-cuidados-mais-importantes-durante-essa-fase.jpg',
+      descricao: 'Cadelinha, ainda filhote, muito ativa e cheia de energia. É brincalhona, curiosa e adora aprontar enquanto descobre o mundo.',
+      descricaoCompleta: 'Cadelinha, ainda filhote, muito ativa e cheia de energia. É brincalhona, curiosa e adora aprontar enquanto descobre o mundo. Procura um lar paciente e responsável que ofereça cuidado, atenção e amor.',
+      usuario: { nome: 'Carla Mendes', avatar: 'https://randomuser.me/api/portraits/women/55.jpg', cidade: 'Florianópolis, SC' }
+    },
+    {
+      titulo: 'Cadela - Fêmea',
+      tipoAnimal: 'cachorro',
+      raca: 'Vira-lata',
+      idadeTexto: 'Jovem',
+      idadeMeses: 18,
+      imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS96sqG_kgeWzNUSWaCJoNJ3nJ0xJ2z8nwzdA&s',
+      descricao: 'Cadelinha muito carinhosa e carente, adora atenção e estar sempre por perto. É dócil, companheira e ama receber carinho.',
+      descricaoCompleta: 'Cadelinha muito carinhosa e carente, adora atenção e estar sempre por perto. É dócil, companheira e ama receber carinho. Procura um lar responsável que ofereça muito amor, cuidado e presença constante.',
+      usuario: { nome: 'Roberta Lima', avatar: 'https://randomuser.me/api/portraits/women/72.jpg', cidade: 'Ribeirão Preto, SP' }
+    },
+    {
+      titulo: 'Coelha - Fêmea',
+      tipoAnimal: 'coelho',
+      raca: 'Vira-lata',
+      idadeTexto: 'Jovem',
+      idadeMeses: 8,
+      imagem: 'https://vipzinho.com.br/wp-content/uploads/2025/08/coelhos.jpeg',
+      descricao: 'Coelhinha fêmea, dócil e muito tranquila. É delicada, curiosa e gosta de um ambiente calmo.',
+      descricaoCompleta: 'Coelhinha fêmea, dócil e muito tranquila. É delicada, curiosa e gosta de um ambiente calmo. Procura um lar responsável que ofereça cuidado, carinho e segurança.',
+      usuario: { nome: 'Patricia Souza', avatar: 'https://randomuser.me/api/portraits/women/82.jpg', cidade: 'Santos, SP' }
+    },
+    {
+      titulo: 'Maritaca - Fêmea',
+      tipoAnimal: 'pássaro',
+      raca: 'Maritaca',
+      idadeTexto: 'Adulto',
+      idadeMeses: 36,
+      imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKfXShRyYUS7vo2B3GTNBqTFdzlVYqhTTgoQ&s',
+      descricao: 'Maritaca, muito ativa e comunicativa. É curiosa, inteligente e adora interagir com as pessoas.',
+      descricaoCompleta: 'Maritaca, muito ativa e comunicativa. É curiosa, inteligente e adora interagir com as pessoas. Procura um lar responsável que ofereça atenção, cuidado e um ambiente adequado.',
+      usuario: { nome: 'Eduardo Ramos', avatar: 'https://randomuser.me/api/portraits/men/60.jpg', cidade: 'Campinas, SP' }
+    },
   ];
 
   petsFiltrados: Pet[] = [...this.pets];
@@ -111,12 +177,12 @@ export class AdocoesPage {
   }
 
   filtrar() {
-    const termo    = this.termoBusca.toLowerCase().trim();
-    const animal   = this.filtros.animal.toLowerCase().trim();
-    const raca     = this.filtros.raca.toLowerCase().trim();
-    const cidade   = this.filtros.cidade.toLowerCase().trim();
-    const estado   = this.filtros.estado;
-    const idadeFx  = this.filtros.idade;
+    const termo   = this.termoBusca.toLowerCase().trim();
+    const animal  = this.filtros.animal.toLowerCase().trim();
+    const raca    = this.filtros.raca.toLowerCase().trim();
+    const cidade  = this.filtros.cidade.toLowerCase().trim();
+    const estado  = this.filtros.estado;
+    const idadeFx = this.filtros.idade;
 
     this.petsFiltrados = this.pets.filter(pet => {
       const cidadeCompleta = pet.usuario.cidade.toLowerCase();
@@ -131,6 +197,9 @@ export class AdocoesPage {
 
       return matchTermo && matchAnimal && matchRaca && matchCidade && matchEstado && matchIdade;
     });
+
+    // Salvos sempre no topo
+    this.petsFiltrados.sort((a, b) => (b.saved ? 1 : 0) - (a.saved ? 1 : 0));
   }
 
   checarFaixaIdade(meses: number, faixa: string): boolean {
@@ -198,9 +267,9 @@ export class AdocoesPage {
     }
   }
 
-  // ← NOVO: alterna o estado de favorito do pet
   salvar(pet: Pet) {
     pet.saved = !pet.saved;
+    this.filtrar();
   }
 
   abrirComentarios(pet: Pet) { this.comentariosAbertos = true; }
