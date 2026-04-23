@@ -1,0 +1,106 @@
+<ion-content [scrollY]="true">
+
+  <!-- Botões flutuantes -->
+  <div class="floating-buttons">
+    <button class="float-btn" (click)="goBack()">
+      <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+    </button>
+    
+  </div>
+
+  <!-- Hero banner -->
+  <div class="hero-banner">
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <img
+        src="https://adotar.com.br/uploadadm/logo_ong4041.jpg?w=410&format=webp"
+        alt="Logo Frada"
+        class="ong-logo">
+      <h1 class="ong-nome">Frada</h1>
+      <span class="ong-cidade">
+        <ion-icon name="location-outline"></ion-icon>
+        São Paulo, SP
+      </span>
+    </div>
+  </div>
+
+  <div class="content-body">
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-value">128</span>
+        <span class="stat-label">Adoções</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">34</span>
+        <span class="stat-label">Animais</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-value">6</span>
+        <span class="stat-label">Anos ativa</span>
+      </div>
+    </div>
+
+    <!-- Sobre a ONG -->
+    <div class="section">
+      <h2 class="section-title">Sobre a ONG</h2>
+      <p class="section-text">
+        A Frada é uma organização sem fins lucrativos dedicada ao resgate, cuidado e adoção responsável de animais abandonados. Atuamos desde 2018 na Grande São Paulo, promovendo o bem-estar animal e a consciência sobre adoção.
+      </p>
+    </div>
+
+    <!-- Contato -->
+    <div class="section">
+      <h2 class="section-title">Contato</h2>
+      <div class="contact-list">
+        <div class="contact-item" (click)="abrirWhatsapp()">
+          <div class="contact-icon-wrap">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+          </div>
+          <div class="contact-info">
+            <span class="contact-label">WhatsApp</span>
+            <span class="contact-value">(11) 99999-9999</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="contact-arrow"></ion-icon>
+        </div>
+        <div class="contact-item" (click)="abrirInstagram()">
+          <div class="contact-icon-wrap">
+            <ion-icon name="logo-instagram"></ion-icon>
+          </div>
+          <div class="contact-info">
+            <span class="contact-label">Instagram</span>
+            <span class="contact-value">@frada.ong</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="contact-arrow"></ion-icon>
+        </div>
+        <div class="contact-item" (click)="abrirEmail()">
+          <div class="contact-icon-wrap">
+            <ion-icon name="mail-outline"></ion-icon>
+          </div>
+          <div class="contact-info">
+            <span class="contact-label">E-mail</span>
+            <span class="contact-value">contato@frada.org.br</span>
+          </div>
+          <ion-icon name="chevron-forward-outline" class="contact-arrow"></ion-icon>
+        </div>
+      </div>
+    </div>
+
+    <!-- Animais disponíveis -->
+    <div class="section">
+      <h2 class="section-title">Animais disponíveis</h2>
+      <p class="section-text">Acesse a aba de adoções para ver todos os animais cadastrados pela Frada.</p>
+    </div>
+
+  </div>
+
+</ion-content>
+
+<!-- Botão fixo -->
+<div class="bottom-bar">
+  <button class="contact-btn" (click)="abrirWhatsapp()">
+    <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+    Entrar em contato
+  </button>
+</div>

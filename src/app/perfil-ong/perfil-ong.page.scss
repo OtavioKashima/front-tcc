@@ -1,14 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-// =============================================
-// Content sem header
-// =============================================
 ion-content {
   --background: #f5f7f6;
 }
 
 // =============================================
-// Botões flutuantes sobre a imagem
+// Botões flutuantes
 // =============================================
 .floating-buttons {
   position: absolute;
@@ -38,7 +35,6 @@ ion-content {
 
   &:active {
     background: #4eca88;
-
     .seta-voltar {
       color: white;
     }
@@ -54,68 +50,64 @@ ion-content {
 // =============================================
 // Hero
 // =============================================
-.hero-image-wrapper {
+.hero-banner {
   position: relative;
   width: 100%;
-  height: 360px;
-  overflow: hidden;
+  height: 280px;
+  background: linear-gradient(135deg, #2d9e65, #4eca88);
+  display: flex;
+  align-items: flex-end;
 }
 
-.hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.hero-overlay {
+.hero-gradient {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 60px 20px 20px;
-  background: linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.45), transparent);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  padding-bottom: 24px;
+  gap: 8px;
 }
 
-.hero-badge {
-  background: #4eca88;
-  color: white;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  width: fit-content;
+.ong-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 16px;
+  object-fit: contain;
+  background: white;
+  padding: 6px;
+  border: 3px solid white;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 
-.hero-title {
+.ong-nome {
   font-family: 'Nunito', sans-serif;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 900;
   color: white;
   margin: 0;
   text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
-.hero-age {
+.ong-cidade {
   font-family: 'Nunito', sans-serif;
   font-size: 0.82rem;
   font-weight: 600;
   color: rgba(255,255,255,0.85);
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding-left: 2px;
-}
+  gap: 4px;
 
-.hero-age-icon {
-  font-size: 1rem;
-  margin-left: 2px;
+  ion-icon {
+    font-size: 0.9rem;
+  }
 }
 
 // =============================================
@@ -128,65 +120,41 @@ ion-content {
   gap: 20px;
 }
 
-// Owner card
-.owner-card {
-  background: white;
-  border-radius: 16px;
-  padding: 14px 16px;
+// =============================================
+// Stats
+// =============================================
+.stats-row {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  &:active {
-    transform: scale(0.98);
-    box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-  }
+  gap: 10px;
 }
 
-.owner-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #4eca88;
-  flex-shrink: 0;
-}
-
-.owner-avatar--ong {
-  border-radius: 10px;
-  object-fit: contain;
-  background: white;
-  padding: 2px;
-}
-
-.owner-info {
+.stat-card {
   flex: 1;
+  background: white;
+  border-radius: 14px;
+  padding: 16px 10px;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  text-align: center;
 }
 
-.owner-label {
+.stat-value {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #4eca88;
+}
+
+.stat-label {
   font-family: 'Nunito', sans-serif;
   font-size: 0.72rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #aab5b0;
-}
-
-.owner-name {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: #1a1a1a;
-}
-
-.ong-arrow {
-  font-size: 1.1rem;
-  color: #4eca88;
-  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 // =============================================
@@ -217,69 +185,68 @@ ion-content {
 }
 
 // =============================================
-// Detalhes do animal
+// Contato
 // =============================================
-.animal-details {
-  display: flex;
-  gap: 10px;
-}
-
-.detail-card {
-  flex: 1;
-  background: white;
-  border-radius: 14px;
-  padding: 14px 10px;
+.contact-list {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  text-align: center;
+  gap: 12px;
 }
 
-.detail-label {
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: opacity 0.2s;
+
+  &:active {
+    opacity: 0.6;
+  }
+}
+
+.contact-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: #f0faf5;
+  border: 1.5px solid #4eca88;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  ion-icon {
+    font-size: 1.2rem;
+    color: #4eca88;
+  }
+}
+
+.contact-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.contact-label {
   font-family: 'Nunito', sans-serif;
   font-size: 0.72rem;
-  font-weight: 800;
-  color: #4eca88;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: #aab5b0;
 }
 
-.detail-value {
+.contact-value {
   font-family: 'Nunito', sans-serif;
   font-size: 0.88rem;
   font-weight: 800;
   color: #1a1a1a;
 }
 
-// =============================================
-// Chips — ocupam largura total
-// =============================================
-.chips-row {
-  display: flex;
-  gap: 10px;
-}
-
-.chip {
-  flex: 1;
-  background: white;
-  border-radius: 20px;
-  padding: 10px 14px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: #4a5e56;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-
-  ion-icon {
-    font-size: 1rem;
-    color: #4eca88;
-  }
+.contact-arrow {
+  font-size: 1rem;
+  color: #4eca88;
 }
 
 // =============================================
@@ -296,7 +263,7 @@ ion-content {
   z-index: 100;
 }
 
-.adopt-btn {
+.contact-btn {
   width: 100%;
   height: 52px;
   background: linear-gradient(135deg, #66d9a6, #38b87a);

@@ -66,7 +66,11 @@ const routes: Routes = [
   {
     path: 'chat-ong',
     loadChildren: () => import('./chat-ong/chat-ong.module').then( m => m.ChatOngPageModule)
+  },  {
+    path: 'perfil-ong',
+    loadChildren: () => import('./perfil-ong/perfil-ong.module').then( m => m.PerfilOngPageModule)
   }
+
 
 
   // As rotas 'adocoes', 'doacoes', 'perfil', 'denuncias' FORAM REMOVIDAS DAQUI

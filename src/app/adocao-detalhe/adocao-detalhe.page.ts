@@ -8,12 +8,21 @@ interface Pet {
   imagem: string;
   descricao: string;
   descricaoCompleta: string;
+  raca?: string;
+  genero?: string;
   usuario?: {
     nome: string;
     avatar: string;
     cidade: string;
   };
 }
+
+const ONG_FRADA = {
+  nome: 'Frada',
+  avatar: 'https://adotar.com.br/uploadadm/logo_ong4041.jpg?w=410&format=webp',
+  cidade: 'São Paulo',
+  whatsapp: '5511999999999'
+};
 
 @Component({
   selector: 'app-adocao-detalhe',
@@ -25,10 +34,12 @@ export class AdocaoDetalhePage implements OnInit {
 
   pet: Pet = {
     titulo: '',
-    idade: '',
+    idade: '5 anos',
     imagem: '',
     descricao: '',
-    descricaoCompleta: ''
+    descricaoCompleta: '',
+    raca: 'SRD',
+    genero: 'Macho'
   };
 
   constructor(
@@ -37,38 +48,49 @@ export class AdocaoDetalhePage implements OnInit {
     private toastController: ToastController
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const nav = this.router.getCurrentNavigation();
     if (nav?.extras?.state?.['pet']) {
-      this.pet = nav.extras.state['pet'];
+      const petRecebido = nav.extras.state['pet'];
+      this.pet = {
+        ...petRecebido,
+        raca: petRecebido.raca === 'Viralata' ? 'SRD' : (petRecebido.raca || 'SRD'),
+        genero: petRecebido.genero || 'Macho',
+        idade: petRecebido.idade || '5 anos'
+      };
     } else if (history.state?.pet) {
-      this.pet = history.state.pet;
+      const petRecebido = history.state.pet;
+      this.pet = {
+        ...petRecebido,
+        raca: petRecebido.raca === 'Viralata' ? 'SRD' : (petRecebido.raca || 'SRD'),
+        genero: petRecebido.genero || 'Macho',
+        idade: petRecebido.idade || '5 anos'
+      };
     }
   }
 
-  queroAdotar() {
+  irParaPerfilOng(): void {
+    this.navCtrl.navigateForward('/perfil-ong', {
+      state: { ong: ONG_FRADA }
+    });
+  }
+
+  queroAdotar(): void {
     this.navCtrl.navigateForward('/chat-ong', {
       state: {
-        ong: this.pet.usuario,
+        ong: ONG_FRADA,
         pet: this.pet
       }
     });
   }
 
-  entrarEmContato() {
-    const numero = '5511999999999';
-    const mensagem = `Olá! Vi o anúncio do(a) ${this.pet.titulo} e tenho interesse em adotar.`;
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
-  }
-
-  irParaComentarios() {
+  irParaComentarios(): void {
     this.navCtrl.navigateForward('/comentario', {
       state: { pet: this.pet }
     });
   }
 
-  async compartilhar() {
+  async compartilhar(): Promise<void> {
     if (navigator.share) {
       await navigator.share({
         title: this.pet.titulo,

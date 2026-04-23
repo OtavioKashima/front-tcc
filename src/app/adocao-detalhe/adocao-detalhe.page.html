@@ -16,28 +16,23 @@
     <div class="hero-overlay">
       <div class="hero-badge">Para Adoção</div>
       <h1 class="hero-title">{{ pet.titulo }}</h1>
-      <span class="hero-age">
-        <ion-icon name="time-outline"></ion-icon>
-        {{ pet.idade }}
-      </span>
+      
     </div>
   </div>
 
   <div class="content-body">
 
-    <!-- Dono -->
-    <div class="owner-card">
+    <!-- ONG clicável -->
+    <div class="owner-card" (click)="irParaPerfilOng()">
       <img
-        src="https://randomuser.me/api/portraits/women/44.jpg"
-        class="owner-avatar">
+        src="https://adotar.com.br/uploadadm/logo_ong4041.jpg?w=410&format=webp"
+        alt="Logo Frada"
+        class="owner-avatar owner-avatar--ong">
       <div class="owner-info">
-        <span class="owner-label">Publicado por</span>
-        <span class="owner-name">Regina Almeida</span>
+        <span class="owner-label">ONG Responsável</span>
+        <span class="owner-name">Frada</span>
       </div>
-      <button class="owner-contact-btn" (click)="entrarEmContato()">
-        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-        Contato
-      </button>
+      <ion-icon name="chevron-forward-outline" class="ong-arrow"></ion-icon>
     </div>
 
     <!-- Sobre -->
@@ -46,25 +41,43 @@
       <p class="section-text">{{ pet.descricaoCompleta }}</p>
     </div>
 
-    <!-- Info chips -->
-    <div class="chips-row">
-      <div class="chip">
-        <ion-icon name="calendar-outline"></ion-icon>
-        {{ pet.idade }}
-      </div>
-      <div class="chip">
-        <ion-icon name="paw-outline"></ion-icon>
-        Animal doméstico
-      </div>
-      <div class="chip">
-        <ion-icon name="heart-outline"></ion-icon>
-        Precisa de lar
-      </div>
+    
+        <!-- Info chips -->
+        <div class="chips-row">
+          <div class="chip">
+            <ion-icon name="paw-outline"></ion-icon>
+            Animal doméstico
+          </div>
+          <div class="chip">
+            <ion-icon name="heart-outline"></ion-icon>
+            Precisa de lar
+          </div>
+        </div>
+    
+   <!-- Detalhes do animal: raça, gênero, idade -->
+   <div class="animal-details">
+    <div class="detail-card">
+      <span class="detail-label">Raça</span>
+      <span class="detail-value">{{ pet.raca }}</span>
     </div>
+    <div class="detail-card">
+      <span class="detail-label">Gênero</span>
+      <span class="detail-value">{{ pet.genero }}</span>
+    </div>
+    <div class="detail-card">
+      <span class="detail-label">Idade</span>
+      <span class="detail-value">{{ pet.idade }}</span>
+    </div>
+  </div>
+
+
+    
 
   </div>
 
 </ion-content>
+
+
 
 <!-- Botão fixo de adotar -->
 <div class="bottom-bar">
