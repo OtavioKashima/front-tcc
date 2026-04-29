@@ -1,12 +1,33 @@
-<ion-header class="custom-header">
+<ion-header [translucent]="true">
   <ion-toolbar class="custom-toolbar">
     <div class="header-content">
       <div class="title-section">
-        <ion-icon name="heart" size="large"></ion-icon>
-        <ion-title>Doe</ion-title>
+        <ion-icon name="heart" class="header-icon"></ion-icon>
+        <span class="header-title">Doe</span>
       </div>
-      <div class="search-section">
-        <ion-icon name="search-outline" size="large"></ion-icon>
+      <div class="header-actions">
+        <ion-icon
+          [name]="showSearch ? 'close-outline' : 'search-outline'"
+          class="header-icon"
+          (click)="toggleSearch()">
+        </ion-icon>
+      </div>
+    </div>
+
+    <div class="search-bar-wrapper" [class.visible]="showSearch">
+      <div class="search-input-wrapper">
+        <ion-icon name="search-outline" class="search-input-icon"></ion-icon>
+        <input
+          class="search-input"
+          placeholder="Buscar..."
+          [(ngModel)]="termoBusca"
+          (input)="filtrarCards()">
+        <ion-icon
+          *ngIf="termoBusca"
+          name="close-circle-outline"
+          class="search-clear-icon"
+          (click)="limparBusca()">
+        </ion-icon>
       </div>
     </div>
   </ion-toolbar>
@@ -30,22 +51,31 @@
     <p class="donate-subtitle">Escolha ou insira o valor que deseja doar:</p>
 
     <div class="valor-rapido">
-      <button onclick="setValor(10)">R$ 10</button>
-      <button onclick="setValor(25)">R$ 25</button>
-      <button onclick="setValor(50)">R$ 50</button>
-      <button onclick="setValor(100)">R$ 100</button>
+      <button
+        *ngFor="let v of valoresRapidos"
+        [class.ativo]="valorSelecionado === v"
+        (click)="setValor(v)">
+        R$ {{ v }}
+      </button>
     </div>
 
     <div class="input-wrap">
       <span class="input-prefix">R$</span>
-      <input type="number" id="valorDoacao" placeholder="Outro valor" class="input-valor" min="1">
+      <input
+        type="number"
+        [(ngModel)]="valorDoacao"
+        placeholder="Outro valor"
+        class="input-valor"
+        min="1"
+        (input)="valorSelecionado = null">
     </div>
 
-    <button class="btn-pagar" onclick="processarDoacao()">
-      <img src="https://logospng.org/download/mercado-pago/logo-mercado-pago-icone-1024.png"
-           onerror="this.style.display='none'"
-           style="width:22px;height:22px;border-radius:4px;vertical-align:middle;margin-right:8px;">
-      Pagar com Mercado Pago
+    <button class="btn-pagar" (click)="processarDoacao()" [disabled]="processando">
+      <img
+        src="https://logospng.org/download/mercado-pago/logo-mercado-pago-icone-1024.png"
+        onerror="this.style.display='none'"
+        style="width:22px;height:22px;border-radius:4px;vertical-align:middle;margin-right:8px;">
+      {{ processando ? 'Aguarde...' : 'Pagar com Mercado Pago' }}
     </button>
 
     <p class="seguro-label">🔒 Pagamento 100% seguro via Mercado Pago</p>
@@ -61,35 +91,21 @@
     <p>A ONG recebe o valor e decide onde ele é mais necessário: ração, remédios, cirurgias, vacinas ou abrigo. Cada real conta!</p>
   </div>
 
-  <!-- Cards ilustrativos -->
+  <!-- Cards ilustrativos filtrados -->
   <div class="section-title">Exemplos do que ajudamos</div>
 
-  <div class="donation-card">
-    <div class="donation-content">
-      <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400" class="donation-image">
-      <div class="donation-info">
-        <strong>Tratamentos de saúde</strong>
-        <p>Gatos e cachorros com doenças que precisam de atenção veterinária urgente.</p>
-      </div>
-    </div>
+  <div *ngIf="cardsFiltrados.length === 0" class="sem-resultados">
+    <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>
+    <p>Nenhum resultado encontrado</p>
+    <span class="sem-resultados-sub">Tente outro termo de busca</span>
   </div>
 
-  <div class="donation-card">
+  <div class="donation-card" *ngFor="let card of cardsFiltrados">
     <div class="donation-content">
-      <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400" class="donation-image">
+      <img [src]="card.imagem" [alt]="card.titulo" class="donation-image">
       <div class="donation-info">
-        <strong>Alimentação no abrigo</strong>
-        <p>Custeamos a ração diária de dezenas de animais em nosso abrigo.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="donation-card">
-    <div class="donation-content">
-      <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400" class="donation-image">
-      <div class="donation-info">
-        <strong>Remédios e vacinas</strong>
-        <p>Mantemos a saúde dos animais em dia com medicamentos e vacinação.</p>
+        <strong>{{ card.titulo }}</strong>
+        <p>{{ card.descricao }}</p>
       </div>
     </div>
   </div>

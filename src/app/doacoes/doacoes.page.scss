@@ -1,21 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+// =============================================
+// TOOLBAR / HEADER  (idêntico ao Adote)
+// =============================================
+ion-toolbar.custom-toolbar {
+  --background: #66d9a6;
+  --color: white;
+  --min-height: auto;
+  padding-bottom: 0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+
+.title-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: white;
+}
+
+.header-icon {
+  font-size: 1.6rem;
+  color: white;
+  cursor: pointer;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+// ── Barra de busca expansível (idêntico ao Adote) ──
+.search-bar-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 16px;
+
+  &.visible {
+    max-height: 60px;
+    padding: 0 16px 10px;
+  }
+}
+
+.search-input-wrapper {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 10px;
+  padding: 0 10px;
+  height: 38px;
+  gap: 8px;
+}
+
+.search-input-icon {
+  font-size: 1rem;
+  color: white;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  &::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}
+
+.search-clear-icon {
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+// =============================================
+// CONTENT
+// =============================================
 ion-content {
   --background: #f2f2f2;
 }
 
-/* ── Header ── */
-.custom-header { --background: #66d9a6; }
-.custom-toolbar { --background: #66d9a6; color: white; }
-.header-content { display: flex; align-items: center; width: 100%; }
-.title-section { display: flex; align-items: center; gap: 8px; }
-.search-section { margin-left: auto; }
-
-/* ── Hero ── */
+// ── Hero ──
 .hero-banner {
   background: linear-gradient(135deg, #66d9a6 0%, #3cb87a 100%);
   padding: 28px 20px 32px;
   position: relative;
   overflow: hidden;
 }
+
 .paw-bg {
   position: absolute;
   right: 16px;
@@ -25,9 +117,10 @@ ion-content {
   opacity: 0.15;
   pointer-events: none;
 }
+
 .hero-tag {
   display: inline-block;
-  background: rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.25);
   color: white;
   font-size: 11px;
   font-weight: 700;
@@ -37,34 +130,43 @@ ion-content {
   border-radius: 20px;
   margin-bottom: 10px;
 }
-.hero-text h2 {
-  margin: 0 0 6px;
-  color: white;
-  font-size: 22px;
-  font-weight: 800;
-}
-.hero-text p {
-  margin: 0;
-  color: rgba(255,255,255,0.88);
-  font-size: 13px;
-  line-height: 1.5;
-  max-width: 72%;
+
+.hero-text {
+  h2 {
+    margin: 0 0 6px;
+    color: white;
+    font-size: 22px;
+    font-weight: 800;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 72%;
+    font-family: 'Nunito', sans-serif;
+  }
 }
 
-/* ── Bloco de doação ── */
+// ── Bloco de doação ──
 .donate-block {
   margin: 16px;
   background: white;
   border-radius: 20px;
   padding: 20px 18px 22px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
+
 .donate-subtitle {
   margin: 0 0 14px;
   font-size: 13px;
   color: #666;
   font-weight: 500;
+  font-family: 'Nunito', sans-serif;
 }
+
 .valor-rapido {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -81,6 +183,7 @@ ion-content {
     color: #444;
     cursor: pointer;
     transition: all 0.15s;
+    font-family: 'Nunito', sans-serif;
 
     &.ativo {
       border-color: #66d9a6;
@@ -89,6 +192,7 @@ ion-content {
     }
   }
 }
+
 .input-wrap {
   display: flex;
   align-items: center;
@@ -102,6 +206,7 @@ ion-content {
     border-color: #66d9a6;
   }
 }
+
 .input-prefix {
   padding: 0 12px;
   font-size: 15px;
@@ -112,7 +217,9 @@ ion-content {
   display: flex;
   align-items: center;
   border-right: 2px solid #e8e8e8;
+  font-family: 'Nunito', sans-serif;
 }
+
 .input-valor {
   flex: 1;
   padding: 13px 14px;
@@ -121,7 +228,9 @@ ion-content {
   color: #333;
   outline: none;
   background: transparent;
+  font-family: 'Nunito', sans-serif;
 }
+
 .btn-pagar {
   width: 100%;
   padding: 15px;
@@ -135,20 +244,24 @@ ion-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(0,158,227,0.35);
+  box-shadow: 0 4px 14px rgba(0, 158, 227, 0.35);
   transition: opacity 0.2s;
   margin-bottom: 12px;
+  font-family: 'Nunito', sans-serif;
 
   &:active { opacity: 0.85; }
+  &:disabled { opacity: 0.65; cursor: not-allowed; }
 }
+
 .seguro-label {
   text-align: center;
   font-size: 12px;
   color: #aaa;
   margin: 0;
+  font-family: 'Nunito', sans-serif;
 }
 
-/* ── Info ONG ── */
+// ── Info ONG ──
 .ong-info-card {
   margin: 0 16px 16px;
   background: #f0fdf7;
@@ -161,8 +274,10 @@ ion-content {
     font-size: 13px;
     color: #444;
     line-height: 1.55;
+    font-family: 'Nunito', sans-serif;
   }
 }
+
 .ong-info-header {
   display: flex;
   align-items: center;
@@ -171,11 +286,12 @@ ion-content {
   font-weight: 700;
   color: #2c8a5e;
   margin-bottom: 8px;
+  font-family: 'Nunito', sans-serif;
 
   ion-icon { font-size: 18px; }
 }
 
-/* ── Section title ── */
+// ── Section title ──
 .section-title {
   margin: 4px 16px 10px;
   font-size: 13px;
@@ -183,22 +299,61 @@ ion-content {
   color: #888;
   text-transform: uppercase;
   letter-spacing: 0.6px;
+  font-family: 'Nunito', sans-serif;
 }
 
-/* ── Cards ilustrativos ── */
+// ── Sem resultados ──
+.sem-resultados {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+
+  .sem-resultados-icon {
+    font-size: 3.5rem;
+    color: #66d9a6;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #52c994;
+    margin: 0 0 4px;
+  }
+}
+
+.sem-resultados-sub {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #7dddb0;
+}
+
+// ── Cards ilustrativos ──
 .donation-card {
   margin: 0 16px 12px;
   border-radius: 16px;
   background: white;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.07);
   overflow: hidden;
+  animation: fadeIn 0.3s ease both;
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .donation-content {
   display: flex;
   gap: 12px;
   padding: 14px 16px;
   align-items: center;
 }
+
 .donation-image {
   width: 70px;
   height: 70px;
@@ -206,6 +361,7 @@ ion-content {
   object-fit: cover;
   flex-shrink: 0;
 }
+
 .donation-info {
   flex: 1;
 
@@ -214,11 +370,14 @@ ion-content {
     font-size: 13px;
     color: #222;
     margin-bottom: 4px;
+    font-family: 'Nunito', sans-serif;
   }
+
   p {
     margin: 0;
     font-size: 12px;
     color: #777;
     line-height: 1.45;
+    font-family: 'Nunito', sans-serif;
   }
 }
