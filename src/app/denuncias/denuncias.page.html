@@ -1,87 +1,70 @@
-<ion-header class="custom-header">
+<ion-header [translucent]="true">
   <ion-toolbar class="custom-toolbar">
 
     <div class="header-content">
-
       <div class="title-section">
-        <ion-icon name="alert-circle-outline" size="large"></ion-icon>
-        <ion-title>Denuncie</ion-title>
+        <ion-icon name="alert-circle-outline" size="large" class="header-icon"></ion-icon>
+        <span class="header-title">Denuncie</span>
       </div>
-
-      <div class="search-section">
-        <ion-icon name="search-outline" size="large"></ion-icon>
+      <div class="header-actions">
+        <ion-icon
+          [name]="showSearch ? 'close-outline' : 'search-outline'"
+          class="header-icon"
+          (click)="toggleSearch()">
+        </ion-icon>
       </div>
+    </div>
 
+    <div class="search-bar-wrapper" [class.visible]="showSearch">
+      <div class="search-input-wrapper">
+        <ion-icon name="search-outline" class="search-input-icon"></ion-icon>
+        <input
+          class="search-input"
+          placeholder="Buscar denúncia..."
+          [(ngModel)]="termoBusca"
+          (input)="filtrar()">
+        <ion-icon
+          *ngIf="termoBusca"
+          name="close-circle-outline"
+          class="search-clear-icon"
+          (click)="limparBusca()">
+        </ion-icon>
+      </div>
     </div>
 
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [scrollY]="true">
 
-  <!-- Card 1 -->
-  <div class="denuncia-card">
+  <div class="feed">
 
-    <div class="denuncia-header">
-      Não seja enganado
+    <div *ngIf="denunciasFiltradas.length === 0" class="sem-resultados">
+      <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhuma denúncia encontrada</p>
+      <span class="sem-resultados-sub">Tente ajustar a busca</span>
     </div>
 
-    <div class="denuncia-content">
+    <div class="denuncia-card" *ngFor="let denuncia of denunciasFiltradas">
 
-     <img 
-src="https://cdn.pixabay.com/photo/2017/09/25/13/12/dog-2785074_640.jpg"
-class="denuncia-image">
+      <div class="denuncia-header">
+        <span>{{ denuncia.titulo }}</span>
+        <div class="denuncia-acoes">
+          <button class="acao-btn" (click)="compartilhar(denuncia); $event.stopPropagation()">
+            <ion-icon name="arrow-redo-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
 
-      <div class="denuncia-info">
-        Meu vizinho se diz dono de um abrigo de animais, o que é pura fachada, ele pede dinheiro mas não ajuda os animais.
+      <div class="denuncia-content">
+        <img [src]="denuncia.imagem" [alt]="denuncia.titulo" class="denuncia-image">
+        <div class="denuncia-info">
+          <p class="denuncia-descricao">{{ denuncia.descricao }}</p>
+        </div>
       </div>
 
     </div>
 
   </div>
 
-
-  <!-- Card 2 -->
-  <div class="denuncia-card">
-
-    <div class="denuncia-header">
-      Veneno na comida
-    </div>
-
-    <div class="denuncia-content">
-
-      <img 
-      src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400"
-      class="denuncia-image">
-
-      <div class="denuncia-info">
-        Ultimamente eu e meus vizinhos percebemos várias mortes de animais na rua, tanto animais domésticos quanto de rua.
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- Card 3 -->
-  <div class="denuncia-card">
-
-    <div class="denuncia-header">
-      Maus tratos
-    </div>
-
-    <div class="denuncia-content">
-
-      <img 
-      src="https://images.unsplash.com/photo-1596495578065-6e0763fa1178?w=400"
-      class="denuncia-image">
-
-      <div class="denuncia-info">
-        Eu peguei o cachorro do meu vizinho pra mim pelo simples motivo de que ele não cuidava do animal.
-      </div>
-
-    </div>
-
-  </div>
-
-</ion-content> 
+</ion-content>
