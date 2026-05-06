@@ -1,0 +1,67 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="custom-toolbar">
+    <div class="header-content">
+      <ion-icon name="arrow-back-outline" class="header-icon" (click)="voltar()"></ion-icon>
+      <span class="header-title">Perfil</span>
+      <div class="header-spacer"></div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollY]="true">
+
+  <div class="perfil-hero">
+    <div class="avatar-wrapper">
+      <img [src]="usuario.avatar" [alt]="usuario.nome" class="avatar-img">
+    </div>
+    <h1 class="usuario-nome">{{ usuario.nome }}</h1>
+    <span class="usuario-cidade">
+      <ion-icon name="location-outline"></ion-icon>
+      {{ usuario.cidade }}
+    </span>
+    <div class="usuario-stats">
+      <div class="stat-item">
+        <span class="stat-numero">{{ denunciasUsuario.length }}</span>
+        <span class="stat-label">Denúncias</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="secao-titulo">
+    <ion-icon name="alert-circle-outline"></ion-icon>
+    <span>Denúncias feitas</span>
+  </div>
+
+  <div class="feed">
+
+    <div *ngIf="denunciasUsuario.length === 0" class="sem-resultados">
+      <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhuma denúncia encontrada</p>
+    </div>
+
+    <div
+      class="denuncia-card"
+      *ngFor="let denuncia of denunciasUsuario"
+      (click)="abrirDetalhe(denuncia)">
+
+      <div class="denuncia-header">
+        <span>{{ denuncia.titulo }}</span>
+        <span class="denuncia-data">{{ denuncia.dataFormatada }}</span>
+      </div>
+
+      <div class="denuncia-content">
+        <img [src]="denuncia.imagem" [alt]="denuncia.titulo" class="denuncia-image">
+        <div class="denuncia-info">
+          <p class="denuncia-descricao">{{ denuncia.descricao }}</p>
+          <span class="denuncia-local">
+            <ion-icon name="location-outline"></ion-icon>
+            {{ denuncia.local }}
+          </span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

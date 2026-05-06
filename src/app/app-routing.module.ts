@@ -66,10 +66,19 @@ const routes: Routes = [
   {
     path: 'chat-ong',
     loadChildren: () => import('./chat-ong/chat-ong.module').then( m => m.ChatOngPageModule)
-  },  {
+  },
+  {
     path: 'perfil-ong',
     loadChildren: () => import('./perfil-ong/perfil-ong.module').then( m => m.PerfilOngPageModule)
+  },
+  {
+    path: 'denuncia-detalhe',
+    loadChildren: () => import('./denuncia-detalhe/denuncia-detalhe.module').then( m => m.DenunciaDetalhePageModule)
+  },  {
+    path: 'perfil-usuario',
+    loadChildren: () => import('./perfil-usuario/perfil-usuario.module').then( m => m.PerfilUsuarioPageModule)
   }
+
 
 
 
