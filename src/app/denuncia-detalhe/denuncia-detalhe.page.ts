@@ -15,7 +15,6 @@ interface Denuncia {
     nome: string;
     avatar: string;
     cidade: string;
-    whatsapp?: string;
   };
 }
 
@@ -31,9 +30,9 @@ export class DenunciaDetalhePage implements OnInit {
     titulo: '',
     imagem: '',
     descricao: '',
-    tipo: 'Maus-tratos',
-    categoria: 'Animal',
-    status: 'Aberta',
+    tipo: '',
+    categoria: '',
+    status: '',
     local: '',
     dataFormatada: '',
     usuario: {
@@ -54,22 +53,6 @@ export class DenunciaDetalhePage implements OnInit {
       this.denuncia = { ...this.denuncia, ...nav.extras.state['denuncia'] };
     } else if (history.state?.denuncia) {
       this.denuncia = { ...this.denuncia, ...history.state.denuncia };
-    }
-  }
-
-  getStatusClass(): string {
-    const map: Record<string, string> = {
-      'Aberta': 'status--aberta',
-      'Em Análise': 'status--analise',
-      'Resolvida': 'status--resolvida'
-    };
-    return map[this.denuncia.status] ?? '';
-  }
-
-  entrarEmContato(): void {
-    if (this.denuncia.usuario.whatsapp) {
-      const msg = encodeURIComponent(`Olá! Vi sua denúncia "${this.denuncia.titulo}" no app e quero ajudar.`);
-      window.open(`https://wa.me/${this.denuncia.usuario.whatsapp}?text=${msg}`, '_blank');
     }
   }
 

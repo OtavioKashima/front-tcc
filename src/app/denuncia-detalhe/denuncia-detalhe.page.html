@@ -41,44 +41,18 @@
     <div class="section">
       <h2 class="section-title">Descrição da Denúncia</h2>
       <p class="section-text">{{ denuncia.descricao }}</p>
-    </div>
-
-    <!-- Chips -->
-    <div class="chips-row">
-      <div class="chip">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        {{ denuncia.tipo }}
-      </div>
-      <div class="chip">
-        <ion-icon name="time-outline"></ion-icon>
-        {{ denuncia.dataFormatada }}
-      </div>
-    </div>
-
-    <!-- Detalhes -->
-    <div class="animal-details">
-      <div class="detail-card">
-        <span class="detail-label">Status</span>
-        <span class="detail-value" [ngClass]="getStatusClass()">{{ denuncia.status }}</span>
-      </div>
-      <div class="detail-card">
-        <span class="detail-label">Categoria</span>
-        <span class="detail-value">{{ denuncia.categoria }}</span>
-      </div>
-      <div class="detail-card">
-        <span class="detail-label">Local</span>
-        <span class="detail-value">{{ denuncia.local }}</span>
+      <div class="local-row">
+        <div class="local-item">
+          <ion-icon name="time-outline"></ion-icon>
+          <span>{{ denuncia.dataFormatada }}</span>
+        </div>
+        <div class="local-item">
+          <ion-icon name="location-outline"></ion-icon>
+          <span>{{ denuncia.local }}</span>
+        </div>
       </div>
     </div>
 
   </div>
 
 </ion-content>
-
-<!-- Botão fixo -->
-<div class="bottom-bar">
-  <button class="adopt-btn report-btn" (click)="entrarEmContato()">
-    <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-    Entrar em Contato
-  </button>
-</div>

@@ -104,7 +104,7 @@ ion-content {
 // Body
 // =============================================
 .content-body {
-  padding: 16px 16px 100px;
+  padding: 16px 16px 40px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -198,123 +198,30 @@ ion-content {
 }
 
 // =============================================
-// Chips
+// Local e data
 // =============================================
-.chips-row {
+.local-row {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e8f8f0;
 }
 
-.chip {
-  flex: 1;
-  background: white;
-  border-radius: 20px;
-  padding: 10px 14px;
+.local-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-family: 'Nunito', sans-serif;
   font-size: 0.82rem;
   font-weight: 700;
   color: #54a792;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  box-shadow: 0 2px 8px rgba(102, 217, 166, 0.12);
-  border: 1px solid #d0eedd;
 
   ion-icon {
     font-size: 1rem;
     color: #66d9a6;
-  }
-}
-
-// =============================================
-// Detalhes
-// =============================================
-.animal-details {
-  display: flex;
-  gap: 10px;
-}
-
-.detail-card {
-  flex: 1;
-  background: white;
-  border-radius: 14px;
-  padding: 14px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 2px 12px rgba(102, 217, 166, 0.12);
-  border: 1px solid #d0eedd;
-  text-align: center;
-}
-
-.detail-label {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: #66d9a6;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.detail-value {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 800;
-  color: #1a1a1a;
-
-  &.status--aberta    { color: #e05555; }
-  &.status--analise   { color: #f0a500; }
-  &.status--resolvida { color: #38b87a; }
-}
-
-// =============================================
-// Botão fixo
-// =============================================
-.bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 12px 20px 28px;
-  background: white;
-  border-top: 1px solid #d0eedd;
-  z-index: 100;
-}
-
-.adopt-btn {
-  width: 100%;
-  height: 52px;
-  background: linear-gradient(135deg, #66d9a6, #38b87a);
-  color: white;
-  border: none;
-  border-radius: 14px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 1rem;
-  font-weight: 900;
-  letter-spacing: 0.5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  box-shadow: 0 6px 20px rgba(78, 202, 136, 0.4);
-  transition: all 0.2s ease;
-
-  ion-icon { font-size: 1.3rem; }
-
-  &:active {
-    transform: scale(0.97);
-    box-shadow: 0 3px 10px rgba(78, 202, 136, 0.3);
-  }
-}
-
-.report-btn {
-  background: linear-gradient(135deg, #66d9a6, #38b87a);
-  box-shadow: 0 6px 20px rgba(102, 217, 166, 0.4);
-
-  &:active {
-    box-shadow: 0 3px 10px rgba(102, 217, 166, 0.3);
+    flex-shrink: 0;
   }
 }
