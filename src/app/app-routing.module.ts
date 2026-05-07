@@ -63,6 +63,10 @@ const routes: Routes = [
   {
     path: 'comentario',
     loadChildren: () => import('./comentario/comentario.module').then( m => m.ComentarioPageModule)
+  },
+  {
+    path: 'denuncias-detalhes',
+    loadChildren: () => import('./denuncias-detalhes/denuncias-detalhes.module').then( m => m.DenunciasDetalhesPageModule)
   }
 
 
