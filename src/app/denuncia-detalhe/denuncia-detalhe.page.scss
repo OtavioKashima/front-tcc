@@ -122,6 +122,13 @@ ion-content {
   gap: 12px;
   box-shadow: 0 2px 12px rgba(102, 217, 166, 0.12);
   border: 1px solid #d0eedd;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:active {
+    background: #f0fdf6;
+    transform: scale(0.98);
+  }
 }
 
 .owner-avatar {
@@ -167,6 +174,12 @@ ion-content {
     font-size: 0.85rem;
     color: #66d9a6;
   }
+}
+
+.owner-arrow {
+  font-size: 1.1rem;
+  color: #b2e8d0;
+  flex-shrink: 0;
 }
 
 // =============================================

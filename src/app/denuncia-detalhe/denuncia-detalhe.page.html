@@ -21,8 +21,8 @@
 
   <div class="content-body">
 
-    <!-- Usuário que publicou -->
-    <div class="owner-card">
+    <!-- Usuário que publicou — clicável para ir ao perfil -->
+    <div class="owner-card" (click)="verPerfilUsuario()">
       <img
         [src]="denuncia.usuario.avatar"
         [alt]="denuncia.usuario.nome"
@@ -35,6 +35,7 @@
           {{ denuncia.usuario.cidade }}
         </span>
       </div>
+      <ion-icon name="chevron-forward-outline" class="owner-arrow"></ion-icon>
     </div>
 
     <!-- Descrição -->

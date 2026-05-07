@@ -12,9 +12,12 @@ interface Denuncia {
   local: string;
   dataFormatada: string;
   usuario: {
+    id?: string;
     nome: string;
     avatar: string;
     cidade: string;
+    bio?: string;
+    totalDenuncias?: number;
   };
 }
 
@@ -36,9 +39,12 @@ export class DenunciaDetalhePage implements OnInit {
     local: '',
     dataFormatada: '',
     usuario: {
+      id: '',
       nome: '',
       avatar: 'assets/avatar-default.png',
-      cidade: ''
+      cidade: '',
+      bio: '',
+      totalDenuncias: 0
     }
   };
 
@@ -67,5 +73,13 @@ export class DenunciaDetalhePage implements OnInit {
 
   goBack(): void {
     this.navCtrl.back();
+  }
+
+  verPerfilUsuario(): void {
+    this.router.navigate(['/perfil-usuario-detalhe'], {
+      state: {
+        usuario: this.denuncia.usuario
+      }
+    });
   }
 }

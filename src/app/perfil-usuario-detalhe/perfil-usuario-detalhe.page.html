@@ -1,0 +1,85 @@
+<ion-content [scrollY]="true">
+
+  <!-- Botão voltar flutuante -->
+  <div class="floating-buttons">
+    <button class="float-btn" (click)="goBack()">
+      <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+    </button>
+  </div>
+
+  <!-- Header com avatar e info -->
+  <div class="profile-hero">
+    <div class="profile-hero-bg"></div>
+    <div class="profile-hero-content">
+      <div class="avatar-wrapper">
+        <img
+          [src]="usuario.avatar"
+          [alt]="usuario.nome"
+          class="profile-avatar">
+        <div class="avatar-badge">
+          <ion-icon name="leaf-outline"></ion-icon>
+        </div>
+      </div>
+      <h1 class="profile-name">{{ usuario.nome }}</h1>
+      <span class="profile-city">
+        <ion-icon name="location-outline"></ion-icon>
+        {{ usuario.cidade }}
+      </span>
+    </div>
+  </div>
+
+  <div class="content-body">
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-value">{{ usuario.totalDenuncias || 0 }}</span>
+        <span class="stat-label">Denúncias</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <span class="stat-value">{{ usuario.totalResolvidas || 0 }}</span>
+        <span class="stat-label">Resolvidas</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <span class="stat-value">{{ usuario.totalCurtidas || 0 }}</span>
+        <span class="stat-label">Curtidas</span>
+      </div>
+    </div>
+
+    <!-- Bio -->
+    <div class="section" *ngIf="usuario.bio">
+      <h2 class="section-title">Sobre</h2>
+      <p class="section-text">{{ usuario.bio }}</p>
+    </div>
+
+    <!-- Denúncias do usuário -->
+    <div class="section">
+      <h2 class="section-title">Denúncias Publicadas</h2>
+
+      <div class="empty-state" *ngIf="denunciasUsuario.length === 0">
+        <ion-icon name="document-outline" class="empty-icon"></ion-icon>
+        <p class="empty-text">Nenhuma denúncia publicada ainda.</p>
+      </div>
+
+      <div
+        class="denuncia-item"
+        *ngFor="let item of denunciasUsuario"
+        (click)="verDenuncia(item)">
+        <img [src]="item.imagem" [alt]="item.titulo" class="denuncia-thumb">
+        <div class="denuncia-info">
+          <span class="denuncia-badge">{{ item.categoria || 'Denúncia' }}</span>
+          <span class="denuncia-titulo">{{ item.titulo }}</span>
+          <span class="denuncia-data">
+            <ion-icon name="time-outline"></ion-icon>
+            {{ item.dataFormatada }}
+          </span>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="denuncia-arrow"></ion-icon>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

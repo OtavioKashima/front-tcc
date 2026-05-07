@@ -10,42 +10,74 @@
 
 <ion-content [scrollY]="true">
 
+  <!-- HERO -->
   <div class="perfil-hero">
-    <div class="avatar-wrapper">
-      <img [src]="usuario.avatar" [alt]="usuario.nome" class="avatar-img">
+    <div class="hero-bg-circles">
+      <span class="circle circle-1"></span>
+      <span class="circle circle-2"></span>
     </div>
+
+    <div class="avatar-ring">
+      <div class="avatar-wrapper">
+        <img [src]="usuario.avatar" [alt]="usuario.nome" class="avatar-img">
+      </div>
+    </div>
+
     <h1 class="usuario-nome">{{ usuario.nome }}</h1>
+
     <span class="usuario-cidade">
       <ion-icon name="location-outline"></ion-icon>
       {{ usuario.cidade }}
     </span>
+
     <div class="usuario-stats">
       <div class="stat-item">
         <span class="stat-numero">{{ denunciasUsuario.length }}</span>
         <span class="stat-label">Denúncias</span>
       </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-numero">{{ denunciasUsuario.length > 0 ? 'Ativo' : '--' }}</span>
+        <span class="stat-label">Status</span>
+      </div>
     </div>
   </div>
 
+  <!-- SEÇÃO TÍTULO -->
   <div class="secao-titulo">
-    <ion-icon name="alert-circle-outline"></ion-icon>
-    <span>Denúncias feitas</span>
+    <div class="secao-titulo-left">
+      <div class="secao-icon-wrap">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+      </div>
+      <span>Denúncias feitas</span>
+    </div>
+    <span class="secao-count" *ngIf="denunciasUsuario.length > 0">
+      {{ denunciasUsuario.length }}
+    </span>
   </div>
 
+  <!-- FEED -->
   <div class="feed">
 
     <div *ngIf="denunciasUsuario.length === 0" class="sem-resultados">
-      <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
+      <div class="sem-resultados-ilustracao">
+        <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
+      </div>
       <p>Nenhuma denúncia encontrada</p>
+      <span class="sem-resultados-sub">Este usuário ainda não fez denúncias</span>
     </div>
 
     <div
       class="denuncia-card"
-      *ngFor="let denuncia of denunciasUsuario"
+      *ngFor="let denuncia of denunciasUsuario; let i = index"
+      [style.animation-delay]="i * 60 + 'ms'"
       (click)="abrirDetalhe(denuncia)">
 
       <div class="denuncia-header">
-        <span>{{ denuncia.titulo }}</span>
+        <div class="denuncia-header-left">
+          <span class="denuncia-tipo-badge" [attr.data-tipo]="denuncia.tipo">{{ denuncia.tipo }}</span>
+          <span class="denuncia-titulo">{{ denuncia.titulo }}</span>
+        </div>
         <span class="denuncia-data">{{ denuncia.dataFormatada }}</span>
       </div>
 
@@ -53,10 +85,13 @@
         <img [src]="denuncia.imagem" [alt]="denuncia.titulo" class="denuncia-image">
         <div class="denuncia-info">
           <p class="denuncia-descricao">{{ denuncia.descricao }}</p>
-          <span class="denuncia-local">
-            <ion-icon name="location-outline"></ion-icon>
-            {{ denuncia.local }}
-          </span>
+          <div class="denuncia-footer">
+            <span class="denuncia-local">
+              <ion-icon name="location-outline"></ion-icon>
+              {{ denuncia.local }}
+            </span>
+            <span class="status-badge" [attr.data-status]="denuncia.status">{{ denuncia.status }}</span>
+          </div>
         </div>
       </div>
 

@@ -43,7 +43,6 @@ export class PerfilUsuarioPage implements OnInit {
 
   denunciasUsuario: Denuncia[] = [];
 
-  // Lista completa de denúncias — idealmente viria de um serviço compartilhado
   todasDenuncias: Denuncia[] = [
     {
       titulo: 'Não seja enganado',
@@ -118,7 +117,7 @@ export class PerfilUsuarioPage implements OnInit {
       usuario: { nome: 'Ricardo Lopes', avatar: 'https://i.pravatar.cc/150?img=50', cidade: 'Avaré, SC' }
     },
     {
-      titulo: 'Cães vivendo em ambiente insalubre',
+      titulo: 'Cães em ambiente insalubre',
       imagem: 'https://cdn.pixabay.com/photo/2016/02/19/11/19/dog-1207810_640.jpg',
       descricao: 'Diversos cães estão vivendo em local sujo, com fezes acumuladas e sem higiene.',
       tipo: 'Maus-tratos',
@@ -130,7 +129,7 @@ export class PerfilUsuarioPage implements OnInit {
       usuario: { nome: 'Patrícia Gomes', avatar: 'https://i.pravatar.cc/150?img=55', cidade: 'Lençóis Paulista, SC' }
     },
     {
-      titulo: 'Venda ilegal de animais silvestres',
+      titulo: 'Venda ilegal de silvestres',
       imagem: 'https://cdn.pixabay.com/photo/2016/03/27/21/16/parrot-1283600_640.jpg',
       descricao: 'Pessoas estão vendendo aves silvestres sem autorização em feira local.',
       tipo: 'Tráfico de animais',
@@ -142,7 +141,7 @@ export class PerfilUsuarioPage implements OnInit {
       usuario: { nome: 'Lucas Fernandes', avatar: 'https://i.pravatar.cc/150?img=60', cidade: 'Bauru, SC' }
     },
     {
-      titulo: 'Cachorro ferido sem atendimento',
+      titulo: 'Cachorro ferido sem cuidado',
       imagem: 'https://cdn.pixabay.com/photo/2016/11/22/19/15/dog-1850465_640.jpg',
       descricao: 'Um cachorro está com ferimentos graves e sem nenhum tipo de cuidado.',
       tipo: 'Negligência',
