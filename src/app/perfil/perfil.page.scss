@@ -1,74 +1,522 @@
-ion-content{
---background:#f2f2f2;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+// =============================================
+// TOOLBAR
+// =============================================
+ion-toolbar.custom-toolbar {
+  --background: #66d9a6;
+  --color: white;
 }
 
-.custom-toolbar{
---background:white;
-color:#66d9a6;
+.toolbar-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 4px;
+  transition: background 0.2s ease;
 }
 
-.perfil-container{
-text-align:center;
-padding:20px;
+.toolbar-btn ion-icon {
+  font-size: 1.3rem;
+  color: white;
 }
 
-.perfil-foto{
-width:120px;
-height:120px;
-border-radius:50%;
-border:4px solid #66d9a6;
-object-fit:cover;
-margin-bottom:10px;
+.toolbar-btn:active {
+  background: rgba(255, 255, 255, 0.35);
 }
 
-.telefone{
-color:#888;
-margin-top:-5px;
+// =============================================
+// CONTENT
+// =============================================
+ion-content {
+  --background: #f0fdf6;
 }
 
-.botao-post{
---background:#66d9a6;
---border-radius:20px;
-margin-top:10px;
+// =============================================
+// HERO
+// =============================================
+.perfil-hero {
+  position: relative;
+  background: white;
+  padding: 0 20px 28px;
+  text-align: center;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  box-shadow: 0 4px 20px rgba(102, 217, 166, 0.15);
+  margin-bottom: 16px;
 }
 
-.linha{
-height:1px;
-background:#ddd;
-margin:20px;
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: linear-gradient(135deg, #66d9a6 0%, #3ecf8e 100%);
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+  z-index: 0;
 }
 
-.titulo-post{
-text-align:center;
-color:#999;
-font-size:14px;
+.perfil-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-top: 28px;
+  z-index: 1;
 }
 
-.post-card{
-margin:16px;
-border-radius:20px;
-background:white;
-box-shadow:0 4px 10px rgba(0,0,0,0.15);
-overflow:hidden;
+.perfil-foto {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 4px 16px rgba(102, 217, 166, 0.4);
+  display: block;
 }
 
-.post-header{
-background:#66d9a6;
-color:white;
-padding:10px 16px;
-display:flex;
-justify-content:space-between;
+.perfil-nome {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #1a3a2e;
+  margin: 14px 0 4px;
 }
 
-.post-content{
-display:flex;
-gap:12px;
-padding:16px;
+.perfil-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 6px;
 }
 
-.post-img{
-width:80px;
-height:80px;
-border-radius:8px;
-object-fit:cover;
+.perfil-role-badge ion-icon {
+  font-size: 0.9rem;
+}
+
+.perfil-role-badge.ong {
+  background: #e8f7f1;
+  color: #1a7a55;
+}
+
+.perfil-role-badge.user {
+  background: #fff3e0;
+  color: #a05a00;
+}
+
+// =============================================
+// ABAS
+// =============================================
+.abas-wrapper {
+  display: flex;
+  background: white;
+  border-radius: 16px;
+  margin: 0 16px 12px;
+  padding: 4px;
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(102, 217, 166, 0.1);
+}
+
+.aba-btn {
+  flex: 1;
+  padding: 9px 0;
+  border: none;
+  background: none;
+  border-radius: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #99cbb8;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  position: relative;
+}
+
+.aba-btn ion-icon {
+  font-size: 1rem;
+}
+
+.aba-btn.ativa {
+  background: linear-gradient(135deg, #66d9a6 0%, #3ecf8e 100%);
+  color: white;
+  box-shadow: 0 2px 8px rgba(102, 217, 166, 0.35);
+}
+
+.aba-btn[disabled] {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.aba-lock {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+.aba-lock ion-icon {
+  font-size: 0.65rem;
+  color: #bbb;
+}
+
+// =============================================
+// SEÇÃO HEADER
+// =============================================
+.secao-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px 10px;
+}
+
+.secao-titulo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #3ecf8e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.secao-titulo ion-icon {
+  font-size: 1rem;
+}
+
+.secao-count {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #99cbb8;
+}
+
+// =============================================
+// SEM POSTAGENS
+// =============================================
+.sem-postagens {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48px 24px;
+}
+
+.sem-postagens .sem-icon {
+  font-size: 3rem;
+  color: #c0e8d4;
+  margin-bottom: 12px;
+}
+
+.sem-postagens p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #66d9a6;
+  margin: 0 0 4px;
+}
+
+.sem-postagens span {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #99cbb8;
+}
+
+// =============================================
+// FEED / CARDS
+// =============================================
+.feed {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.post-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #d0eedd;
+  box-shadow: 0 2px 12px rgba(102, 217, 166, 0.1);
+  animation: fadeSlideUp 0.35s ease both;
+}
+
+.post-card:active {
+  transform: scale(0.99);
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// =============================================
+// POST HEADER POR TIPO
+// =============================================
+.post-header {
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.adocao-header {
+  background: linear-gradient(135deg, #66d9a6 0%, #52cf98 100%);
+}
+
+.denuncia-header {
+  background: linear-gradient(135deg, #ff8c69 0%, #ff6b6b 100%);
+}
+
+.post-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-titulo {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: white;
+}
+
+.post-tag {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  border-radius: 10px;
+  padding: 2px 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.post-header-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.post-data {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.post-menu-btn {
+  background: none;
+  border: none;
+  padding: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.post-menu-btn ion-icon {
+  font-size: 1rem;
+  color: white;
+}
+
+// =============================================
+// POST CONTENT
+// =============================================
+.post-content {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  align-items: flex-start;
+}
+
+.post-img-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.post-img {
+  width: 82px;
+  height: 82px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1.5px solid #d0eedd;
+  display: block;
+}
+
+.post-status-badge {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 800;
+  border-radius: 10px;
+  padding: 2px 7px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: white;
+  background: #ff6b6b;
+}
+
+.post-status-badge.disponivel {
+  background: #3ecf8e;
+}
+
+.post-status-badge.status-pendente {
+  background: #f59e0b;
+  color: white;
+}
+
+.post-status-badge.status-em_analise {
+  background: #3b82f6;
+  color: white;
+}
+
+.post-status-badge.status-resolvido {
+  background: #3ecf8e;
+  color: white;
+}
+
+.post-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 82px;
+}
+
+.post-descricao {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #54a792;
+  line-height: 1.55;
+  margin: 0 0 10px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-footer {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.post-interacao {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #99cbb8;
+}
+
+.post-interacao ion-icon {
+  font-size: 0.85rem;
+}
+
+// =============================================
+// BOTÕES DE AÇÃO (ONG)
+// =============================================
+.post-acoes-ong {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-editar,
+.btn-excluir {
+  border: none;
+  padding: 5px 11px;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-editar ion-icon,
+.btn-excluir ion-icon {
+  font-size: 0.85rem;
+}
+
+.btn-editar {
+  background: #e8f7f1;
+  color: #1a7a55;
+}
+
+.btn-excluir {
+  background: #fff0f0;
+  color: #cc3333;
+}
+
+// =============================================
+// PAINEL BLOQUEADO
+// =============================================
+.bloqueado-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 52px 24px;
+  text-align: center;
+}
+
+.bloqueado-wrapper .bloqueado-icon {
+  font-size: 3rem;
+  color: #c0e8d4;
+  margin-bottom: 14px;
+}
+
+.bloqueado-wrapper .bloqueado-titulo {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #66d9a6;
+  margin: 0 0 6px;
+}
+
+.bloqueado-wrapper .bloqueado-sub {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #99cbb8;
+  line-height: 1.6;
+}
+
+// =============================================
+// ESPAÇO FINAL
+// =============================================
+.bottom-space {
+  height: 100px;
 }
