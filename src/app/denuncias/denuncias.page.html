@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
-    <ion-title>Denuncie</ion-title>
+    <ion-title>Denuncias</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="toggleSearch()">
         <ion-icon slot="icon-only" name="search-outline"></ion-icon>
@@ -15,7 +15,7 @@
     <ion-searchbar 
       [(ngModel)]="termoBusca" 
       (ionInput)="filtrar()" 
-      placeholder="Buscar denuncia..." 
+      placeholder="Buscar pet..." 
       animated="true">
     </ion-searchbar>
   </ion-toolbar>
@@ -24,22 +24,22 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let denuncia of denunciasFiltrados">
-        <ion-card class="pet-card" (click)="abrirDetalhe(denuncia)">
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let pet of petsFiltrados">
+        <ion-card class="pet-card" (click)="abrirDetalhe(pet)">
           <div class="image-container">
-            <img [src]="denuncia.imagem" alt="{{ denuncia.titulo }}" loading="lazy" />
+            <img [src]="pet.imagem" alt="{{ pet.titulo }}" loading="lazy" />
             <div class="category-badge">Adoção</div>
           </div>
 
           <ion-card-header>
-            <ion-card-title class="pet-title">{{ denuncia.titulo }}</ion-card-title>
+            <ion-card-title class="pet-title">{{ pet.titulo }}</ion-card-title>
             <ion-card-subtitle class="pet-subtitle">
-              <ion-icon name="time-outline"></ion-icon> {{ denuncia.idade }}
+              <ion-icon name="time-outline"></ion-icon> {{ pet.idade }}
             </ion-card-subtitle>
           </ion-card-header>
 
           <ion-card-content class="pet-description">
-            {{ denuncia.descricao }}
+            {{ pet.descricao }}
           </ion-card-content>
           
           <div class="card-footer">
@@ -50,8 +50,8 @@
     </ion-row>
   </ion-grid>
 
-  <div class="empty-state" *ngIf="denunciasFiltrados.length === 0">
+  <div class="empty-state" *ngIf="petsFiltrados.length === 0">
     <ion-icon name="paw-outline"></ion-icon>
-    <p>Nenhuma denuncia encontrada por aqui...</p>
+    <p>Nenhum pet encontrado por aqui...</p>
   </div>
 </ion-content>

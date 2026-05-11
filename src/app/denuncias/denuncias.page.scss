@@ -1,67 +1,86 @@
-ion-content{
-    --background:#f2f2f2;
+// Estilo para o fundo da página
+ion-content {
+    --background: #f8f9fa;
+  }
+  
+  // Estilo do Card
+  .pet-card {
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin: 8px 0;
+    transition: transform 0.2s;
+    overflow: hidden;
+    background: #fff;
+  
+    &:active {
+      transform: scale(0.98);
     }
-    
-    /* Header */
-    
-    .custom-header{
-    --background:#66d9a6;
+  }
+  
+  // Container da Imagem para manter proporção 1:1 ou 4:3
+  .image-container {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+  
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // 👈 Isso faz a imagem preencher o espaço sem distorcer
+      transition: 0.3s;
     }
-    
-    .custom-toolbar{
-    --background:#66d9a6;
-    color:white;
+  }
+  
+  // Badge (Etiqueta) sobre a foto
+  .category-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--ion-color-primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  .pet-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #222;
+  }
+  
+  .pet-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #666;
+    margin-top: 4px;
+  }
+  
+  .pet-description {
+    color: #444;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px;
+    border-top: 1px solid #eee;
+  }
+  
+  // Estilo para quando não há pets
+  .empty-state {
+    text-align: center;
+    margin-top: 50px;
+    color: #999;
+  
+    ion-icon {
+      font-size: 64px;
+      margin-bottom: 10px;
     }
-    
-    .header-content{
-    display:flex;
-    align-items:center;
-    width:100%;
-    }
-    
-    .title-section{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    }
-    
-    .search-section{
-    margin-left:auto;
-    }
-    
-    /* Cards */
-    
-    .denuncia-card{
-    margin:16px;
-    border-radius:20px;
-    background:#e9e9e9;
-    box-shadow:0 4px 10px rgba(0,0,0,0.15);
-    overflow:hidden;
-    }
-    
-    .denuncia-header{
-    background:#cfcfcf;
-    padding:10px 16px;
-    font-size:14px;
-    color:#555;
-    }
-    
-    .denuncia-content{
-    display:flex;
-    gap:12px;
-    padding:16px;
-    align-items:center;
-    }
-    
-    .denuncia-image{
-    width:80px;
-    height:80px;
-    border-radius:8px;
-    object-fit:cover;
-    }
-    
-    .denuncia-info{
-    font-size:13px;
-    color:#666;
-    line-height:1.4;
-    }
+  }

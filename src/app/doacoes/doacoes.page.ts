@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core'; // 👈 Importamos o OnInit
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http'; // 👈 Importamos o HttpClient
 
 interface Pet {
   titulo: string;
@@ -23,7 +23,7 @@ export class DoacoesPage implements OnInit {
   termoBusca = '';
 
   // 1. As listas começam vazias agora, aguardando o banco de dados
-  pets: Pet[] = []; 
+  pets: Pet[] = [];
   petsFiltrados: Pet[] = [];
 
   constructor(
@@ -43,63 +43,58 @@ export class DoacoesPage implements OnInit {
       .subscribe({
         next: (res: any) => {
           // Pega a resposta do banco e "molda" para encaixar no seu HTML
+          // No seu adocoes.page.ts, dentro do map:
           this.pets = res.map((item: any) => ({
             titulo: item.titulo,
             idade: item.idade ? item.idade + ' ano(s)' : 'Idade não informada',
-            
-            // Se tiver foto, usaremos o caminho do servidor. Se não, uma imagem padrão.
-            // (Ajustaremos o caminho exato quando configurarmos o Multer 100%)
-            imagem: item.foto ? item.foto : 'https://via.placeholder.com/150', 
-            
-            // Corta a descrição para não ficar gigante no card
+            // Monta a URL para o seu servidor local
+            imagem: item.foto ? `http://localhost:3000/uploads/${item.foto}` : 'https://via.placeholder.com/300x300/e0e0e0/808080?text=Sem+Foto',
             descricao: item.descricao.length > 60 ? item.descricao.substring(0, 60) + '...' : item.descricao,
-            
-            // Guarda a descrição inteira para a tela de detalhes
-            descricaoCompleta: item.descricao 
+            descricaoCompleta: item.descricao
           }));
 
-          // Alimenta a lista que vai para a tela
-          this.petsFiltrados = [...this.pets];
-        },
-        error: (err: any) => {
+    // Alimenta a lista que vai para a tela
+    this.petsFiltrados = [...this.pets];
+  },
+  error: (err: any) => {
           console.error('Erro ao buscar adoções da API', err);
-        }
+}
       });
   }
 
-  // 👇 As funções dos botões continuam iguais!
+// 👇 As funções dos botões continuam iguais!
 
-  toggleSearch() {
-    this.showSearch = !this.showSearch;
-    if (!this.showSearch) {
-      this.limparBusca();
-    }
+toggleSearch() {
+  this.showSearch = !this.showSearch;
+  if (!this.showSearch) {
+    this.limparBusca();
   }
+}
 
-  filtrar() {
-    const termo = this.termoBusca.toLowerCase().trim();
-    if (!termo) {
-      this.petsFiltrados = [...this.pets];
-      return;
-    }
-    this.petsFiltrados = this.pets.filter(pet =>
-      pet.titulo.toLowerCase().includes(termo) ||
-      pet.descricaoCompleta.toLowerCase().includes(termo) // Alterei para buscar na descrição completa para resultados melhores
-    );
-  }
-
-  limparBusca() {
-    this.termoBusca = '';
+filtrar() {
+  const termo = this.termoBusca.toLowerCase().trim();
+  if (!termo) {
     this.petsFiltrados = [...this.pets];
+    return;
   }
+  this.petsFiltrados = this.pets.filter(pet =>
+    pet.titulo.toLowerCase().includes(termo) ||
+    pet.descricaoCompleta.toLowerCase().includes(termo) // Alterei para buscar na descrição completa para resultados melhores
+  );
+}
 
-  abrirDetalhe(pet: Pet) {
-    this.navCtrl.navigateForward('/adocoes-detalhes', {
-      state: { pet }
-    });
-  }
+limparBusca() {
+  this.termoBusca = '';
+  this.petsFiltrados = [...this.pets];
+}
 
-  goBack() {
-    this.location.back();
-  }
+abrirDetalhe(pet: Pet) {
+  this.navCtrl.navigateForward('/doacoes-detalhes', {
+    state: { pet }
+  });
+}
+
+goBack() {
+  this.location.back();
+}
 }
