@@ -3,6 +3,13 @@ ion-content {
   --background: #f8f9fa;
 }
 
+.ion-no-border{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
 // Estilo do Card
 .pet-card {
   border-radius: 16px;

@@ -1,12 +1,14 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Denuncias</ion-title>
+  <ion-toolbar color="primary" style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
+    <div style="display: flex; align-items: center;">
+      <!-- Adiciona margem para afastar o ícone da borda -->
+      <ion-icon name="warning" size="large" style="margin-right: 8px; margin-left: 0.1px;"></ion-icon>
+      <!-- Ajusta o título para ficar mais próximo do ícone -->
+      <ion-title style="margin-left: 4px;">Denuncias</ion-title>
+    </div>
     <ion-buttons slot="end">
       <ion-button (click)="toggleSearch()">
-        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+        <ion-icon slot="icon-only" name="search" size="large"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -20,6 +22,7 @@
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-grid>

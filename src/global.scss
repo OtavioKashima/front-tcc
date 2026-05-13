@@ -47,6 +47,9 @@ ion-header, ion-toolbar {
     --background: linear-gradient(135deg, #66d9a6 0%, #4eca88 100%);
   background-color: #ffffff !important;
   color: #ffffff;
+  display: flex;
+  justify-content:center ;
+  align-items: center;
 
 }
 
