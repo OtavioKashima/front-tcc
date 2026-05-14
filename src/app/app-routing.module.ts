@@ -40,7 +40,8 @@ const routes: Routes = [
   {
     path: 'recuperar-senha',
     loadChildren: () => import('./recuperar-senha/recuperar-senha.module').then( m => m.RecuperarSenhaPageModule)
-  },  {
+  },
+  {
     path: 'postagem',
     loadChildren: () => import('./postagem/postagem.module').then( m => m.PostagemPageModule)
   },
@@ -67,10 +68,14 @@ const routes: Routes = [
   {
     path: 'denuncias-detalhes',
     loadChildren: () => import('./denuncias-detalhes/denuncias-detalhes.module').then( m => m.DenunciasDetalhesPageModule)
+  },
+  {
+    path: 'perfil',
+    loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
   }
 
 
-  // As rotas 'adocoes', 'doacoes', 'perfil', 'denuncias' FORAM REMOVIDAS DAQUI
+  // As rotas 'adocoes', 'doacoes', 'denuncias' FORAM REMOVIDAS DAQUI
 ];
 
 @NgModule({

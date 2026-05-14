@@ -38,30 +38,42 @@ export class PerfilPage implements OnInit {
   carregarDadosUsuario() {
     const token = localStorage.getItem('token');
     if (!token) return;
-
+  
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-
-    // Rota no backend para pegar os dados do dono do token
+  
     this.http.get('http://localhost:3000/api/perfil', { headers })
       .subscribe({
         next: (res: any) => {
+          // Guardamos os dados
           this.usuario = res;
+          
+          // CRIAMOS A URL DA IMAGEM AQUI:
+          if (this.usuario.foto) {
+            this.usuario.fotoUrl = `http://localhost:3000/uploads/${this.usuario.foto}`;
+          } else {
+            this.usuario.fotoUrl = `https://ui-avatars.com/api/?name=${res.nome}&background=random`;
+          }
         },
         error: (err) => console.error('Erro ao buscar usuário:', err)
       });
   }
-
+  
   carregarMinhasPostagens() {
     const token = localStorage.getItem('token');
     if (!token) return;
-
+  
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-
-    // Rota no backend para pegar apenas as postagens deste usuário
-    this.http.get('http://localhost:3000/api/postagens/minhas', { headers })
+  
+    this.http.get('http://localhost:3000/api/postperfil', { headers })
       .subscribe({
         next: (res: any) => {
-          this.minhasPostagens = res;
+          // Para cada postagem, criamos a URL completa da foto
+          this.minhasPostagens = res.map((post: any) => {
+            return {
+              ...post,
+              fotoUrl: post.foto ? `http://localhost:3000/uploads/${post.foto}` : null
+            };
+          });
         },
         error: (err) => console.error('Erro ao buscar minhas postagens:', err)
       });

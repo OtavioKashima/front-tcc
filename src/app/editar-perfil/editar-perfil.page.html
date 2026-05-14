@@ -1,53 +1,48 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()" class="back-btn">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>
-      Editar meu perfil
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
 
-<ion-content [fullscreen]="true">
-  <div class="profile-container">
-    <div class="card-container">
-      <div class="avatar-container">
-        <!-- Ícone ou imagem de perfil -->
-        <ion-avatar>
-          <img src="https://i.pravatar.cc/150?u=a" alt="Foto de perfil">
-        </ion-avatar>
-      </div>
-
-      <div class="input-group">
-        <ion-label position="stacked">Nome:</ion-label>
-        <ion-input value="Paulo Cesar" class="custom-input"></ion-input>
-        <ion-icon name="create-outline" slot="end"></ion-icon>
-      </div>
-
-      <div class="input-group">
-        <ion-label position="stacked">Contato:</ion-label>
-        <ion-input value="14 87453-2345" class="custom-input"></ion-input>
-        <ion-icon name="create-outline" slot="end"></ion-icon>
-      </div>
-      
-      <div class="input-group">
-        <ion-label position="stacked">Senha:</ion-label>
-        <ion-input value="**********" type="password" class="custom-input"></ion-input>
-        <ion-icon name="create-outline" slot="end"></ion-icon>
-      </div>
-    </div>
+  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+    <img 
+      [src]="previewFoto ? previewFoto : 'https://ui-avatars.com/api/?name=' + (usuario.nome || 'U') + '&background=random&color=fff'" 
+      style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #3880ff;"
+      alt="Foto de Perfil" 
+    />
   </div>
-  
-  <div class="buttons-container">
-    <ion-button expand="block" shape="round" class="botao">
-      Salvar
-    </ion-button>
+
+  <ion-list lines="none">
     
-    <ion-text class="delete-account-text">
-      Deletar minha conta
-    </ion-text>
-  </div>
+    <ion-item class="custom-input">
+      <ion-icon name="camera-outline" slot="start" color="medium"></ion-icon>
+      <div style="width: 100%; padding-top: 10px; padding-bottom: 10px;">
+        <ion-label position="stacked" style="margin-bottom: 8px; color: #666;">Escolher nova foto</ion-label>
+        <input type="file" (change)="selecionarFoto($event)" accept="image/*" />
+      </div>
+    </ion-item>
+
+    <ion-item class="custom-input">
+      <ion-icon name="person-outline" slot="start" color="medium"></ion-icon>
+      <ion-input 
+        label="Nome Completo" 
+        labelPlacement="stacked" 
+        [(ngModel)]="usuario.nome" 
+        placeholder="Digite seu nome">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="custom-input">
+      <ion-icon name="call-outline" slot="start" color="medium"></ion-icon>
+      <ion-input 
+        type="tel" 
+        label="Telefone" 
+        labelPlacement="stacked" 
+        [(ngModel)]="usuario.telefone" 
+        placeholder="Ex: 14 99999-9999">
+      </ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-button expand="block" shape="round" color="primary" style="margin-top: 30px;" (click)="salvarPerfil()">
+    Salvar Alterações
+  </ion-button>
+
 </ion-content>
