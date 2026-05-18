@@ -88,7 +88,7 @@ export class DenunciasPage implements OnInit {
     },
     {
       titulo: 'Cachorro preso sem água',
-      imagem: 'https://cdn.pixabay.com/photo/2017/03/27/14/56/dog-2178696_640.jpg',
+      imagem: 'https://dog4fun.com/2019/wp-content/uploads/2019/05/%C3%A1gua-pra-cachorro-1200x675.jpg',
       descricao: 'Um cachorro está preso no quintal há dias sem acesso à água ou comida.',
       tipo: 'Maus-tratos',
       categoria: 'Animal',
@@ -116,7 +116,7 @@ export class DenunciasPage implements OnInit {
     },
     {
       titulo: 'Cavalo sendo maltratado',
-      imagem: 'https://cdn.pixabay.com/photo/2016/11/29/09/16/horse-1868532_640.jpg',
+      imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdZRD97kQ6dv_IwqYo4tBYOrGFgnJuk5pC6g&s',
       descricao: 'Um cavalo está sendo usado para trabalho pesado sem descanso e em condições ruins.',
       tipo: 'Maus-tratos',
       categoria: 'Animal',
@@ -130,7 +130,7 @@ export class DenunciasPage implements OnInit {
     },
     {
       titulo: 'Cães vivendo em ambiente insalubre',
-      imagem: 'https://cdn.pixabay.com/photo/2016/02/19/11/19/dog-1207810_640.jpg',
+      imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMv8clDfRQLxMSHKOEhoLx3yq4UMiITBL_Pw&s',
       descricao: 'Diversos cães estão vivendo em local sujo, com fezes acumuladas e sem higiene.',
       tipo: 'Maus-tratos',
       categoria: 'Animal',
@@ -144,7 +144,7 @@ export class DenunciasPage implements OnInit {
     },
     {
       titulo: 'Venda ilegal de animais silvestres',
-      imagem: 'https://cdn.pixabay.com/photo/2016/03/27/21/16/parrot-1283600_640.jpg',
+      imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD7RTZcpLQnl70Otr6qjwClEy-1Gobb48KsQ&s',
       descricao: 'Pessoas estão vendendo aves silvestres sem autorização em feira local.',
       tipo: 'Tráfico de animais',
       categoria: 'Animal',
@@ -158,7 +158,7 @@ export class DenunciasPage implements OnInit {
     },
     {
       titulo: 'Cachorro ferido sem atendimento',
-      imagem: 'https://cdn.pixabay.com/photo/2016/11/22/19/15/dog-1850465_640.jpg',
+      imagem: 'https://pbs.twimg.com/media/GJuEEquWMAAMkFn.jpg',
       descricao: 'Um cachorro está com ferimentos graves e sem nenhum tipo de cuidado.',
       tipo: 'Negligência',
       categoria: 'Animal',
