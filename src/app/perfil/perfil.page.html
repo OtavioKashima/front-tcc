@@ -6,7 +6,7 @@
       </button>
     </ion-buttons>
     <ion-buttons slot="end">
-      <button class="toolbar-btn" *ngIf="isOng" (click)="editarPerfil()">
+      <button class="toolbar-btn" (click)="editarPerfil()">
         <ion-icon name="create-outline"></ion-icon>
       </button>
     </ion-buttons>
@@ -22,177 +22,54 @@
       <img [src]="usuario.avatar" class="perfil-foto" [alt]="usuario.nome">
     </div>
     <h2 class="perfil-nome">{{ usuario.nome }}</h2>
-    <span class="perfil-role-badge" [class.ong]="isOng" [class.user]="!isOng">
-      <ion-icon [name]="isOng ? 'shield-checkmark-outline' : 'person-outline'"></ion-icon>
-      {{ isOng ? 'ONG Parceira' : 'Usuário' }}
+  </div>
+
+  <!-- HEADER DA SEÇÃO -->
+  <div class="secao-header">
+    <span class="secao-titulo">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      Minhas Denúncias
+    </span>
+    <span class="secao-count">
+      {{ denuncias.length }} denúncia{{ denuncias.length !== 1 ? 's' : '' }}
     </span>
   </div>
 
-  <!-- ABAS -->
-  <div class="abas-wrapper">
-    <button
-      class="aba-btn"
-      [class.ativa]="abaAtiva === 'denuncias'"
-      (click)="mudarAba('denuncias')">
-      <ion-icon name="alert-circle-outline"></ion-icon>
-      Denúncias
-    </button>
-    <button
-      class="aba-btn"
-      [class.ativa]="abaAtiva === 'adocoes'"
-      [disabled]="!isOng"
-      (click)="isOng && mudarAba('adocoes')">
-      <ion-icon name="heart-outline"></ion-icon>
-      Adoções
-      <span class="aba-lock" *ngIf="!isOng">
-        <ion-icon name="lock-closed-outline"></ion-icon>
-      </span>
-    </button>
+  <!-- SEM DENÚNCIAS -->
+  <div class="sem-resultados" *ngIf="denuncias.length === 0">
+    <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
+    <p>Nenhuma denúncia ainda</p>
+    <span class="sem-resultados-sub">Viu algo errado? Reporte aqui.</span>
   </div>
 
-  <!-- PAINEL: DENÚNCIAS -->
-  <ng-container *ngIf="abaAtiva === 'denuncias'">
-    <div class="secao-header">
-      <span class="secao-titulo">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        Denúncias
-      </span>
-      <span class="secao-count">
-        {{ denuncias.length }} denúncia{{ denuncias.length !== 1 ? 's' : '' }}
-      </span>
-    </div>
+  <!-- FEED -->
+  <div class="feed">
+    <div
+      class="denuncia-card"
+      *ngFor="let post of denuncias"
+      (click)="abrirDenuncia(post)">
 
-    <div class="sem-postagens" *ngIf="denuncias.length === 0">
-      <ion-icon name="paw-outline" class="sem-icon"></ion-icon>
-      <p>Nenhuma denúncia ainda</p>
-      <span>Viu algo errado? Reporte aqui.</span>
-    </div>
-
-    <div class="feed">
-      <div
-        class="post-card denuncia"
-        *ngFor="let post of denuncias; let i = index"
-        [style.animation-delay]="i * 0.07 + 's'">
-
-        <div class="post-header denuncia-header">
-          <div class="post-header-left">
-            <span class="post-titulo">{{ post.titulo }}</span>
-            <span class="post-tag" *ngIf="post.tag">{{ post.tag }}</span>
-          </div>
-          <div class="post-header-right">
-            <span class="post-data">{{ post.data }}</span>
-            <!-- ONGs podem editar/excluir denúncias; usuário comum apenas vê -->
-            <button class="post-menu-btn" *ngIf="isOng" (click)="menuPostagem(post, 'denuncia')">
-              <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-            </button>
-          </div>
+      <div class="denuncia-header">
+        <span>{{ post.titulo }}</span>
+        <div class="denuncia-acoes">
+          <button class="acao-btn" (click)="editarDenuncia(post); $event.stopPropagation()">
+            <ion-icon name="create-outline"></ion-icon>
+          </button>
+          <button class="acao-btn" (click)="excluirDenuncia(post); $event.stopPropagation()">
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
         </div>
-
-        <div class="post-content">
-          <div class="post-img-wrapper">
-            <img [src]="post.imagem" [alt]="post.titulo" class="post-img">
-            <span class="post-status-badge" [ngClass]="'status-' + post.status">
-              {{ statusLabel(post.status) }}
-            </span>
-          </div>
-          <div class="post-info">
-            <p class="post-descricao">{{ post.descricao }}</p>
-            <div class="post-footer">
-              <div class="post-acoes-ong" *ngIf="isOng">
-                <button class="btn-editar" (click)="editarPostagem(post)">
-                  <ion-icon name="create-outline"></ion-icon> Editar
-                </button>
-                <button class="btn-excluir" (click)="excluirPostagem(post, 'denuncia')">
-                  <ion-icon name="trash-outline"></ion-icon> Excluir
-                </button>
-              </div>
-              <span class="post-interacao" *ngIf="!isOng">
-                <ion-icon name="bookmark-outline"></ion-icon> {{ post.salvos }}
-              </span>
-              <span class="post-interacao" *ngIf="!isOng">
-                <ion-icon name="chatbubble-outline"></ion-icon> {{ post.comentarios }}
-              </span>
-            </div>
-          </div>
-        </div>
-
       </div>
-    </div>
-  </ng-container>
 
-  <!-- PAINEL: ADOÇÕES (só ONG) -->
-  <ng-container *ngIf="abaAtiva === 'adocoes' && isOng">
-    <div class="secao-header">
-      <span class="secao-titulo">
-        <ion-icon name="heart-outline"></ion-icon>
-        Adoções
-      </span>
-      <span class="secao-count">
-        {{ adocoes.length }} publicação{{ adocoes.length !== 1 ? 'ões' : '' }}
-      </span>
-    </div>
-
-    <div class="sem-postagens" *ngIf="adocoes.length === 0">
-      <ion-icon name="paw-outline" class="sem-icon"></ion-icon>
-      <p>Nenhuma postagem de adoção</p>
-      <span>Cadastre um animal para adoção.</span>
-    </div>
-
-    <div class="feed">
-      <div
-        class="post-card adocao"
-        *ngFor="let post of adocoes; let i = index"
-        [style.animation-delay]="i * 0.07 + 's'">
-
-        <div class="post-header adocao-header">
-          <div class="post-header-left">
-            <span class="post-titulo">{{ post.titulo }}</span>
-            <span class="post-tag" *ngIf="post.tag">{{ post.tag }}</span>
-          </div>
-          <div class="post-header-right">
-            <span class="post-data">{{ post.data }}</span>
-            <button class="post-menu-btn" (click)="menuPostagem(post, 'adocao')">
-              <ion-icon name="ellipsis-vertical-outline"></ion-icon>
-            </button>
-          </div>
+      <div class="denuncia-content">
+        <img [src]="post.imagem" [alt]="post.titulo" class="denuncia-image">
+        <div class="denuncia-info">
+          <p class="denuncia-descricao">{{ post.descricao }}</p>
         </div>
-
-        <div class="post-content">
-          <div class="post-img-wrapper">
-            <img [src]="post.imagem" [alt]="post.titulo" class="post-img">
-            <span class="post-status-badge" [class.disponivel]="post.disponivel">
-              {{ post.disponivel ? 'Disponível' : 'Adotado' }}
-            </span>
-          </div>
-          <div class="post-info">
-            <p class="post-descricao">{{ post.descricao }}</p>
-            <div class="post-footer">
-              <div class="post-acoes-ong">
-                <button class="btn-editar" (click)="editarPostagem(post)">
-                  <ion-icon name="create-outline"></ion-icon> Editar
-                </button>
-                <button class="btn-excluir" (click)="excluirPostagem(post, 'adocao')">
-                  <ion-icon name="trash-outline"></ion-icon> Excluir
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
-    </div>
-  </ng-container>
 
-  <!-- PAINEL: ADOÇÕES bloqueado para usuário comum -->
-  <ng-container *ngIf="abaAtiva === 'adocoes' && !isOng">
-    <div class="bloqueado-wrapper">
-      <ion-icon name="lock-closed-outline" class="bloqueado-icon"></ion-icon>
-      <p class="bloqueado-titulo">Área exclusiva de ONGs</p>
-      <span class="bloqueado-sub">
-        Somente ONGs parceiras cadastradas<br>podem publicar postagens de adoção.
-      </span>
     </div>
-  </ng-container>
+  </div>
 
   <div class="bottom-space"></div>
 </ion-content>

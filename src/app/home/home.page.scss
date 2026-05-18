@@ -49,7 +49,7 @@ ion-header::after { display: none; }
 }
 
 @keyframes logoBounce {
-  0%, 100% { transform: translateY(0);    box-shadow: 0 8px 25px rgba(102,217,166,0.3); }
+  0%, 100% { transform: translateY(0);     box-shadow: 0 8px 25px rgba(102,217,166,0.3); }
   50%       { transform: translateY(-10px); box-shadow: 0 20px 35px rgba(102,217,166,0.4); }
 }
 
@@ -70,7 +70,7 @@ ion-header::after { display: none; }
 .welcome-subtitle {
   font-size: 0.93rem;
   color: #8a8a9a;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem; /* ← era 3rem, reduzido para aproximar os botões */
   line-height: 1.5;
   font-weight: 400;
 }
@@ -84,7 +84,6 @@ ion-header::after { display: none; }
   margin-bottom: 2rem;
 }
 
-// ---- Botões novos ----
 .btn-login {
   --background: #3ecf8e;
   --color: #ffffff;

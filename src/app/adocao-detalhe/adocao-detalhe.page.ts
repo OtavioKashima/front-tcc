@@ -8,20 +8,15 @@ interface Pet {
   imagem: string;
   descricao: string;
   descricaoCompleta: string;
-  raca?: string;
-  genero?: string;
-  usuario?: {
-    nome: string;
-    avatar: string;
-    cidade: string;
-  };
+  raca: string;
+  genero: string;
 }
 
 const ONG_FRADA = {
   nome: 'Frada',
   avatar: 'https://adotar.com.br/uploadadm/logo_ong4041.jpg?w=410&format=webp',
-  cidade: 'São Paulo',
-  whatsapp: '5511999999999'
+  cidade: 'Joinville, SC',
+  whatsapp: '5547999999999'
 };
 
 @Component({
@@ -34,7 +29,7 @@ export class AdocaoDetalhePage implements OnInit {
 
   pet: Pet = {
     titulo: '',
-    idade: '5 anos',
+    idade: '',
     imagem: '',
     descricao: '',
     descricaoCompleta: '',
@@ -49,24 +44,35 @@ export class AdocaoDetalhePage implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.carregarPet();
+  }
+
+  // ✅ ionViewWillEnter garante que roda SEMPRE que a tela aparece,
+  // inclusive quando volta de outra tela — resolve o bug do cache
+  ionViewWillEnter(): void {
+    this.carregarPet();
+  }
+
+  private carregarPet(): void {
     const nav = this.router.getCurrentNavigation();
     if (nav?.extras?.state?.['pet']) {
-      const petRecebido = nav.extras.state['pet'];
-      this.pet = {
-        ...petRecebido,
-        raca: petRecebido.raca === 'Viralata' ? 'SRD' : (petRecebido.raca || 'SRD'),
-        genero: petRecebido.genero || 'Macho',
-        idade: petRecebido.idade || '5 anos'
-      };
+      const p = nav.extras.state['pet'];
+      this.aplicarPet(p);
     } else if (history.state?.pet) {
-      const petRecebido = history.state.pet;
-      this.pet = {
-        ...petRecebido,
-        raca: petRecebido.raca === 'Viralata' ? 'SRD' : (petRecebido.raca || 'SRD'),
-        genero: petRecebido.genero || 'Macho',
-        idade: petRecebido.idade || '5 anos'
-      };
+      this.aplicarPet(history.state.pet);
     }
+  }
+
+  private aplicarPet(p: any): void {
+    this.pet = {
+      titulo: p.titulo || '',
+      imagem: p.imagem || '',
+      descricao: p.descricao || '',
+      descricaoCompleta: p.descricaoCompleta || p.descricao || '',
+      raca: p.raca || 'SRD',
+      genero: p.genero || 'Macho',
+      idade: p.idade || '2 anos'
+    };
   }
 
   irParaPerfilOng(): void {
@@ -84,12 +90,6 @@ export class AdocaoDetalhePage implements OnInit {
     });
   }
 
-  irParaComentarios(): void {
-    this.navCtrl.navigateForward('/comentario', {
-      state: { pet: this.pet }
-    });
-  }
-
   async compartilhar(): Promise<void> {
     if (navigator.share) {
       await navigator.share({
@@ -100,6 +100,6 @@ export class AdocaoDetalhePage implements OnInit {
   }
 
   goBack(): void {
-    this.navCtrl.navigateBack('/tabs/adocoes');
+    this.navCtrl.back();
   }
 }

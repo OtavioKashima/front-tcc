@@ -5,102 +5,132 @@
     <button class="float-btn" (click)="goBack()">
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
     </button>
-    
+    <button class="chat-float-btn" (click)="abrirChat()">
+      <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+      entre em contato
+    </button>
   </div>
 
   <!-- Hero banner -->
   <div class="hero-banner">
     <div class="hero-gradient"></div>
     <div class="hero-content">
-      <img
-        src="https://adotar.com.br/uploadadm/logo_ong4041.jpg?w=410&format=webp"
-        alt="Logo Frada"
-        class="ong-logo">
-      <h1 class="ong-nome">Frada</h1>
+      <img [src]="ong.avatar" [alt]="'Logo ' + ong.nome" class="ong-logo">
+      <h1 class="ong-nome">{{ ong.nome }}</h1>
       <span class="ong-cidade">
         <ion-icon name="location-outline"></ion-icon>
-        São Paulo, SP
+        {{ ong.cidade }}
       </span>
     </div>
   </div>
 
-  <div class="content-body">
+  <!-- Sobre -->
+  <div class="sobre-section">
+    <p class="sobre-text">{{ ong.descricao }}</p>
+  </div>
 
-    <!-- Stats -->
-    <div class="stats-row">
-      <div class="stat-card">
-        <span class="stat-value">128</span>
-        <span class="stat-label">Adoções</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-value">34</span>
-        <span class="stat-label">Animais</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-value">6</span>
-        <span class="stat-label">Anos ativa</span>
-      </div>
+  <!-- Tabs -->
+  <div class="tabs-bar">
+    <button
+      class="tab-btn"
+      [class.active]="tabAtiva === 'adocoes'"
+      (click)="tabAtiva = 'adocoes'">
+      <ion-icon name="paw-outline"></ion-icon>
+      <span class="tab-label">Adoções</span>
+    </button>
+    <button
+      class="tab-btn"
+      [class.active]="tabAtiva === 'denuncias'"
+      (click)="tabAtiva = 'denuncias'">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <span class="tab-label">Denúncias</span>
+    </button>
+  </div>
+
+  <!-- ===== Feed Adoções ===== -->
+  <div class="feed" *ngIf="tabAtiva === 'adocoes'">
+
+    <div *ngIf="postagens.length === 0" class="sem-resultados">
+      <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhuma postagem encontrada</p>
     </div>
 
-    <!-- Sobre a ONG -->
-    <div class="section">
-      <h2 class="section-title">Sobre a ONG</h2>
-      <p class="section-text">
-        A Frada é uma organização sem fins lucrativos dedicada ao resgate, cuidado e adoção responsável de animais abandonados. Atuamos desde 2018 na Grande São Paulo, promovendo o bem-estar animal e a consciência sobre adoção.
-      </p>
-    </div>
+    <div
+      class="adote-card"
+      *ngFor="let post of postagens"
+      (click)="abrirDetalhe(post)">
 
-    <!-- Contato -->
-    <div class="section">
-      <h2 class="section-title">Contato</h2>
-      <div class="contact-list">
-        <div class="contact-item" (click)="abrirWhatsapp()">
-          <div class="contact-icon-wrap">
-            <ion-icon name="logo-whatsapp"></ion-icon>
-          </div>
-          <div class="contact-info">
-            <span class="contact-label">WhatsApp</span>
-            <span class="contact-value">(11) 99999-9999</span>
-          </div>
-          <ion-icon name="chevron-forward-outline" class="contact-arrow"></ion-icon>
-        </div>
-        <div class="contact-item" (click)="abrirInstagram()">
-          <div class="contact-icon-wrap">
-            <ion-icon name="logo-instagram"></ion-icon>
-          </div>
-          <div class="contact-info">
-            <span class="contact-label">Instagram</span>
-            <span class="contact-value">@frada.ong</span>
-          </div>
-          <ion-icon name="chevron-forward-outline" class="contact-arrow"></ion-icon>
-        </div>
-        <div class="contact-item" (click)="abrirEmail()">
-          <div class="contact-icon-wrap">
-            <ion-icon name="mail-outline"></ion-icon>
-          </div>
-          <div class="contact-info">
-            <span class="contact-label">E-mail</span>
-            <span class="contact-value">contato@frada.org.br</span>
-          </div>
-          <ion-icon name="chevron-forward-outline" class="contact-arrow"></ion-icon>
+      <div class="adote-header">
+        <span class="header-titulo">{{ post.titulo }}</span>
+        <div class="adote-acoes">
+          <button class="acao-btn" (click)="compartilhar(post); $event.stopPropagation()">
+            <ion-icon name="arrow-redo-outline"></ion-icon>
+          </button>
+          <button class="acao-btn" (click)="salvar(post); $event.stopPropagation()">
+            <ion-icon
+              [name]="post.saved ? 'bookmark' : 'bookmark-outline'"
+              [class.saved]="post.saved">
+            </ion-icon>
+          </button>
         </div>
       </div>
+
+      <div class="adote-content">
+        <img [src]="post.imagem" [alt]="post.titulo" class="adote-image">
+        <div class="adote-info">
+          <div class="adote-chips">
+            <span class="chip-mini chip-raca">{{ post.raca }}</span>
+            <span class="chip-mini chip-genero">{{ post.genero }}</span>
+            <span class="chip-mini chip-idade">{{ post.idade }}</span>
+          </div>
+          <p class="adote-descricao">{{ post.descricao }}</p>
+          <span class="adote-cta">Ver detalhes →</span>
+        </div>
+      </div>
+
     </div>
 
-    <!-- Animais disponíveis -->
-    <div class="section">
-      <h2 class="section-title">Animais disponíveis</h2>
-      <p class="section-text">Acesse a aba de adoções para ver todos os animais cadastrados pela Frada.</p>
+  </div>
+
+  <!-- ===== Feed Denúncias ===== -->
+  <div class="feed" *ngIf="tabAtiva === 'denuncias'">
+
+    <div *ngIf="denuncias.length === 0" class="sem-resultados">
+      <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhuma denúncia encontrada</p>
+    </div>
+
+    <div
+      class="denuncia-card"
+      *ngFor="let d of denuncias"
+      (click)="abrirDenuncia(d)">
+
+      <div class="denuncia-header">
+        <span class="header-titulo">{{ d.titulo }}</span>
+        <div class="denuncia-acoes">
+          <button class="acao-btn" (click)="compartilharDenuncia(d); $event.stopPropagation()">
+            <ion-icon name="arrow-redo-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="denuncia-content">
+        <img [src]="d.imagem" [alt]="d.titulo" class="denuncia-image">
+        <div class="denuncia-info">
+          <div class="denuncia-meta">
+            <ion-icon name="person-outline"></ion-icon>
+            <span class="denuncia-autor">{{ d.autor }}</span>
+            <span class="denuncia-dot">·</span>
+            <ion-icon name="time-outline"></ion-icon>
+            <span class="denuncia-tempo">{{ d.tempo }}</span>
+          </div>
+          <p class="denuncia-descricao">{{ d.descricao }}</p>
+          <span class="denuncia-cta">Ver denúncia →</span>
+        </div>
+      </div>
+
     </div>
 
   </div>
 
 </ion-content>
-
-<!-- Botão fixo -->
-<div class="bottom-bar">
-  <button class="contact-btn" (click)="abrirWhatsapp()">
-    <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
-    Entrar em contato
-  </button>
-</div>

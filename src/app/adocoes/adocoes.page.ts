@@ -68,7 +68,7 @@
         raca: 'Vira-lata',
         idadeTexto: 'Filhote',
         idadeMeses: 4,
-        imagem: 'https://img.olx.com.br/images/26/263662263627797.jpg',
+        imagem: 'https://jpimg.com.br/uploads/2025/01/10-curiosidades-sobre-os-filhotes-de-gato.jpg',
         descricao: 'Gatinha fêmea, ainda filhote, muito dócil e carinhosa. Adora brincar e estar próxima das pessoas.',
         descricaoCompleta: 'Gatinha fêmea, ainda filhote, muito dócil e carinhosa. Adora brincar e estar próxima das pessoas. Procura um lar responsável que ofereça cuidado, atenção e amor.',
         usuario: { nome: 'Regina Almeida', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', cidade: 'São Paulo, SP' }
