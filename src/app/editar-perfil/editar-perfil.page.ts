@@ -9,10 +9,7 @@ import { NavController, ToastController } from '@ionic/angular';
   standalone: false
 })
 export class EditarPerfilPage implements OnInit {
-  usuario = {
-    nome: '',
-    telefone: ''
-  };
+  usuario: any = { nome: '', telefone: '' };
 
   fotoSelecionada: File | null = null;
   previewFoto: string | ArrayBuffer | null = null;
@@ -34,17 +31,17 @@ export class EditarPerfilPage implements OnInit {
 
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
-    this.http.get('http://localhost:3000/api/perfil', { headers })
-      .subscribe({
-        next: (res: any) => {
-          this.usuario.nome = res.nome;
-          this.usuario.telefone = res.telefone;
-          if (res.foto) {
-            this.previewFoto = `http://localhost:3000/uploads/${res.foto}`;
-          }
-        },
-        error: (err) => console.error('Erro ao buscar dados do perfil:', err)
-      });
+    this.http.get('http://localhost:3000/api/perfil', { headers }).subscribe({
+      next: (res: any) => {
+        this.usuario = res;
+    
+        // Montando a URL da foto se ela existir no banco
+        if (this.usuario && this.usuario.foto_perfil) { 
+          this.usuario.fotoUrl = `http://localhost:3000/uploads/${this.usuario.foto_perfil}`;
+        }
+      }, // 🔴 A VÍRGULA QUE ESTAVA FALTANDO É ESSA AQUI!
+      error: (err) => console.error('Erro ao buscar dados do perfil:', err)
+    });
   }
 
   // Exatamente igual ao sistema de postagens

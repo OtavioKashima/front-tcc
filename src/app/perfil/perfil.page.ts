@@ -41,21 +41,23 @@ export class PerfilPage implements OnInit {
   
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
   
-    this.http.get('http://localhost:3000/api/perfil', { headers })
-      .subscribe({
-        next: (res: any) => {
-          // Guardamos os dados
-          this.usuario = res;
-          
-          // CRIAMOS A URL DA IMAGEM AQUI:
-          if (this.usuario.foto) {
-            this.usuario.fotoUrl = `http://localhost:3000/uploads/${this.usuario.foto}`;
-          } else {
-            this.usuario.fotoUrl = `https://ui-avatars.com/api/?name=${res.nome}&background=random`;
-          }
-        },
-        error: (err) => console.error('Erro ao buscar usuário:', err)
-      });
+    this.http.get('http://localhost:3000/api/perfil', { headers }).subscribe({
+      next: (res: any) => {
+        this.usuario = res;
+    
+        // 🔴 CORREÇÃO AQUI: Mudamos de 'this.usuario.foto' para 'this.usuario.foto_perfil'
+        if (this.usuario && this.usuario.foto_perfil) { 
+          // Monta o caminho correto apontando para 'foto_perfil'
+          this.usuario.fotoUrl = `http://localhost:3000/uploads/${this.usuario.foto_perfil}`;
+        } else {
+          // Caso o usuário não tenha foto, define um avatar temporário com o nome dele
+          this.usuario.fotoUrl = `https://ui-avatars.com/api/?name=${res.nome}&background=random&color=fff`;
+        }
+        
+        console.log("URL final da foto montada:", this.usuario.fotoUrl);
+      },
+      error: (err) => console.error(err)
+    });
   }
   
   carregarMinhasPostagens() {
