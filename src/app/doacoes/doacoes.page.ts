@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Browser } from '@capacitor/browser';
+import { Platform } from '@ionic/angular';
 
 interface CardDoacao {
   titulo: string;
@@ -50,6 +51,8 @@ export class DoacoesPage implements OnInit {
 
   private chavePix = 'contato@patinhasfelizes.com.br';
 
+  constructor(private platform: Platform) {}
+
   ngOnInit() {
     this.cardsFiltrados = [...this.todosCards];
   }
@@ -93,11 +96,36 @@ export class DoacoesPage implements OnInit {
     this.processando = true;
 
     try {
-      const pixUrl = `https://nubank.com.br/cobrar/pix?chave=${encodeURIComponent(this.chavePix)}&valor=${valor}&descricao=${encodeURIComponent('Doação ONG Patinhas Felizes')}`;
-      await Browser.open({ url: pixUrl });
+      if (this.platform.is('android')) {
+        // Deep link oficial do app BB no Android
+        window.location.href = 'bb://';
+
+        // Se não abrir em 1.5s, redireciona para a Play Store
+        setTimeout(async () => {
+          await Browser.open({
+            url: 'https://play.google.com/store/apps/details?id=br.com.bb.android'
+          });
+        }, 1500);
+
+      } else if (this.platform.is('ios')) {
+        // Deep link oficial do app BB no iOS
+        window.location.href = 'bb://';
+
+        // Se não abrir em 1.5s, redireciona para a App Store
+        setTimeout(async () => {
+          await Browser.open({
+            url: 'https://apps.apple.com/br/app/banco-do-brasil/id539638839'
+          });
+        }, 1500);
+
+      } else {
+        // Web: abre o site do BB
+        await Browser.open({ url: 'https://www.bb.com.br' });
+      }
+
     } catch (err) {
-      console.error('Erro ao abrir PIX:', err);
-      alert('Não foi possível abrir o pagamento. Tente novamente.');
+      console.error('Erro ao abrir o Banco do Brasil:', err);
+      alert('Não foi possível abrir o app. Tente novamente.');
     } finally {
       this.processando = false;
     }

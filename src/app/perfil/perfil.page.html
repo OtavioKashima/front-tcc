@@ -1,10 +1,5 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="custom-toolbar">
-    <ion-buttons slot="start">
-      <button class="toolbar-btn" (click)="goBack()">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-      </button>
-    </ion-buttons>
     <ion-buttons slot="end">
       <button class="toolbar-btn" (click)="editarPerfil()">
         <ion-icon name="create-outline"></ion-icon>
@@ -15,7 +10,6 @@
 
 <ion-content [scrollY]="true">
 
-  <!-- HERO -->
   <div class="perfil-hero">
     <div class="hero-bg"></div>
     <div class="perfil-avatar-wrapper">
@@ -24,7 +18,6 @@
     <h2 class="perfil-nome">{{ usuario.nome }}</h2>
   </div>
 
-  <!-- HEADER DA SEÇÃO -->
   <div class="secao-header">
     <span class="secao-titulo">
       <ion-icon name="alert-circle-outline"></ion-icon>
@@ -35,14 +28,12 @@
     </span>
   </div>
 
-  <!-- SEM DENÚNCIAS -->
   <div class="sem-resultados" *ngIf="denuncias.length === 0">
     <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
     <p>Nenhuma denúncia ainda</p>
     <span class="sem-resultados-sub">Viu algo errado? Reporte aqui.</span>
   </div>
 
-  <!-- FEED -->
   <div class="feed">
     <div
       class="denuncia-card"

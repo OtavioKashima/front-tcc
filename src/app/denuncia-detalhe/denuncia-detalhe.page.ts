@@ -2,6 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
+interface DenunciaResumo {
+  titulo: string;
+  imagem: string;
+  categoria?: string;
+  dataFormatada: string;
+  descricao?: string;
+  autor?: string;
+  local?: string;
+  status?: string;
+  tipo?: string;
+}
+
 interface Denuncia {
   titulo: string;
   imagem: string;
@@ -18,6 +30,7 @@ interface Denuncia {
     cidade: string;
     bio?: string;
     totalDenuncias?: number;
+    denuncias?: DenunciaResumo[];
   };
 }
 
@@ -44,21 +57,26 @@ export class DenunciaDetalhePage implements OnInit {
       avatar: 'assets/avatar-default.png',
       cidade: '',
       bio: '',
-      totalDenuncias: 0
+      totalDenuncias: 0,
+      denuncias: []
     }
   };
+
+  private navState: any;
 
   constructor(
     private router: Router,
     private navCtrl: NavController
-  ) {}
+  ) {
+    const nav = this.router.getCurrentNavigation();
+    this.navState = nav?.extras?.state ?? null;
+  }
 
   ngOnInit(): void {
-    const nav = this.router.getCurrentNavigation();
-    if (nav?.extras?.state?.['denuncia']) {
-      this.denuncia = { ...this.denuncia, ...nav.extras.state['denuncia'] };
-    } else if (history.state?.denuncia) {
-      this.denuncia = { ...this.denuncia, ...history.state.denuncia };
+    const state = this.navState ?? history.state;
+
+    if (state?.denuncia) {
+      this.denuncia = { ...this.denuncia, ...state.denuncia };
     }
   }
 
@@ -76,9 +94,40 @@ export class DenunciaDetalhePage implements OnInit {
   }
 
   verPerfilUsuario(): void {
+
+    // cria uma denúncia resumo baseada na denúncia atual
+    const denunciaAtual: DenunciaResumo = {
+      titulo: this.denuncia.titulo,
+      imagem: this.denuncia.imagem,
+      categoria: this.denuncia.categoria,
+      dataFormatada: this.denuncia.dataFormatada,
+      descricao: this.denuncia.descricao,
+      autor: this.denuncia.usuario.nome,
+      local: this.denuncia.local,
+      status: this.denuncia.status,
+      tipo: this.denuncia.tipo
+    };
+
+    // pega denúncias existentes do usuário
+    const denunciasUsuario = this.denuncia.usuario.denuncias ?? [];
+
+    // evita duplicar
+    const jaExiste = denunciasUsuario.some(
+      d => d.titulo === denunciaAtual.titulo
+    );
+
+    // adiciona a denúncia atual
+    if (!jaExiste) {
+      denunciasUsuario.push(denunciaAtual);
+    }
+
     this.router.navigate(['/perfil-usuario-detalhe'], {
       state: {
-        usuario: this.denuncia.usuario
+        usuario: {
+          ...this.denuncia.usuario,
+          denuncias: denunciasUsuario
+        },
+        denuncias: denunciasUsuario
       }
     });
   }

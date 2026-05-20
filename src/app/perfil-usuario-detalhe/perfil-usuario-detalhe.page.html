@@ -28,7 +28,7 @@
     <p class="sobre-text">{{ usuario.bio }}</p>
   </div>
 
-  <!-- Tabs bar (apenas Denúncias) -->
+  <!-- Tabs bar -->
   <div class="tabs-bar">
     <button class="tab-btn active">
       <ion-icon name="alert-circle-outline"></ion-icon>
@@ -62,14 +62,10 @@
         <img [src]="d.imagem" [alt]="d.titulo" class="denuncia-image">
         <div class="denuncia-info">
           <div class="denuncia-meta">
-            <ion-icon name="person-outline"></ion-icon>
-            <span class="denuncia-autor">{{ d.autor || usuario.nome }}</span>
-            <span class="denuncia-dot">·</span>
             <ion-icon name="time-outline"></ion-icon>
             <span class="denuncia-tempo">{{ d.dataFormatada }}</span>
           </div>
           <p class="denuncia-descricao">{{ d.descricao }}</p>
-          <span class="denuncia-cta">Ver denúncia →</span>
         </div>
       </div>
 

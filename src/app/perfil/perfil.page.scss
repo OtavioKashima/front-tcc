@@ -28,7 +28,6 @@ ion-toolbar.custom-toolbar {
 
 ion-content { --background: #f0fdf6; }
 
-// HERO
 .perfil-hero {
   position: relative;
   background: white;
@@ -69,13 +68,13 @@ ion-content { --background: #f0fdf6; }
 
 .perfil-nome {
   font-family: 'Nunito', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: #1a3a2e;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: #3ecf8e;
+  letter-spacing: 0.02em;
   margin: 14px 0 0;
 }
 
-// SEÇÃO HEADER
 .secao-header {
   display: flex;
   align-items: center;
@@ -104,7 +103,6 @@ ion-content { --background: #f0fdf6; }
   color: #99cbb8;
 }
 
-// SEM RESULTADOS
 .sem-resultados {
   display: flex;
   flex-direction: column;
@@ -134,7 +132,6 @@ ion-content { --background: #f0fdf6; }
   color: #7dddb0;
 }
 
-// FEED + CARDS
 .feed {
   padding: 12px 0 100px;
   display: flex;

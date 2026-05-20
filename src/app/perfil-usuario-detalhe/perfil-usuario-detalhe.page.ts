@@ -8,6 +8,7 @@ interface Usuario {
   avatar: string;
   cidade: string;
   bio?: string;
+  denuncias?: DenunciaResumo[];
 }
 
 interface DenunciaResumo {
@@ -36,59 +37,114 @@ export class PerfilUsuarioDetalhePage implements OnInit {
     nome: '',
     avatar: 'assets/avatar-default.png',
     cidade: '',
-    bio: ''
+    bio: '',
+    denuncias: []
   };
 
   denunciasUsuario: DenunciaResumo[] = [];
 
+  private navState: any;
+
   constructor(
     private router: Router,
     private navCtrl: NavController
-  ) {}
+  ) {
+    const nav = this.router.getCurrentNavigation();
+    this.navState = nav?.extras?.state ?? null;
+  }
 
   ngOnInit(): void {
-    const nav = this.router.getCurrentNavigation();
-    if (nav?.extras?.state?.['usuario']) {
-      this.usuario = { ...this.usuario, ...nav.extras.state['usuario'] };
-    } else if (history.state?.usuario) {
-      this.usuario = { ...this.usuario, ...history.state.usuario };
+
+    const state = this.navState ?? history.state;
+
+    // recebe usuário
+    if (state?.usuario) {
+
+      this.usuario = {
+        ...this.usuario,
+        ...state.usuario
+      };
+
     }
 
-    // TODO: carregar denúncias pelo this.usuario.id
-    // this.denunciaService.getDenunciasPorUsuario(this.usuario.id).subscribe(lista => {
-    //   this.denunciasUsuario = lista;
-    // });
+    // recebe denúncias diretamente
+    if ((state?.denuncias ?? []).length > 0) {
+
+      this.denunciasUsuario = [...state.denuncias];
+
+    }
+
+    // recebe denúncias dentro do usuário
+    else if ((this.usuario.denuncias ?? []).length > 0) {
+
+      this.denunciasUsuario = [
+        ...(this.usuario.denuncias ?? [])
+      ];
+
+    }
+
+    // fallback
+    else {
+
+      this.denunciasUsuario = [];
+
+      console.log('Nenhuma denúncia encontrada');
+
+    }
+
   }
 
   verDenuncia(denuncia: DenunciaResumo): void {
+
     this.router.navigate(['/denuncia-detalhe'], {
-      state: { denuncia }
+      state: {
+        denuncia: {
+          ...denuncia,
+          usuario: this.usuario
+        }
+      }
     });
+
   }
 
   compartilharUsuario(): void {
+
     if (navigator.share) {
+
       navigator.share({
         title: this.usuario.nome,
         text: this.usuario.bio || '',
         url: window.location.href
-      }).catch(err => console.error('Erro ao compartilhar:', err));
+      }).catch(err => {
+        console.error('Erro ao compartilhar:', err);
+      });
+
     } else {
+
       navigator.clipboard.writeText(window.location.href);
+
     }
+
   }
 
   compartilharDenuncia(denuncia: DenunciaResumo): void {
+
     if (navigator.share) {
+
       navigator.share({
         title: denuncia.titulo,
         text: denuncia.descricao || '',
         url: window.location.href
-      }).catch(err => console.error('Erro ao compartilhar:', err));
+      }).catch(err => {
+        console.error('Erro ao compartilhar denúncia:', err);
+      });
+
     }
+
   }
 
   goBack(): void {
     this.navCtrl.back();
   }
+
 }

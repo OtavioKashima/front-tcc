@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 export interface Denuncia {
   id: string;
@@ -36,7 +35,7 @@ export interface Usuario {
 export class PerfilPage implements OnInit {
 
   usuario: Usuario = {
-    nome: 'Benito Martins',
+    nome: 'Benito M.',
     avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
   };
 
@@ -53,7 +52,7 @@ export class PerfilPage implements OnInit {
       dataFormatada: 'há 1 semana',
       usuario: {
         id: 'u1',
-        nome: 'Benito Martins',
+        nome: 'Benito M.',
         avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
         cidade: 'Joinville, SC',
         bio: 'Amante dos animais.',
@@ -62,7 +61,7 @@ export class PerfilPage implements OnInit {
     },
     {
       id: 'd2',
-      titulo: 'Maus tratos ',
+      titulo: 'Maus tratos',
       imagem: 'https://blog-static.petlove.com.br/wp-content/uploads/2022/06/cachorro-maus-tratos-Petlove.jpg',
       descricao: 'Vizinho deixa cachorro no sol sem água. Animal visivelmente desnutrido e com feridas.',
       tipo: 'Maus-tratos',
@@ -72,7 +71,7 @@ export class PerfilPage implements OnInit {
       dataFormatada: 'há 3 dias',
       usuario: {
         id: 'u1',
-        nome: 'Benito Martins',
+        nome: 'Benito M.',
         avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
         cidade: 'Joinville, SC',
         bio: 'Amante dos animais.',
@@ -81,15 +80,9 @@ export class PerfilPage implements OnInit {
     },
   ];
 
-  constructor(
-    private location: Location,
-    private navCtrl: NavController,
-    private alertCtrl: AlertController,
-  ) {}
+  constructor(private navCtrl: NavController) {}
 
-  ngOnInit() {
-    // this.authService.getUsuario().then(u => this.usuario = u);
-  }
+  ngOnInit() {}
 
   abrirDenuncia(denuncia: Denuncia): void {
     this.navCtrl.navigateForward(['/denuncia-detalhe'], {
@@ -97,62 +90,17 @@ export class PerfilPage implements OnInit {
     });
   }
 
-  async editarDenuncia(post: Denuncia) {
-    const alert = await this.alertCtrl.create({
-      header: 'Editar denúncia',
-      inputs: [
-        {
-          name: 'titulo',
-          type: 'text',
-          value: post.titulo,
-          placeholder: 'Título',
-        },
-        {
-          name: 'descricao',
-          type: 'textarea',
-          value: post.descricao,
-          placeholder: 'Descrição',
-        },
-      ],
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        {
-          text: 'Salvar',
-          handler: (data) => {
-            const idx = this.denuncias.findIndex(d => d.id === post.id);
-            if (idx !== -1) {
-              this.denuncias[idx] = {
-                ...this.denuncias[idx],
-                titulo: data.titulo,
-                descricao: data.descricao,
-              };
-              this.denuncias = [...this.denuncias];
-            }
-          },
-        },
-      ],
+  editarDenuncia(post: Denuncia): void {
+    this.navCtrl.navigateForward(['/editar-denuncia'], {
+      state: { denuncia: post }
     });
-    await alert.present();
   }
 
-  async excluirDenuncia(post: Denuncia) {
-    const alert = await this.alertCtrl.create({
-      header: 'Excluir denúncia',
-      message: `Deseja excluir "${post.titulo}"? Essa ação não pode ser desfeita.`,
-      buttons: [
-        { text: 'Cancelar', role: 'cancel' },
-        {
-          text: 'Excluir',
-          role: 'destructive',
-          handler: () => {
-            this.denuncias = this.denuncias.filter(d => d.id !== post.id);
-          },
-        },
-      ],
-    });
-    await alert.present();
+  excluirDenuncia(post: Denuncia): void {
+    this.denuncias = this.denuncias.filter(d => d.id !== post.id);
   }
 
-  goBack(): void { this.location.back(); }
-  editarPerfil(): void { this.navCtrl.navigateForward('/editar-perfil'); }
+  editarPerfil(): void {
+    this.navCtrl.navigateForward('/editar-perfil');
+  }
 }

@@ -1,6 +1,6 @@
 <ion-content [scrollY]="true">
 
-  <!-- Botões flutuantes sobre a imagem -->
+  <!-- Botões flutuantes -->
   <div class="floating-buttons">
     <button class="float-btn" (click)="goBack()">
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
@@ -21,7 +21,7 @@
 
   <div class="content-body">
 
-    <!-- Usuário que publicou — clicável para ir ao perfil -->
+    <!-- Usuário que publicou -->
     <div class="owner-card" (click)="verPerfilUsuario()">
       <img
         [src]="denuncia.usuario.avatar"
