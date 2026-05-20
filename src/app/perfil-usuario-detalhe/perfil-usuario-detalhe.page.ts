@@ -44,6 +44,8 @@ export class PerfilUsuarioDetalhePage implements OnInit {
     totalCurtidas: 0
   };
 
+  
+
   // Lista de denúncias do usuário — preencha com dados reais do seu serviço
   denunciasUsuario: DenunciaResumo[] = [];
 

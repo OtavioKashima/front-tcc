@@ -44,7 +44,7 @@ export class PerfilPage implements OnInit {
     {
       id: 'd1',
       titulo: 'Ajuda com Remédios',
-      imagem: 'https://inovaveterinaria.com.br/wp-content/uploads/2017/09/vermifugo-para-cachorros-e-gatos-1024x703-1.jpg',
+      imagem: 'https://www.santelaboratorio.com.br/wp-content/uploads/2018/03/remedio_cachorro4.jpg',
       descricao: 'Tenho o Thor desde filhote e agora está velhinho. Não consigo mais arcar com os remédios do tratamento.',
       tipo: 'Negligência',
       categoria: 'Animal',

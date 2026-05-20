@@ -15,7 +15,7 @@
   <div class="hero-banner">
     <div class="paw-bg">🐾</div>
     <div class="hero-text">
-      <span class="hero-tag">ONG Patinhas Felizes</span>
+      <span class="hero-tag">ONG FRADA</span>
       <h2>Doe qualquer valor</h2>
       <p>Sua contribuição vai direto para a ONG, que decide como melhor ajudar os animais.</p>
     </div>
@@ -46,15 +46,10 @@
         (input)="valorSelecionado = null">
     </div>
 
-    <button class="btn-pagar" (click)="processarDoacao()" [disabled]="processando">
-      <img
-        src="https://logospng.org/download/mercado-pago/logo-mercado-pago-icone-1024.png"
-        onerror="this.style.display='none'"
-        style="width:22px;height:22px;border-radius:4px;vertical-align:middle;margin-right:8px;">
-      {{ processando ? 'Aguarde...' : 'Pagar com Mercado Pago' }}
+    <button class="adopt-btn" (click)="processarDoacao()" [disabled]="processando">
+      <ion-icon name="paw"></ion-icon>
+      {{ processando ? 'Aguarde...' : 'Realizar Pagamento' }}
     </button>
-
-    <p class="seguro-label">🔒 Pagamento 100% seguro via Mercado Pago</p>
 
   </div>
 
@@ -67,8 +62,12 @@
     <p>A ONG recebe o valor e decide onde ele é mais necessário: ração, remédios, cirurgias, vacinas ou abrigo. Cada real conta!</p>
   </div>
 
-  <!-- Cards ilustrativos filtrados -->
-  <div class="section-title">Exemplos do que ajudamos</div>
+  <!-- Cards ilustrativos -->
+  <div class="section-header">
+    <div class="section-header-line"></div>
+    <span class="section-title">Exemplos do que ajudamos</span>
+    <div class="section-header-line"></div>
+  </div>
 
   <div *ngIf="cardsFiltrados.length === 0" class="sem-resultados">
     <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>

@@ -81,7 +81,8 @@
         <div class="filtro-pill">
           <select [(ngModel)]="filtros.estado" (change)="filtrar()">
             <option value="" disabled selected hidden>Estado</option>
-            <option value="SC">SC</option>
+            <option value="">Todos os estados</option>
+            <option *ngFor="let e of estadosDisponiveis" [value]="e">{{ e }}</option>
           </select>
         </div>
 

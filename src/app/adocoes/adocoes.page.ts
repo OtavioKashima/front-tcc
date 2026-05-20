@@ -71,7 +71,7 @@
         imagem: 'https://jpimg.com.br/uploads/2025/01/10-curiosidades-sobre-os-filhotes-de-gato.jpg',
         descricao: 'Gatinha fêmea, ainda filhote, muito dócil e carinhosa. Adora brincar e estar próxima das pessoas.',
         descricaoCompleta: 'Gatinha fêmea, ainda filhote, muito dócil e carinhosa. Adora brincar e estar próxima das pessoas. Procura um lar responsável que ofereça cuidado, atenção e amor.',
-        usuario: { nome: 'Regina Almeida', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', cidade: 'São Paulo, SP' }
+        usuario: { nome: 'Regina Almeida', avatar: 'https://randomuser.me/api/portraits/women/44.jpg', cidade: 'Joinville, SC' }
       },
       {
         titulo: 'Gato - Macho',
@@ -82,7 +82,7 @@
         imagem: 'https://images.openai.com/static-rsc-4/NGLjatZFsVVQKPAjzU7PlEQmJYe6keV6GTh4OhqYLu6lHMQHZg7YaSfoKbcd7RTAWxXCmfNPCohcXzGSxut9nJDxCgcqlafolhgjURCDGIi89t66IW41SgCmopm1TURO39e6oWfipqgpBNTOoj1B-kQHGnPcj_7WATcUDo7PtT7yAX-TiaLGBIzpSHdXHiut?purpose=fullsize',
         descricao: 'Gatinho macho, ainda filhote, dócil e muito carinhoso. É brincalhão, curioso e adora interagir com as pessoas.',
         descricaoCompleta: 'Gatinho macho, ainda filhote, dócil e muito carinhoso. É brincalhão, curioso e adora interagir com as pessoas. Procura um lar responsável que ofereça cuidado, atenção e amor.',
-        usuario: { nome: 'Marcos Oliveira', avatar: 'https://randomuser.me/api/portraits/men/22.jpg', cidade: 'Campinas, SP' }
+        usuario: { nome: 'Marcos Oliveira', avatar: 'https://randomuser.me/api/portraits/men/22.jpg', cidade: 'Joinville, SC' }
       },
       {
         titulo: 'Gato - Macho',
@@ -93,7 +93,7 @@
         imagem: 'https://cdn.shopify.com/s/files/1/0500/8965/6473/files/Cleiton2_480x480.jpg?v=1662048905',
         descricao: 'Gatinho frajolinha, adulto, muito dócil e carinhoso. É tranquilo, companheiro e adora a presença das pessoas.',
         descricaoCompleta: 'Gatinho frajolinha, adulto, muito dócil e carinhoso. É tranquilo, companheiro e adora a presença das pessoas. Procura um lar responsável que ofereça cuidado, atenção e muito amor.',
-        usuario: { nome: 'Fernanda Costa', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', cidade: 'Curitiba, PR' }
+        usuario: { nome: 'Fernanda Costa', avatar: 'https://randomuser.me/api/portraits/women/68.jpg', cidade: 'Joinville, SC' }
       },
       {
         titulo: 'Gato - Macho',
@@ -104,7 +104,7 @@
         imagem: 'https://cdn.crusoe.com.br/uploads/2025/08/pexels-furkanakt-28934306-scaled.jpg',
         descricao: 'Gato laranja, adulto, dócil e muito carinhoso. É tranquilo, companheiro e adora a presença das pessoas.',
         descricaoCompleta: 'Gato laranja, adulto, dócil e muito carinhoso. É tranquilo, companheiro e adora a presença das pessoas. Procura um lar responsável que ofereça cuidado, atenção e muito amor.',
-        usuario: { nome: 'Lucas Pereira', avatar: 'https://randomuser.me/api/portraits/men/45.jpg', cidade: 'Belo Horizonte, MG' }
+        usuario: { nome: 'Lucas Pereira', avatar: 'https://randomuser.me/api/portraits/men/45.jpg', cidade: 'Joinville, SC' }
       },
       {
         titulo: 'Cachorro - Macho',
@@ -115,7 +115,7 @@
         imagem: 'https://adotar.com.br/painel/upload/2023-05/animais_imagem988506.jpg',
         descricao: 'Cachorrinho, ainda filhote, muito dócil e carinhoso. É brincalhão, cheio de energia e adora a companhia das pessoas.',
         descricaoCompleta: 'Cachorrinho, ainda filhote, muito dócil e carinhoso. É brincalhão, cheio de energia e adora a companhia das pessoas. Procura um lar responsável que ofereça cuidado, atenção e muito amor.',
-        usuario: { nome: 'Juliana Santos', avatar: 'https://randomuser.me/api/portraits/women/30.jpg', cidade: 'Porto Alegre, RS' }
+        usuario: { nome: 'Juliana Santos', avatar: 'https://randomuser.me/api/portraits/women/30.jpg', cidade: 'Joinville, SC' }
       },
       {
         titulo: 'Cadela - Fêmea',
@@ -126,7 +126,7 @@
         imagem: 'https://www.patasdacasa.com.br/sites/default/files/noticias/2021/06/cachorro-vira-lata-filhote-quais-os-cuidados-mais-importantes-durante-essa-fase.jpg',
         descricao: 'Cadelinha, ainda filhote, muito ativa e cheia de energia. É brincalhona, curiosa e adora aprontar enquanto descobre o mundo.',
         descricaoCompleta: 'Cadelinha, ainda filhote, muito ativa e cheia de energia. É brincalhona, curiosa e adora aprontar enquanto descobre o mundo. Procura um lar paciente e responsável que ofereça cuidado, atenção e amor.',
-        usuario: { nome: 'Carla Mendes', avatar: 'https://randomuser.me/api/portraits/women/55.jpg', cidade: 'Florianópolis, SC' }
+        usuario: { nome: 'Carla Mendes', avatar: 'https://randomuser.me/api/portraits/women/55.jpg', cidade: 'Joinville, SC' }
       },
       {
         titulo: 'Cadela - Fêmea',
@@ -137,7 +137,7 @@
         imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS96sqG_kgeWzNUSWaCJoNJ3nJ0xJ2z8nwzdA&s',
         descricao: 'Cadelinha muito carinhosa e carente, adora atenção e estar sempre por perto. É dócil, companheira e ama receber carinho.',
         descricaoCompleta: 'Cadelinha muito carinhosa e carente, adora atenção e estar sempre por perto. É dócil, companheira e ama receber carinho. Procura um lar responsável que ofereça muito amor, cuidado e presença constante.',
-        usuario: { nome: 'Roberta Lima', avatar: 'https://randomuser.me/api/portraits/women/72.jpg', cidade: 'Ribeirão Preto, SP' }
+        usuario: { nome: 'Roberta Lima', avatar: 'https://randomuser.me/api/portraits/women/72.jpg', cidade: 'Joinville, SC' }
       },
       {
         titulo: 'Coelha - Fêmea',
@@ -148,7 +148,7 @@
         imagem: 'https://vipzinho.com.br/wp-content/uploads/2025/08/coelhos.jpeg',
         descricao: 'Coelhinha fêmea, dócil e muito tranquila. É delicada, curiosa e gosta de um ambiente calmo.',
         descricaoCompleta: 'Coelhinha fêmea, dócil e muito tranquila. É delicada, curiosa e gosta de um ambiente calmo. Procura um lar responsável que ofereça cuidado, carinho e segurança.',
-        usuario: { nome: 'Patricia Souza', avatar: 'https://randomuser.me/api/portraits/women/82.jpg', cidade: 'Santos, SP' }
+        usuario: { nome: 'Patricia Souza', avatar: 'https://randomuser.me/api/portraits/women/82.jpg', cidade: 'Joinville, SC' }
       },
       {
         titulo: 'Maritaca - Fêmea',
@@ -159,7 +159,7 @@
         imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKfXShRyYUS7vo2B3GTNBqTFdzlVYqhTTgoQ&s',
         descricao: 'Maritaca, muito ativa e comunicativa. É curiosa, inteligente e adora interagir com as pessoas.',
         descricaoCompleta: 'Maritaca, muito ativa e comunicativa. É curiosa, inteligente e adora interagir com as pessoas. Procura um lar responsável que ofereça atenção, cuidado e um ambiente adequado.',
-        usuario: { nome: 'Eduardo Ramos', avatar: 'https://randomuser.me/api/portraits/men/60.jpg', cidade: 'Campinas, SP' }
+        usuario: { nome: 'Eduardo Ramos', avatar: 'https://randomuser.me/api/portraits/men/60.jpg', cidade: 'Joinville, SC' }
       },
     ];
 

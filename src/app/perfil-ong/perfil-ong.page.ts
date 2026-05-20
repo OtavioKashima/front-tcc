@@ -90,7 +90,7 @@ export class PerfilOngPage implements OnInit {
       dataFormatada: 'Hoje, 10:30',
       usuario: {
         nome: 'Maria S.',
-        avatar: 'assets/avatar-default.png',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTwcDKNEeRMNkDDy9lf1XUjZ2DtlHPiGWzlw&s',
         cidade: 'Joinville, SC'
       }
     },
@@ -104,7 +104,7 @@ export class PerfilOngPage implements OnInit {
       dataFormatada: 'Hoje, 07:15',
       usuario: {
         nome: 'João P.',
-        avatar: 'assets/avatar-default.png',
+        avatar: 'https://s2-gshow.glbimg.com/dnpswqI0JAydxGEbyGy-T9FrZB8=/0x0:520x439/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_e84042ef78cb4708aeebdf1c68c6cbd6/internal_photos/bs/2023/P/x/XnTxT4SCAbr7oVhdlA6g/rege-instagram.jpg',
         cidade: 'Joinville, SC'
       }
     },
@@ -118,7 +118,7 @@ export class PerfilOngPage implements OnInit {
       dataFormatada: 'Ontem, 18:00',
       usuario: {
         nome: 'Ana C.',
-        avatar: 'assets/avatar-default.png',
+        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkJcH09tV8MrYOW7vcKfl9kne8DFrvtsqmgg&s',
         cidade: 'Joinville, SC'
       }
     }
@@ -146,6 +146,19 @@ export class PerfilOngPage implements OnInit {
 
   goBack(): void {
     this.navCtrl.back();
+  }
+
+  // ← NOVO
+  compartilharOng(): void {
+    if (navigator.share) {
+      navigator.share({
+        title: this.ong.nome,
+        text: this.ong.descricao,
+        url: window.location.href
+      }).catch(err => console.error('Erro ao compartilhar:', err));
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+    }
   }
 
   abrirDetalhe(post: Postagem): void {

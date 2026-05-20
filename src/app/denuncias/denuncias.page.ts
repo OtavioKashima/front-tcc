@@ -51,12 +51,12 @@ export class DenunciasPage implements OnInit {
       tipo: 'Fraude',
       categoria: 'Animal',
       status: 'Aberta',
-      local: 'São Paulo, SC',
+      local: 'Joinville, SC',
       dataFormatada: '01/05/2025',
       dataISO: '2025-05-01',
       tipoAnimal: 'cachorro',
       idade: 'adulto',
-      usuario: { nome: 'João Silva', avatar: 'https://i.pravatar.cc/150?img=1', cidade: 'São Paulo, SC' }
+      usuario: { nome: 'João Silva', avatar: 'https://i.pravatar.cc/150?img=1', cidade: 'Joinville, SC' }
     },
     {
       titulo: 'Veneno na comida',
@@ -65,12 +65,12 @@ export class DenunciasPage implements OnInit {
       tipo: 'Envenenamento',
       categoria: 'Animal',
       status: 'Em Análise',
-      local: 'Campinas, SC',
+      local: 'Joinville, SC',
       dataFormatada: '03/05/2025',
       dataISO: '2025-05-03',
       tipoAnimal: 'gato',
       idade: 'jovem',
-      usuario: { nome: 'Maria Souza', avatar: 'https://i.pravatar.cc/150?img=5', cidade: 'Campinas, SC' }
+      usuario: { nome: 'Maria Souza', avatar: 'https://i.pravatar.cc/150?img=5', cidade: 'Joinville, SC' }
     },
     {
       titulo: 'Maus tratos',
@@ -79,12 +79,12 @@ export class DenunciasPage implements OnInit {
       tipo: 'Maus-tratos',
       categoria: 'Animal',
       status: 'Resolvida',
-      local: 'Ribeirão Preto, SC',
+      local: 'Joinville, SC',
       dataFormatada: '05/05/2025',
       dataISO: '2025-05-05',
       tipoAnimal: 'cachorro',
       idade: 'adulto',
-      usuario: { nome: 'Carlos Oliveira', avatar: 'https://i.pravatar.cc/150?img=8', cidade: 'Ribeirão Preto, SC' }
+      usuario: { nome: 'Carlos Oliveira', avatar: 'https://i.pravatar.cc/150?img=8', cidade: 'Joinville, SC' }
     },
     {
       titulo: 'Cachorro preso sem água',
@@ -93,12 +93,12 @@ export class DenunciasPage implements OnInit {
       tipo: 'Maus-tratos',
       categoria: 'Animal',
       status: 'Aberta',
-      local: 'Botucatu, SC',
+      local: 'Joinville, SC',
       dataFormatada: '12/05/2025',
       dataISO: '2025-05-12',
       tipoAnimal: 'cachorro',
       idade: 'jovem',
-      usuario: { nome: 'Bruna Martins', avatar: 'https://i.pravatar.cc/150?img=40', cidade: 'Botucatu, SC' }
+      usuario: { nome: 'Bruna Martins', avatar: 'https://i.pravatar.cc/150?img=40', cidade: 'Joinville, SC' }
     },
     {
       titulo: 'Gatos abandonados em caixa',
@@ -107,12 +107,12 @@ export class DenunciasPage implements OnInit {
       tipo: 'Abandono',
       categoria: 'Animal',
       status: 'Em Análise',
-      local: 'Jaú, SC',
+      local: 'Joinville, SC',
       dataFormatada: '13/05/2025',
       dataISO: '2025-05-13',
       tipoAnimal: 'gato',
       idade: 'jovem',
-      usuario: { nome: 'Diego Rocha', avatar: 'https://i.pravatar.cc/150?img=45', cidade: 'Jaú, SC' }
+      usuario: { nome: 'Diego Rocha', avatar: 'https://i.pravatar.cc/150?img=45', cidade: 'Joinville, SC' }
     },
     {
       titulo: 'Cavalo sendo maltratado',
@@ -121,12 +121,12 @@ export class DenunciasPage implements OnInit {
       tipo: 'Maus-tratos',
       categoria: 'Animal',
       status: 'Aberta',
-      local: 'Avaré, SC',
+      local: 'Joinville, SC',
       dataFormatada: '14/05/2025',
       dataISO: '2025-05-14',
       tipoAnimal: 'coelho',
       idade: 'adulto',
-      usuario: { nome: 'Ricardo Lopes', avatar: 'https://i.pravatar.cc/150?img=50', cidade: 'Avaré, SC' }
+      usuario: { nome: 'Ricardo Lopes', avatar: 'https://i.pravatar.cc/150?img=50', cidade: 'Joinville, SC' }
     },
     {
       titulo: 'Cães vivendo em ambiente insalubre',
@@ -135,12 +135,12 @@ export class DenunciasPage implements OnInit {
       tipo: 'Maus-tratos',
       categoria: 'Animal',
       status: 'Em Análise',
-      local: 'Lençóis Paulista, SC',
+      local: 'Joinville, SC',
       dataFormatada: '15/05/2025',
       dataISO: '2025-05-15',
       tipoAnimal: 'cachorro',
       idade: 'adulto',
-      usuario: { nome: 'Patrícia Gomes', avatar: 'https://i.pravatar.cc/150?img=55', cidade: 'Lençóis Paulista, SC' }
+      usuario: { nome: 'Patrícia Gomes', avatar: 'https://i.pravatar.cc/150?img=55', cidade: 'Joinville, SC' }
     },
     {
       titulo: 'Venda ilegal de animais silvestres',
@@ -149,12 +149,12 @@ export class DenunciasPage implements OnInit {
       tipo: 'Tráfico de animais',
       categoria: 'Animal',
       status: 'Aberta',
-      local: 'Bauru, SC',
+      local: 'Joinville, SC',
       dataFormatada: '16/05/2025',
       dataISO: '2025-05-16',
       tipoAnimal: 'ave',
       idade: 'jovem',
-      usuario: { nome: 'Lucas Fernandes', avatar: 'https://i.pravatar.cc/150?img=60', cidade: 'Bauru, SC' }
+      usuario: { nome: 'Lucas Fernandes', avatar: 'https://i.pravatar.cc/150?img=60', cidade: 'Joinville, SC' }
     },
     {
       titulo: 'Cachorro ferido sem atendimento',
@@ -163,12 +163,12 @@ export class DenunciasPage implements OnInit {
       tipo: 'Negligência',
       categoria: 'Animal',
       status: 'Aberta',
-      local: 'São Manuel, SC',
+      local: 'Joinville, SC',
       dataFormatada: '17/05/2025',
       dataISO: '2025-05-17',
       tipoAnimal: 'cachorro',
       idade: 'adulto',
-      usuario: { nome: 'Marcos Vinicius', avatar: 'https://i.pravatar.cc/150?img=65', cidade: 'São Manuel, SC' }
+      usuario: { nome: 'Marcos Vinicius', avatar: 'https://i.pravatar.cc/150?img=65', cidade: 'Joinville, SC' }
     }
   ];
 
@@ -179,6 +179,13 @@ export class DenunciasPage implements OnInit {
       .map(d => d.usuario?.cidade.split(', ')[0])
       .filter(Boolean) as string[];
     return [...new Set(cidades)].sort();
+  }
+
+  get estadosDisponiveis(): string[] {
+    const estados = this.denuncias
+      .map(d => d.usuario?.cidade.split(', ')[1])
+      .filter(Boolean) as string[];
+    return [...new Set(estados)].sort();
   }
 
   constructor(private navCtrl: NavController) {}

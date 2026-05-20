@@ -174,26 +174,40 @@ ion-content {
   font-family: 'Nunito', sans-serif;
 }
 
-.btn-pagar {
+// ── Botão ──
+.adopt-btn {
   width: 100%;
-  padding: 15px;
-  background: #009ee3;
+  height: 52px;
+  background: linear-gradient(135deg, #7dd9b0, #4ec98a);
   color: white;
   border: none;
   border-radius: 14px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(0, 158, 227, 0.35);
-  transition: opacity 0.2s;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(102, 217, 166, 0.35);
+  transition: all 0.2s ease;
   margin-bottom: 12px;
-  font-family: 'Nunito', sans-serif;
 
-  &:active { opacity: 0.85; }
-  &:disabled { opacity: 0.65; cursor: not-allowed; }
+  ion-icon {
+    font-size: 1.3rem;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 10px rgba(60, 184, 122, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
 }
 
 .seguro-label {
@@ -234,15 +248,32 @@ ion-content {
   ion-icon { font-size: 18px; }
 }
 
-// ── Section title ──
+// ── Section header bonito ──
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 16px 14px;
+}
+
+.section-header-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c3edd8);
+
+  &:last-child {
+    background: linear-gradient(to left, transparent, #c3edd8);
+  }
+}
+
 .section-title {
-  margin: 4px 16px 10px;
-  font-size: 13px;
-  font-weight: 700;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
   font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #3cb87a;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  white-space: nowrap;
 }
 
 // ── Sem resultados ──
@@ -311,15 +342,17 @@ ion-content {
   strong {
     display: block;
     font-size: 13px;
-    color: #222;
+    color: #2c8a5e; // volta cor original
     margin-bottom: 4px;
     font-family: 'Nunito', sans-serif;
+    font-weight: 800;
   }
 
   p {
     margin: 0;
     font-size: 12px;
-    color: #777;
+    color: #333; // preto fino
+    font-weight: 300;
     line-height: 1.45;
     font-family: 'Nunito', sans-serif;
   }
