@@ -14,7 +14,7 @@ ion-content {
   right: 0;
   z-index: 100;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   padding: 14px 12px 0;
 }
@@ -24,294 +24,332 @@ ion-content {
   align-items: center;
   justify-content: center;
   background: white;
-  border: 2px solid #66d9a6;
+  border: 2px solid #4eca88;
   border-radius: 50%;
   width: 38px;
   height: 38px;
   cursor: pointer;
-  box-shadow: 0 2px 10px rgba(102, 217, 166, 0.25);
+  box-shadow: 0 2px 10px rgba(78, 202, 136, 0.2);
   transition: all 0.2s ease;
   padding: 0;
 
   &:active {
-    background: #66d9a6;
+    background: #4eca88;
     .seta-voltar { color: white; }
   }
 }
 
 .seta-voltar {
   font-size: 20px;
-  color: #66d9a6;
+  color: #4eca88;
   transition: color 0.2s ease;
 }
 
 // =============================================
-// Hero do perfil
+// Hero
 // =============================================
-.profile-hero {
+.hero-banner {
   position: relative;
   width: 100%;
-  padding-bottom: 28px;
-  overflow: hidden;
+  height: 260px;
+  background: linear-gradient(135deg, #2d9e65, #4eca88);
+  display: flex;
+  align-items: flex-end;
 }
 
-.profile-hero-bg {
+.hero-gradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(160deg, #4eca88 0%, #38b87a 60%, #2da06a 100%);
-  z-index: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.45), transparent);
 }
 
-.profile-hero-content {
+.hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 70px 20px 0;
+  padding-bottom: 20px;
   gap: 6px;
 }
 
-.avatar-wrapper {
-  position: relative;
-  margin-bottom: 4px;
-}
-
-.profile-avatar {
-  width: 88px;
-  height: 88px;
+.user-avatar {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid white;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.18);
-  display: block;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.22);
+  background: white;
 }
 
-.avatar-badge {
-  position: absolute;
-  bottom: 2px;
-  right: 2px;
-  background: #4eca88;
-  border: 2px solid white;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  ion-icon {
-    font-size: 13px;
-    color: white;
-  }
-}
-
-.profile-name {
+.user-nome {
   font-family: 'Nunito', sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.55rem;
   font-weight: 900;
   color: white;
   margin: 0;
-  text-align: center;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
 }
 
-.profile-city {
+.user-cidade {
   font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: rgba(255,255,255,0.85);
   display: flex;
   align-items: center;
   gap: 4px;
 
-  ion-icon {
-    font-size: 0.9rem;
-  }
+  ion-icon { font-size: 13px; }
 }
 
 // =============================================
-// Body
+// Sobre
 // =============================================
-.content-body {
-  padding: 16px 16px 40px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-// =============================================
-// Stats
-// =============================================
-.stats-row {
+.sobre-section {
   background: white;
-  border-radius: 16px;
-  padding: 16px 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  box-shadow: 0 2px 12px rgba(102, 217, 166, 0.12);
-  border: 1px solid #d0eedd;
+  padding: 16px 16px 0;
 }
 
-.stat-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  flex: 1;
-}
-
-.stat-value {
+.sobre-text {
   font-family: 'Nunito', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 900;
-  color: #2da06a;
-}
-
-.stat-label {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #7dddb0;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.stat-divider {
-  width: 1px;
-  height: 36px;
-  background: #e0f5ec;
-}
-
-// =============================================
-// Seção
-// =============================================
-.section {
-  background: white;
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 2px 12px rgba(102, 217, 166, 0.12);
-  border: 1px solid #d0eedd;
-}
-
-.section-title {
-  font-family: 'Nunito', sans-serif;
-  font-size: 1rem;
-  font-weight: 900;
-  color: #1a1a1a;
-  margin: 0 0 12px;
-}
-
-.section-text {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   font-weight: 600;
-  color: #54a792;
+  color: #5a6e66;
   line-height: 1.7;
+  padding-bottom: 16px;
   margin: 0;
 }
 
 // =============================================
-// Lista de denúncias
+// Tabs bar
 // =============================================
-.denuncia-item {
+.tabs-bar {
+  background: white;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-  border-bottom: 1px solid #e8f8f0;
-  cursor: pointer;
-  transition: background 0.15s ease;
+  border-bottom: 1.5px solid #e8efeb;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
 
-  &:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
+.tab-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 0 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  font-family: 'Nunito', sans-serif;
+  transition: opacity 0.2s;
+
+  ion-icon {
+    font-size: 22px;
+    color: #aab5b0;
+    transition: color 0.2s;
   }
 
-  &:active {
-    background: #f0fdf6;
-    border-radius: 10px;
+  .tab-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #aab5b0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -1.5px;
+    left: 15%;
+    right: 15%;
+    height: 2.5px;
+    background: #4eca88;
+    border-radius: 2px 2px 0 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &.active {
+    ion-icon,
+    .tab-label { color: #4eca88; }
+    &::after { opacity: 1; }
   }
 }
 
-.denuncia-thumb {
-  width: 52px;
-  height: 52px;
+// =============================================
+// Feed
+// =============================================
+.feed {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0 100px;
+}
+
+.sem-resultados {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+
+  .sem-resultados-icon {
+    font-size: 3.5rem;
+    color: #66d9a6;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #52c994;
+    margin: 0;
+  }
+}
+
+// =============================================
+// Cards de Denúncia
+// =============================================
+.denuncia-card {
+  margin: 10px 16px;
+  border-radius: 16px;
+  background: #f0fdf6;
+  border: 1px solid #d0eedd;
+  overflow: hidden;
+  cursor: pointer;
+  animation: fadeIn 0.3s ease both;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(102, 217, 166, 0.15);
+    transform: translateY(-1px);
+  }
+
+  &:active { transform: scale(0.99); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.denuncia-header {
+  background: #66d9a6;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header-titulo {
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #ffffff;
+  }
+}
+
+.denuncia-acoes {
+  display: flex;
+  align-items: center;
+}
+
+.denuncia-content {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  align-items: center;
+}
+
+.denuncia-image {
+  width: 82px;
+  height: 82px;
   border-radius: 10px;
   object-fit: cover;
   flex-shrink: 0;
-  border: 1px solid #d0eedd;
+  border: 1.5px solid #d0eedd;
 }
 
 .denuncia-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  min-width: 0;
+  gap: 5px;
 }
 
-.denuncia-badge {
+.denuncia-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  ion-icon {
+    font-size: 0.8rem;
+    color: #7dddb0;
+  }
+}
+
+.denuncia-autor {
   font-family: 'Nunito', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
+  font-size: 0.75rem;
+  font-weight: 700;
   color: #4eca88;
 }
 
-.denuncia-titulo {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 800;
-  color: #1a1a1a;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.denuncia-dot {
+  color: #b2e8d0;
+  font-size: 0.85rem;
 }
 
-.denuncia-data {
+.denuncia-tempo {
   font-family: 'Nunito', sans-serif;
   font-size: 0.75rem;
   font-weight: 600;
   color: #7dddb0;
+}
+
+.denuncia-descricao {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #54a792;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.denuncia-cta {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #4eca88;
+}
+
+// =============================================
+// Botões de ação
+// =============================================
+.acao-btn {
+  background: none;
+  border: none;
+  padding: 5px 6px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 3px;
+  justify-content: center;
+  border-radius: 8px;
+  transition: opacity 0.15s ease;
 
   ion-icon {
-    font-size: 0.8rem;
+    font-size: 1.15rem;
+    color: #ffffff;
+    transition: transform 0.2s ease;
   }
-}
 
-.denuncia-arrow {
-  font-size: 1rem;
-  color: #b2e8d0;
-  flex-shrink: 0;
-}
-
-// =============================================
-// Empty state
-// =============================================
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  padding: 24px 0 8px;
-}
-
-.empty-icon {
-  font-size: 2.5rem;
-  color: #b2e8d0;
-}
-
-.empty-text {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #7dddb0;
-  margin: 0;
-  text-align: center;
+  &:hover { opacity: 0.75; }
+  &:active { transform: scale(0.85); }
 }
