@@ -49,8 +49,11 @@ export class PerfilUsuarioDetalhePage implements OnInit {
     private router: Router,
     private navCtrl: NavController
   ) {
+
     const nav = this.router.getCurrentNavigation();
+
     this.navState = nav?.extras?.state ?? null;
+
   }
 
   ngOnInit(): void {
@@ -65,12 +68,19 @@ export class PerfilUsuarioDetalhePage implements OnInit {
         ...state.usuario
       };
 
+      // REMOVE A BIO DO BENEDITO
+      if (this.usuario.nome === 'Benedito') {
+        this.usuario.bio = '';
+      }
+
     }
 
     // recebe denúncias diretamente
     if ((state?.denuncias ?? []).length > 0) {
 
-      this.denunciasUsuario = [...state.denuncias];
+      this.denunciasUsuario = [
+        ...state.denuncias
+      ];
 
     }
 
@@ -96,14 +106,17 @@ export class PerfilUsuarioDetalhePage implements OnInit {
 
   verDenuncia(denuncia: DenunciaResumo): void {
 
-    this.router.navigate(['/denuncia-detalhe'], {
-      state: {
-        denuncia: {
-          ...denuncia,
-          usuario: this.usuario
+    this.router.navigate(
+      ['/denuncia-detalhe'],
+      {
+        state: {
+          denuncia: {
+            ...denuncia,
+            usuario: this.usuario
+          }
         }
       }
-    });
+    );
 
   }
 
@@ -116,18 +129,27 @@ export class PerfilUsuarioDetalhePage implements OnInit {
         text: this.usuario.bio || '',
         url: window.location.href
       }).catch(err => {
-        console.error('Erro ao compartilhar:', err);
+
+        console.error(
+          'Erro ao compartilhar:',
+          err
+        );
+
       });
 
     } else {
 
-      navigator.clipboard.writeText(window.location.href);
+      navigator.clipboard.writeText(
+        window.location.href
+      );
 
     }
 
   }
 
-  compartilharDenuncia(denuncia: DenunciaResumo): void {
+  compartilharDenuncia(
+    denuncia: DenunciaResumo
+  ): void {
 
     if (navigator.share) {
 
@@ -136,7 +158,12 @@ export class PerfilUsuarioDetalhePage implements OnInit {
         text: denuncia.descricao || '',
         url: window.location.href
       }).catch(err => {
-        console.error('Erro ao compartilhar denúncia:', err);
+
+        console.error(
+          'Erro ao compartilhar denúncia:',
+          err
+        );
+
       });
 
     }
@@ -144,7 +171,9 @@ export class PerfilUsuarioDetalhePage implements OnInit {
   }
 
   goBack(): void {
+
     this.navCtrl.back();
+
   }
 
 }

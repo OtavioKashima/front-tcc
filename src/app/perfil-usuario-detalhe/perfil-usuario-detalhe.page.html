@@ -5,6 +5,7 @@
     <button class="float-btn" (click)="goBack()">
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
     </button>
+
     <button class="float-btn" (click)="compartilharUsuario()">
       <ion-icon name="arrow-redo-outline" class="seta-voltar"></ion-icon>
     </button>
@@ -13,9 +14,17 @@
   <!-- Hero banner -->
   <div class="hero-banner">
     <div class="hero-gradient"></div>
+
     <div class="hero-content">
-      <img [src]="usuario.avatar" [alt]="usuario.nome" class="user-avatar">
-      <h1 class="user-nome">{{ usuario.nome }}</h1>
+      <img
+        [src]="usuario.avatar"
+        [alt]="usuario.nome"
+        class="user-avatar">
+
+      <h1 class="user-nome">
+        {{ usuario.nome }}
+      </h1>
+
       <span class="user-cidade">
         <ion-icon name="location-outline"></ion-icon>
         {{ usuario.cidade }}
@@ -23,25 +32,35 @@
     </div>
   </div>
 
-  <!-- Sobre -->
-  <div class="sobre-section" *ngIf="usuario.bio">
-    <p class="sobre-text">{{ usuario.bio }}</p>
-  </div>
-
-  <!-- Tabs bar -->
+  <!-- TABS -->
   <div class="tabs-bar">
+
     <button class="tab-btn active">
       <ion-icon name="alert-circle-outline"></ion-icon>
-      <span class="tab-label">Denúncias</span>
+
+      <span class="tab-label">
+        Denúncias
+      </span>
     </button>
+
   </div>
 
-  <!-- Feed de Denúncias -->
+  <!-- Feed -->
   <div class="feed">
 
-    <div *ngIf="denunciasUsuario.length === 0" class="sem-resultados">
-      <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
-      <p>Nenhuma denúncia publicada ainda.</p>
+    <div
+      *ngIf="denunciasUsuario.length === 0"
+      class="sem-resultados">
+
+      <ion-icon
+        name="alert-circle-outline"
+        class="sem-resultados-icon">
+      </ion-icon>
+
+      <p>
+        Nenhuma denúncia publicada ainda.
+      </p>
+
     </div>
 
     <div
@@ -49,24 +68,53 @@
       *ngFor="let d of denunciasUsuario"
       (click)="verDenuncia(d)">
 
+      <!-- HEADER -->
       <div class="denuncia-header">
-        <span class="header-titulo">{{ d.titulo }}</span>
+
+        <span class="header-titulo">
+          {{ d.titulo }}
+        </span>
+
         <div class="denuncia-acoes">
-          <button class="acao-btn" (click)="compartilharDenuncia(d); $event.stopPropagation()">
+
+          <button
+            class="acao-btn"
+            (click)="compartilharDenuncia(d); $event.stopPropagation()">
+
             <ion-icon name="arrow-redo-outline"></ion-icon>
+
           </button>
+
         </div>
+
       </div>
 
+      <!-- CONTENT -->
       <div class="denuncia-content">
-        <img [src]="d.imagem" [alt]="d.titulo" class="denuncia-image">
+
+        <img
+          [src]="d.imagem"
+          [alt]="d.titulo"
+          class="denuncia-image">
+
         <div class="denuncia-info">
+
           <div class="denuncia-meta">
+
             <ion-icon name="time-outline"></ion-icon>
-            <span class="denuncia-tempo">{{ d.dataFormatada }}</span>
+
+            <span class="denuncia-tempo">
+              {{ d.dataFormatada }}
+            </span>
+
           </div>
-          <p class="denuncia-descricao">{{ d.descricao }}</p>
+
+          <p class="denuncia-descricao">
+            {{ d.descricao }}
+          </p>
+
         </div>
+
       </div>
 
     </div>

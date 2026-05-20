@@ -1,53 +1,116 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button fill="clear">
-        <ion-icon name="arrow-back-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>
-      Editar meu perfil
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [scrollY]="true">
 
-<ion-content [fullscreen]="true">
-  <div class="profile-container">
-    <div class="card-container">
-      <div class="avatar-container">
-        <!-- Ícone ou imagem de perfil -->
-        <ion-avatar>
-          <img src="https://i.pravatar.cc/150?u=a" alt="Foto de perfil">
-        </ion-avatar>
-      </div>
+  <div class="floating-buttons">
+    <button class="float-btn" (click)="goBack()">
+      <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+    </button>
+  </div>
 
-      <div class="input-group">
-        <ion-label position="stacked">Nome:</ion-label>
-        <ion-input value="Paulo Cesar" class="custom-input"></ion-input>
-        <ion-icon name="create-outline" slot="end"></ion-icon>
+  <div class="hero-image-wrapper">
+    <div class="hero-bg"></div>
+    <div class="hero-avatar-area">
+      <div class="avatar-wrapper">
+        <img [src]="avatarPreview || usuario.avatar" alt="Foto de perfil" class="avatar-img">
+        <button class="trocar-foto-btn" (click)="fileInput.click()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </button>
+        <input #fileInput type="file" accept="image/*" style="display:none" (change)="onAvatarSelecionado($event)">
       </div>
-
-      <div class="input-group">
-        <ion-label position="stacked">Contato:</ion-label>
-        <ion-input value="14 87453-2345" class="custom-input"></ion-input>
-        <ion-icon name="create-outline" slot="end"></ion-icon>
-      </div>
-      
-      <div class="input-group">
-        <ion-label position="stacked">Senha:</ion-label>
-        <ion-input value="**********" type="password" class="custom-input"></ion-input>
-        <ion-icon name="create-outline" slot="end"></ion-icon>
-      </div>
+      <h1 class="hero-nome">{{ form.nome || usuario.nome || 'Nome de usuário' }}</h1>
+      <span class="hero-sub">Editar perfil</span>
     </div>
   </div>
-  
-  <div class="buttons-container">
-    <ion-button expand="block" shape="round" class="botao">
-      Salvar
-    </ion-button>
-    
-    <ion-text class="delete-account-text">
+
+  <div class="content-body">
+
+    <!-- Usuário -->
+    <div class="input-group">
+      <div class="input-wrapper">
+        <ion-icon name="person-outline" class="input-icon"></ion-icon>
+        <input
+          class="field-input"
+          type="text"
+          [(ngModel)]="form.nome"
+          placeholder="Nome de usuário"
+          maxlength="60">
+      </div>
+    </div>
+
+    <!-- Telefone -->
+    <div class="input-group">
+      <div class="input-wrapper">
+        <ion-icon name="call-outline" class="input-icon"></ion-icon>
+        <input
+          class="field-input"
+          type="tel"
+          [(ngModel)]="form.telefone"
+          placeholder="Telefone"
+          (input)="maskTelefone()"
+          maxlength="15">
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="input-group">
+      <div class="input-wrapper">
+        <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+        <input
+          class="field-input"
+          type="email"
+          [(ngModel)]="form.email"
+          placeholder="Email"
+          (input)="validarEmail()">
+      </div>
+      <div *ngIf="emailInvalido" class="error-message">
+        O e-mail deve conter '@' e um domínio válido
+      </div>
+    </div>
+
+    <!-- Nova senha -->
+    <div class="input-group">
+      <div class="input-wrapper">
+        <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+        <input
+          class="field-input"
+          [type]="mostrarSenha ? 'text' : 'password'"
+          [(ngModel)]="form.senha"
+          placeholder="Nova senha">
+        <button class="toggle-senha" (click)="mostrarSenha = !mostrarSenha">
+          <ion-icon [name]="mostrarSenha ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Confirmar nova senha -->
+    <div class="input-group">
+      <div class="input-wrapper">
+        <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+        <input
+          class="field-input"
+          [type]="mostrarConfirmarSenha ? 'text' : 'password'"
+          [(ngModel)]="form.confirmarSenha"
+          placeholder="Confirmar nova senha">
+        <button class="toggle-senha" (click)="mostrarConfirmarSenha = !mostrarConfirmarSenha">
+          <ion-icon [name]="mostrarConfirmarSenha ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+        </button>
+      </div>
+      <div *ngIf="senhasNaoCoincidem" class="error-message">
+        As senhas não coincidem
+      </div>
+    </div>
+
+    <!-- Botão salvar -->
+    <button class="salvar-btn" (click)="salvar()" [disabled]="salvando || emailInvalido">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      {{ salvando ? 'Salvando...' : 'Salvar Alterações' }}
+    </button>
+
+    <!-- Deletar conta -->
+    <button class="deletar-btn" (click)="confirmarDeletar()">
+      <ion-icon name="trash-outline"></ion-icon>
       Deletar minha conta
-    </ion-text>
+    </button>
+
   </div>
+
 </ion-content>

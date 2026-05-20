@@ -1,0 +1,91 @@
+<ion-content [scrollY]="true">
+
+  <!-- Botões flutuantes -->
+  <div class="floating-buttons">
+    <button class="float-btn" (click)="goBack()">
+      <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+    </button>
+  </div>
+
+  <!-- Hero com preview da imagem -->
+  <div class="hero-image-wrapper">
+    <img [src]="imagemPreview || form.imagem" alt="preview" class="hero-image">
+    <div class="hero-overlay">
+      <div class="hero-badge hero-badge--editando">Editando</div>
+      <h1 class="hero-title">{{ form.titulo || 'Sem título' }}</h1>
+    </div>
+    <button class="trocar-foto-btn" (click)="fileInput.click()">
+      <ion-icon name="camera-outline"></ion-icon>
+      Trocar foto
+    </button>
+    <input #fileInput type="file" accept="image/*" style="display:none" (change)="onImagemSelecionada($event)">
+  </div>
+
+  <div class="content-body">
+
+    <!-- Usuário (somente leitura) -->
+    <div class="owner-card">
+      <img
+        [src]="denuncia.usuario.avatar"
+        [alt]="denuncia.usuario.nome"
+        class="owner-avatar">
+      <div class="owner-info">
+        <span class="owner-label">Publicado por</span>
+        <span class="owner-name">{{ denuncia.usuario.nome }}</span>
+        <span class="owner-city">
+          <ion-icon name="location-outline"></ion-icon>
+          {{ denuncia.usuario.cidade }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Título -->
+    <div class="section">
+      <h2 class="section-title">Título</h2>
+      <div class="input-wrapper">
+        <ion-icon name="create-outline" class="input-icon"></ion-icon>
+        <input
+          class="field-input"
+          type="text"
+          [(ngModel)]="form.titulo"
+          placeholder="Título da denúncia"
+          maxlength="80">
+      </div>
+      <span class="char-count">{{ form.titulo.length }}/80</span>
+    </div>
+
+    <!-- Descrição -->
+    <div class="section">
+      <h2 class="section-title">Descrição da Denúncia</h2>
+      <textarea
+        class="field-textarea"
+        [(ngModel)]="form.descricao"
+        placeholder="Descreva o que está acontecendo..."
+        rows="5"
+        maxlength="500">
+      </textarea>
+      <span class="char-count">{{ form.descricao.length }}/500</span>
+    </div>
+
+    <!-- Localização -->
+    <div class="section">
+      <h2 class="section-title">Localização</h2>
+      <div class="input-wrapper">
+        <ion-icon name="location-outline" class="input-icon"></ion-icon>
+        <input
+          class="field-input"
+          type="text"
+          [(ngModel)]="form.local"
+          placeholder="Ex: Joinville, SC">
+      </div>
+    </div>
+
+    <!-- Botão salvar -->
+    <button class="salvar-btn" (click)="salvar()" [disabled]="salvando">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      {{ salvando ? 'Salvando...' : 'Salvar Alterações' }}
+    </button>
+
+  </div>
+
+</ion-content>

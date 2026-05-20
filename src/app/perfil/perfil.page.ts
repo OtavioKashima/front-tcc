@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 
 export interface Denuncia {
   id: string;
@@ -35,7 +35,7 @@ export interface Usuario {
 export class PerfilPage implements OnInit {
 
   usuario: Usuario = {
-    nome: 'Benito M.',
+    nome: 'Benedito Gomes',
     avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
   };
 
@@ -52,7 +52,7 @@ export class PerfilPage implements OnInit {
       dataFormatada: 'há 1 semana',
       usuario: {
         id: 'u1',
-        nome: 'Benito M.',
+        nome: 'Benedito Gomes',
         avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
         cidade: 'Joinville, SC',
         bio: 'Amante dos animais.',
@@ -71,7 +71,7 @@ export class PerfilPage implements OnInit {
       dataFormatada: 'há 3 dias',
       usuario: {
         id: 'u1',
-        nome: 'Benito M.',
+        nome: 'Benedito Gomes',
         avatar: 'https://randomuser.me/api/portraits/men/32.jpg',
         cidade: 'Joinville, SC',
         bio: 'Amante dos animais.',
@@ -80,9 +80,38 @@ export class PerfilPage implements OnInit {
     },
   ];
 
-  constructor(private navCtrl: NavController) {}
+  constructor(
+    private navCtrl: NavController,
+    private toastCtrl: ToastController
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit(): void {}
+
+  ionViewWillEnter(): void {
+    const state = history.state;
+
+    if (state?.denunciaAtualizada) {
+      this.aplicarEdicaoDenuncia(state.denunciaAtualizada);
+    }
+
+    if (state?.usuarioAtualizado) {
+      this.aplicarEdicaoUsuario(state.usuarioAtualizado);
+    }
+  }
+
+  private aplicarEdicaoDenuncia(denunciaAtualizada: Denuncia): void {
+    const idx = this.denuncias.findIndex(d => d.id === denunciaAtualizada.id);
+    if (idx !== -1) {
+      this.denuncias[idx] = denunciaAtualizada;
+      this.denuncias = [...this.denuncias];
+      this.mostrarToast('Denúncia atualizada!');
+    }
+  }
+
+  private aplicarEdicaoUsuario(usuarioAtualizado: Usuario): void {
+    this.usuario = { ...this.usuario, ...usuarioAtualizado };
+    this.mostrarToast('Perfil atualizado!');
+  }
 
   abrirDenuncia(denuncia: Denuncia): void {
     this.navCtrl.navigateForward(['/denuncia-detalhe'], {
@@ -100,7 +129,20 @@ export class PerfilPage implements OnInit {
     this.denuncias = this.denuncias.filter(d => d.id !== post.id);
   }
 
+  // Passa o usuario atual para a tela de edição
   editarPerfil(): void {
-    this.navCtrl.navigateForward('/editar-perfil');
+    this.navCtrl.navigateForward('/editar-perfil', {
+      state: { usuario: this.usuario }
+    });
+  }
+
+  private async mostrarToast(message: string): Promise<void> {
+    const toast = await this.toastCtrl.create({
+      message,
+      duration: 2000,
+      color: 'success',
+      position: 'bottom'
+    });
+    await toast.present();
   }
 }

@@ -74,13 +74,22 @@ const routes: Routes = [
   {
     path: 'denuncia-detalhe',
     loadChildren: () => import('./denuncia-detalhe/denuncia-detalhe.module').then( m => m.DenunciaDetalhePageModule)
-  },  {
+  },
+  {
     path: 'perfil-usuario',
     loadChildren: () => import('./perfil-usuario/perfil-usuario.module').then( m => m.PerfilUsuarioPageModule)
   },
   {
     path: 'perfil-usuario-detalhe',
     loadChildren: () => import('./perfil-usuario-detalhe/perfil-usuario-detalhe.module').then( m => m.PerfilUsuarioDetalhePageModule)
+  },
+  {
+    path: 'editar-denuncia',
+    loadChildren: () => import('./editar-denuncia/editar-denuncia.module').then( m => m.EditarDenunciaPageModule)
+  },
+  {
+    path: 'editar-denuncia',
+    loadChildren: () => import('./editar-denuncia/editar-denuncia.module').then( m => m.EditarDenunciaPageModule)
   }
 
 
