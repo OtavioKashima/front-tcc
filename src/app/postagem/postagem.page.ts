@@ -100,7 +100,6 @@ export class PostagemPage {
       .subscribe({
         next: (res: any) => {
           console.log('Postagem salva com sucesso!', res);
-          alert('Postagem enviada com sucesso!');
           this.navCtrl.navigateRoot('/tabs');
           // Aqui você pode limpar os campos ou redirecionar o usuário
         },

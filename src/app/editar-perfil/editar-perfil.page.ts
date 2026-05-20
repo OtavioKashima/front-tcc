@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NavController, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-editar-perfil',
@@ -16,9 +18,10 @@ export class EditarPerfilPage implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private navCtrl: NavController,
-    private toastCtrl: ToastController
-  ) {}
+    private toastCtrl: ToastController,
+    private router: Router,
+    private navCtrl: NavController
+  ) { }
 
   ngOnInit() {
     this.carregarDadosAtuais();
@@ -34,15 +37,37 @@ export class EditarPerfilPage implements OnInit {
     this.http.get('http://localhost:3000/api/perfil', { headers }).subscribe({
       next: (res: any) => {
         this.usuario = res;
-    
-        // Montando a URL da foto se ela existir no banco
-        if (this.usuario && this.usuario.foto_perfil) { 
+
+        if (this.usuario && this.usuario.foto_perfil) {
           this.usuario.fotoUrl = `http://localhost:3000/uploads/${this.usuario.foto_perfil}`;
         }
       }, // 🔴 A VÍRGULA QUE ESTAVA FALTANDO É ESSA AQUI!
       error: (err) => console.error('Erro ao buscar dados do perfil:', err)
     });
   }
+
+  carregarDadosUsuario() {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    const apiTimestamp = new Date().getTime(); 
+
+    this.http.get(`http://localhost:3000/api/perfil?t=${apiTimestamp}`, { headers })
+      .subscribe({
+        next: (res: any) => {
+          this.usuario = res;
+          if (this.usuario && this.usuario.foto_perfil) {
+            const imgTimestamp = new Date().getTime(); 
+            this.usuario.fotoUrl = `http://localhost:3000/uploads/${this.usuario.foto_perfil}?t=${imgTimestamp}`;
+          }
+        },
+        error: (err) => console.error('Erro ao buscar usuário:', err)
+      });
+  }
+
+
+
 
   // Exatamente igual ao sistema de postagens
   selecionarFoto(event: any) {
@@ -65,35 +90,28 @@ export class EditarPerfilPage implements OnInit {
       return;
     }
 
-    // 1. Criamos o FormData igualzinho à postagem
+    // 1. Prepara os dados (perfeito, não mude nada aqui)
     const formData = new FormData();
     formData.append('nome', this.usuario.nome);
     formData.append('telefone', this.usuario.telefone);
 
-    // 2. Se ele escolheu uma foto no input, anexamos com o nome 'foto'
     if (this.fotoSelecionada) {
       formData.append('foto', this.fotoSelecionada);
     }
 
-    // 3. Enviamos o token, mas DEIXAMOS O ANGULAR DECIDIR O CONTENT-TYPE DO FORMDATA!
-    const headers = new HttpHeaders({ 
-      'Authorization': `Bearer ${token}` 
-      // ⚠️ NADA de 'Content-Type' aqui.
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
     });
 
-    // 4. Dispara para o Node.js (Ajuste a URL para a sua rota exata)
-    this.http.put('http://localhost:3000/api/perfiledit', formData, { headers })
-      .subscribe({
-        next: () => {
-          this.mostrarToast('Perfil atualizado com sucesso!', 'success');
-          // Altere '/perfil' para o caminho exato do seu arquivo app-routing.module.ts
-          this.navCtrl.navigateBack('/tabs/perfil'); 
-        },
-        error: (err) => {
-          console.error('Erro ao atualizar perfil:', err);
-          this.mostrarToast('Erro ao atualizar. Tente novamente.', 'danger');
-        }
-      });
+    // 2. Dispara para o Backend
+    this.http.put('http://localhost:3000/api/perfiledit', formData, { headers }).subscribe({
+      next: (response: any) => {
+
+        window.dispatchEvent(new CustomEvent('fotoAtualizada'));
+
+        this.navCtrl.back();
+      }
+    });
   }
 
   async mostrarToast(mensagem: string, cor: string) {

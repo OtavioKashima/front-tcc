@@ -1,15 +1,27 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary"
+    style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
+    <div style="display: flex; align-items: center;">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/tabs"></ion-back-button>
+      </ion-buttons>
+      <ion-title style="margin-left: 4px;">Editar Perfil</ion-title>
+      <ion-icon name="create" size="large" style="margin-right: 8px; margin-left: 0.1px;"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="ion-padding">
 
   <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
-    <img 
-      [src]="previewFoto ? previewFoto : 'https://ui-avatars.com/api/?name=' + (usuario.nome || 'U') + '&background=random&color=fff'" 
+    <img
+      [src]="previewFoto ? previewFoto : 'https://ui-avatars.com/api/?name=' + (usuario.nome || 'U') + '&background=random&color=fff'"
       style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #3880ff;"
-      alt="Foto de Perfil" 
-    />
+      alt="Foto de Perfil" />
   </div>
 
   <ion-list lines="none">
-    
+
     <ion-item class="custom-input">
       <ion-icon name="camera-outline" slot="start" color="medium"></ion-icon>
       <div style="width: 100%; padding-top: 10px; padding-bottom: 10px;">
@@ -20,21 +32,14 @@
 
     <ion-item class="custom-input">
       <ion-icon name="person-outline" slot="start" color="medium"></ion-icon>
-      <ion-input 
-        label="Nome Completo" 
-        labelPlacement="stacked" 
-        [(ngModel)]="usuario.nome" 
+      <ion-input label="Nome Completo" labelPlacement="stacked" [(ngModel)]="usuario.nome"
         placeholder="Digite seu nome">
       </ion-input>
     </ion-item>
 
     <ion-item class="custom-input">
       <ion-icon name="call-outline" slot="start" color="medium"></ion-icon>
-      <ion-input 
-        type="tel" 
-        label="Telefone" 
-        labelPlacement="stacked" 
-        [(ngModel)]="usuario.telefone" 
+      <ion-input type="tel" label="Telefone" labelPlacement="stacked" [(ngModel)]="usuario.telefone"
         placeholder="Ex: 14 99999-9999">
       </ion-input>
     </ion-item>
