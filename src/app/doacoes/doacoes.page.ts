@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Browser } from '@capacitor/browser';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 
 interface CardDoacao {
   titulo: string;
@@ -49,9 +49,12 @@ export class DoacoesPage implements OnInit {
 
   cardsFiltrados: CardDoacao[] = [];
 
-  private chavePix = 'contato@patinhasfelizes.com.br';
+  private chavePix = '12.282.452/0001-92';
 
-  constructor(private platform: Platform) {}
+  constructor(
+    private platform: Platform,
+    private toastController: ToastController
+  ) {}
 
   ngOnInit() {
     this.cardsFiltrados = [...this.todosCards];
@@ -69,10 +72,12 @@ export class DoacoesPage implements OnInit {
 
   filtrarCards() {
     const termo = this.termoBusca.toLowerCase().trim();
+
     if (!termo) {
       this.cardsFiltrados = [...this.todosCards];
       return;
     }
+
     this.cardsFiltrados = this.todosCards.filter(card =>
       (card.titulo + ' ' + card.descricao + ' ' + card.tags)
         .toLowerCase()
@@ -83,6 +88,24 @@ export class DoacoesPage implements OnInit {
   setValor(v: number) {
     this.valorSelecionado = v;
     this.valorDoacao = v;
+  }
+
+  async copiarPix() {
+    try {
+      await navigator.clipboard.writeText(this.chavePix);
+
+      const toast = await this.toastController.create({
+        message: 'Chave Pix copiada!',
+        duration: 2000,
+        position: 'bottom',
+        color: 'success'
+      });
+
+      await toast.present();
+
+    } catch (error) {
+      console.error('Erro ao copiar chave Pix:', error);
+    }
   }
 
   async processarDoacao() {
@@ -96,11 +119,11 @@ export class DoacoesPage implements OnInit {
     this.processando = true;
 
     try {
+
       if (this.platform.is('android')) {
-        // Deep link oficial do app BB no Android
+
         window.location.href = 'bb://';
 
-        // Se não abrir em 1.5s, redireciona para a Play Store
         setTimeout(async () => {
           await Browser.open({
             url: 'https://play.google.com/store/apps/details?id=br.com.bb.android'
@@ -108,10 +131,9 @@ export class DoacoesPage implements OnInit {
         }, 1500);
 
       } else if (this.platform.is('ios')) {
-        // Deep link oficial do app BB no iOS
+
         window.location.href = 'bb://';
 
-        // Se não abrir em 1.5s, redireciona para a App Store
         setTimeout(async () => {
           await Browser.open({
             url: 'https://apps.apple.com/br/app/banco-do-brasil/id539638839'
@@ -119,8 +141,9 @@ export class DoacoesPage implements OnInit {
         }, 1500);
 
       } else {
-        // Web: abre o site do BB
+
         await Browser.open({ url: 'https://www.bb.com.br' });
+
       }
 
     } catch (err) {
