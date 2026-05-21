@@ -70,9 +70,10 @@
         <ion-textarea class="custom-textarea" placeholder="Descreva o animal..." [(ngModel)]="form.descricao"></ion-textarea>
       </div>
       <div class="btn-area">
-        <ion-button class="btn-postar" expand="block" shape="round" (click)="postar()">
-          Postar
-        </ion-button>
+        <button class="adopt-btn" (click)="postar()">
+          <ion-icon name="paw"></ion-icon>
+          Postar adoção
+        </button>
       </div>
     </div>
 
@@ -108,9 +109,10 @@
         <ion-input class="custom-input" placeholder="Ex: Rua das Flores, 123 - Joinville, SC" [(ngModel)]="form.localizacao"></ion-input>
       </div>
       <div class="btn-area">
-        <ion-button class="btn-postar" expand="block" shape="round" (click)="postar()">
-          Postar
-        </ion-button>
+        <button class="adopt-btn" (click)="postar()">
+          <ion-icon name="paw"></ion-icon>
+          Postar denúncia
+        </button>
       </div>
     </div>
 

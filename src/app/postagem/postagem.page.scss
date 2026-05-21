@@ -163,12 +163,12 @@ ion-textarea {
 label {
   font-family: 'Nunito', sans-serif;
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 800;
   color: #3ecf8e;
   display: block;
   margin-bottom: 6px;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
 }
 
 .custom-input {
@@ -176,6 +176,7 @@ label {
   --color: #1e5c42;
   --placeholder-color: #99cbb8;
   --placeholder-opacity: 1;
+  font-family: 'Nunito', sans-serif;
   border-radius: 14px;
   height: 50px;
   border: 1.5px solid #b2e8cf;
@@ -186,6 +187,7 @@ label {
   --color: #1e5c42;
   --placeholder-color: #99cbb8;
   --placeholder-opacity: 1;
+  font-family: 'Nunito', sans-serif;
   border-radius: 14px;
   min-height: 100px;
   border: 1.5px solid #b2e8cf;
@@ -255,10 +257,35 @@ label {
   }
 }
 
-.btn-postar {
-  --background: linear-gradient(135deg, #66d9a6, #38b87a);
-  --border-radius: 50px;
-  height: 50px;
+.btn-area {
+  margin-top: 8px;
+}
+
+.adopt-btn {
+  width: 100%;
+  height: 52px;
+  background: linear-gradient(135deg, #7dd9b0, #4ec98a);
+  color: white;
+  border: none;
+  border-radius: 14px;
   font-family: 'Nunito', sans-serif;
-  font-weight: 800;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(102, 217, 166, 0.35);
+  transition: all 0.2s ease;
+
+  ion-icon {
+    font-size: 1.3rem;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 10px rgba(60, 184, 122, 0.2);
+  }
 }
