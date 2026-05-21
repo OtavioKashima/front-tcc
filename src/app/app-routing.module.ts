@@ -72,7 +72,12 @@ const routes: Routes = [
   {
     path: 'perfil',
     loadChildren: () => import('./perfil/perfil.module').then( m => m.PerfilPageModule)
+  },
+  {
+    path: 'editar-postagem/:id', 
+    loadChildren: () => import('./editar-postagem/editar-postagem.module').then(m => m.EditarPostagemPageModule)
   }
+
 
 
   // As rotas 'adocoes', 'doacoes', 'denuncias' FORAM REMOVIDAS DAQUI

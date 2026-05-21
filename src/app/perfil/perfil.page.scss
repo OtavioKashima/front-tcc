@@ -1,78 +1,335 @@
-ion-content{
-  --background:#f2f2f2;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+ion-content { 
+  --background: #f0fdf6; 
+}
+
+// ==========================
+// TOOLBAR & POPOVER
+// ==========================
+ion-toolbar.custom-toolbar {
+  --background: #66d9a6;
+  --color: white;
+}
+
+.toolbar-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 4px 10px;
+  transition: background 0.2s ease;
+
+  ion-icon {
+    font-size: 1.3rem;
+    color: white;
   }
 
-  h2{
-    color: black;
-  }
+  &:active { background: rgba(255, 255, 255, 0.35); }
+}
+
+ion-popover {
+  --background: white;
+  --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'Nunito', sans-serif;
   
-  .custom-toolbar{
-  --background:white;
-  color:#66d9a6;
+  ion-item {
+    font-size: 15px;
+    font-weight: 600;
   }
-  
-  .perfil-container{
-  text-align:center;
-  padding:20px;
+}
+
+// ==========================
+// HERO DO PERFIL
+// ==========================
+.perfil-hero {
+  position: relative;
+  background: white;
+  padding: 0 20px 20px;
+  text-align: center;
+  border-bottom-left-radius: 28px;
+  border-bottom-right-radius: 28px;
+  box-shadow: 0 4px 20px rgba(102, 217, 166, 0.15);
+  margin-bottom: 16px;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 90px;
+  background: linear-gradient(135deg, #66d9a6 0%, #3ecf8e 100%);
+  border-bottom-left-radius: 32px;
+  border-bottom-right-radius: 32px;
+  z-index: 0;
+}
+
+.perfil-avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-top: 28px;
+  z-index: 1;
+}
+
+.perfil-foto {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid white;
+  box-shadow: 0 4px 16px rgba(102, 217, 166, 0.4);
+  display: block;
+}
+
+.perfil-nome {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800; // Reforçado para destaque
+  color: #3ecf8e;
+  letter-spacing: 0.02em;
+  margin: 14px 0 4px 0;
+}
+
+.perfil-telefone {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  color: #88c8a8;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+// ==========================
+// FILTROS (Busca e Abas)
+// ==========================
+.filtros-container {
+  padding: 0 16px;
+  margin-bottom: 15px;
+
+  ion-searchbar {
+    --background: white;
+    --box-shadow: 0 4px 10px rgba(102, 217, 166, 0.1);
+    --border-radius: 14px;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
   }
-  
-  .perfil-foto{
-  width:120px;
-  height:120px;
-  border-radius:50%;
-  border:4px solid #66d9a6;
-  object-fit:cover;
-  margin-bottom:10px;
+
+  ion-segment {
+    background: transparent;
+    margin-top: 12px;
+    
+    ion-segment-button {
+      --color: #88c8a8;
+      --color-checked: #3ecf8e;
+      --indicator-color: #3ecf8e;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
   }
-  
-  .telefone{
-  color:#888;
-  margin-top:-5px;
+}
+
+// ==========================
+// CABEÇALHOS E EMPTY STATE
+// ==========================
+.secao-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px 5px;
+}
+
+.secao-titulo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #3ecf8e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  ion-icon { font-size: 1.1rem; }
+}
+
+.secao-count {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #99cbb8;
+}
+
+.sem-resultados {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+
+  .sem-resultados-icon {
+    font-size: 3.5rem;
+    color: #aae0c7;
+    margin-bottom: 12px;
   }
-  
-  .botao-post{
-  --background:#66d9a6;
-  --border-radius:20px;
-  margin-top:10px;
+
+  p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #52c994;
+    margin: 0 0 4px;
   }
-  
-  .linha{
-  height:1px;
-  background:#ddd;
-  margin:20px;
+}
+
+.sem-resultados-sub {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #7dddb0;
+}
+
+// ==========================
+// FEED DE POSTAGENS (Cards)
+// ==========================
+.feed {
+  padding: 5px 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.denuncia-card {
+  margin: 10px 16px;
+  border-radius: 16px;
+  background: white; // Deixei branco para destacar do fundo f0fdf6
+  border: 1px solid #d0eedd;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(102, 217, 166, 0.08);
+  animation: fadeIn 0.3s ease both;
+  transition: box-shadow 0.2s ease, transform 0.15s ease;
+
+  &:hover {
+    box-shadow: 0 6px 20px rgba(102, 217, 166, 0.2);
+    transform: translateY(-2px);
   }
-  
-  .titulo-post{
-  text-align:center;
-  color:#999;
-  font-size:14px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.denuncia-header {
+  background: #66d9a6;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  span {
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #ffffff;
   }
-  
-  .post-card{
-  margin:16px;
-  border-radius:20px;
-  background:white;
-  box-shadow:0 4px 10px rgba(0,0,0,0.15);
-  overflow:hidden;
+}
+
+.denuncia-acoes { display: flex; align-items: center; gap: 5px; }
+
+.acao-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  transition: background 0.15s ease;
+
+  ion-icon { font-size: 1.15rem; color: #ffffff; }
+
+  &:hover { background: rgba(255, 255, 255, 0.35); }
+  &:active { transform: scale(0.9); }
+}
+
+.denuncia-content {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  align-items: flex-start;
+}
+
+.denuncia-image {
+  width: 82px;
+  height: 82px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 1.5px solid #d0eedd;
+}
+
+.denuncia-info { 
+  flex: 1; 
+}
+
+.denuncia-badge {
+  display: inline-block;
+  background: #e6f9f0;
+  color: #3ecf8e;
+  font-family: 'Nunito', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+}
+
+.denuncia-descricao {
+  font-family: 'Nunito', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: #54a792;
+  line-height: 1.55;
+  margin: 0;
+}
+
+// ==========================
+// PAGINAÇÃO E EXTRAS
+// ==========================
+.paginacao-container {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center;
+  padding: 10px 20px 20px;
+
+  ion-button {
+    --color: #3ecf8e;
+    --border-color: #3ecf8e;
+    --border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
   }
-  
-  .post-header{
-  background:#66d9a6;
-  color:white;
-  padding:10px 16px;
-  display:flex;
-  justify-content:space-between;
+
+  .paginacao-texto {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: #88c8a8;
+    font-size: 0.9rem;
   }
-  
-  .post-content{
-  display:flex;
-  gap:12px;
-  padding:16px;
-  }
-  
-  .post-img{
-  width:80px;
-  height:80px;
-  border-radius:8px;
-  object-fit:cover;
-  }
+}
+
+ion-fab-button {
+  --background: #3ecf8e;
+  --background-hover: #2db376;
+  --color: white;
+  box-shadow: 0 4px 14px rgba(62, 207, 142, 0.5);
+}
+
+.bottom-space { height: 80px; }

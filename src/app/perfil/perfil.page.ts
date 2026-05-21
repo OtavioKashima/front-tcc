@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NavController } from '@ionic/angular';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; // 🔴 CORRIGIDO: Importado do lugar certo!
+import { NavController, AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -16,33 +17,42 @@ export class PerfilPage implements OnInit {
     foto: null
   };
 
-  // Lista para as postagens exclusivas deste usuário
+  // Listas para controle de dados e filtros
   minhasPostagens: any[] = [];
+  postagensFiltradas: any[] = [];
+  postagensExibidas: any[] = [];
+
+  // Controle de Paginação
+  paginaAtual: number = 1;
+  itensPorPagina: number = 3;
+  totalPaginas: number = 1;
+
+  // Estados dos Filtros
+  termoBusca: string = '';
+  filtroSegmento: string = 'todas';
 
   constructor(
     private http: HttpClient,
     private navCtrl: NavController,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private alertController: AlertController
   ) {
     window.addEventListener('fotoAtualizada', () => {
       this.carregarDadosUsuario();
     });
   }
 
-
-
-  // Dispara as buscas assim que a tela abre
   ngOnInit() {
     this.carregarDadosUsuario();
     this.carregarMinhasPostagens();
   }
 
-  // Se o usuário sair da tela e voltar (ex: fez uma postagem nova), recarrega a lista
   ionViewWillEnter() {
-    // Só busca os dados se a tela estiver vazia (primeiro acesso)
-    if (!this.usuario) {
+    if (!this.usuario || this.usuario.nome === 'Carregando...') {
       this.carregarDadosUsuario();
     }
+    this.carregarMinhasPostagens();
   }
 
   carregarDadosUsuario() {
@@ -50,23 +60,21 @@ export class PerfilPage implements OnInit {
     if (!token) return;
 
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    const apiTimestamp = new Date().getTime(); 
+    const apiTimestamp = new Date().getTime();
 
     this.http.get(`http://localhost:3000/api/perfil?t=${apiTimestamp}`, { headers })
       .subscribe({
         next: (res: any) => {
           this.usuario = res;
           if (this.usuario && this.usuario.foto_perfil) {
-            const imgTimestamp = new Date().getTime(); 
+            const imgTimestamp = new Date().getTime();
             this.usuario.fotoUrl = `http://localhost:3000/uploads/${this.usuario.foto_perfil}?t=${imgTimestamp}`;
           }
-          
-          this.cdr.detectChanges(); 
+          this.cdr.detectChanges();
         },
-        error: (err) => console.error('Erro ao buscar usuário:', err)
+        error: (err: any) => console.error('Erro ao buscar usuário:', err) // 🔴 CORRIGIDO: Tipado explicitamente como any
       });
   }
-
 
   carregarMinhasPostagens() {
     const token = localStorage.getItem('token');
@@ -77,24 +85,124 @@ export class PerfilPage implements OnInit {
     this.http.get('http://localhost:3000/api/postperfil', { headers })
       .subscribe({
         next: (res: any) => {
-          // Para cada postagem, criamos a URL completa da foto
           this.minhasPostagens = res.map((post: any) => {
             return {
               ...post,
               fotoUrl: post.foto ? `http://localhost:3000/uploads/${post.foto}` : null
             };
           });
+
+          this.aplicarFiltrosEPaginacao();
         },
-        error: (err) => console.error('Erro ao buscar minhas postagens:', err)
+        error: (err: any) => console.error('Erro ao buscar minhas postagens:', err) // 🔴 CORRIGIDO: Tipado explicitamente como any
       });
   }
 
-  // Navegações dos botões
+  aplicarFiltrosEPaginacao() {
+    let resultado = this.minhasPostagens.filter(post => {
+      const termo = this.termoBusca.toLowerCase();
+      const tituloMatch = post.titulo?.toLowerCase().includes(termo);
+      const descMatch = post.descricao?.toLowerCase().includes(termo);
+      return tituloMatch || descMatch;
+    });
+
+    if (this.filtroSegmento === 'recentes') {
+      resultado = [...resultado].reverse();
+    }
+
+    this.postagensFiltradas = resultado;
+    this.totalPaginas = Math.ceil(this.postagensFiltradas.length / this.itensPorPagina) || 1;
+
+    if (this.paginaAtual > this.totalPaginas) {
+      this.paginaAtual = this.totalPaginas;
+    }
+
+    const indexInicio = (this.paginaAtual - 1) * this.itensPorPagina;
+    const indexFim = indexInicio + this.itensPorPagina;
+    this.postagensExibidas = this.postagensFiltradas.slice(indexInicio, indexFim);
+
+    this.cdr.detectChanges();
+  }
+
+  pesquisarPost(event: any) {
+    this.termoBusca = event.target.value || '';
+    this.paginaAtual = 1;
+    this.aplicarFiltrosEPaginacao();
+  }
+
+  filtrarCategoria(event: any) {
+    this.filtroSegmento = event.detail.value;
+    this.paginaAtual = 1;
+    this.aplicarFiltrosEPaginacao();
+  }
+
+  paginaAnterior() {
+    if (this.paginaAtual > 1) {
+      this.paginaAtual--;
+      this.aplicarFiltrosEPaginacao();
+    }
+  }
+
+  proximaPagina() {
+    if (this.paginaAtual < this.totalPaginas) {
+      this.paginaAtual++;
+      this.aplicarFiltrosEPaginacao();
+    }
+  }
+
   adicionar() {
-    this.navCtrl.navigateForward('/postagem'); // Ajuste para a rota correta da sua tela de criar
+    this.navCtrl.navigateForward('/postagem');
   }
 
   editPerfil() {
-    this.navCtrl.navigateForward('/editar-perfil'); // Ajuste se houver tela de edição
+    this.navCtrl.navigateForward('/editar-perfil');
   }
-}
+
+  logout() {
+    localStorage.removeItem('token');
+    this.usuario = null;
+    this.router.navigate(['/login'], { replaceUrl: true });
+  }
+  editarDenuncia(post: any) {
+    // Aqui você direciona o usuário para a tela de edição, passando o ID da postagem.
+    // Atenção: Ajuste a rota '/editar-postagem' para o nome da tela que você usa no seu app.
+    this.navCtrl.navigateForward(`/editar-postagem/${post.id}`);
+  }
+
+  // 2. Função para Excluir
+  async excluirDenuncia(post: any) {
+    const alert = await this.alertController.create({
+      header: 'Excluir Postagem',
+      message: 'Tem certeza que deseja apagar esta postagem? Essa ação não pode ser desfeita.',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: 'Excluir',
+          role: 'destructive', // Faz o botão ficar vermelho no iOS/Android
+          handler: () => {
+            // Se clicar em excluir, executa a requisição
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+
+            this.http.delete(`http://localhost:3000/api/postagensDelete/${post.id}`, { headers })
+              .subscribe({
+                next: () => {
+                  this.minhasPostagens = this.minhasPostagens.filter(p => p.id !== post.id);
+                  this.aplicarFiltrosEPaginacao();
+                },
+                error: (err: any) => console.error('Erro ao excluir:', err)
+              });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+    }
+  }

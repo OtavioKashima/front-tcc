@@ -1,17 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+
 import { IonicModule } from '@ionic/angular';
-import { PerfilPageRoutingModule } from './perfil-routing.module';
-import { PerfilPage } from './perfil.page';
+
+import { EditarPostagemPageRoutingModule } from './editar-postagem-routing.module';
+
+import { EditarPostagemPage } from './editar-postagem.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PerfilPageRoutingModule
+    EditarPostagemPageRoutingModule
   ],
-  declarations: [PerfilPage]
+  declarations: [EditarPostagemPage]
 })
-export class PerfilPageModule {}
+export class EditarPostagemPageModule {}

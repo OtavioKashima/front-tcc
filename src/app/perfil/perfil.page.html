@@ -1,59 +1,114 @@
-<ion-header>
-  <ion-toolbar color="primary" style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
-    <div style="display: flex; align-items: center;">
-      <ion-icon name="person" size="large" style="margin-right: 8px; margin-left: 0.1px;"></ion-icon>
-      <ion-title style="margin-left: 4px;">Perfil</ion-title>
-    </div>
-    <ion-buttons slot="end" (click)="editPerfil()">
-      <ion-icon name="create" size="large"></ion-icon>
+<ion-header [translucent]="true">
+  <ion-toolbar class="custom-toolbar">
+    <ion-buttons slot="end">
+      <button class="toolbar-btn" id="menu-opcoes">
+        <ion-icon name="settings-outline"></ion-icon>
+      </button>
     </ion-buttons>
+
+    <ion-popover trigger="menu-opcoes" dismissOnSelect="true">
+      <ng-template>
+        <ion-content>
+          <ion-list>
+            <ion-item button (click)="editPerfil()" lines="none">
+              <ion-icon name="create-outline" slot="start" color="primary"></ion-icon>
+              <ion-label>Editar Perfil</ion-label>
+            </ion-item>
+            <ion-item button (click)="logout()" lines="none">
+              <ion-icon name="log-out-outline" slot="start" color="danger"></ion-icon>
+              <ion-label color="danger">Sair da Conta</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="perfil-container">
-    
-    <ion-avatar *ngIf="usuario?.fotoUrl" style="width: 120px; height: 120px; margin: 0 auto;">
-      <img [src]="usuario.fotoUrl" alt="Foto de Perfil" style="object-fit: cover; width: 100%; height: 100%;" />
-    </ion-avatar>
+<ion-content [scrollY]="true">
 
-    <h2>{{ usuario.nome }}</h2>
-    <p class="telefone">{{ usuario.telefone }}</p>
-
-    <ion-button class="botao-post" (click)="adicionar()">
-      Nova postagem
-    </ion-button>
-
-  </div>
-
-  <div class="linha"></div>
-
-  <h3 class="titulo-post">Postagens Passadas</h3>
-
-  <div *ngIf="minhasPostagens.length === 0" style="text-align: center; color: #888; padding: 20px;">
-    <ion-icon name="document-text-outline" size="large"></ion-icon>
-    <p>Você ainda não fez nenhuma postagem.</p>
-  </div>
-
-  <div class="post-card" *ngFor="let post of minhasPostagens">
-
-    <div class="post-header" style="display: flex; justify-content: space-between;">
-      <span>{{ post.titulo }}</span>
-      <span *ngIf="post.idade">{{ post.idade }} ano(s)</span>
+  <div class="perfil-hero">
+    <div class="hero-bg"></div>
+    <div class="perfil-avatar-wrapper">
+      <img [src]="usuario?.fotoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" class="perfil-foto" [alt]="usuario?.nome">
     </div>
-
-    <div class="post-content">
-      
-      <img 
-        [src]="post.foto ? 'http://localhost:3000/uploads/' + post.foto : 'https://via.placeholder.com/400x200/e0e0e0/808080?text=Sem+Foto'"
-        class="post-img" alt="Foto da postagem">
-
-      <p>
-        {{ post.descricao }}
-      </p>
-
-    </div>
-
+    <h2 class="perfil-nome">{{ usuario?.nome }}</h2>
+    <p class="perfil-telefone">
+      <ion-icon name="call-outline"></ion-icon> {{ usuario?.telefone }}
+    </p>
   </div>
 
+  <div class="filtros-container">
+    <ion-searchbar placeholder="Buscar postagem..." (ionInput)="pesquisarPost($event)" animated="true"></ion-searchbar>
+    <ion-segment value="todas" (ionChange)="filtrarCategoria($event)">
+      <ion-segment-button value="todas">
+        <ion-label>Todas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="recentes">
+        <ion-label>Recentes</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div class="secao-header">
+    <span class="secao-titulo">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      Minhas Postagens
+    </span>
+    <span class="secao-count">
+      {{ postagensFiltradas.length }} ite{{ postagensFiltradas.length !== 1 ? 'ns' : 'm' }}
+    </span>
+  </div>
+
+  <div class="sem-resultados" *ngIf="postagensExibidas.length === 0">
+    <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
+    <p>Nenhuma postagem encontrada</p>
+    <span class="sem-resultados-sub">Tente mudar os filtros ou crie uma nova.</span>
+  </div>
+
+  <div class="feed">
+    <div
+      class="denuncia-card"
+      *ngFor="let post of postagensExibidas">
+
+      <div class="denuncia-header">
+        <span>{{ post.titulo }}</span>
+        
+        <div class="denuncia-acoes">
+          <button class="acao-btn" (click)="editarDenuncia(post); $event.stopPropagation()">
+            <ion-icon name="create-outline"></ion-icon>
+          </button>
+          <button class="acao-btn" (click)="excluirDenuncia(post); $event.stopPropagation()">
+            <ion-icon name="trash-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="denuncia-content">
+        <img 
+          [src]="post.fotoUrl || 'https://via.placeholder.com/400x200/e0e0e0/808080?text=Sem+Foto'" 
+          [alt]="post.titulo" 
+          class="denuncia-image">
+          
+        <div class="denuncia-info">
+          <span class="denuncia-badge" *ngIf="post.idade">{{ post.idade }} ano(s)</span>
+          <p class="denuncia-descricao">{{ post.descricao }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="paginacao-container" *ngIf="postagensExibidas.length > 0">
+    <ion-button fill="outline" size="small" (click)="paginaAnterior()" [disabled]="paginaAtual === 1">Anterior</ion-button>
+    <span class="paginacao-texto">Pág {{ paginaAtual }} de {{ totalPaginas }}</span>
+    <ion-button fill="outline" size="small" (click)="proximaPagina()" [disabled]="paginaAtual === totalPaginas">Próxima</ion-button>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="margin-bottom: 20px; margin-right: 10px;">
+    <ion-fab-button (click)="adicionar()">
+      <ion-icon name="add" size="large"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <div class="bottom-space"></div>
 </ion-content>

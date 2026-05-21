@@ -42,7 +42,7 @@ export class LoginPage {
   }
 
   goToRecuperarSenha() {
-    this.mostrarToast('Tela de recuperação ainda não implementada.');
+    this.navCtrl.navigateRoot('/recuperar-senha');
   }
 
   // =========================

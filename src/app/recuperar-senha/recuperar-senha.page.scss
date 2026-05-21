@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-/* =============================================
-Toolbar transparente
-============================================= */
-
 ion-toolbar.toolbar-transparente {
   --background: transparent;
   --border-style: none;
@@ -31,9 +27,6 @@ ion-toolbar.toolbar-transparente {
   color: white;
 }
 
-/* =============================================
-Container principal
-============================================= */
 
 .login-container {
   display: flex;
@@ -56,9 +49,7 @@ Container principal
   margin-top: -180px;
 }
 
-/* =============================================
-Logo
-============================================= */
+
 
 .logo-container {
   margin-bottom: 0.5rem;
@@ -87,9 +78,7 @@ Logo
   color: white;
 }
 
-/* =============================================
-Título
-============================================= */
+
 
 .login-title {
   font-size: 1.65rem;
@@ -101,9 +90,7 @@ Título
   animation: slideUp 0.5s 0.1s ease both;
 }
 
-/* =============================================
-Texto explicativo
-============================================= */
+
 
 .descricao-recuperar {
   font-size: 0.85rem;
@@ -114,9 +101,6 @@ Texto explicativo
   animation: slideUp 0.5s 0.15s ease both;
 }
 
-/* =============================================
-Formulário
-============================================= */
 
 .form-container {
   width: 100%;
@@ -130,7 +114,7 @@ Formulário
   margin-bottom: 12px;
 }
 
-/* campo do input */
+
 
 .input-wrapper {
   position: relative;
@@ -148,7 +132,7 @@ Formulário
   box-shadow: 0 0 0 3px rgba(78, 202, 136, 0.12);
 }
 
-/* ícone fixo na esquerda */
+
 
 .input-icon {
   position: absolute;
@@ -157,7 +141,7 @@ Formulário
   color: #aab5b0;
 }
 
-/* input centralizado */
+
 
 .custom-input {
   --background: transparent;
@@ -174,15 +158,11 @@ Formulário
   text-align: center;
 }
 
-/* centraliza texto interno do ionic */
 
 ion-input::part(native) {
   text-align: center;
 }
 
-/* =============================================
-Erro
-============================================= */
 
 .error-message {
   color: #e05555;
@@ -191,9 +171,6 @@ Erro
   margin-top: 6px;
 }
 
-/* =============================================
-Botão
-============================================= */
 
 .button-container {
   width: 100%;
@@ -219,18 +196,13 @@ Botão
   transform: translateY(-2px);
 }
 
-/* =============================================
-Animação
-============================================= */
+
 
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
 }
 
-/* =============================================
-Responsivo
-============================================= */
 
 @media (max-width: 480px) {
 
