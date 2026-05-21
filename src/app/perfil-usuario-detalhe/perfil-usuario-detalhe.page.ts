@@ -60,7 +60,7 @@ export class PerfilUsuarioDetalhePage implements OnInit {
 
     const state = this.navState ?? history.state;
 
-    // recebe usuário
+
     if (state?.usuario) {
 
       this.usuario = {
@@ -68,14 +68,13 @@ export class PerfilUsuarioDetalhePage implements OnInit {
         ...state.usuario
       };
 
-      // REMOVE A BIO DO BENEDITO
       if (this.usuario.nome === 'Benedito') {
         this.usuario.bio = '';
       }
 
     }
 
-    // recebe denúncias diretamente
+ 
     if ((state?.denuncias ?? []).length > 0) {
 
       this.denunciasUsuario = [
@@ -84,7 +83,6 @@ export class PerfilUsuarioDetalhePage implements OnInit {
 
     }
 
-    // recebe denúncias dentro do usuário
     else if ((this.usuario.denuncias ?? []).length > 0) {
 
       this.denunciasUsuario = [
@@ -93,7 +91,7 @@ export class PerfilUsuarioDetalhePage implements OnInit {
 
     }
 
-    // fallback
+
     else {
 
       this.denunciasUsuario = [];

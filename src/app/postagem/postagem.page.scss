@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-/* ─── ION-CONTENT ─── */
 ion-content {
-  --background: #f0f4f2;
+  --background: #f0fdf6;
   --padding-top: 0;
 }
 
@@ -10,7 +9,6 @@ ion-content::part(scroll) {
   padding-top: 0 !important;
 }
 
-/* ─── BOTÃO VOLTAR FLUTUANTE ─── */
 .btn-voltar {
   position: absolute;
   top: 12px;
@@ -37,7 +35,6 @@ ion-content::part(scroll) {
   }
 }
 
-/* ─── CONTAINER ─── */
 .container {
   display: flex;
   flex-direction: column;
@@ -47,20 +44,17 @@ ion-content::part(scroll) {
   margin: 0 auto;
 }
 
-/* ─── INTRO ─── */
 .intro {
   text-align: center;
   margin-bottom: 20px;
   margin-top: 40px;
 }
 
-/* ─── ANIMAÇÕES ─── */
 @keyframes popIn {
   from { transform: scale(0.5); opacity: 0; }
   to   { transform: scale(1);   opacity: 1; }
 }
 
-/* ─── LOGO ─── */
 .logo-circle {
   width: 70px;
   height: 70px;
@@ -80,26 +74,34 @@ ion-content::part(scroll) {
 }
 
 .intro h2 {
-  font-size: 1.8rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
   font-weight: 800;
-  color: #1e2d28;
+  color: #3ecf8e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .intro p {
+  font-family: 'Nunito', sans-serif;
   font-size: 0.85rem;
   color: #8a9e97;
   margin: 0;
 }
 
-/* ─── SELECT CARD ─── */
 .select-card {
   width: 100%;
-  background: #d6dbd8;
+  background: #d6f5e8;
   border-radius: 24px;
   padding: 16px;
   margin-bottom: 16px;
   box-shadow: none;
+  border: 1px solid #b2e8cf;
 }
 
 .select-wrapper {
@@ -110,16 +112,48 @@ ion-content::part(scroll) {
 
 .icon-box ion-icon {
   font-size: 1.4rem;
-  color: #4eca88;
+  color: #3ecf8e;
 }
 
-/* ─── CAMPOS DINÂMICOS ─── */
+ion-select {
+  font-family: 'Nunito', sans-serif;
+  color: #1e2d28;
+  --placeholder-color: #8a9e97;
+  --placeholder-opacity: 1;
+  --highlight-color-focused: #3ecf8e;
+  --highlight-color-valid: #3ecf8e;
+}
+
+ion-select::part(text) {
+  color: #2d7a5e;
+  font-weight: 700;
+}
+
+ion-select::part(icon) {
+  color: #3ecf8e;
+}
+
+ion-input {
+  --highlight-color-focused: #3ecf8e !important;
+  --highlight-color: #3ecf8e !important;
+  --border-color: #b2e8cf !important;
+  caret-color: #3ecf8e;
+}
+
+ion-textarea {
+  --highlight-color-focused: #3ecf8e !important;
+  --highlight-color: #3ecf8e !important;
+  --border-color: #b2e8cf !important;
+  caret-color: #3ecf8e;
+}
+
 .campos-dinamicos {
   width: 100%;
-  background: #d6dbd8;
+  background: #d6f5e8;
   border-radius: 24px;
   padding: 20px;
   margin-bottom: 16px;
+  border: 1px solid #b2e8cf;
 }
 
 .campo {
@@ -127,55 +161,104 @@ ion-content::part(scroll) {
 }
 
 label {
+  font-family: 'Nunito', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #5a7a6e;
+  color: #3ecf8e;
   display: block;
   margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
-/* ─── INPUTS ─── */
 .custom-input {
   --background: white;
+  --color: #1e5c42;
+  --placeholder-color: #99cbb8;
+  --placeholder-opacity: 1;
   border-radius: 14px;
   height: 50px;
+  border: 1.5px solid #b2e8cf;
 }
 
-/* ─── TEXTAREA ─── */
 .custom-textarea {
   --background: white;
+  --color: #1e5c42;
+  --placeholder-color: #99cbb8;
+  --placeholder-opacity: 1;
   border-radius: 14px;
   min-height: 100px;
+  border: 1.5px solid #b2e8cf;
 }
 
-/* ─── CAMPO SELECT ─── */
 .campo-select {
   background: white;
   border-radius: 14px;
   padding: 4px 8px;
+  border: 1.5px solid #b2e8cf;
 }
 
-/* ─── FOTO ─── */
 .foto-box {
   height: 140px;
-  border: 2px dashed #b0c8bc;
+  border: 2px dashed #66d9a6;
   border-radius: 14px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   align-items: center;
   justify-content: center;
-  color: #8a9e97;
+  color: #3ecf8e;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  ion-icon {
+    font-size: 2rem;
+    color: #3ecf8e;
+  }
+
+  span {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #66d9a6;
+  }
+
+  img.foto-preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .foto-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    ion-icon {
+      font-size: 1.2rem;
+      color: white;
+    }
+  }
 }
 
-.foto-box ion-icon {
-  font-size: 2rem;
-}
-
-/* ─── BOTÃO POSTAR ─── */
 .btn-postar {
   --background: linear-gradient(135deg, #66d9a6, #38b87a);
   --border-radius: 50px;
   height: 50px;
-  font-weight: bold;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
 }

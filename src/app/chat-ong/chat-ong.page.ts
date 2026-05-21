@@ -55,7 +55,7 @@ export class ChatOngPage implements OnInit {
     this.novaMensagem = '';
     this.scrollToBottom();
 
-    // Simula resposta da ONG após 1.2s
+ 
     setTimeout(() => {
       const resposta = this.respostasOng[this.respostaIdx % this.respostasOng.length];
       this.respostaIdx++;

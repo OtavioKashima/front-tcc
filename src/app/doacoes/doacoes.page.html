@@ -11,7 +11,7 @@
 
 <ion-content>
 
-  <!-- Hero -->
+
   <div class="hero-banner">
     <div class="paw-bg">🐾</div>
 
@@ -27,7 +27,7 @@
     </div>
   </div>
 
-  <!-- Bloco principal de doação -->
+  
   <div class="donate-block">
 
     <p class="donate-subtitle">
@@ -59,11 +59,10 @@
 
     </div>
 
-    <!-- QR CODE -->
+   
     <div class="qrcode-container">
 
-      <!-- IMPORTANTE -->
-      <!-- coloque a imagem em src/assets/qrcode.png -->
+     
 
       <img
         src="assets/qrcode.png"
@@ -82,7 +81,7 @@
 
     </div>
 
-    <!-- BOTÃO PAGAMENTO -->
+    
     <button
       class="adopt-btn"
       (click)="processarDoacao()"
@@ -96,7 +95,7 @@
 
   </div>
 
-  <!-- Info sobre a ONG -->
+ 
   <div class="ong-info-card">
 
     <div class="ong-info-header">
@@ -115,7 +114,7 @@
 
   </div>
 
-  <!-- Header da seção -->
+  
   <div class="section-header">
 
     <div class="section-header-line"></div>
@@ -128,7 +127,7 @@
 
   </div>
 
-  <!-- Sem resultados -->
+
   <div
     *ngIf="cardsFiltrados.length === 0"
     class="sem-resultados">
@@ -146,7 +145,7 @@
 
   </div>
 
-  <!-- Cards -->
+
   <div
     class="donation-card"
     *ngFor="let card of cardsFiltrados">

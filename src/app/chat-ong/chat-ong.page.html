@@ -18,7 +18,7 @@
 <ion-content #scrollArea [scrollY]="true">
   <div class="chat-messages">
 
-    <!-- Mensagem automática da ONG -->
+  
     <div class="msg-row msg-deles">
       <img [src]="ong?.avatar" class="msg-avatar">
       <div class="msg-bubble msg-bubble--deles">
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <!-- Mensagens do chat -->
+    
     <ng-container *ngFor="let msg of mensagens">
 
       <div class="msg-row" [class.msg-meus]="msg.deMim" [class.msg-deles]="!msg.deMim">

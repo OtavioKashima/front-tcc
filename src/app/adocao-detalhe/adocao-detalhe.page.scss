@@ -1,15 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-// =============================================
-// Content sem header
-// =============================================
+
 ion-content {
   --background: #f5f7f6;
 }
 
-// =============================================
-// Botões flutuantes sobre a imagem
-// =============================================
+
+
 .floating-buttons {
   position: absolute;
   top: 0;
@@ -51,9 +48,7 @@ ion-content {
   transition: color 0.2s ease;
 }
 
-// =============================================
-// Hero
-// =============================================
+
 .hero-image-wrapper {
   position: relative;
   width: 100%;
@@ -118,9 +113,7 @@ ion-content {
   margin-left: 2px;
 }
 
-// =============================================
-// Body
-// =============================================
+
 .content-body {
   padding: 16px 16px 100px;
   display: flex;
@@ -128,7 +121,7 @@ ion-content {
   gap: 20px;
 }
 
-// Owner card
+
 .owner-card {
   background: white;
   border-radius: 16px;
@@ -189,9 +182,7 @@ ion-content {
   flex-shrink: 0;
 }
 
-// =============================================
-// Seção
-// =============================================
+
 .section {
   background: white;
   border-radius: 16px;
@@ -216,9 +207,7 @@ ion-content {
   margin: 0;
 }
 
-// =============================================
-// Detalhes do animal
-// =============================================
+
 .animal-details {
   display: flex;
   gap: 10px;
@@ -253,9 +242,7 @@ ion-content {
   color: #1a1a1a;
 }
 
-// =============================================
-// Chips — ocupam largura total
-// =============================================
+
 .chips-row {
   display: flex;
   gap: 10px;
@@ -282,9 +269,6 @@ ion-content {
   }
 }
 
-// =============================================
-// Botão fixo
-// =============================================
 .bottom-bar {
   position: fixed;
   bottom: 0;

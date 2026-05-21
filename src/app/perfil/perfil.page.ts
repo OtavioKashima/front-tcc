@@ -129,7 +129,6 @@ export class PerfilPage implements OnInit {
     this.denuncias = this.denuncias.filter(d => d.id !== post.id);
   }
 
-  // Passa o usuario atual para a tela de edição
   editarPerfil(): void {
     this.navCtrl.navigateForward('/editar-perfil', {
       state: { usuario: this.usuario }

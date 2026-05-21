@@ -148,7 +148,7 @@ export class PerfilOngPage implements OnInit {
     this.navCtrl.back();
   }
 
-  // ← NOVO
+
   compartilharOng(): void {
     if (navigator.share) {
       navigator.share({

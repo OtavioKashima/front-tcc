@@ -23,7 +23,7 @@
 
   <div class="content-body">
 
-    <!-- Usuário -->
+
     <div class="input-group">
       <div class="input-wrapper">
         <ion-icon name="person-outline" class="input-icon"></ion-icon>
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <!-- Telefone -->
+ 
     <div class="input-group">
       <div class="input-wrapper">
         <ion-icon name="call-outline" class="input-icon"></ion-icon>
@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <!-- Email -->
+ 
     <div class="input-group">
       <div class="input-wrapper">
         <ion-icon name="mail-outline" class="input-icon"></ion-icon>
@@ -66,7 +66,6 @@
       </div>
     </div>
 
-    <!-- Nova senha -->
     <div class="input-group">
       <div class="input-wrapper">
         <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
@@ -81,7 +80,7 @@
       </div>
     </div>
 
-    <!-- Confirmar nova senha -->
+   
     <div class="input-group">
       <div class="input-wrapper">
         <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
@@ -99,13 +98,13 @@
       </div>
     </div>
 
-    <!-- Botão salvar -->
+ 
     <button class="salvar-btn" (click)="salvar()" [disabled]="salvando || emailInvalido">
       <ion-icon name="checkmark-circle-outline"></ion-icon>
       {{ salvando ? 'Salvando...' : 'Salvar Alterações' }}
     </button>
 
-    <!-- Deletar conta -->
+  
     <button class="deletar-btn" (click)="confirmarDeletar()">
       <ion-icon name="trash-outline"></ion-icon>
       Deletar minha conta

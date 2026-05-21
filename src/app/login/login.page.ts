@@ -25,12 +25,12 @@ export class LoginPage {
     private navCtrl: NavController
   ) {}
 
-  // Navegação
+
   goToHome() { this.navCtrl.navigateRoot('/home'); }
   goToCadastroPage() { this.navCtrl.navigateRoot('/registro'); }
   goToRecuperarSenha() { this.navCtrl.navigateForward('/recuperar-senha'); }
 
-  // Máscaras e Validações
+
   somenteNumeros(event: any) {
     const charCode = event.which ? event.which : event.keyCode;
     if (charCode < 48 || charCode > 57) event.preventDefault();
@@ -44,7 +44,6 @@ export class LoginPage {
       .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
   }
 
-  // Login com feedback visual
   async login() {
     if (!this.usuario || !this.senha) {
       this.mostrarToast('Por favor, preencha todos os campos.', 'erro');
@@ -67,7 +66,7 @@ export class LoginPage {
     });
   }
 
-  // Toast customizado para o App
+  
   async mostrarToast(mensagem: string, tipo: 'sucesso' | 'erro') {
     const toast = await this.toastController.create({
       message: mensagem,

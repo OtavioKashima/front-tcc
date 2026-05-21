@@ -47,8 +47,7 @@ export class AdocaoDetalhePage implements OnInit {
     this.carregarPet();
   }
 
-  // ✅ ionViewWillEnter garante que roda SEMPRE que a tela aparece,
-  // inclusive quando volta de outra tela — resolve o bug do cache
+  
   ionViewWillEnter(): void {
     this.carregarPet();
   }

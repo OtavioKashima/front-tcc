@@ -85,11 +85,11 @@ const routes: Routes = [
   },
   {
     path: 'editar-denuncia',
-    loadChildren: () => import('./editar-denuncia/editar-denuncia.module').then( m => m.EditarDenunciaPageModule)
+    loadChildren: () => import('../editar-denuncia/editar-denuncia.module').then( m => m.EditarDenunciaPageModule)
   },
   {
     path: 'editar-denuncia',
-    loadChildren: () => import('./editar-denuncia/editar-denuncia.module').then( m => m.EditarDenunciaPageModule)
+    loadChildren: () => import('../editar-denuncia/editar-denuncia.module').then( m => m.EditarDenunciaPageModule)
   }
 
 

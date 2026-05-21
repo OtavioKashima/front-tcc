@@ -1,48 +1,28 @@
-/*
- * App Global CSS
- * ----------------------------------------------------------------------------
- * Put style rules here that you want to apply globally. These styles are for
- * the entire app and not just one component. Additionally, this file can be
- * used as an entry point to import other CSS/Sass files to be included in the
- * output CSS.
- * For more information on global stylesheets, visit the documentation:
- * https://ionicframework.com/docs/layout/global-stylesheets
- */
 
-/* Core CSS required for Ionic components to work properly */
 @import "@ionic/angular/css/core.css";
 
-/* Basic CSS for apps built with Ionic */
+
 @import "@ionic/angular/css/normalize.css";
 @import "@ionic/angular/css/structure.css";
 @import "@ionic/angular/css/typography.css";
 @import "@ionic/angular/css/display.css";
 
-/* Optional CSS utils that can be commented out */
 @import "@ionic/angular/css/padding.css";
 @import "@ionic/angular/css/float-elements.css";
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
 
-/* @import "@ionic/angular/css/palettes/dark.always.css"; */
-/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+
 @import "@ionic/angular/css/palettes/dark.system.css";
-/* Força fundo branco em todo o app */
-/* Fundo branco do app, sem afetar o header */
+
 ion-app, ion-content, body {
   background-color: #ffffff !important;
   overscroll-behavior-y: none;
 }
 
-/* Header e toolbar branco, texto/ícones visíveis */
+
 ion-header, ion-toolbar {
     --background: linear-gradient(135deg, #66d9a6 0%, #4eca88 100%);
   background-color: #ffffff !important;
@@ -50,7 +30,7 @@ ion-header, ion-toolbar {
 
 }
 
-/* Seta de voltar preta */
+
 ion-icon.seta-voltar {
   color: #000000;
 }
@@ -59,4 +39,32 @@ ion-icon.seta-voltar {
   --color: #000000;
   --border-radius: 12px;
   --box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+}
+ion-select-popover {
+  ion-radio {
+    --color-checked: #38b87a;
+  }
+}
+
+ion-select-popover {
+  ion-list {
+    background: #f0fdf6 !important;
+  }
+
+  ion-item {
+    --background: #f0fdf6;
+    --color: #2d7a5e;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+  }
+
+  ion-radio {
+    --color: #b2e8cf;
+    --color-checked: #3ecf8e;
+  }
+
+  ion-item.item-radio-checked {
+    --background: #d6f5e8;
+    --color: #3ecf8e;
+  }
 }

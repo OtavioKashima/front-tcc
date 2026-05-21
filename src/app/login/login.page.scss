@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-// =============================================
-// Toolbar transparente
-// =============================================
+
 ion-toolbar.toolbar-transparente {
   --background: transparent;
   --border-style: none;
@@ -30,9 +28,7 @@ ion-toolbar.toolbar-transparente {
   }
 }
 
-// =============================================
-// Container principal
-// =============================================
+
 .login-container {
   display: flex;
   flex-direction: column;
@@ -54,9 +50,7 @@ ion-toolbar.toolbar-transparente {
   margin-top: -110px;
 }
 
-// =============================================
-// Logo
-// =============================================
+
 .logo-container {
   margin-bottom: 0.5rem !important;
   padding-bottom: 0 !important;
@@ -85,9 +79,7 @@ ion-toolbar.toolbar-transparente {
   color: white;
 }
 
-// =============================================
-// Título
-// =============================================
+
 .login-title {
   font-size: 1.7rem;
   font-weight: 600;
@@ -99,16 +91,13 @@ ion-toolbar.toolbar-transparente {
   font-family: 'Nunito', sans-serif;
   text-align: center;
   width: 100%;
-  padding: 0; // <-- garante que não tem padding nenhum deslocando
+  padding: 0; 
 }
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
 }
 
-// =============================================
-// Card do formulário
-// =============================================
 .form-container {
   width: 100%;
   background: transparent;
@@ -117,9 +106,7 @@ ion-toolbar.toolbar-transparente {
   animation: slideUp 0.5s 0.2s ease both;
 }
 
-// =============================================
-// Input wrapper
-// =============================================
+
 .input-group {
   margin-bottom: 12px;
 }
@@ -182,9 +169,7 @@ ion-toolbar.toolbar-transparente {
   height: 100%;
 }
 
-// =============================================
-// Esqueci a senha
-// =============================================
+
 .forgot-password {
   text-align: center;
   margin-top: 8px;
@@ -205,9 +190,7 @@ ion-toolbar.toolbar-transparente {
   }
 }
 
-// =============================================
-// Botões
-// =============================================
+
 .button-container {
   width: 100%;
   display: flex;
@@ -237,9 +220,7 @@ ion-toolbar.toolbar-transparente {
   }
 }
 
-// =============================================
-// Não tenho conta
-// =============================================
+
 .no-account {
   text-align: center;
   margin-top: 14px;
@@ -260,9 +241,7 @@ ion-toolbar.toolbar-transparente {
   }
 }
 
-// =============================================
-// Responsividade
-// =============================================
+
 @media (max-width: 480px) {
   .login-container {
     padding: 1.5rem;

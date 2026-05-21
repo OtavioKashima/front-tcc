@@ -99,18 +99,18 @@ export class RegistroPage {
     this.http.post<any>(`${this.API_URL}/usuarios`, formData)
       .subscribe({
         next: async () => {
-          // Envia o código de verificação por e-mail
+         
           this.http.post<any>(`${this.API_URL}/usuarios/enviar-verificacao`, { email: this.email })
             .subscribe({
               next: async () => {
                 await this.mostrarToast('Código de verificação enviado para seu e-mail!');
-                // Redireciona passando o e-mail como state para a tela de verificação
+                
                 this.navCtrl.navigateForward('/codigo-verificacao', {
                   state: { email: this.email }
                 });
               },
               error: async () => {
-                // Mesmo que o envio falhe, redireciona para a tela de verificação
+             
                 await this.mostrarToast('Cadastro realizado! Verifique seu e-mail.');
                 this.navCtrl.navigateForward('/codigo-verificacao', {
                   state: { email: this.email }

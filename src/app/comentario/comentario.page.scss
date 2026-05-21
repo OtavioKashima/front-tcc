@@ -1,6 +1,4 @@
-/* =====================
-   HEADER
-   ===================== */
+
 
 .custom-toolbar {
   --background: #5ecfa0;
@@ -19,18 +17,13 @@
   --color: white;
 }
 
-/* =====================
-   CONTENT
-   ===================== */
 
 .page-content {
   --background: #f5f5f5;
   --padding-bottom: 80px;
 }
 
-/* =====================
-   LISTA DE COMENTÁRIOS
-   ===================== */
+
 
 .comments-list {
   padding: 12px 0;
@@ -83,9 +76,6 @@
   margin-top: 2px;
 }
 
-/* =====================
-   ESTADO VAZIO
-   ===================== */
 
 .empty-state {
   display: flex;
@@ -108,9 +98,6 @@
   color: #aaa;
 }
 
-/* =====================
-   FOOTER - CAMPO DE COMENTÁRIO
-   ===================== */
 
 .comment-footer {
   background: #fff;

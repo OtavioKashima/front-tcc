@@ -95,7 +95,7 @@ export class DenunciaDetalhePage implements OnInit {
 
   verPerfilUsuario(): void {
 
-    // cria uma denúncia resumo baseada na denúncia atual
+
     const denunciaAtual: DenunciaResumo = {
       titulo: this.denuncia.titulo,
       imagem: this.denuncia.imagem,
@@ -108,15 +108,12 @@ export class DenunciaDetalhePage implements OnInit {
       tipo: this.denuncia.tipo
     };
 
-    // pega denúncias existentes do usuário
     const denunciasUsuario = this.denuncia.usuario.denuncias ?? [];
 
-    // evita duplicar
     const jaExiste = denunciasUsuario.some(
       d => d.titulo === denunciaAtual.titulo
     );
 
-    // adiciona a denúncia atual
     if (!jaExiste) {
       denunciasUsuario.push(denunciaAtual);
     }

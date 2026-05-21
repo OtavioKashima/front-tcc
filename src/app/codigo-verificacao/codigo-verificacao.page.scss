@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-/* =============================================
-Toolbar transparente
-============================================= */
+
 
 ion-toolbar.toolbar-transparente {
   --background: transparent;
@@ -31,9 +29,6 @@ ion-toolbar.toolbar-transparente {
   color: white;
 }
 
-/* =============================================
-Container principal
-============================================= */
 
 .login-container {
   display: flex;
@@ -56,9 +51,6 @@ Container principal
   margin-top: -180px;
 }
 
-/* =============================================
-Logo
-============================================= */
 
 .logo-container {
   margin-bottom: 0.5rem;
@@ -87,9 +79,6 @@ Logo
   color: white;
 }
 
-/* =============================================
-Título
-============================================= */
 
 .login-title {
   font-size: 1.65rem;
@@ -103,9 +92,7 @@ Título
   animation: slideUp 0.5s 0.1s ease both;
 }
 
-/* =============================================
-Descrição
-============================================= */
+
 
 .descricao {
   font-size: 0.85rem;
@@ -116,23 +103,21 @@ Descrição
   animation: slideUp 0.5s 0.15s ease both;
 }
 
-/* =============================================
-Formulário
-============================================= */
+
 
 .form-container {
   width: 100%;
   background: transparent;
   padding: 0;
-  margin-bottom: 4px; /* diminui espaço */
+  margin-bottom: 4px;
   animation: slideUp 0.5s 0.2s ease both;
 }
 
 .input-group {
-  margin-bottom: 6px; /* deixa mais junto */
+  margin-bottom: 6px; 
 }
 
-/* wrapper do input */
+
 
 .input-wrapper {
   position: relative;
@@ -145,7 +130,7 @@ Formulário
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* ícone */
+
 
 .input-icon {
   position: absolute;
@@ -154,7 +139,6 @@ Formulário
   color: #aab5b0;
 }
 
-/* input */
 
 .custom-input {
   --background: transparent;
@@ -171,7 +155,7 @@ Formulário
   text-align: center;
 }
 
-/* centralizar texto digitado */
+
 
 ion-input::part(native) {
   text-align: center;
@@ -179,13 +163,11 @@ ion-input::part(native) {
   padding-right: 0;
 }
 
-/* =============================================
-Botão
-============================================= */
+
 
 .button-container {
   width: 100%;
-  margin-top: 2px; /* aproxima do input */
+  margin-top: 2px; 
   animation: slideUp 0.5s 0.35s ease both;
 }
 
@@ -207,9 +189,7 @@ Botão
   transform: translateY(-2px);
 }
 
-/* =============================================
-Reenviar código
-============================================= */
+
 
 .reenviar {
   margin-top: 14px;
@@ -229,18 +209,14 @@ Reenviar código
   text-decoration: underline;
 }
 
-/* =============================================
-Animação
-============================================= */
+
 
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to   { transform: translateY(0); opacity: 1; }
 }
 
-/* =============================================
-Responsivo
-============================================= */
+
 
 @media (max-width: 480px) {
 

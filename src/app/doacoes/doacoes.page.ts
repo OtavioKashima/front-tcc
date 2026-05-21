@@ -30,7 +30,7 @@ export class DoacoesPage implements OnInit {
     {
       titulo: 'Tratamentos de saúde',
       descricao: 'Gatos e cachorros com doenças que precisam de atenção veterinária urgente.',
-      imagem: 'https://inovaveterinaria.com.br/wp-content/uploads/2017/09/vermifugo-para-cachorros-e-gatos-1024x703-1.jpg',
+      imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbrsVVAkUJVKaQyzhg1Kl2UkQeiwy-jU-dMg&s',
       tags: 'tratamentos saúde gatos cachorros doenças veterinária',
     },
     {

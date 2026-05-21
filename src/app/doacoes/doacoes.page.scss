@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-// =============================================
-// TOOLBAR / HEADER
-// =============================================
+
 ion-toolbar.custom-toolbar {
   --background: #66d9a6;
   --color: white;
@@ -36,14 +34,11 @@ ion-toolbar.custom-toolbar {
   cursor: pointer;
 }
 
-// =============================================
-// CONTENT
-// =============================================
+
 ion-content {
   --background: #f2f2f2;
 }
 
-// ── Hero ──
 .hero-banner {
   background: linear-gradient(135deg, #66d9a6 0%, #3cb87a 100%);
   padding: 28px 20px 32px;
@@ -93,7 +88,7 @@ ion-content {
   }
 }
 
-// ── Bloco de doação ──
+
 .donate-block {
   margin: 16px;
   background: white;
@@ -174,7 +169,7 @@ ion-content {
   font-family: 'Nunito', sans-serif;
 }
 
-// ── QR CODE ──
+
 .qrcode-container {
   display: flex;
   flex-direction: column;
@@ -214,7 +209,7 @@ ion-content {
   }
 }
 
-// ── Botão ──
+
 .adopt-btn {
   width: 100%;
   height: 52px;
@@ -258,7 +253,7 @@ ion-content {
   font-family: 'Nunito', sans-serif;
 }
 
-// ── Info ONG ──
+
 .ong-info-card {
   margin: 0 16px 16px;
   background: #f0fdf7;
@@ -288,7 +283,7 @@ ion-content {
   ion-icon { font-size: 18px; }
 }
 
-// ── Section header bonito ──
+
 .section-header {
   display: flex;
   align-items: center;
@@ -316,7 +311,7 @@ ion-content {
   white-space: nowrap;
 }
 
-// ── Sem resultados ──
+
 .sem-resultados {
   display: flex;
   flex-direction: column;
@@ -346,7 +341,7 @@ ion-content {
   color: #7dddb0;
 }
 
-// ── Cards ilustrativos ──
+
 .donation-card {
   margin: 0 16px 12px;
   border-radius: 16px;

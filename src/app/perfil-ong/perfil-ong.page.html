@@ -1,6 +1,6 @@
 <ion-content [scrollY]="true">
 
-  <!-- Botão flutuante -->
+
   <div class="floating-buttons">
     <button class="float-btn" (click)="goBack()">
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
@@ -10,7 +10,6 @@
     </button>
   </div>
 
-  <!-- Hero banner -->
   <div class="hero-banner">
     <div class="hero-gradient"></div>
     <div class="hero-content">
@@ -23,12 +22,11 @@
     </div>
   </div>
 
-  <!-- Sobre -->
+ 
   <div class="sobre-section">
     <p class="sobre-text">{{ ong.descricao }}</p>
   </div>
 
-  <!-- Tabs -->
   <div class="tabs-bar">
     <button
       class="tab-btn"
@@ -46,7 +44,7 @@
     </button>
   </div>
 
-  <!-- ===== Feed Adoções ===== -->
+  
   <div class="feed" *ngIf="tabAtiva === 'adocoes'">
 
     <div *ngIf="postagens.length === 0" class="sem-resultados">
@@ -91,7 +89,7 @@
 
   </div>
 
-  <!-- ===== Feed Denúncias ===== -->
+
   <div class="feed" *ngIf="tabAtiva === 'denuncias'">
 
     <div *ngIf="denuncias.length === 0" class="sem-resultados">

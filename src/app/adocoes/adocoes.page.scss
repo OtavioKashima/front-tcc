@@ -78,9 +78,6 @@ ion-toolbar.custom-toolbar {
 
 ion-content { --background: #f0fdf6; }
 
-// =============================================
-// FILTROS
-// =============================================
 .filtros-painel {
   max-height: 0;
   overflow: hidden;
@@ -200,9 +197,6 @@ ion-content { --background: #f0fdf6; }
   flex-shrink: 0;
 }
 
-// =============================================
-// FEED
-// =============================================
 .feed {
   padding: 12px 0 100px;
   display: flex;
@@ -234,9 +228,7 @@ ion-content { --background: #f0fdf6; }
   color: #7dddb0;
 }
 
-// =============================================
-// CARDS
-// =============================================
+
 .adote-card {
   margin: 10px 16px;
   border-radius: 16px;

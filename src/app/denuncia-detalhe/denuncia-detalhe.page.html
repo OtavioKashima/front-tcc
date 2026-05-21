@@ -1,6 +1,6 @@
 <ion-content [scrollY]="true">
 
-  <!-- Botões flutuantes -->
+
   <div class="floating-buttons">
     <button class="float-btn" (click)="goBack()">
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
@@ -10,7 +10,6 @@
     </button>
   </div>
 
-  <!-- Imagem grande -->
   <div class="hero-image-wrapper">
     <img [src]="denuncia.imagem" [alt]="denuncia.titulo" class="hero-image">
     <div class="hero-overlay">
@@ -21,7 +20,6 @@
 
   <div class="content-body">
 
-    <!-- Usuário que publicou -->
     <div class="owner-card" (click)="verPerfilUsuario()">
       <img
         [src]="denuncia.usuario.avatar"
@@ -38,7 +36,7 @@
       <ion-icon name="chevron-forward-outline" class="owner-arrow"></ion-icon>
     </div>
 
-    <!-- Descrição -->
+   
     <div class="section">
       <h2 class="section-title">Descrição da Denúncia</h2>
       <p class="section-text">{{ denuncia.descricao }}</p>

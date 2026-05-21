@@ -198,7 +198,7 @@
         return matchTermo && matchAnimal && matchRaca && matchCidade && matchEstado && matchIdade;
       });
 
-      // Salvos sempre no topo
+  
       this.petsFiltrados.sort((a, b) => (b.saved ? 1 : 0) - (a.saved ? 1 : 0));
     }
 

@@ -4,9 +4,7 @@ ion-content {
   --background: #f0fdf6;
 }
 
-// =============================================
-// Botão flutuante
-// =============================================
+
 .floating-buttons {
   position: absolute;
   top: 0;
@@ -45,9 +43,6 @@ ion-content {
   transition: color 0.2s ease;
 }
 
-// =============================================
-// Hero
-// =============================================
 .hero-banner {
   position: relative;
   width: 100%;
@@ -106,9 +101,7 @@ ion-content {
   ion-icon { font-size: 13px; }
 }
 
-// =============================================
-// Sobre
-// =============================================
+
 .sobre-section {
   background: white;
   padding: 16px 16px 0;
@@ -124,9 +117,6 @@ ion-content {
   margin: 0;
 }
 
-// =============================================
-// Tabs
-// =============================================
 .tabs-bar {
   background: white;
   display: flex;
@@ -184,9 +174,7 @@ ion-content {
   }
 }
 
-// =============================================
-// Feed
-// =============================================
+
 .feed {
   display: flex;
   flex-direction: column;
@@ -215,9 +203,7 @@ ion-content {
   }
 }
 
-// =============================================
-// Cards de Adoção
-// =============================================
+
 .adote-card {
   margin: 10px 16px;
   border-radius: 16px;
@@ -288,9 +274,7 @@ ion-content {
   margin: 0;
 }
 
-// =============================================
-// Cards de Denúncia
-// =============================================
+
 .denuncia-card {
   margin: 10px 16px;
   border-radius: 16px;
@@ -355,9 +339,7 @@ ion-content {
   margin: 0;
 }
 
-// =============================================
-// Botões de ação (compartilhar, salvar)
-// =============================================
+
 .acao-btn {
   background: none;
   border: none;
