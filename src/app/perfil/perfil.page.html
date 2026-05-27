@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="custom-toolbar">
+     <ion-title style="margin-left: 4px;">Perfil</ion-title>
     <ion-buttons slot="end">
       <button class="toolbar-btn" id="menu-opcoes">
         <ion-icon name="settings-outline"></ion-icon>
@@ -30,7 +31,8 @@
   <div class="perfil-hero">
     <div class="hero-bg"></div>
     <div class="perfil-avatar-wrapper">
-      <img [src]="usuario?.fotoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" class="perfil-foto" [alt]="usuario?.nome">
+      <img [src]="usuario?.fotoUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'" class="perfil-foto"
+        [alt]="usuario?.nome">
     </div>
     <h2 class="perfil-nome">{{ usuario?.nome }}</h2>
     <p class="perfil-telefone">
@@ -67,13 +69,11 @@
   </div>
 
   <div class="feed">
-    <div
-      class="denuncia-card"
-      *ngFor="let post of postagensExibidas">
+    <div class="denuncia-card" *ngFor="let post of postagensExibidas">
 
       <div class="denuncia-header">
         <span>{{ post.titulo }}</span>
-        
+
         <div class="denuncia-acoes">
           <button class="acao-btn" (click)="editarDenuncia(post); $event.stopPropagation()">
             <ion-icon name="create-outline"></ion-icon>
@@ -85,11 +85,9 @@
       </div>
 
       <div class="denuncia-content">
-        <img 
-          [src]="post.fotoUrl || 'https://via.placeholder.com/400x200/e0e0e0/808080?text=Sem+Foto'" 
-          [alt]="post.titulo" 
-          class="denuncia-image">
-          
+        <img [src]="post.fotoUrl || 'https://via.placeholder.com/400x200/e0e0e0/808080?text=Sem+Foto'"
+          [alt]="post.titulo" class="denuncia-image">
+
         <div class="denuncia-info">
           <span class="denuncia-badge" *ngIf="post.idade">{{ post.idade }} ano(s)</span>
           <p class="denuncia-descricao">{{ post.descricao }}</p>
@@ -99,16 +97,12 @@
   </div>
 
   <div class="paginacao-container" *ngIf="postagensExibidas.length > 0">
-    <ion-button fill="outline" size="small" (click)="paginaAnterior()" [disabled]="paginaAtual === 1">Anterior</ion-button>
+    <ion-button fill="outline" size="small" (click)="paginaAnterior()"
+      [disabled]="paginaAtual === 1">Anterior</ion-button>
     <span class="paginacao-texto">Pág {{ paginaAtual }} de {{ totalPaginas }}</span>
-    <ion-button fill="outline" size="small" (click)="proximaPagina()" [disabled]="paginaAtual === totalPaginas">Próxima</ion-button>
+    <ion-button fill="outline" size="small" (click)="proximaPagina()"
+      [disabled]="paginaAtual === totalPaginas">Próxima</ion-button>
   </div>
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="margin-bottom: 20px; margin-right: 10px;">
-    <ion-fab-button (click)="adicionar()">
-      <ion-icon name="add" size="large"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 
   <div class="bottom-space"></div>
 </ion-content>

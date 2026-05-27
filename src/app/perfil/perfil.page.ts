@@ -150,10 +150,6 @@ export class PerfilPage implements OnInit {
     }
   }
 
-  adicionar() {
-    this.navCtrl.navigateForward('/postagem');
-  }
-
   editPerfil() {
     this.navCtrl.navigateForward('/editar-perfil');
   }
@@ -204,5 +200,5 @@ export class PerfilPage implements OnInit {
     });
 
     await alert.present();
-    }
   }
+}
