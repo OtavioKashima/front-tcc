@@ -119,6 +119,7 @@ ion-content::part(scroll) {
   border-radius: 24px;
   padding: 16px;
   margin-bottom: 16px;
+  margin-top: -8px;
   box-shadow: none;
   border: 1px solid #b2e8cf;
 }
@@ -126,7 +127,14 @@ ion-content::part(scroll) {
 .select-wrapper {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+
+  ion-select {
+    flex: 0 1 auto;
+    max-width: fit-content;
+  }
 }
 
 .icon-box ion-icon {
@@ -193,8 +201,9 @@ label {
 .custom-input {
   --background: white;
   --color: #1e5c42;
-  --placeholder-color: #99cbb8;
+  --placeholder-color: #8a9e97;
   --placeholder-opacity: 1;
+  --placeholder-font-size: 0.85rem;
   --border-radius: 14px;
   --border-color: #b2e8cf;
   --border-width: 1.5px;
@@ -202,6 +211,7 @@ label {
   --padding-start: 14px;
   --padding-end: 14px;
   font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
   border-radius: 14px;
   height: 50px;
 }
@@ -209,8 +219,9 @@ label {
 .custom-textarea {
   --background: white;
   --color: #1e5c42;
-  --placeholder-color: #99cbb8;
+  --placeholder-color: #8a9e97;
   --placeholder-opacity: 1;
+  --placeholder-font-size: 0.85rem;
   --border-radius: 14px;
   --border-color: #b2e8cf;
   --border-width: 1.5px;
@@ -220,6 +231,7 @@ label {
   --padding-top: 12px;
   --padding-bottom: 12px;
   font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
   border-radius: 14px;
   min-height: 100px;
 }
@@ -232,10 +244,17 @@ label {
 
   ion-select {
     border-radius: 14px;
+    text-align: left;
+    font-size: 0.85rem;
   }
 
   ion-select::part(container) {
     border-radius: 14px;
+  }
+
+  ion-select::part(text) {
+    text-align: left;
+    font-size: 0.85rem;
   }
 }
 

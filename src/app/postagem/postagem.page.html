@@ -13,7 +13,9 @@
         <ion-icon name="paw" class="logo-icon"></ion-icon>
       </div>
       <h2>Criar Postagem</h2>
-      <p>Escolha o tipo de publicação para continuar</p>
+      <p *ngIf="!tipoSelecionado">Escolha o tipo de publicação para continuar</p>
+      <p *ngIf="tipoSelecionado === 'adocao'">Preencha todos os campos para finalizar a adoção</p>
+      <p *ngIf="tipoSelecionado === 'denuncia'">Preencha todos os campos para finalizar a denúncia</p>
     </div>
 
     <ion-card class="select-card">
@@ -39,7 +41,6 @@
       </div>
     </ion-card>
 
-    <!-- ADOÇÃO -->
     <div *ngIf="tipoSelecionado === 'adocao'" class="campos-dinamicos">
 
       <div class="campo">
@@ -131,7 +132,6 @@
 
     </div>
 
-    <!-- DENÚNCIA -->
     <div *ngIf="tipoSelecionado === 'denuncia'" class="campos-dinamicos">
 
       <div class="campo">
@@ -139,7 +139,7 @@
 
         <ion-input
           class="custom-input"
-          placeholder="Ex: Maus tratos na Rua das Flores"
+          placeholder="Ex: Maus tratos "
           [(ngModel)]="form.titulo">
         </ion-input>
       </div>
@@ -188,7 +188,7 @@
 
         <ion-input
           class="custom-input"
-          placeholder="Ex: Rua das Flores, 123 - Joinville, SC"
+          placeholder="Ex: Joinville, SC"
           [(ngModel)]="form.localizacao">
         </ion-input>
       </div>

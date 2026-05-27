@@ -11,12 +11,10 @@ export class AppComponent {
    constructor(private navCtrl: NavController) {}
   
     goToLogin() {
-      // Navega para a tela de Login (Tab 2)
       this.navCtrl.navigateForward('/login');
     }
   
     goToRegistration() {
-      // Navega para a tela de Cadastro (Tab 3)
       this.navCtrl.navigateForward('/registro');
     }
   }

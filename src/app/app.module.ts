@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// 🔥 IMPORTANTE: HTTP CLIENT
+
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -17,7 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     IonicModule.forRoot(),
     AppRoutingModule,
 
-    // 🔹 Adiciona HttpClientModule aqui
+
     HttpClientModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

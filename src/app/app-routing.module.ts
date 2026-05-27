@@ -1,10 +1,10 @@
-// app-routing.module.ts CORRIGIDO
+
 
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  // Rotas que NÃO TÊM a barra de tabs
+ 
   {
     path: 'home',
     loadChildren: () =>
@@ -21,17 +21,16 @@ const routes: Routes = [
     loadComponent: () => import('./registro/registro.page').then(m => m.RegistroPage)
   },  
 
-  // ROTA PRINCIPAL QUE CARREGA O LAYOUT DE TABS
-  // Todas as páginas com tabs (adocoes, perfil, etc.) virão DESTE módulo
+
   {
     path: 'tabs',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
 
-  // Redirecionamento padrão do app
+
   {
     path: '',
-    redirectTo: 'home', // Ou 'login', dependendo da sua lógica de app
+    redirectTo: 'home', 
     pathMatch: 'full'
   },
 
@@ -95,7 +94,6 @@ const routes: Routes = [
 
 
 
-  // As rotas 'adocoes', 'doacoes', 'perfil', 'denuncias' FORAM REMOVIDAS DAQUI
 ];
 
 @NgModule({
