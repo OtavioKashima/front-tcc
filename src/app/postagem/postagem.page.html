@@ -11,127 +11,86 @@
 
   <div class="container">
 
-    <!-- CABEÇALHO BONITO -->
     <div class="intro">
       <h2>Criar Postagem</h2>
-      <p>Escolha o tipo de publicação para continuar</p>
+      <p *ngIf="isAdminOuOng">Escolha o tipo de publicação para continuar</p>
+      <p *ngIf="!isAdminOuOng">Área de publicação de denúncias e relatos</p>
     </div>
 
-    <!-- SELECT ESTILIZADO -->
     <ion-card class="select-card">
-
       <div class="select-wrapper">
-
         <div class="icon-box">
-          <ion-icon name="paw-outline"></ion-icon>
+          <ion-icon [name]="tipoSelecionado === 'denuncia' ? 'alert-circle-outline' : 'paw-outline'"></ion-icon>
         </div>
 
-        <ion-select placeholder="Selecione o tipo de postagem" interface="popover" (ionChange)="mudarTipo($event)">
+        <ion-select placeholder="Selecione o tipo de postagem" interface="popover" [value]="tipoSelecionado"
+          [disabled]="!isAdminOuOng" (ionChange)="mudarTipo($event)">
 
-          <ion-select-option value="adocao">Adoção</ion-select-option>
-          <ion-select-option value="doacao">Doação</ion-select-option>
-          <ion-select-option value="denuncia">Denuncia</ion-select-option>
+          <ion-select-option value="denuncia">🚨 Denúncia</ion-select-option>
+          <ion-select-option value="adocao" *ngIf="isAdminOuOng">🏠 Adoção (Apenas Admin/ONG)</ion-select-option>
+          <ion-select-option value="doacao" *ngIf="isAdminOuOng">🎁 Doação (Apenas Admin/ONG)</ion-select-option>
 
         </ion-select>
-
       </div>
-
     </ion-card>
 
-    <!-- CAMPOS DINÂMICOS -->
-
     <div *ngIf="tipoSelecionado">
       <div class="campo">
-        <label>Titulo:</label>
-        <ion-input type="text" [(ngModel)]="titulo" name="titulo" placeholder="Digite o título"></ion-input>
+        <label>Título da Postagem: <span style="color: red;">*</span></label>
+        <ion-input type="text" [(ngModel)]="titulo" name="titulo" placeholder="Digite um título resumido"></ion-input>
       </div>
     </div>
 
-    <!-- 🔹 ADOÇÃO -->
-    <div *ngIf="tipoSelecionado === 'adocao'">
+    <div *ngIf="tipoSelecionado === 'adocao' || tipoSelecionado === 'doacao'">
 
       <div class="campo">
-        <label>Raça do animal:</label>
-        <ion-input></ion-input>
-      </div>
-
-      <div class="campo-select">
-        <ion-select placeholder="genero">
-          <ion-select-option value="macho">Macho</ion-select-option>
-          <ion-select-option value="femea">Fêmea</ion-select-option>
-          <ion-select-option value="dois">Macho/Fêmea</ion-select-option>
-        </ion-select>
+        <label>Raça do animal / Porte:</label>
+        <ion-input type="text" [(ngModel)]="raca" name="raca"
+          placeholder="Ex: Vira-lata, Poodle, Desconhecida"></ion-input>
       </div>
 
       <div class="campo">
-        <label>Idade do animal:</label>
-        <ion-input type="number" [(ngModel)]="idade" name="idade" placeholder="Idade"></ion-input>
-      </div>
-
-    </div>
-
-
-    <!-- 🔹 PERDIDO -->
-    <div *ngIf="tipoSelecionado === 'doacao'">
-
-      <div class="campo">
-        <label>Local: </label>
-        <ion-input></ion-input>
+        <label>Gênero:</label>
+        <div class="campo-select" style="margin-top: 5px;">
+          <ion-select placeholder="Selecione o gênero" interface="popover" [(ngModel)]="genero" name="genero">
+            <ion-select-option value="macho">Macho</ion-select-option>
+            <ion-select-option value="femea">Fêmea</ion-select-option>
+            <ion-select-option value="dois">Macho e Fêmea (Mais de um)</ion-select-option>
+          </ion-select>
+        </div>
       </div>
 
       <div class="campo">
-        <label>Contato: </label>
-        <ion-input></ion-input>
+        <label>Idade aproximada (Anos):</label>
+        <ion-input type="number" [(ngModel)]="idade" name="idade" placeholder="Ex: 2"></ion-input>
       </div>
 
     </div>
 
-
-    <!-- 🔹 ENCONTRADO -->
-    <div *ngIf="tipoSelecionado === 'denuncia'">
-
-      <div class="campo">
-        <label>Local:</label>
-        <ion-input></ion-input>
-      </div>
-
-      <div class="campo">
-        <label>Estado do animal:</label>
-        <ion-input></ion-input>
-      </div>
-
-    </div>
-
-
-    <!-- FOTO (aparece para todos) -->
     <div *ngIf="tipoSelecionado">
 
       <div class="campo">
-        <label>Foto:</label>
-
+        <label>Foto do Pet / Ocorrência:</label>
         <input type="file" accept="image/*" (change)="selecionarFoto($event)" #fileInput style="display: none;" />
 
         <div class="foto-box" (click)="fileInput.click()">
-
-          <ion-icon *ngIf="!fotoPreview" name="cloud-upload-outline" size="large">
-          </ion-icon>
-
+          <ion-icon *ngIf="!fotoPreview" name="cloud-upload-outline" size="large"></ion-icon>
           <img *ngIf="fotoPreview" [src]="fotoPreview" alt="Foto selecionada" class="preview-img" />
-
         </div>
       </div>
 
       <div class="campo">
-        <label>Descrição:</label>
-        <ion-textarea [(ngModel)]="descricao" name="descricao" placeholder="Digite a descrição"></ion-textarea>
+        <label>Descrição detalhada: <span style="color: red;">*</span></label>
+        <ion-textarea [(ngModel)]="descricao" name="descricao"
+          [placeholder]="tipoSelecionado === 'denuncia' ? 'Descreva detalhadamente a situação do animal e a localização...' : 'Conte um pouco mais sobre o pet...'">
+        </ion-textarea>
       </div>
 
       <div class="btn-area">
-        <ion-button expand="block" class="btn-postar" (click)="enviarPostagem()">Postar</ion-button>
+        <ion-button expand="block" class="btn-postar" (click)="enviarPostagem()">Publicar Postagem</ion-button>
       </div>
 
     </div>
 
   </div>
-
 </ion-content>

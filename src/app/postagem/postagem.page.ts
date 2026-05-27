@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,10 +11,11 @@ import { IonicModule, NavController } from '@ionic/angular';
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class PostagemPage {
-  // 👇 Variável para o HTML (mostra/esconde os campos baseados na seleção)
+export class PostagemPage implements OnInit {
+  // Controle de exibição e permissão
   tipoSelecionado = '';
-  
+  isAdminOuOng = false;
+
   // Variáveis do formulário (Banco de Dados)
   tipo_postagem = '';
   titulo = '';
@@ -22,26 +23,31 @@ export class PostagemPage {
   raca = '';
   genero = '';
   idade: number | null = null;
-  
+
   // Variáveis para a imagem
   fotoSelecionada: File | null = null;
   fotoPreview: string | ArrayBuffer | null = null;
-  
-  // Injetando o HttpClient no construtor
-  constructor(private http: HttpClient, private navCtrl: NavController) { }
-  
 
-  // 👇 Função para capturar a escolha do ion-select e ajustar para o MySQL
-  mudarTipo(event: any) {
-    this.tipoSelecionado = event.detail.value;
-    
-    if (this.tipoSelecionado === 'adocao') {
-      this.tipo_postagem = 'adocao';
-    } else if (this.tipoSelecionado === 'doacao') {
-      this.tipo_postagem = 'doacao';
-    } else if (this.tipoSelecionado === 'denuncia') {
+  constructor(private http: HttpClient, private navCtrl: NavController) { }
+
+  ngOnInit() {
+    // 🔴 Verifica o tipo do usuário salvo na hora do login
+    const tipoUsuario = localStorage.getItem('tipo_usuario');
+
+    if (tipoUsuario === 'admin' || tipoUsuario === 'ong') {
+      this.isAdminOuOng = true;
+    } else {
+      // 🔴 Se for usuário comum, já trava e pré-seleciona "denuncia"
+      this.isAdminOuOng = false;
+      this.tipoSelecionado = 'denuncia';
       this.tipo_postagem = 'denuncia';
     }
+  }
+
+  // Função para capturar a escolha do ion-select e ajustar para o MySQL
+  mudarTipo(event: any) {
+    this.tipoSelecionado = event.detail.value;
+    this.tipo_postagem = this.tipoSelecionado;
   }
 
   // Função para capturar a foto do HTML
@@ -67,31 +73,34 @@ export class PostagemPage {
       descricao: this.descricao
     });
 
-    // Trava para não enviar vazio
     if (!this.tipo_postagem) {
       alert('Por favor, selecione o tipo de postagem!');
       return;
     }
 
-    const formData = new FormData();
+    if (!this.titulo || !this.descricao) {
+      alert('Título e Descrição são obrigatórios!');
+      return;
+    }
 
+    const formData = new FormData();
     formData.append('tipo_postagem', this.tipo_postagem);
     formData.append('titulo', this.titulo);
     formData.append('descricao', this.descricao);
 
-    // Anexa campos opcionais apenas se estiverem preenchidos
-    if (this.raca) formData.append('raca', this.raca);
-    if (this.genero) formData.append('genero', this.genero);
-    if (this.idade) formData.append('idade', this.idade.toString());
+    // 🔴 Envia os campos específicos de pet apenas se NÃO for uma denúncia
+    if (this.tipo_postagem !== 'denuncia') {
+      if (this.raca) formData.append('raca', this.raca);
+      if (this.genero) formData.append('genero', this.genero);
+      if (this.idade) formData.append('idade', this.idade.toString());
+    }
 
     // Anexa a foto
     if (this.fotoSelecionada) {
       formData.append('foto', this.fotoSelecionada);
     }
 
-    // Pega o token (ajuste a chave se você salvou com outro nome no login)
     const token = localStorage.getItem('token');
-
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -100,8 +109,11 @@ export class PostagemPage {
       .subscribe({
         next: (res: any) => {
           console.log('Postagem salva com sucesso!', res);
+
+          // Emite um evento global opcional para atualizar listagens no app
+          window.dispatchEvent(new CustomEvent('postagemCriada'));
+
           this.navCtrl.navigateRoot('/tabs');
-          // Aqui você pode limpar os campos ou redirecionar o usuário
         },
         error: (err: any) => {
           console.error('Erro ao salvar a postagem', err.error);
