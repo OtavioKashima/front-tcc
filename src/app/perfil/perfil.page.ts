@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'; // 🔴 CORRIGIDO: Importado do lugar certo!
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -37,7 +37,8 @@ export class PerfilPage implements OnInit {
     private navCtrl: NavController,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private toastController: ToastController
   ) {
     window.addEventListener('fotoAtualizada', () => {
       this.carregarDadosUsuario();
@@ -84,24 +85,23 @@ export class PerfilPage implements OnInit {
     this.http.get('http://localhost:3000/api/postperfil', { headers })
       .subscribe({
         next: (res: any) => {
-          // 🔴 TRUQUE AQUI: Percorremos todas as postagens para converter a foto
+
+          // Tratamento para transformar a string do banco em Array de fotos
           this.postagens = res.map((post: any) => {
             if (post.foto) {
               try {
-                // Tenta transformar o texto '["1.jpg", "2.jpg"]' em um Array de verdade
                 post.fotosArray = JSON.parse(post.foto);
               } catch (e) {
-                post.fotosArray = []; // Se der erro, deixa vazio
+                post.fotosArray = [post.foto]; // Fallback se for só uma string
               }
             } else {
               post.fotosArray = [];
             }
             return post;
           });
+
         },
-        error: (err) => {
-          console.error('Erro ao carregar postagens do perfil', err);
-        }
+        error: (err) => console.error('Erro ao buscar postagens do perfil', err)
       });
   }
 
@@ -166,10 +166,21 @@ export class PerfilPage implements OnInit {
     this.usuario = null;
     this.router.navigate(['/login'], { replaceUrl: true });
   }
+
   editarDenuncia(post: any) {
     // Aqui você direciona o usuário para a tela de edição, passando o ID da postagem.
     // Atenção: Ajuste a rota '/editar-postagem' para o nome da tela que você usa no seu app.
     this.navCtrl.navigateForward(`/editar-postagem/${post.id}`);
+  }
+
+  async mostrarAviso(mensagem: string, cor: string = 'success') {
+    const toast = await this.toastController.create({
+      message: mensagem,
+      duration: 2500, // Fica na tela por 2.5 segundos
+      color: cor,     // Cores do Ionic: 'success', 'danger', 'warning'
+      position: 'top' // Aparece no topo sem atrapalhar as abas (tabs)
+    });
+    toast.present();
   }
 
   // 2. Função para Excluir
@@ -185,9 +196,8 @@ export class PerfilPage implements OnInit {
         },
         {
           text: 'Excluir',
-          role: 'destructive', // Faz o botão ficar vermelho no iOS/Android
+          role: 'destructive',
           handler: () => {
-            // Se clicar em excluir, executa a requisição
             const token = localStorage.getItem('token');
             if (!token) return;
 
@@ -196,10 +206,21 @@ export class PerfilPage implements OnInit {
             this.http.delete(`http://localhost:3000/api/postagensDelete/${post.id}`, { headers })
               .subscribe({
                 next: () => {
-                  this.minhasPostagens = this.minhasPostagens.filter(p => p.id !== post.id);
-                  this.aplicarFiltrosEPaginacao();
+                  // 1. Remove da tela
+                  this.postagens = this.postagens.filter(p => p.id !== post.id);
+                  if (typeof this.aplicarFiltrosEPaginacao === 'function') {
+                    this.aplicarFiltrosEPaginacao();
+                  }
+
+                  // 🌟 2. MOSTRA O AVISO ELEGANTE DE SUCESSO
+                  this.mostrarAviso('Postagem excluída com sucesso!', 'success');
                 },
-                error: (err: any) => console.error('Erro ao excluir:', err)
+                error: (err: any) => {
+                  console.error('Erro ao excluir:', err);
+
+                  // 🌟 MOSTRA O AVISO ELEGANTE DE ERRO
+                  this.mostrarAviso('Erro ao tentar excluir a postagem.', 'danger');
+                }
               });
           }
         }

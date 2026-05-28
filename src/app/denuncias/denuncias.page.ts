@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core'; // 👈 Importamos o OnInit
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http'; // 👈 Importamos o HttpClient
+import { HttpClient } from '@angular/common/http';
 
-interface Pet {
+interface Denuncia {
+  id?: number;
   titulo: string;
-  idade: string;
-  imagem: string;
   descricao: string;
-  descricaoCompleta: string;
+  descricaoCompleta?: string;
+  foto?: string; // Vem como string do banco
+  fotosArray?: string[]; // Array que nós criamos para o frontend
 }
 
 @Component({
@@ -22,79 +23,79 @@ export class DenunciasPage implements OnInit {
   showSearch = false;
   termoBusca = '';
 
-  // 1. As listas começam vazias agora, aguardando o banco de dados
-  pets: Pet[] = [];
-  petsFiltrados: Pet[] = [];
+  // Nomes corrigidos para corresponder à lógica
+  denuncias: Denuncia[] = [];
+  denunciasFiltradas: Denuncia[] = [];
 
   constructor(
     private location: Location,
     private navCtrl: NavController,
-    private http: HttpClient // 👈 Injetamos o HttpClient no construtor
+    private http: HttpClient
   ) { }
 
-  // 2. Dispara a busca na API assim que a tela abre
   ngOnInit() {
-    this.carregarAdocoes();
+    this.carregarDenuncias();
   }
 
-  // 3. Função que busca os dados reais e converte para o formato da interface Pet
-  carregarAdocoes() {
-    this.http.get('http://localhost:3000/api/postagens/tipo/denuncia')
-      .subscribe({
-        next: (res: any) => {
-          // Pega a resposta do banco e "molda" para encaixar no seu HTML
-          // No seu adocoes.page.ts, dentro do map:
-          this.pets = res.map((item: any) => ({
-            titulo: item.titulo,
-            idade: item.idade ? item.idade + ' ano(s)' : 'Idade não informada',
-            // Monta a URL para o seu servidor local
-            imagem: item.foto ? `http://localhost:3000/uploads/${item.foto}` : 'https://via.placeholder.com/300x300/e0e0e0/808080?text=Sem+Foto',
-            descricao: item.descricao.length > 60 ? item.descricao.substring(0, 60) + '...' : item.descricao,
-            descricaoCompleta: item.descricao
-          }));
+  carregarDenuncias() {
+    this.http.get('http://localhost:3000/api/postagens/tipo/denuncia').subscribe({
+      next: (res: any) => {
 
-    // Alimenta a lista que vai para a tela
-    this.petsFiltrados = [...this.pets];
-  },
-  error: (err: any) => {
-          console.error('Erro ao buscar adoções da API', err);
-}
-      });
+        const dadosReais = Array.isArray(res) ? res : (res.data || res.postagens || []);
+
+        this.denuncias = dadosReais.map((denuncia: any) => {
+          if (denuncia.foto) {
+            try {
+              denuncia.fotosArray = JSON.parse(denuncia.foto);
+            } catch (e) {
+              denuncia.fotosArray = [denuncia.foto];
+            }
+          } else {
+            denuncia.fotosArray = [];
+          }
+          if (!denuncia.descricaoCompleta) {
+            denuncia.descricaoCompleta = denuncia.descricao || '';
+          }
+          return denuncia;
+        });
+
+        this.denunciasFiltradas = [...this.denuncias];
+      },
+      error: (err) => console.error('Erro ao buscar denúncias', err)
+    });
   }
 
-// 👇 As funções dos botões continuam iguais!
-
-toggleSearch() {
-  this.showSearch = !this.showSearch;
-  if (!this.showSearch) {
-    this.limparBusca();
+  toggleSearch() {
+    this.showSearch = !this.showSearch;
+    if (!this.showSearch) {
+      this.limparBusca();
+    }
   }
-}
 
-filtrar() {
-  const termo = this.termoBusca.toLowerCase().trim();
-  if (!termo) {
-    this.petsFiltrados = [...this.pets];
-    return;
+  filtrar() {
+    const termo = this.termoBusca.toLowerCase().trim();
+    if (!termo) {
+      this.denunciasFiltradas = [...this.denuncias];
+      return;
+    }
+    this.denunciasFiltradas = this.denuncias.filter(d =>
+      (d.titulo && d.titulo.toLowerCase().includes(termo)) ||
+      (d.descricaoCompleta && d.descricaoCompleta.toLowerCase().includes(termo))
+    );
   }
-  this.petsFiltrados = this.pets.filter(pet =>
-    pet.titulo.toLowerCase().includes(termo) ||
-    pet.descricaoCompleta.toLowerCase().includes(termo) // Alterei para buscar na descrição completa para resultados melhores
-  );
-}
 
-limparBusca() {
-  this.termoBusca = '';
-  this.petsFiltrados = [...this.pets];
-}
+  limparBusca() {
+    this.termoBusca = '';
+    this.denunciasFiltradas = [...this.denuncias];
+  }
 
-abrirDetalhe(pet: Pet) {
-  this.navCtrl.navigateForward('/denuncias-detalhes', {
-    state: { pet }
-  });
-}
+  abrirDetalhe(denuncia: Denuncia) {
+    this.navCtrl.navigateForward('/denuncias-detalhes', {
+      state: { pet: denuncia } // Passado como 'pet' para manter compatibilidade com sua tela de detalhes
+    });
+  }
 
-goBack() {
-  this.location.back();
-}
+  goBack() {
+    this.location.back();
+  }
 }

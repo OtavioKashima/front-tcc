@@ -213,16 +213,24 @@ ion-popover {
 .denuncia-card {
   margin: 10px 16px;
   border-radius: 16px;
-  background: white; // Deixei branco para destacar do fundo f0fdf6
-  border: 1px solid #d0eedd;
+  background: white;
+
+  // 🟢 O CONTORNO DESTACADO AQUI:
+  border: 2px solid #3ecf8e; // Borda de 2px com a cor principal do app
+
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(102, 217, 166, 0.08);
   animation: fadeIn 0.3s ease both;
-  transition: box-shadow 0.2s ease, transform 0.15s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 
   &:hover {
+    border-color: #2db376; // O contorno fica ligeiramente mais escuro ao passar o mouse
     box-shadow: 0 6px 20px rgba(102, 217, 166, 0.2);
     transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: scale(0.99); // Efeito de clique físico
   }
 }
 
@@ -286,9 +294,9 @@ ion-popover {
 
 .denuncia-content {
   display: flex;
+  flex-direction: column; // 🌟 A MÁGICA: Força a imagem e a descrição a ficarem uma embaixo da outra
   gap: 14px;
   padding: 14px;
-  align-items: flex-start;
 }
 
 .denuncia-image {
@@ -301,7 +309,7 @@ ion-popover {
 }
 
 .denuncia-info {
-  flex: 1;
+  width: 100%; // Ocupa toda a largura restante
 }
 
 .denuncia-badge {
@@ -309,20 +317,27 @@ ion-popover {
   background: #e6f9f0;
   color: #3ecf8e;
   font-family: 'Nunito', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 8px;
-  margin-bottom: 6px;
+  margin-bottom: 8px; // Empurra a descrição um pouquinho para baixo
 }
 
 .denuncia-descricao {
   font-family: 'Nunito', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: #54a792;
   line-height: 1.55;
   margin: 0;
+
+  // 🌟 ADICIONE ESTAS 5 LINHAS ABAIXO:
+  display: -webkit-box;
+  -webkit-line-clamp: 2; // 📝 Altere para 3 se quiser mostrar até 3 linhas antes de cortar
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; // Coloca o "..." automaticamente no final
 }
 
 // ==========================
@@ -361,32 +376,108 @@ ion-fab-button {
   height: 80px;
 }
 
+.badge-multi-fotos {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ion-icon {
+    font-size: 16px;
+  }
+}
+
 .post-imagem-container {
   position: relative;
   width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f0fdf6; // Fundo suave para não contrastar muito antes da foto carregar
 
-  .post-imagem {
+  .post-imagem-padrao {
     width: 100%;
-    height: 200px;
-    /* Ajuste para o tamanho do seu layout */
+    height: 220px;
     object-fit: cover;
-    border-radius: 8px;
+    display: block;
+  }
+}
+
+.grid-fotos {
+  display: grid;
+  gap: 2px; // Divisória fina entre as fotos
+  width: 100%;
+
+  .foto-item {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background-color: #ddd;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .overlay-mais {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6); // Fundo escurecido na última foto
+      color: white;
+      font-size: 2rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
-  .badge-multi-fotos {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(0, 0, 0, 0.6);
-    color: white;
-    padding: 6px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  // 📐 Comportamento 1 Foto
+  &.qtd-1 {
+    grid-template-columns: 1fr;
 
-    ion-icon {
-      font-size: 16px;
+    .foto-item {
+      aspect-ratio: 16 / 9;
     }
+
+    // Fica panorâmica se for só uma
+  }
+
+  // 📐 Comportamento 2 Fotos
+  &.qtd-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // 📐 Comportamento 3 Fotos (1 maior no topo, 2 embaixo)
+  &.qtd-3 {
+    grid-template-columns: repeat(2, 1fr);
+
+    .foto-item:nth-child(1) {
+      grid-column: span 2;
+      aspect-ratio: 21 / 9;
+    }
+  }
+
+  // 📐 Comportamento 4 Fotos ou mais
+  &.qtd-4,
+  &.qtd-mais {
+    grid-template-columns: repeat(2, 1fr);
+
+    .foto-item {
+      aspect-ratio: 1 / 1;
+    }
+
+    // Transforma em um quadrado perfeito 2x2
   }
 }

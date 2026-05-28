@@ -60,7 +60,7 @@ export class PostagemPage implements OnInit {
     if (files) {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-        
+
         // Adiciona o arquivo real na lista para enviar ao banco
         this.fotosSelecionadas.push(file);
 
@@ -77,6 +77,10 @@ export class PostagemPage implements OnInit {
   removerFoto(index: number) {
     this.fotosSelecionadas.splice(index, 1);
     this.fotosPreviews.splice(index, 1);
+  }
+  
+  goBack(): void {
+    this.navCtrl.navigateBack('/tabs/doacoes');
   }
 
   // Função para enviar para o Node.js

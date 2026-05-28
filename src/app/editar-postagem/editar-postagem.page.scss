@@ -23,31 +23,84 @@ ion-toolbar.custom-toolbar {
 .form-container { padding: 10px; padding-bottom: 50px; }
 
 // 🔴 ESTILO DA FOTO DA POSTAGEM
-.foto-post-container {
+.grid-fotos-edicao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 10px;
+  background: white;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #d0eedd;
+}
+
+.foto-preview-wrapper {
+  position: relative;
+  width: 85px;
+  height: 85px;
+
+  .foto-preview-edicao {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid #e6f9f0;
+  }
+
+  .btn-remover-foto {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #ff6b6b; // Vermelho vivo para alertar que é exclusão
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(255, 107, 107, 0.4);
+    
+    ion-icon {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    &:active {
+      transform: scale(0.9);
+    }
+  }
+}
+
+// Estilo do botão de Adicionar nova foto
+.add-foto-btn {
+  width: 85px;
+  height: 85px;
+  border: 2px dashed #66d9a6;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 25px;
-  position: relative;
+  justify-content: center;
+  color: #3ecf8e;
+  background: #f0fdf6;
+  cursor: pointer;
+  transition: background 0.2s;
 
-  .foto-preview {
-    width: 100%;
-    max-width: 320px;
-    height: 200px;
-    object-fit: cover; // Ajusta a imagem sem distorcer
-    border-radius: 16px;
-    border: 3px solid white;
-    box-shadow: 0 4px 16px rgba(102, 217, 166, 0.2);
-    background: #e6f9f0; // Cor de fundo se não tiver imagem
+  ion-icon {
+    font-size: 28px;
+    margin-bottom: 4px;
   }
 
-  .btn-trocar-foto {
-    margin-top: -20px; // Faz o botão "flutuar" sobre a imagem
-    --border-radius: 20px;
-    --box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    font-family: 'Nunito', sans-serif;
-    text-transform: none;
+  span {
+    font-size: 0.8rem;
     font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+  }
+
+  &:active {
+    background: #e0f8eb;
   }
 }
 

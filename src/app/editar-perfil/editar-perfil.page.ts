@@ -12,6 +12,7 @@ import { NavController } from '@ionic/angular';
 })
 export class EditarPerfilPage implements OnInit {
   usuario: any = { nome: '', telefone: '' };
+  mostrarSenha: boolean = false;
 
   fotoSelecionada: File | null = null;
   previewFoto: string | ArrayBuffer | null = null;
@@ -48,21 +49,27 @@ export class EditarPerfilPage implements OnInit {
 
   carregarDadosUsuario() {
     const token = localStorage.getItem('token');
-    if (!token) return;
-
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    const apiTimestamp = new Date().getTime(); 
-
-    this.http.get(`http://localhost:3000/api/perfil?t=${apiTimestamp}`, { headers })
+  
+    // Exemplo da sua rota que busca os dados do usuário logado
+    this.http.get('http://localhost:3000/api/usuarios/perfil', { headers })
       .subscribe({
         next: (res: any) => {
-          this.usuario = res;
-          if (this.usuario && this.usuario.foto_perfil) {
-            const imgTimestamp = new Date().getTime(); 
-            this.usuario.fotoUrl = `http://localhost:3000/uploads/${this.usuario.foto_perfil}?t=${imgTimestamp}`;
+          this.usuario = res; // Guarda os dados nos inputs
+  
+          // 🌟 O SEGREDO ESTÁ AQUI: Carregar a foto atual do banco!
+          // Confirme se a coluna no seu banco se chama 'foto', 'foto_perfil', etc.
+          if (this.usuario.foto_perfil) { 
+            const timestamp = new Date().getTime(); // Isso quebra o cache para a foto sempre atualizar na hora
+            this.previewFoto = `http://localhost:3000/uploads/${this.usuario.foto_perfil}?t=${timestamp}`;
+          } else {
+            // Se ele não tem foto no banco, mostra a padrão
+            this.previewFoto = 'assets/img/sem-foto.png'; 
           }
         },
-        error: (err) => console.error('Erro ao buscar usuário:', err)
+        error: (err) => {
+          console.error('Erro ao carregar perfil', err);
+        }
       });
   }
 

@@ -1,53 +1,51 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="primary"
-    style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
-    <div style="display: flex; align-items: center;">
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref="/tabs"></ion-back-button>
-      </ion-buttons>
-      <ion-title style="margin-left: 4px;">Editar Perfil</ion-title>
-      <ion-icon name="create" size="large" style="margin-right: 8px; margin-left: 0.1px;"></ion-icon>
-    </div>
-  </ion-toolbar>
-</ion-header>
+<ion-content [scrollY]="true">
 
-<ion-content class="ion-padding">
-
-  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
-    <img
-      [src]="previewFoto ? previewFoto : 'https://ui-avatars.com/api/?name=' + (usuario.nome || 'U') + '&background=random&color=fff'"
-      style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid #3880ff;"
-      alt="Foto de Perfil" />
+  <div class="floating-buttons">
+    <button class="float-btn" routerLink="/tabs">
+      <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+    </button>
   </div>
 
-  <ion-list lines="none">
+  <div class="hero-image-wrapper">
+    <div class="hero-bg"></div>
+    <div class="hero-avatar-area">
+      <div class="avatar-wrapper">
+        <img
+          [src]="previewFoto ? previewFoto : (usuario.foto_perfil ? 'http://localhost:3000/uploads/' + usuario.foto_perfil : 'https://ui-avatars.com/api/?name=' + (usuario.nome || 'U') + '&background=random&color=fff')"
+          alt="Foto de perfil" class="avatar-img">
 
-    <ion-item class="custom-input">
-      <ion-icon name="camera-outline" slot="start" color="medium"></ion-icon>
-      <div style="width: 100%; padding-top: 10px; padding-bottom: 10px;">
-        <ion-label position="stacked" style="margin-bottom: 8px; color: #666;">Escolher nova foto</ion-label>
-        <input type="file" (change)="selecionarFoto($event)" accept="image/*" />
+        <button class="trocar-foto-btn" (click)="fileInput.click()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </button>
+        <input #fileInput type="file" accept="image/*" style="display:none" (change)="selecionarFoto($event)">
       </div>
-    </ion-item>
+      <h1 class="hero-nome">{{ usuario.nome || 'Nome de usuário' }}</h1>
+      <span class="hero-sub">Editar perfil</span>
+    </div>
+  </div>
 
-    <ion-item class="custom-input">
-      <ion-icon name="person-outline" slot="start" color="medium"></ion-icon>
-      <ion-input label="Nome Completo" labelPlacement="stacked" [(ngModel)]="usuario.nome"
-        placeholder="Digite seu nome">
-      </ion-input>
-    </ion-item>
+  <div class="content-body">
 
-    <ion-item class="custom-input">
-      <ion-icon name="call-outline" slot="start" color="medium"></ion-icon>
-      <ion-input type="tel" label="Telefone" labelPlacement="stacked" [(ngModel)]="usuario.telefone"
-        placeholder="Ex: 14 99999-9999">
-      </ion-input>
-    </ion-item>
+    <div class="input-group">
+      <div class="input-wrapper">
+        <ion-icon name="person-outline" class="input-icon"></ion-icon>
+        <input class="field-input" type="text" [(ngModel)]="usuario.nome" placeholder="Nome Completo" maxlength="60">
+      </div>
+    </div>
 
-  </ion-list>
+    <div class="input-group">
+      <div class="input-wrapper">
+        <ion-icon name="call-outline" class="input-icon"></ion-icon>
+        <input class="field-input" type="tel" [(ngModel)]="usuario.telefone" placeholder="Telefone (Ex: 14 99999-9999)"
+          maxlength="15">
+      </div>
+    </div>
 
-  <ion-button expand="block" shape="round" color="primary" style="margin-top: 30px;" (click)="salvarPerfil()">
-    Salvar Alterações
-  </ion-button>
+    <button class="salvar-btn" (click)="salvarPerfil()">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      Salvar Alterações
+    </button>
+
+  </div>
 
 </ion-content>

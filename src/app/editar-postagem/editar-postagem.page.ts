@@ -12,22 +12,23 @@ import { NavController, ToastController, AlertController } from '@ionic/angular'
 export class EditarPostagemPage implements OnInit {
   postId: string | null = null;
   carregando: boolean = true;
-  isAdminOuOng: boolean = false; 
+  isAdminOuOng: boolean = false;
 
-  // Objeto com as colunas EXATAS do banco de dados
+  // Objeto com as colunas EXATAS do banco de dados + os novos campos de suporte
   post: any = {
     tipo_postagem: '',
     titulo: '',
+    localizacao: '', // 📍 NOVO: Campo adicionado ao modelo inicial
     descricao: '',
     raca: '',
     genero: '',
     idade: null,
-    foto: ''
+    foto: '',
+    fotosArray: [] // 🖼️ NOVO: Inicializado como array para evitar erros de template
   };
 
-  // 🔴 NOVAS VARIÁVEIS PARA GESTÃO DE IMAGEM
-  fotoPreviewURL: string | null = null; // Guarda a imagem que aparece na tela (local ou servidr)
-  novaFotoArquivo: File | null = null;  // Guarda o arquivo real para enviar ao backend
+  // 🔴 LISTA DE NOVOS ARQUIVOS SELECIONADOS
+  novosArquivos: File[] = []; // Guarda os arquivos reais prontos para upload via FormData
 
   constructor(
     private route: ActivatedRoute,
@@ -35,14 +36,13 @@ export class EditarPostagemPage implements OnInit {
     private navCtrl: NavController,
     private toastController: ToastController,
     private alertController: AlertController,
-    private cdr: ChangeDetectorRef // Para forçar atualização da tela se necessário
+    private cdr: ChangeDetectorRef 
   ) { }
 
   ngOnInit() {
     this.postId = this.route.snapshot.paramMap.get('id');
-    
-    // Verifica nível de acesso
-    const tipoUsuario = localStorage.getItem('tipo_usuario'); 
+
+    const tipoUsuario = localStorage.getItem('tipo_usuario');
     if (tipoUsuario === 'admin' || tipoUsuario === 'ong') {
       this.isAdminOuOng = true;
     }
@@ -60,15 +60,18 @@ export class EditarPostagemPage implements OnInit {
       .subscribe({
         next: (res: any) => {
           this.post = res;
-          
-          // 🔴 SOLUÇÃO ANTI-CACHE (IGUAL DO PERFIL)
-          // Se o post já tem foto, montamos a URL com timestamp para quebrar o cache
+
+          // 🖼️ PROCESSA AS FOTOS VINDAS DO SERVIDOR
           if (this.post.foto) {
-            const timestamp = new Date().getTime();
-            this.fotoPreviewURL = `http://localhost:3000/uploads/${this.post.foto}?t=${timestamp}`;
+            try {
+              // Tenta decodificar caso o banco salve como string JSON: '["foto1.jpg", "foto2.jpg"]'
+              this.post.fotosArray = JSON.parse(this.post.foto);
+            } catch (e) {
+              // Fallback caso no banco esteja apenas uma string simples: 'foto1.jpg'
+              this.post.fotosArray = [this.post.foto];
+            }
           } else {
-            // Imagem padrão caso não tenha foto
-            this.fotoPreviewURL = 'assets/img/sem-foto.png'; 
+            this.post.fotosArray = [];
           }
 
           this.carregando = false;
@@ -81,25 +84,49 @@ export class EditarPostagemPage implements OnInit {
       });
   }
 
-  // 🔴 LÓGICA DE SELEÇÃO DE IMAGEM
-  // Aciona o clique no input file escondido
+  // LÓGICA PARA REMOVER FOTO (MANTIDAS OU NOVAS)
+  removerFoto(index: number) {
+    if (this.post && this.post.fotosArray) {
+      const fotoRemovida = this.post.fotosArray[index];
+
+      // Se a foto removida for uma recém-adicionada (base64 local), removemos ela também do array de envio
+      if (fotoRemovida && (fotoRemovida.startsWith('data:') || fotoRemovida.startsWith('blob:'))) {
+        let contadorNovas = 0;
+        for (let i = 0; i < index; i++) {
+          if (this.post.fotosArray[i].startsWith('data:') || this.post.fotosArray[i].startsWith('blob:')) {
+            contadorNovas++;
+          }
+        }
+        this.novosArquivos.splice(contadorNovas, 1);
+      }
+
+      // Remove a foto da lista visual
+      this.post.fotosArray.splice(index, 1);
+      this.cdr.detectChanges();
+    }
+  }
+
   gatilhoSelecaoArquivo() {
     document.getElementById('inputFotoPost')?.click();
   }
 
-  // Captura o arquivo selecionado pelo usuário
+  // CAPTURA MÚLTIPLAS NOVAS IMAGENS
   onFileSelected(event: any) {
-    const arquivo = event.target.files[0];
-    if (arquivo) {
-      this.novaFotoArquivo = arquivo; // Guarda o arquivo para o upload
+    const arquivos: FileList = event.target.files;
+    if (arquivos && arquivos.length > 0) {
+      
+      for (let i = 0; i < arquivos.length; i++) {
+        const arquivo = arquivos[i];
+        this.novosArquivos.push(arquivo); // Armazena o arquivo binário real para o PUT
 
-      // Cria um preview local para o usuário ver antes de salvar (FileReader)
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.fotoPreviewURL = reader.result as string; // Atualiza a imagem na tela
-        this.cdr.detectChanges(); // Força o Angular a renderizar a nova imagem
-      };
-      reader.readAsDataURL(arquivo);
+        // Gera o preview local em base64 e joga no array visual
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.post.fotosArray.push(reader.result as string);
+          this.cdr.detectChanges(); // Força o Angular a renderizar o novo item no grid
+        };
+        reader.readAsDataURL(arquivo);
+      }
     }
   }
 
@@ -110,40 +137,38 @@ export class EditarPostagemPage implements OnInit {
     }
 
     const token = localStorage.getItem('token');
-    // 🔴 IMPORTANTE: Para FormData, não definimos o Content-Type manual, o navegador faz isso.
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
-    this.carregando = true; // Mostra loading ao salvar
+    this.carregando = true;
 
-    // 🔴 MUDANÇA CRUCIAL: Usando FormData para enviar arquivo e texto juntos
     const formData = new FormData();
     formData.append('tipo_postagem', this.post.tipo_postagem);
     formData.append('titulo', this.post.titulo);
+    formData.append('localizacao', this.post.localizacao || ''); // 📍 enviando a localização atualizada
     formData.append('descricao', this.post.descricao);
-    
-    // Campos condicionais (só enviamos se não for denúncia, para limpar o banco se mudou o tipo)
+
     if (this.post.tipo_postagem !== 'denuncia') {
       formData.append('raca', this.post.raca || '');
       formData.append('genero', this.post.genero || '');
       formData.append('idade', this.post.idade ? this.post.idade.toString() : '');
     }
 
-    // Se o usuário selecionou uma nova foto, adiciona ela ao FormData
-    if (this.novaFotoArquivo) {
-      formData.append('foto', this.novaFotoArquivo);
-    }
+    // Separamos e enviamos quais fotos antigas do servidor o usuário NÃO deletou
+    const fotosMantidas = this.post.fotosArray.filter((f: string) => !f.startsWith('data:') && !f.startsWith('blob:'));
+    formData.append('fotosMantidas', JSON.stringify(fotosMantidas));
 
-    // Envia o PUT usando FormData
+    // Anexa todas as novas fotos físicas selecionadas sob a chave 'foto'
+    this.novosArquivos.forEach((arquivo) => {
+      formData.append('foto', arquivo);
+    });
+
     this.http.put(`http://localhost:3000/api/postperfil/${this.postId}`, formData, { headers })
       .subscribe({
         next: (res: any) => {
           this.carregando = false;
-          this.mostrarToast('Postagem atualizada com sucesso!', 'success');
-          
-          // Emite um evento global para avisar o Perfil para atualizar a lista
+          this.mostrarToast('Postagem updated com sucesso!', 'success');
           window.dispatchEvent(new CustomEvent('postagemAtualizada'));
-          
-          this.navCtrl.back(); // Volta para o perfil
+          this.navCtrl.back();
         },
         error: (err) => {
           this.carregando = false;

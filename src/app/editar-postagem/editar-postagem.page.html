@@ -8,23 +8,39 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  
+
   <div class="loading-container" *ngIf="carregando">
     <ion-spinner color="success" name="crescent"></ion-spinner>
     <p>Processando...</p>
   </div>
 
   <div *ngIf="!carregando" class="form-container">
-    
-    <div class="foto-post-container">
-      <img [src]="fotoPreviewURL" class="foto-preview" alt="Foto da postagem">
-      
-      <ion-button size="small" color="medium" fill="solid" (click)="gatilhoSelecaoArquivo()" class="btn-trocar-foto">
-        <ion-icon name="camera-outline" slot="start"></ion-icon>
-        Trocar Foto
-      </ion-button>
 
-      <input type="file" id="inputFotoPost" accept="image/*" (change)="onFileSelected($event)" style="display: none;">
+    <div class="input-group">
+      <ion-label position="stacked">Fotos da Postagem <span class="req">*</span></ion-label>
+
+      <div class="grid-fotos-edicao">
+
+        <div class="foto-preview-wrapper" *ngFor="let foto of post.fotosArray; let i = index">
+
+          <img
+            [src]="foto?.toString().startsWith('data:') || foto?.toString().startsWith('blob:') ? foto : 'http://localhost:3000/uploads/' + foto"
+            class="foto-preview-edicao" alt="Foto">
+
+          <button type="button" class="btn-remover-foto" (click)="removerFoto(i)">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+        </div>
+
+        <div class="add-foto-btn" (click)="gatilhoSelecaoArquivo()">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <span>Adicionar</span>
+        </div>
+
+      </div>
+
+      <input type="file" id="inputFotoPost" accept="image/*" multiple (change)="onFileSelected($event)"
+        style="display: none;">
     </div>
 
     <div class="input-group">
@@ -42,15 +58,22 @@
     </div>
 
     <div class="input-group">
+      <ion-label position="stacked">Localização / Endereço</ion-label>
+      <ion-input type="text" [(ngModel)]="post.localizacao" placeholder="Ex: Centro, Pompeia - SP"></ion-input>
+    </div>
+
+    <div class="input-group">
       <ion-label position="stacked">Descrição detalhada <span class="req">*</span></ion-label>
-      <ion-textarea [autoGrow]="true" rows="5" [(ngModel)]="post.descricao" placeholder="Conte os detalhes aqui..."></ion-textarea>
+      <ion-textarea [autoGrow]="true" rows="5" [(ngModel)]="post.descricao"
+        placeholder="Conte os detalhes aqui..."></ion-textarea>
     </div>
 
     <div *ngIf="post.tipo_postagem !== 'denuncia'" class="secao-pet-detalhes">
-      
+
       <div class="input-group">
         <ion-label position="stacked">Raça / Porte</ion-label>
-        <ion-input type="text" [(ngModel)]="post.raca" maxlength="150" placeholder="Ex: Vira-lata, Porte médio"></ion-input>
+        <ion-input type="text" [(ngModel)]="post.raca" maxlength="150"
+          placeholder="Ex: Vira-lata, Porte médio"></ion-input>
       </div>
 
       <div class="input-group">
@@ -68,6 +91,7 @@
       </div>
 
     </div>
+
     <ion-button expand="block" class="btn-salvar" (click)="salvarEdicao()">
       <ion-icon name="save-outline" slot="start"></ion-icon>
       Salvar Alterações

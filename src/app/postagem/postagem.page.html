@@ -1,12 +1,13 @@
 <ion-content [fullscreen]="true">
 
   <div class="floating-buttons">
-    <button class="float-btn" routerLink="/tabs">
+    <button (click)="goBack()" class="float-btn">
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
     </button>
   </div>
 
   <div class="container">
+
 
     <div class="intro">
       <div class="logo-circle">
