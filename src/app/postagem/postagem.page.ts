@@ -20,11 +20,14 @@ export class PostagemPage implements OnInit {
   tipo_postagem = '';
   titulo = '';
   descricao = '';
+  localizacao = '';
   raca = '';
   genero = '';
   idade: number | null = null;
 
   // Variáveis para a imagem
+  fotosSelecionadas: File[] = [];
+  fotosPreviews: string[] = [];
   fotoSelecionada: File | null = null;
   fotoPreview: string | ArrayBuffer | null = null;
 
@@ -52,32 +55,38 @@ export class PostagemPage implements OnInit {
 
   // Função para capturar a foto do HTML
   selecionarFoto(event: any) {
-    const file = event.target.files[0];
+    const files = event.target.files;
 
-    if (file) {
-      this.fotoSelecionada = file;
+    if (files) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        
+        // Adiciona o arquivo real na lista para enviar ao banco
+        this.fotosSelecionadas.push(file);
 
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.fotoPreview = reader.result;
-      };
-      reader.readAsDataURL(file);
+        // Gera o preview para mostrar na tela
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          this.fotosPreviews.push(e.target.result);
+        };
+        reader.readAsDataURL(file);
+      }
     }
+  }
+
+  removerFoto(index: number) {
+    this.fotosSelecionadas.splice(index, 1);
+    this.fotosPreviews.splice(index, 1);
   }
 
   // Função para enviar para o Node.js
   enviarPostagem() {
-    console.log('Valores no Angular antes de enviar:', {
-      tipo: this.tipo_postagem,
-      titulo: this.titulo,
-      descricao: this.descricao
-    });
-
     if (!this.tipo_postagem) {
       alert('Por favor, selecione o tipo de postagem!');
       return;
     }
 
+    // Validação básica: Título e Descrição continuam sendo obrigatórios
     if (!this.titulo || !this.descricao) {
       alert('Título e Descrição são obrigatórios!');
       return;
@@ -88,36 +97,34 @@ export class PostagemPage implements OnInit {
     formData.append('titulo', this.titulo);
     formData.append('descricao', this.descricao);
 
-    // 🔴 Envia os campos específicos de pet apenas se NÃO for uma denúncia
+    if (this.localizacao) formData.append('localizacao', this.localizacao);
+
     if (this.tipo_postagem !== 'denuncia') {
       if (this.raca) formData.append('raca', this.raca);
       if (this.genero) formData.append('genero', this.genero);
       if (this.idade) formData.append('idade', this.idade.toString());
     }
 
-    // Anexa a foto
-    if (this.fotoSelecionada) {
-      formData.append('foto', this.fotoSelecionada);
+    // 🔴 TRUQUE AQUI: Envia todas as fotos selecionadas usando a mesma chave 'fotos'
+    if (this.fotosSelecionadas.length > 0) {
+      this.fotosSelecionadas.forEach((foto) => {
+        formData.append('fotos', foto); // O Node.js vai receber isso como um Array
+      });
     }
 
     const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
     this.http.post('http://localhost:3000/api/postagens', formData, { headers })
       .subscribe({
         next: (res: any) => {
           console.log('Postagem salva com sucesso!', res);
-
-          // Emite um evento global opcional para atualizar listagens no app
           window.dispatchEvent(new CustomEvent('postagemCriada'));
-
           this.navCtrl.navigateRoot('/tabs');
         },
         error: (err: any) => {
-          console.error('Erro ao salvar a postagem', err.error);
-          alert('Erro ao enviar postagem. Verifique o console.');
+          console.error('Erro ao salvar', err.error);
+          alert('Erro ao enviar postagem.');
         }
       });
   }

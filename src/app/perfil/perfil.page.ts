@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class PerfilPage implements OnInit {
   // Variável para os dados do usuário logado
+  postagens: any[] = [];
   usuario: any = {
     nome: 'Carregando...',
     telefone: '',
@@ -78,23 +79,29 @@ export class PerfilPage implements OnInit {
 
   carregarMinhasPostagens() {
     const token = localStorage.getItem('token');
-    if (!token) return;
-
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
     this.http.get('http://localhost:3000/api/postperfil', { headers })
       .subscribe({
         next: (res: any) => {
-          this.minhasPostagens = res.map((post: any) => {
-            return {
-              ...post,
-              fotoUrl: post.foto ? `http://localhost:3000/uploads/${post.foto}` : null
-            };
+          // 🔴 TRUQUE AQUI: Percorremos todas as postagens para converter a foto
+          this.postagens = res.map((post: any) => {
+            if (post.foto) {
+              try {
+                // Tenta transformar o texto '["1.jpg", "2.jpg"]' em um Array de verdade
+                post.fotosArray = JSON.parse(post.foto);
+              } catch (e) {
+                post.fotosArray = []; // Se der erro, deixa vazio
+              }
+            } else {
+              post.fotosArray = [];
+            }
+            return post;
           });
-
-          this.aplicarFiltrosEPaginacao();
         },
-        error: (err: any) => console.error('Erro ao buscar minhas postagens:', err) // 🔴 CORRIGIDO: Tipado explicitamente como any
+        error: (err) => {
+          console.error('Erro ao carregar postagens do perfil', err);
+        }
       });
   }
 

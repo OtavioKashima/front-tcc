@@ -1,5 +1,6 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary" style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
+  <ion-toolbar color="primary"
+    style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
     <div style="display: flex; align-items: center;">
       <!-- Adiciona margem para afastar o ícone da borda -->
       <ion-icon name="person" size="large" style="margin-right: 8px; margin-left: 0.1px;"></ion-icon>
@@ -74,7 +75,7 @@
   </div>
 
   <div class="feed">
-    <div class="denuncia-card" *ngFor="let post of postagensExibidas">
+    <div class="denuncia-card" *ngFor="let post of postagens">
 
       <div class="denuncia-header">
         <span>{{ post.titulo }}</span>
@@ -90,8 +91,17 @@
       </div>
 
       <div class="denuncia-content">
-        <img [src]="post.fotoUrl || 'https://via.placeholder.com/400x200/e0e0e0/808080?text=Sem+Foto'"
-          [alt]="post.titulo" class="denuncia-image">
+        <div class="post-imagem-container">
+          <img *ngIf="post.fotosArray && post.fotosArray.length > 0"
+            [src]="'http://localhost:3000/uploads/' + post.fotosArray[0]" alt="Foto da postagem" class="post-imagem" />
+
+          <img *ngIf="!post.fotosArray || post.fotosArray.length === 0" src="assets/img-padrao.png" alt="Sem foto"
+            class="post-imagem" />
+
+          <div class="badge-multi-fotos" *ngIf="post.fotosArray && post.fotosArray.length > 1">
+            <ion-icon name="copy-outline"></ion-icon>
+          </div>
+        </div>
 
         <div class="denuncia-info">
           <span class="denuncia-badge" *ngIf="post.idade">{{ post.idade }} ano(s)</span>

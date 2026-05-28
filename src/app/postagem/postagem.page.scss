@@ -1,225 +1,417 @@
-:host {
-  --ion-background-color: #ffffff;
-  --ion-text-color: #000000;
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-/* HEADER */
-.toolbar-custom {
-  --background: #4eca88;
-  --color: #ffffff;
-
-  ion-title {
-    font-weight: 700;
-  }
-}
-
-/* CONTAINER */
-.container {
-  max-width: 500px;
-  margin: 0 auto;
-  padding-bottom: 40px;
-  /* Dá um respiro no final da tela */
-}
-
-/* INTRO */
-.intro {
-  text-align: center;
-  margin-bottom: 25px;
-
-  h2 {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 700;
-    color: #333;
-  }
-
-  p {
-    margin-top: 6px;
-    font-size: 14px;
-    color: #777;
-  }
-}
-
-/* Fundo geral mais moderno */
 ion-content {
-  --background: #f4fbfa;
-  /* Um tom de fundo levíssimo para destacar os campos brancos */
+  --background: #f0fdf6;
+  --padding-top: 0;
 }
 
-/* ------------------------------------------------ */
-/* SELECT ESTILIZADO (TIPO DE POSTAGEM) */
-/* ------------------------------------------------ */
-.select-card {
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 4px 10px rgba(78, 202, 136, 0.1);
-  border: 1px solid #e8f7ef;
-  padding: 4px;
-  margin-bottom: 25px;
+ion-content::part(scroll) {
+  padding-top: 0 !important;
 }
 
-/* Wrapper interno */
-.select-wrapper {
+.floating-buttons {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
   display: flex;
   align-items: center;
-  padding: 10px 12px;
 }
 
-/* Ícone dentro de círculo */
-.icon-box {
+.float-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 2px solid #4eca88;
+  border-radius: 50%;
   width: 38px;
   height: 38px;
-  background: #e8f7ef;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(78, 202, 136, 0.2);
+  transition: all 0.2s ease;
+  padding: 0;
+
+  &:active {
+    background: #4eca88;
+
+    .seta-voltar {
+      color: white;
+    }
+  }
+}
+
+.seta-voltar {
+  font-size: 20px;
+  color: #4eca88;
+  transition: color 0.2s ease;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 28px 40px;
+  max-width: 375px;
+  margin: 0 auto;
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.logo-circle {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(145deg, #66d9a6, #38b87a);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 10px;
+  box-shadow: 0 8px 28px rgba(78, 202, 136, 0.4);
+  margin: 6px auto 10px;
+  animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
 
-  ion-icon {
-    font-size: 20px;
-    color: #4eca88;
+.logo-icon {
+  font-size: 1.9rem;
+  color: white;
+}
+
+.intro h2 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #3ecf8e;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.intro p {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  color: #8a9e97;
+  margin: 0;
+}
+
+.select-card {
+  width: 100%;
+  background: #d6f5e8;
+  border-radius: 24px;
+  padding: 16px;
+  margin-bottom: 16px;
+  margin-top: -8px;
+  box-shadow: none;
+  border: 1px solid #b2e8cf;
+}
+
+.select-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+
+  ion-select {
+    flex: 0 1 auto;
+    max-width: fit-content;
   }
 }
 
-ion-select {
-  flex: 1;
-  font-size: 15px;
-  color: #444;
-  font-weight: 600;
+.icon-box ion-icon {
+  font-size: 1.4rem;
+  color: #3ecf8e;
+}
 
-  /* Ajuste visual quando o select está travado (Usuário comum) */
+ion-select {
+  font-family: 'Nunito', sans-serif;
+  color: #1e2d28;
+  --placeholder-color: #8a9e97;
+  --placeholder-opacity: 1;
+  --highlight-color-focused: #3ecf8e;
+  --highlight-color-valid: #3ecf8e;
+
   &[disabled] {
-    opacity: 0.8;
-    color: #666;
+    opacity: 0.7;
   }
 }
 
 ion-select::part(text) {
-  padding-left: 4px;
+  color: #2d7a5e;
+  font-weight: 700;
 }
 
-ion-item {
-  --background: transparent;
+ion-select::part(icon) {
+  color: #3ecf8e;
 }
 
-/* ------------------------------------------------ */
-/* CAMPOS DINÂMICOS (INPUTS, TEXTAREA E SELECTS) */
-/* ------------------------------------------------ */
-.campo {
-  margin-bottom: 18px;
-  /* Aumentei o espaçamento para não ficar grudado */
-
-  label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #555;
-    margin-bottom: 8px;
-    /* Espaço entre o título e a caixa de texto */
-  }
-}
-
-/* Padronização visual para Inputs, Textarea e Selects normais */
-ion-input,
-ion-textarea,
-.campo-select ion-select {
-  border-radius: 12px;
-  border: 1px solid #dcf1e6;
-  --background: #ffffff;
-  font-weight: 500;
-  color: #333;
-}
-
-ion-input,
-.campo-select ion-select {
-  --padding-start: 15px;
-  --padding-end: 15px;
-  --padding-top: 14px;
-  --padding-bottom: 14px;
+ion-input {
+  --highlight-color-focused: #3ecf8e !important;
+  --highlight-color: #3ecf8e !important;
+  --border-color: #b2e8cf !important;
+  caret-color: #3ecf8e;
 }
 
 ion-textarea {
-  height: 120px;
-  --padding-start: 15px;
-  --padding-end: 15px;
-  --padding-top: 14px;
-  --padding-bottom: 14px;
+  --highlight-color-focused: #3ecf8e !important;
+  --highlight-color: #3ecf8e !important;
+  --border-color: #b2e8cf !important;
+  caret-color: #3ecf8e;
 }
 
-/* Ajuste específico para o seletor de Gênero ficar com formato de caixa de texto */
+.campos-dinamicos {
+  width: 100%;
+  background: #d6f5e8;
+  border-radius: 24px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 1px solid #b2e8cf;
+}
+
+.campo {
+  margin-bottom: 14px;
+}
+
+label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: #3ecf8e;
+  display: block;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.custom-input {
+  --background: white;
+  --color: #1e5c42;
+  --placeholder-color: #8a9e97;
+  --placeholder-opacity: 1;
+  --placeholder-font-size: 0.85rem;
+  --border-radius: 14px;
+  --border-color: #b2e8cf;
+  --border-width: 1.5px;
+  --border-style: solid;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  border-radius: 14px;
+  height: 50px;
+}
+
+.custom-textarea {
+  --background: white;
+  --color: #1e5c42;
+  --placeholder-color: #8a9e97;
+  --placeholder-opacity: 1;
+  --placeholder-font-size: 0.85rem;
+  --border-radius: 14px;
+  --border-color: #b2e8cf;
+  --border-width: 1.5px;
+  --border-style: solid;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+  border-radius: 14px;
+  min-height: 100px;
+}
+
 .campo-select {
-  background: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #dcf1e6;
+  background: white;
+  border-radius: 14px;
+  padding: 4px 8px;
+  border: 1.5px solid #b2e8cf;
 
   ion-select {
-    width: 100%;
-    margin: 0;
+    border-radius: 14px;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+
+  ion-select::part(container) {
+    border-radius: 14px;
+  }
+
+  ion-select::part(text) {
+    text-align: left;
+    font-size: 0.85rem;
   }
 }
 
-/* ------------------------------------------------ */
-/* ÁREA DE UPLOAD DE FOTO */
-/* ------------------------------------------------ */
 .foto-box {
-  width: fit-content;
-  max-width: 100%;
-  min-width: 150px;
-  min-height: 150px;
-  padding: 12px;
-  margin: 0 auto 15px auto;
-  border: 2px dashed #aee6c9;
-  /* Borda tracejada mais suave */
-  border-radius: 12px;
+  height: 140px;
+  border: 2px dashed #66d9a6;
+  border-radius: 14px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
   align-items: center;
+  justify-content: center;
+  color: #3ecf8e;
+  background: white;
   cursor: pointer;
-  background-color: #f6fdf9;
-  /* Fundo levemente esverdeado */
-  transition: all 0.2s ease;
-
-  &:active {
-    background-color: #e8f7ef;
-  }
+  position: relative;
+  overflow: hidden;
 
   ion-icon {
-    font-size: 60px;
-    color: #4eca88;
+    font-size: 2rem;
+    color: #3ecf8e;
+  }
+
+  span {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #66d9a6;
+  }
+
+  img.foto-preview {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .foto-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    ion-icon {
+      font-size: 1.2rem;
+      color: white;
+    }
   }
 }
 
-.preview-img {
-  max-width: 100%;
-  max-height: 250px;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* ------------------------------------------------ */
-/* BOTÃO DE SALVAR */
-/* ------------------------------------------------ */
 .btn-area {
-  margin-top: 35px;
-  display: flex;
-  justify-content: center;
+  margin-top: 8px;
 }
 
-.btn-postar {
-  --background: #4eca88;
-  --background-hover: #40b97a;
-  --background-activated: #38a36b;
-  --border-radius: 14px;
-  --box-shadow: 0 6px 15px rgba(78, 202, 136, 0.3);
-  /* Sombra elegante */
+.adopt-btn {
   width: 100%;
   height: 52px;
-  font-weight: 700;
-  font-size: 16px;
+  background: linear-gradient(135deg, #7dd9b0, #4ec98a);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
   letter-spacing: 0.5px;
-  text-transform: none;
-  /* Evita que o texto fique todo em MAIÚSCULO no Android */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(102, 217, 166, 0.35);
+  transition: all 0.2s ease;
+
+  ion-icon {
+    font-size: 1.3rem;
+  }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 10px rgba(60, 184, 122, 0.2);
+  }
+}
+
+.fotos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.foto-thumbnail {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  .remove-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #ff4d4d;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(255, 77, 77, 0.4);
+    cursor: pointer;
+
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+}
+
+.add-more-box {
+  width: 80px;
+  height: 80px;
+  border: 2px dashed #66d9a6;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  ion-icon {
+    font-size: 32px;
+    color: #3ecf8e;
+  }
+
+  &:active {
+    background: #e8f7ef;
+  }
 }
