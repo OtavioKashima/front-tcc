@@ -23,7 +23,7 @@ export class LoginPage {
     private http: HttpClient,
     private toastController: ToastController,
     private navCtrl: NavController
-  ) {}
+  ) { }
 
   // =========================
   // Navegação
@@ -75,12 +75,19 @@ export class LoginPage {
       return;
     }
 
+    const identificadorLimpo = this.usuario.replace(/\D/g, '');
+
     this.http.post<any>(`${this.API_URL}/login`, {
-      identificador: this.usuario,
+      identificador: identificadorLimpo, // Envia apenas os números!
       senha: this.senha
     }).subscribe({
       next: async (res) => {
+        // Salva o Token normal
         localStorage.setItem('token', res.token);
+
+        // 🟢 ALTERAÇÃO AQUI: Salva o tipo de usuário vindo do backend ('admin' ou 'comum')
+        localStorage.setItem('tipo_usuario', res.tipo_usuario);
+
         await this.mostrarToast('Login realizado com sucesso!');
         this.navCtrl.navigateRoot('/tabs');
       },

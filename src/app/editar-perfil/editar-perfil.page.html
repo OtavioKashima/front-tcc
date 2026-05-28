@@ -1,7 +1,7 @@
 <ion-content [scrollY]="true">
 
   <div class="floating-buttons">
-    <button class="float-btn" routerLink="/tabs">
+    <button class="float-btn" routerLink="/tabs/perfil">
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
     </button>
   </div>
@@ -10,9 +10,8 @@
     <div class="hero-bg"></div>
     <div class="hero-avatar-area">
       <div class="avatar-wrapper">
-        <img
-          [src]="previewFoto ? previewFoto : (usuario.foto_perfil ? 'http://localhost:3000/uploads/' + usuario.foto_perfil : 'https://ui-avatars.com/api/?name=' + (usuario.nome || 'U') + '&background=random&color=fff')"
-          alt="Foto de perfil" class="avatar-img">
+
+        <img [src]="previewFoto" alt="Foto de perfil" class="avatar-img">
 
         <button class="trocar-foto-btn" (click)="fileInput.click()">
           <ion-icon name="camera-outline"></ion-icon>

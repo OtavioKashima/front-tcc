@@ -1,100 +1,109 @@
-import { Component, OnInit } from '@angular/core'; // 👈 Importamos o OnInit
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { NavController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http'; // 👈 Importamos o HttpClient
+import { HttpClient } from '@angular/common/http';
 
-interface Pet {
+// Interface atualizada para conter as informações de adoção
+interface Adocao {
+  id?: number;
   titulo: string;
-  idade: string;
-  imagem: string;
   descricao: string;
-  descricaoCompleta: string;
+  descricaoCompleta?: string;
+  idade?: string;  // Novo: Puxa do banco "3 meses", "2 anos", etc
+  raca?: string;   // Novo: Raça do animal
+  genero?: string; // Novo: Gênero do animal
+  foto?: string; // Vem como string do banco (formato JSON)
+  fotosArray?: string[]; // Array que nós criamos para o frontend
 }
 
 @Component({
   selector: 'app-adocoes',
   templateUrl: './adocoes.page.html',
   styleUrls: ['./adocoes.page.scss'],
-  standalone: false
+  standalone: false,
 })
-export class AdocoesPage implements OnInit { // 👈 Adicionamos implements OnInit
+export class AdocoesPage implements OnInit {
 
   showSearch = false;
   termoBusca = '';
 
-  // 1. As listas começam vazias agora, aguardando o banco de dados
-  pets: Pet[] = [];
-  petsFiltrados: Pet[] = [];
+  adocoes: Adocao[] = [];
+  adocoesFiltradas: Adocao[] = [];
 
   constructor(
     private location: Location,
     private navCtrl: NavController,
-    private http: HttpClient // 👈 Injetamos o HttpClient no construtor
+    private http: HttpClient
   ) { }
 
-  // 2. Dispara a busca na API assim que a tela abre
   ngOnInit() {
     this.carregarAdocoes();
   }
 
-  // 3. Função que busca os dados reais e converte para o formato da interface Pet
   carregarAdocoes() {
-    this.http.get('http://localhost:3000/api/postagens/tipo/adocao')
-      .subscribe({
-        next: (res: any) => {
-          // Pega a resposta do banco e "molda" para encaixar no seu HTML
-          // No seu adocoes.page.ts, dentro do map:
-          this.pets = res.map((item: any) => ({
-            titulo: item.titulo,
-            idade: item.idade ? item.idade + ' ano(s)' : 'Idade não informada',
-            // Monta a URL para o seu servidor local
-            imagem: item.foto ? `http://localhost:3000/uploads/${item.foto}` : 'https://via.placeholder.com/300x300/e0e0e0/808080?text=Sem+Foto',
-            descricao: item.descricao.length > 60 ? item.descricao.substring(0, 60) + '...' : item.descricao,
-            descricaoCompleta: item.descricao
-          }));
+    // 🔴 ALTERAÇÃO AQUI: Mudando a rota para buscar apenas adoções
+    this.http.get('http://localhost:3000/api/postagens/tipo/adocao').subscribe({
+      next: (res: any) => {
 
-    // Alimenta a lista que vai para a tela
-    this.petsFiltrados = [...this.pets];
-  },
-  error: (err: any) => {
-          console.error('Erro ao buscar adoções da API', err);
-}
-      });
+        const dadosReais = Array.isArray(res) ? res : (res.data || res.postagens || []);
+
+        this.adocoes = dadosReais.map((adocao: any) => {
+          if (adocao.foto) {
+            try {
+              adocao.fotosArray = JSON.parse(adocao.foto);
+            } catch (e) {
+              adocao.fotosArray = [adocao.foto];
+            }
+          } else {
+            adocao.fotosArray = [];
+          }
+          if (!adocao.descricaoCompleta) {
+            adocao.descricaoCompleta = adocao.descricao || '';
+          }
+          return adocao;
+        });
+
+        this.adocoesFiltradas = [...this.adocoes];
+      },
+      error: (err) => console.error('Erro ao buscar adoções', err)
+    });
   }
 
-// 👇 As funções dos botões continuam iguais!
-
-toggleSearch() {
-  this.showSearch = !this.showSearch;
-  if (!this.showSearch) {
-    this.limparBusca();
+  toggleSearch() {
+    this.showSearch = !this.showSearch;
+    if (!this.showSearch) {
+      this.limparBusca();
+    }
   }
-}
 
-filtrar() {
-  const termo = this.termoBusca.toLowerCase().trim();
-  if (!termo) {
-    this.petsFiltrados = [...this.pets];
-    return;
+  filtrar() {
+    const termo = this.termoBusca.toLowerCase().trim();
+    if (!termo) {
+      this.adocoesFiltradas = [...this.adocoes];
+      return;
+    }
+    
+    // Filtra pelo título, descrição ou raça!
+    this.adocoesFiltradas = this.adocoes.filter(a =>
+      (a.titulo && a.titulo.toLowerCase().includes(termo)) ||
+      (a.descricaoCompleta && a.descricaoCompleta.toLowerCase().includes(termo)) ||
+      (a.raca && a.raca.toLowerCase().includes(termo))
+    );
   }
-  this.petsFiltrados = this.pets.filter(pet =>
-    pet.titulo.toLowerCase().includes(termo) ||
-    pet.descricaoCompleta.toLowerCase().includes(termo) // Alterei para buscar na descrição completa para resultados melhores
-  );
-}
 
-limparBusca() {
-  this.termoBusca = '';
-  this.petsFiltrados = [...this.pets];
-}
+  limparBusca() {
+    this.termoBusca = '';
+    this.adocoesFiltradas = [...this.adocoes];
+  }
 
-abrirDetalhe(pet: Pet) {
-  this.navCtrl.navigateForward('/adocoes-detalhes', {
-    state: { pet }
-  });
-}
+  abrirDetalhe(adocao: Adocao) {
+    // Certifique-se de que a rota '/adocoes-detalhes' existe no seu app-routing.module.ts
+    this.navCtrl.navigateForward('/adocoes-detalhes', {
+      state: { pet: adocao } 
+    });
+  }
 
-goBack() {
-  this.location.back();
-}
+  goBack() {
+    this.location.back();
+  }
 }

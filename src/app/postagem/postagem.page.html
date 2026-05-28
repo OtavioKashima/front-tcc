@@ -8,23 +8,22 @@
 
   <div class="container">
 
-
     <div class="intro">
       <div class="logo-circle">
-        <ion-icon [name]="tipoSelecionado === 'denuncia' ? 'alert-outline' : 'paw'" class="logo-icon"></ion-icon>
+        <ion-icon [name]="tipoSelecionado === 'denuncia' ? 'alert-outline' : (tipoSelecionado === 'comunicado' ? 'megaphone-outline' : 'paw')" class="logo-icon"></ion-icon>
       </div>
       <h2>Criar Postagem</h2>
       <p *ngIf="isAdminOuOng && !tipoSelecionado">Escolha o tipo de publicação para continuar</p>
       <p *ngIf="!isAdminOuOng">Área restrita para denúncias e relatos</p>
-      <p *ngIf="tipoSelecionado === 'adocao' || tipoSelecionado === 'doacao'">Preencha todos os campos para finalizar
-      </p>
+      <p *ngIf="tipoSelecionado === 'adocao' || tipoSelecionado === 'doacao'">Preencha todos os campos para finalizar</p>
       <p *ngIf="tipoSelecionado === 'denuncia'">Preencha todos os campos para relatar a ocorrência</p>
+      <p *ngIf="tipoSelecionado === 'comunicado'">Preencha os campos para publicar um aviso oficial</p>
     </div>
 
     <ion-card class="select-card">
       <div class="select-wrapper">
         <div class="icon-box">
-          <ion-icon name="paw-outline"></ion-icon>
+          <ion-icon [name]="isAdmin ? 'shield-checkmark-outline' : 'paw-outline'"></ion-icon>
         </div>
 
         <ion-select placeholder="Selecione o tipo de postagem" interface="popover" [value]="tipoSelecionado"
@@ -33,12 +32,24 @@
           <ion-select-option value="denuncia">🚨 Denúncia</ion-select-option>
           <ion-select-option value="adocao" *ngIf="isAdminOuOng">🏠 Adoção</ion-select-option>
           <ion-select-option value="doacao" *ngIf="isAdminOuOng">🎁 Doação</ion-select-option>
+          <ion-select-option value="comunicado" *ngIf="isAdmin">📢 Comunicado Oficial</ion-select-option>
 
         </ion-select>
       </div>
     </ion-card>
 
     <div *ngIf="tipoSelecionado === 'adocao' || tipoSelecionado === 'doacao'" class="campos-dinamicos">
+
+      <div class="admin-badge-box" *ngIf="isAdmin">
+        <label class="admin-label"><ion-icon name="options-outline"></ion-icon> Destaque da Postagem (Admin)</label>
+        <div class="campo-select admin-select">
+          <ion-select [(ngModel)]="sub_tipo">
+            <ion-select-option value="normal">Postagem Normal</ion-select-option>
+            <ion-select-option value="urgente">🔥 Destaque Urgente</ion-select-option>
+            <ion-select-option value="fixado">📌 Fixar no Topo</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
 
       <div class="campo">
         <label>Título da Postagem:</label>
@@ -62,47 +73,40 @@
       </div>
 
       <div class="campo">
-        <label>Idade do animal (Anos):</label>
-        <ion-input class="custom-input" type="number" placeholder="Ex: 2" [(ngModel)]="idade"></ion-input>
+        <label>Idade do animal:</label>
+        <div class="idade-wrapper">
+          <ion-input class="custom-input input-idade" type="number" placeholder="Ex: 2" [(ngModel)]="idade"></ion-input>
+
+          <div class="campo-select select-idade">
+            <ion-select [(ngModel)]="unidadeIdade" interface="popover">
+              <ion-select-option value="meses">Meses</ion-select-option>
+              <ion-select-option value="anos">Anos</ion-select-option>
+            </ion-select>
+          </div>
+        </div>
       </div>
 
       <div class="campo">
         <label>Fotos:</label>
-
         <div class="foto-box" (click)="fileInputMulti.click()" *ngIf="fotosPreviews.length === 0">
           <ion-icon name="images-outline"></ion-icon>
           <span>Toque para adicionar fotos</span>
         </div>
 
         <div class="fotos-grid" *ngIf="fotosPreviews.length > 0">
-          
           <div class="foto-thumbnail" *ngFor="let preview of fotosPreviews; let i = index">
             <img [src]="preview" alt="Preview da foto" />
-            
-            <div class="remove-btn" (click)="removerFoto(i)">
-              <ion-icon name="close"></ion-icon>
-            </div>
+            <div class="remove-btn" (click)="removerFoto(i)"><ion-icon name="close"></ion-icon></div>
           </div>
-
-          <div class="add-more-box" (click)="fileInputMulti.click()">
-            <ion-icon name="add"></ion-icon>
-          </div>
-
+          <div class="add-more-box" (click)="fileInputMulti.click()"><ion-icon name="add"></ion-icon></div>
         </div>
 
-        <input
-          #fileInputMulti
-          type="file"
-          accept="image/*"
-          multiple
-          style="display:none"
-          (change)="selecionarFoto($event)" />
+        <input #fileInputMulti type="file" accept="image/*" multiple style="display:none" (change)="selecionarFoto($event)" />
       </div>
 
       <div class="campo">
         <label>Descrição:</label>
-        <ion-textarea class="custom-textarea" placeholder="Descreva o animal e detalhes de contato..."
-          [(ngModel)]="descricao"></ion-textarea>
+        <ion-textarea class="custom-textarea" placeholder="Descreva o animal e detalhes de contato..." [(ngModel)]="descricao"></ion-textarea>
       </div>
 
       <div class="btn-area">
@@ -111,60 +115,41 @@
           Publicar Postagem
         </button>
       </div>
-
     </div>
 
     <div *ngIf="tipoSelecionado === 'denuncia'" class="campos-dinamicos">
 
       <div class="campo">
         <label>Título:</label>
-        <ion-input class="custom-input" placeholder="Ex: Maus tratos" [(ngModel)]="titulo">
-        </ion-input>
+        <ion-input class="custom-input" placeholder="Ex: Maus tratos" [(ngModel)]="titulo"></ion-input>
       </div>
 
       <div class="campo">
         <label>Descrição da denúncia:</label>
-        <ion-textarea class="custom-textarea" placeholder="Descreva o que está acontecendo..." [(ngModel)]="descricao">
-        </ion-textarea>
+        <ion-textarea class="custom-textarea" placeholder="Descreva o que está acontecendo..." [(ngModel)]="descricao"></ion-textarea>
       </div>
 
       <div class="campo">
         <label>Fotos:</label>
-
         <div class="foto-box" (click)="fileInputMulti.click()" *ngIf="fotosPreviews.length === 0">
           <ion-icon name="images-outline"></ion-icon>
           <span>Toque para adicionar fotos</span>
         </div>
 
         <div class="fotos-grid" *ngIf="fotosPreviews.length > 0">
-          
           <div class="foto-thumbnail" *ngFor="let preview of fotosPreviews; let i = index">
             <img [src]="preview" alt="Preview da foto" />
-            
-            <div class="remove-btn" (click)="removerFoto(i)">
-              <ion-icon name="close"></ion-icon>
-            </div>
+            <div class="remove-btn" (click)="removerFoto(i)"><ion-icon name="close"></ion-icon></div>
           </div>
-
-          <div class="add-more-box" (click)="fileInputMulti.click()">
-            <ion-icon name="add"></ion-icon>
-          </div>
-
+          <div class="add-more-box" (click)="fileInputMulti.click()"><ion-icon name="add"></ion-icon></div>
         </div>
 
-        <input
-          #fileInputMulti
-          type="file"
-          accept="image/*"
-          multiple
-          style="display:none"
-          (change)="selecionarFoto($event)" />
+        <input #fileInputMulti type="file" accept="image/*" multiple style="display:none" (change)="selecionarFoto($event)" />
       </div>
 
       <div class="campo">
         <label>Localização:</label>
-        <ion-input class="custom-input" placeholder="Ex: Joinville, SC" [(ngModel)]="localizacao">
-        </ion-input>
+        <ion-input class="custom-input" placeholder="Ex: Joinville, SC" [(ngModel)]="localizacao"></ion-input>
       </div>
 
       <div class="btn-area">
@@ -173,7 +158,44 @@
           Postar denúncia
         </button>
       </div>
+    </div>
 
+    <div *ngIf="tipoSelecionado === 'comunicado' && isAdmin" class="campos-dinamicos admin-panel-border">
+      
+      <div class="campo">
+        <label>Título do Comunicado:</label>
+        <ion-input class="custom-input" placeholder="Ex: Campanha de Vacinação 2026" [(ngModel)]="titulo"></ion-input>
+      </div>
+
+      <div class="campo">
+        <label>Conteúdo do Aviso:</label>
+        <ion-textarea class="custom-textarea" placeholder="Escreva as informações oficiais aqui..." [(ngModel)]="descricao"></ion-textarea>
+      </div>
+
+      <div class="campo">
+        <label>Banner / Imagem Informativa:</label>
+        <div class="foto-box" (click)="fileInputMulti.click()" *ngIf="fotosPreviews.length === 0">
+          <ion-icon name="megaphone-outline"></ion-icon>
+          <span>Adicionar imagem do comunicado</span>
+        </div>
+
+        <div class="fotos-grid" *ngIf="fotosPreviews.length > 0">
+          <div class="foto-thumbnail" *ngFor="let preview of fotosPreviews; let i = index">
+            <img [src]="preview" alt="Preview" />
+            <div class="remove-btn" (click)="removerFoto(i)"><ion-icon name="close"></ion-icon></div>
+          </div>
+          <div class="add-more-box" (click)="fileInputMulti.click()"><ion-icon name="add"></ion-icon></div>
+        </div>
+
+        <input #fileInputMulti type="file" accept="image/*" multiple style="display:none" (change)="selecionarFoto($event)" />
+      </div>
+
+      <div class="btn-area">
+        <button class="adopt-btn admin-btn" (click)="enviarPostagem()">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          Publicar Aviso Oficial
+        </button>
+      </div>
     </div>
 
   </div>

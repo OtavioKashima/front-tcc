@@ -1,9 +1,8 @@
 <ion-header class="ion-no-border">
-  <ion-toolbar color="primary" style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
+  <ion-toolbar color="primary"
+    style="display: flex; align-items: center; justify-content: space-between; padding: 0 10px;">
     <div style="display: flex; align-items: center;">
-      <!-- Adiciona margem para afastar o ícone da borda -->
-      <ion-icon name="paw" size="large" style="margin-right: 8px; margin-left: 0.1px;"></ion-icon>
-      <!-- Ajusta o título para ficar mais próximo do ícone -->
+      <ion-icon name="heart" size="large" style="margin-right: 8px; margin-left: 0.1px;"></ion-icon>
       <ion-title style="margin-left: 4px;">Adoções</ion-title>
     </div>
     <ion-buttons slot="end">
@@ -14,11 +13,7 @@
   </ion-toolbar>
 
   <ion-toolbar *ngIf="showSearch">
-    <ion-searchbar 
-      [(ngModel)]="termoBusca" 
-      (ionInput)="filtrar()" 
-      placeholder="Buscar pet..." 
-      animated="true">
+    <ion-searchbar [(ngModel)]="termoBusca" (ionInput)="filtrar()" placeholder="Buscar adoção..." animated="true">
     </ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -26,24 +21,40 @@
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-grid>
     <ion-row>
-      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let pet of petsFiltrados">
-        <ion-card class="pet-card" (click)="abrirDetalhe(pet)">
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let adocao of adocoesFiltradas">
+        <ion-card class="pet-card" (click)="abrirDetalhe(adocao)">
+
           <div class="image-container">
-            <img [src]="pet.imagem" alt="{{ pet.titulo }}" loading="lazy" />
-            <div class="category-badge">Adoção</div>
+            <div class="category-badge">Para Adoção</div>
+
+            <div *ngIf="adocao.fotosArray && adocao.fotosArray.length > 0"
+              [class]="'grid-fotos qtd-' + (adocao.fotosArray.length > 4 ? 'mais' : adocao.fotosArray.length)">
+
+              <div class="foto-item" *ngFor="let foto of adocao.fotosArray | slice:0:4; let i = index">
+                <img [src]="'http://localhost:3000/uploads/' + foto" [alt]="adocao.titulo">
+
+                <div class="overlay-mais" *ngIf="i === 3 && adocao.fotosArray.length > 4">
+                  +{{ adocao.fotosArray.length - 4 }}
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!adocao.fotosArray || adocao.fotosArray.length === 0" class="sem-foto">
+              <ion-icon name="paw-outline"></ion-icon>
+            </div>
           </div>
 
           <ion-card-header>
-            <ion-card-title class="pet-title">{{ pet.titulo }}</ion-card-title>
             <ion-card-subtitle class="pet-subtitle">
-              <ion-icon name="time-outline"></ion-icon> {{ pet.idade }}
+              {{ adocao.idade || 'Idade N/A' }} • {{ adocao.raca || 'SRD' }}
             </ion-card-subtitle>
+            <ion-card-title class="pet-title">{{ adocao.titulo }}</ion-card-title>
           </ion-card-header>
 
           <ion-card-content class="pet-description">
-            {{ pet.descricao }}
+            {{ adocao.descricao }}
           </ion-card-content>
-          
+
           <div class="card-footer">
             <ion-button fill="clear" size="small">Ver Detalhes</ion-button>
           </div>
@@ -52,8 +63,8 @@
     </ion-row>
   </ion-grid>
 
-  <div class="empty-state" *ngIf="petsFiltrados.length === 0">
+  <div class="empty-state" *ngIf="adocoesFiltradas.length === 0">
     <ion-icon name="paw-outline"></ion-icon>
-    <p>Nenhum pet encontrado por aqui...</p>
+    <p>Nenhum pet para adoção encontrado por aqui...</p>
   </div>
 </ion-content>

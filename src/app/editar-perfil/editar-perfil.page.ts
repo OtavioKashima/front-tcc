@@ -12,10 +12,10 @@ import { NavController } from '@ionic/angular';
 })
 export class EditarPerfilPage implements OnInit {
   usuario: any = { nome: '', telefone: '' };
-  mostrarSenha: boolean = false;
-
   fotoSelecionada: File | null = null;
-  previewFoto: string | ArrayBuffer | null = null;
+
+  // 🟢 Começa com o avatar padrão do Ionic
+  previewFoto: string | ArrayBuffer | null = 'https://ionicframework.com/docs/img/demos/avatar.svg';
 
   constructor(
     private http: HttpClient,
@@ -28,7 +28,7 @@ export class EditarPerfilPage implements OnInit {
     this.carregarDadosAtuais();
   }
 
-  // Puxa os dados que já estão no banco para preencher a tela
+  // 🟢 FUNÇÃO UNIFICADA: Puxa os dados e define a foto
   carregarDadosAtuais() {
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -39,49 +39,21 @@ export class EditarPerfilPage implements OnInit {
       next: (res: any) => {
         this.usuario = res;
 
+        // Se ele tiver foto no banco, substitui o avatar do Ionic pela foto dele
         if (this.usuario && this.usuario.foto_perfil) {
-          this.usuario.fotoUrl = `http://localhost:3000/uploads/${this.usuario.foto_perfil}`;
+          const timestamp = new Date().getTime(); // Quebra o cache da imagem
+          this.previewFoto = `http://localhost:3000/uploads/${this.usuario.foto_perfil}?t=${timestamp}`;
         }
-      }, // 🔴 A VÍRGULA QUE ESTAVA FALTANDO É ESSA AQUI!
+      },
       error: (err) => console.error('Erro ao buscar dados do perfil:', err)
     });
   }
 
-  carregarDadosUsuario() {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-  
-    // Exemplo da sua rota que busca os dados do usuário logado
-    this.http.get('http://localhost:3000/api/usuarios/perfil', { headers })
-      .subscribe({
-        next: (res: any) => {
-          this.usuario = res; // Guarda os dados nos inputs
-  
-          // 🌟 O SEGREDO ESTÁ AQUI: Carregar a foto atual do banco!
-          // Confirme se a coluna no seu banco se chama 'foto', 'foto_perfil', etc.
-          if (this.usuario.foto_perfil) { 
-            const timestamp = new Date().getTime(); // Isso quebra o cache para a foto sempre atualizar na hora
-            this.previewFoto = `http://localhost:3000/uploads/${this.usuario.foto_perfil}?t=${timestamp}`;
-          } else {
-            // Se ele não tem foto no banco, mostra a padrão
-            this.previewFoto = 'assets/img/sem-foto.png'; 
-          }
-        },
-        error: (err) => {
-          console.error('Erro ao carregar perfil', err);
-        }
-      });
-  }
-
-
-
-
-  // Exatamente igual ao sistema de postagens
+  // 🟢 Seleciona uma nova foto e exibe na hora
   selecionarFoto(event: any) {
     if (event.target.files && event.target.files.length > 0) {
       this.fotoSelecionada = event.target.files[0];
 
-      // Atualiza a bolinha da foto na hora para o usuário ver o que escolheu
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.previewFoto = e.target.result;
@@ -90,6 +62,7 @@ export class EditarPerfilPage implements OnInit {
     }
   }
 
+  // 🟢 Envia para o banco
   salvarPerfil() {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -97,7 +70,6 @@ export class EditarPerfilPage implements OnInit {
       return;
     }
 
-    // 1. Prepara os dados (perfeito, não mude nada aqui)
     const formData = new FormData();
     formData.append('nome', this.usuario.nome);
     formData.append('telefone', this.usuario.telefone);
@@ -110,13 +82,14 @@ export class EditarPerfilPage implements OnInit {
       'Authorization': `Bearer ${token}`
     });
 
-    // 2. Dispara para o Backend
     this.http.put('http://localhost:3000/api/perfiledit', formData, { headers }).subscribe({
       next: (response: any) => {
-
         window.dispatchEvent(new CustomEvent('fotoAtualizada'));
-
         this.navCtrl.back();
+      },
+      error: (err) => {
+        console.error('Erro ao salvar perfil:', err);
+        this.mostrarToast('Erro ao salvar as alterações.', 'danger');
       }
     });
   }

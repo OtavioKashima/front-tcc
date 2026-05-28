@@ -1,42 +1,87 @@
-<ion-header>
-  <ion-toolbar class="custom-toolbar">
-    <ion-buttons slot="start">
-      <ion-button (click)="goBack()" class="back-btn">
-        <ion-icon name="arrow-back"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-title>{{ pet.titulo }}</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [scrollY]="true">
 
-<ion-content class="page-content" [scrollY]="true">
-  <div class="layout-wrapper">
+  
+  <div class="floating-buttons">
+    <button class="float-btn" (click)="goBack()">
+      <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+    </button>
+    <button class="float-btn" (click)="compartilhar()">
+      <ion-icon name="arrow-redo-outline" class="seta-voltar"></ion-icon>
+    </button>
+  </div>
 
-    <div class="side-actions">
-      <ion-icon name="chatbubble-outline" class="action-icon" (click)="irParaComentarios()"></ion-icon>
-      <ion-icon name="arrow-redo-outline" class="action-icon" (click)="compartilhar()"></ion-icon>
-    </div>
 
-    <div class="post-container">
-
-      <div class="user-info">
-        <img
-          src="https://randomuser.me/api/portraits/women/44.jpg"
-          class="user-avatar"/>
-        <span class="user-name">Regina Almeida</span>
-      </div>
-
-      <div class="pet-image-container">
-        <img
-          [src]="pet.imagem"
-          [alt]="pet.titulo"
-          class="pet-image-large"/>
-      </div>
-
-      <div class="pet-description">
-        {{ pet.descricaoCompleta }}
-      </div>
-
+  <div class="hero-image-wrapper">
+    <img [src]="pet.imagem" [alt]="pet.titulo" class="hero-image">
+    <div class="hero-overlay">
+      <div class="hero-badge">Para Adoção</div>
+      <h1 class="hero-title">{{ pet.titulo }}</h1>
+      
     </div>
   </div>
+
+  <div class="content-body">
+
+    
+    <div class="owner-card" (click)="irParaPerfilOng()">
+      <img
+        src="https://adotar.com.br/uploadadm/logo_ong4041.jpg?w=410&format=webp"
+        alt="Logo Frada"
+        class="owner-avatar owner-avatar--ong">
+      <div class="owner-info">
+        <span class="owner-label">ONG Responsável</span>
+        <span class="owner-name">Frada</span>
+      </div>
+      <ion-icon name="chevron-forward-outline" class="ong-arrow"></ion-icon>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title">Sobre o animal</h2>
+      <p class="section-text">{{ pet.descricaoCompleta }}</p>
+    </div>
+
+    
+    
+        <div class="chips-row">
+          <div class="chip">
+            <ion-icon name="paw-outline"></ion-icon>
+            Animal doméstico
+          </div>
+          <div class="chip">
+            <ion-icon name="heart-outline"></ion-icon>
+            Precisa de lar
+          </div>
+        </div>
+    
+   
+   <div class="animal-details">
+    <div class="detail-card">
+      <span class="detail-label">Raça</span>
+      <span class="detail-value">{{ pet.raca }}</span>
+    </div>
+    <div class="detail-card">
+      <span class="detail-label">Gênero</span>
+      <span class="detail-value">{{ pet.genero }}</span>
+    </div>
+    <div class="detail-card">
+      <span class="detail-label">Idade</span>
+      <span class="detail-value">{{ pet.idade }}</span>
+    </div>
+  </div>
+
+
+    
+
+  </div>
+
 </ion-content>
+
+
+
+
+<div class="bottom-bar">
+  <button class="adopt-btn" (click)="queroAdotar()">
+    <ion-icon name="paw"></ion-icon>
+    Quero Adotar
+  </button>
+</div>

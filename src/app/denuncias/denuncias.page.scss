@@ -3,30 +3,36 @@ ion-content {
   --background: #f8f9fa;
 }
 
-// Estilo do Card
+// Estilo do Card mais compacto
 .pet-card {
-  border-radius: 16px;
+  border-radius: 12px;
   background: #fff;
-
-  // 🔴 O CONTORNO DESTACADO AQUI:
-  border: 2px solid var(--ion-color-danger, #eb445a); // Borda usando o vermelho do Ionic
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin: 8px 0;
+  border: 2px solid var(--ion-color-primary, #eb445a); 
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  margin: 6px 0;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   overflow: hidden;
 
   &:hover {
-    box-shadow: 0 6px 20px rgba(235, 68, 90, 0.2); // Sombra acompanha o tom vermelho
+    box-shadow: 0 6px 16px rgba(56, 128, 255, 0.2);
     transform: translateY(-2px);
   }
 
   &:active {
-    transform: scale(0.98); // Efeito de clique
+    transform: scale(0.98);
+  }
+
+  // Reduzindo os espaços internos do Ionic
+  ion-card-header {
+    padding: 10px 12px 4px 12px !important; 
+  }
+
+  ion-card-content {
+    padding: 0 12px 8px 12px !important;
   }
 }
 
-// 🔴 NOVO CONTAINER DINÂMICO
+// CONTAINER DINÂMICO DE IMAGENS
 .image-container {
   width: 100%;
   position: relative;
@@ -35,22 +41,22 @@ ion-content {
   // Badge sobre as fotos
   .category-badge {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    background: var(--ion-color-danger, #eb445a); // Vermelho combina com 'denúncia'
+    top: 10px;
+    right: 10px;
+    background: var(--ion-color-primary, #eb445a);
     color: white;
-    padding: 4px 12px;
+    padding: 4px 10px;
     border-radius: 20px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     z-index: 10;
   }
 
-  // Fallback visual
+  // Fallback visual (sem foto)
   .sem-foto {
     width: 100%;
-    height: 200px;
+    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,15 +65,15 @@ ion-content {
   }
 }
 
-// 🔴 LÓGICA DO GRID ESTILO WHATSAPP
+// LÓGICA DO GRID ESTILO WHATSAPP (Achatado)
 .grid-fotos {
   display: grid;
-  gap: 2px; // Divisória fininha igual ao WhatsApp
+  gap: 2px;
   width: 100%;
 
   .foto-item {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 16 / 9; // Mais retangular
     overflow: hidden;
     background-color: #ddd;
 
@@ -84,9 +90,9 @@ ion-content {
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.6); // Escurece a última foto
+      background: rgba(0, 0, 0, 0.6);
       color: white;
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: bold;
       display: flex;
       align-items: center;
@@ -96,9 +102,8 @@ ion-content {
 
   &.qtd-1 {
     grid-template-columns: 1fr;
-
     .foto-item {
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 21 / 9; // Bem achatado estilo capa
     }
   }
 
@@ -108,33 +113,41 @@ ion-content {
 
   &.qtd-3 {
     grid-template-columns: repeat(2, 1fr);
-
     .foto-item:nth-child(1) {
       grid-column: span 2;
-      aspect-ratio: 21 / 9;
+      aspect-ratio: 24 / 9;
     }
   }
 
   &.qtd-4,
   &.qtd-mais {
     grid-template-columns: repeat(2, 1fr);
-
     .foto-item {
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 4 / 3;
     }
   }
 }
 
+// TEXTOS
+.pet-subtitle {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
 .pet-title {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: #222;
+  margin-top: 0;
 }
 
 .pet-description {
   color: #444;
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  line-height: 1.3;
   margin: 0;
   word-break: break-word;
   white-space: normal;
@@ -143,14 +156,20 @@ ion-content {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-height: 2.8rem;
+  max-height: 2.4rem;
 }
 
+// RODAPÉ E EMPTY STATE
 .card-footer {
   display: flex;
   justify-content: flex-end;
-  padding: 8px;
+  padding: 4px 8px;
   border-top: 1px solid #eee;
+
+  ion-button {
+    margin: 0;
+    min-height: 32px;
+  }
 }
 
 .empty-state {

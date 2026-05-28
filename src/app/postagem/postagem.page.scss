@@ -415,3 +415,70 @@ label {
     background: #e8f7ef;
   }
 }
+
+.admin-badge-box {
+  background: #fffcf0;
+  border: 1.5px dashed #f5a623;
+  border-radius: 16px;
+  padding: 12px;
+  margin-bottom: 18px;
+}
+
+.admin-label {
+  color: #d08a16 !important;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.admin-select {
+  border-color: #f5a623 !important;
+
+  ion-select::part(text) {
+    color: #bc7a0b;
+    font-weight: 800;
+  }
+
+  ion-select::part(icon) {
+    color: #f5a623;
+  }
+}
+
+.admin-panel-border {
+  border: 1.5px solid #f5a623 !important;
+  background: #fffdf7 !important;
+}
+
+.admin-btn {
+  background: linear-gradient(135deg, #f7b733, #fc4a1a) !important;
+  box-shadow: 0 6px 20px rgba(252, 74, 26, 0.3) !important;
+}
+
+idade-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.input-idade {
+  flex: 1;
+  /* Ocupa metade do espaço */
+}
+
+.select-idade {
+  flex: 1;
+  /* Ocupa a outra metade */
+  height: 50px;
+  display: flex;
+  align-items: center;
+
+  ion-select {
+    width: 100%;
+    margin: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}

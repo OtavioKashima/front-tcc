@@ -15,6 +15,7 @@ export class PostagemPage implements OnInit {
   // Controle de exibição e permissão
   tipoSelecionado = '';
   isAdminOuOng = false;
+  isAdmin = false; // 🛡️ Nova flag de controle exclusivo para Admin
 
   // Variáveis do formulário (Banco de Dados)
   tipo_postagem = '';
@@ -24,6 +25,8 @@ export class PostagemPage implements OnInit {
   raca = '';
   genero = '';
   idade: number | null = null;
+  unidadeIdade = 'meses';
+  sub_tipo = 'normal'; // 🛡️ Define se o post é normal, urgente ou fixado
 
   // Variáveis para a imagem
   fotosSelecionadas: File[] = [];
@@ -34,37 +37,36 @@ export class PostagemPage implements OnInit {
   constructor(private http: HttpClient, private navCtrl: NavController) { }
 
   ngOnInit() {
-    // 🔴 Verifica o tipo do usuário salvo na hora do login
     const tipoUsuario = localStorage.getItem('tipo_usuario');
 
-    if (tipoUsuario === 'admin' || tipoUsuario === 'ong') {
+    // 🔴 1. Verifica de forma isolada se o usuário é Administrador master
+    if (tipoUsuario === 'admin') {
+      this.isAdmin = true;
+      this.isAdminOuOng = true;
+    } else if (tipoUsuario === 'ong') {
+      this.isAdmin = false;
       this.isAdminOuOng = true;
     } else {
-      // 🔴 Se for usuário comum, já trava e pré-seleciona "denuncia"
+      // Se for usuário comum, bloqueia interações e força denúncia
+      this.isAdmin = false;
       this.isAdminOuOng = false;
       this.tipoSelecionado = 'denuncia';
       this.tipo_postagem = 'denuncia';
     }
   }
 
-  // Função para capturar a escolha do ion-select e ajustar para o MySQL
   mudarTipo(event: any) {
     this.tipoSelecionado = event.detail.value;
     this.tipo_postagem = this.tipoSelecionado;
   }
 
-  // Função para capturar a foto do HTML
   selecionarFoto(event: any) {
     const files = event.target.files;
-
     if (files) {
       for (let i = 0; i < files.length; i++) {
         const file = files[i];
-
-        // Adiciona o arquivo real na lista para enviar ao banco
         this.fotosSelecionadas.push(file);
 
-        // Gera o preview para mostrar na tela
         const reader = new FileReader();
         reader.onload = (e: any) => {
           this.fotosPreviews.push(e.target.result);
@@ -78,19 +80,17 @@ export class PostagemPage implements OnInit {
     this.fotosSelecionadas.splice(index, 1);
     this.fotosPreviews.splice(index, 1);
   }
-  
+
   goBack(): void {
     this.navCtrl.navigateBack('/tabs/doacoes');
   }
 
-  // Função para enviar para o Node.js
   enviarPostagem() {
     if (!this.tipo_postagem) {
       alert('Por favor, selecione o tipo de postagem!');
       return;
     }
 
-    // Validação básica: Título e Descrição continuam sendo obrigatórios
     if (!this.titulo || !this.descricao) {
       alert('Título e Descrição são obrigatórios!');
       return;
@@ -101,18 +101,27 @@ export class PostagemPage implements OnInit {
     formData.append('titulo', this.titulo);
     formData.append('descricao', this.descricao);
 
-    if (this.localizacao) formData.append('localizacao', this.localizacao);
-
-    if (this.tipo_postagem !== 'denuncia') {
-      if (this.raca) formData.append('raca', this.raca);
-      if (this.genero) formData.append('genero', this.genero);
-      if (this.idade) formData.append('idade', this.idade.toString());
+    // 🛡️ Envia a classificação de destaque selecionada pelo administrador
+    if (this.isAdmin) {
+      formData.append('sub_tipo', this.sub_tipo);
     }
 
-    // 🔴 TRUQUE AQUI: Envia todas as fotos selecionadas usando a mesma chave 'fotos'
+    if (this.localizacao) formData.append('localizacao', this.localizacao);
+
+    if (this.tipo_postagem !== 'denuncia' && this.tipo_postagem !== 'comunicado') {
+      if (this.raca) formData.append('raca', this.raca);
+      if (this.genero) formData.append('genero', this.genero);
+
+      // 🟢 ALTERAÇÃO AQUI: Junta o número com a unidade de tempo antes de salvar!
+      if (this.idade) {
+        const idadeFormatada = `${this.idade} ${this.unidadeIdade}`;
+        formData.append('idade', idadeFormatada); // Vai enviar "3 meses" ou "2 anos"
+      }
+    }
+
     if (this.fotosSelecionadas.length > 0) {
       this.fotosSelecionadas.forEach((foto) => {
-        formData.append('fotos', foto); // O Node.js vai receber isso como um Array
+        formData.append('fotos', foto);
       });
     }
 

@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 
+// 1. Atualizamos a interface para refletir os dados que o HTML pede
 interface Pet {
   titulo: string;
   idade: string;
   imagem: string;
   descricao: string;
   descricaoCompleta: string;
+  raca?: string;   // Adicionado para o HTML
+  genero?: string; // Adicionado para o HTML
 }
 
 @Component({
@@ -18,17 +21,21 @@ interface Pet {
 })
 export class AdocoesDetalhesPage implements OnInit {
 
+  // 2. Inicializamos as novas variáveis vazias por segurança
   pet: Pet = {
     titulo: '',
     idade: '',
     imagem: '',
     descricao: '',
-    descricaoCompleta: ''
+    descricaoCompleta: '',
+    raca: 'Não informada',
+    genero: 'Não informado'
   };
 
   constructor(
     private router: Router,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private toastCtrl: ToastController // Importado para dar feedback visual nos botões novos
   ) {}
 
   ngOnInit() {
@@ -46,14 +53,40 @@ export class AdocoesDetalhesPage implements OnInit {
 
   async compartilhar() {
     if (navigator.share) {
-      await navigator.share({
-        title: this.pet.titulo,
-        text: this.pet.descricaoCompleta
-      });
+      try {
+        await navigator.share({
+          title: `Adoção: ${this.pet.titulo}`,
+          text: `Conheça ${this.pet.titulo}! ${this.pet.descricaoCompleta}`
+        });
+      } catch (err) {
+        console.error('Erro ao compartilhar', err);
+      }
     }
   }
 
   goBack(): void {
     this.navCtrl.navigateBack('/tabs/adocoes');
+  }
+
+  // ==========================================
+  // NOVAS FUNÇÕES INTEGRADAS AO HTML
+  // ==========================================
+
+  irParaPerfilOng() {
+    // Redireciona para o perfil da ONG (você pode ajustar a rota conforme seu projeto)
+    console.log('Navegando para o perfil da ONG...');
+    // this.navCtrl.navigateForward('/perfil-ong'); 
+  }
+
+  async queroAdotar() {
+    // Lógica do botão flutuante "Quero Adotar"
+    // Pode abrir o WhatsApp, um formulário ou chat. Por enquanto, exibe um aviso:
+    const toast = await this.toastCtrl.create({
+      message: 'Redirecionando para o formulário de adoção...',
+      duration: 2000,
+      color: 'success',
+      icon: 'paw'
+    });
+    toast.present();
   }
 }
