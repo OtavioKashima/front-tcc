@@ -1,6 +1,6 @@
 <ion-content [scrollY]="true">
 
-  
+
   <div class="floating-buttons">
     <button class="float-btn" (click)="goBack()">
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
@@ -10,67 +10,75 @@
     </button>
   </div>
 
-
   <div class="hero-image-wrapper">
-    <img [src]="pet.imagem" [alt]="pet.titulo" class="hero-image">
-    <div class="hero-overlay">
-      <div class="hero-badge">Para Adoção</div>
-      <h1 class="hero-title">{{ pet.titulo }}</h1>
-      
+
+    <div class="carousel-container" (scroll)="onScroll($event)">
+      <img *ngFor="let img of pet.imagens" [src]="img" [alt]="pet.titulo" class="hero-image carousel-slide">
     </div>
+
+    <div class="hero-overlay">
+      <h1 class="hero-title">{{ pet.titulo }}</h1>
+    </div>
+
+    <div class="carousel-dots" *ngIf="pet.imagens && pet.imagens.length > 1">
+      <div class="dot" *ngFor="let img of pet.imagens; let i = index" [class.active]="i === imagemAtiva">
+      </div>
+    </div>
+
   </div>
 
   <div class="content-body">
 
-    
+
     <div class="owner-card" (click)="irParaPerfilOng()">
-      <img
-        src="https://adotar.com.br/uploadadm/logo_ong4041.jpg?w=410&format=webp"
-        alt="Logo Frada"
-        class="owner-avatar owner-avatar--ong">
-      <div class="owner-info">
-        <span class="owner-label">ONG Responsável</span>
-        <span class="owner-name">Frada</span>
-      </div>
-      <ion-icon name="chevron-forward-outline" class="ong-arrow"></ion-icon>
-    </div>
+  <img 
+    [src]="pet.usuario_foto ? ('http://localhost:3000/uploads/' + pet.usuario_foto) : 'assets/avatar-default.png'" 
+    alt="Foto do Criador"
+    class="owner-avatar owner-avatar--ong">
+    
+  <div class="owner-info">
+    <span class="owner-label">{{ pet.tipo_usuario === 'ong' ? 'ONG Responsável' : 'Protetor' }}</span>
+    <span class="owner-name">{{ pet.usuario_nome || 'Usuário Desconhecido' }}</span>
+  </div>
+  <ion-icon name="chevron-forward-outline" class="ong-arrow"></ion-icon>
+</div>
 
     <div class="section">
       <h2 class="section-title">Sobre o animal</h2>
       <p class="section-text">{{ pet.descricaoCompleta }}</p>
     </div>
 
-    
-    
-        <div class="chips-row">
-          <div class="chip">
-            <ion-icon name="paw-outline"></ion-icon>
-            Animal doméstico
-          </div>
-          <div class="chip">
-            <ion-icon name="heart-outline"></ion-icon>
-            Precisa de lar
-          </div>
-        </div>
-    
-   
-   <div class="animal-details">
-    <div class="detail-card">
-      <span class="detail-label">Raça</span>
-      <span class="detail-value">{{ pet.raca }}</span>
-    </div>
-    <div class="detail-card">
-      <span class="detail-label">Gênero</span>
-      <span class="detail-value">{{ pet.genero }}</span>
-    </div>
-    <div class="detail-card">
-      <span class="detail-label">Idade</span>
-      <span class="detail-value">{{ pet.idade }}</span>
-    </div>
-  </div>
 
 
-    
+    <div class="chips-row">
+      <div class="chip">
+        <ion-icon name="paw-outline"></ion-icon>
+        Animal doméstico
+      </div>
+      <div class="chip">
+        <ion-icon name="heart-outline"></ion-icon>
+        Precisa de lar
+      </div>
+    </div>
+
+
+    <div class="animal-details">
+      <div class="detail-card">
+        <span class="detail-label">Raça</span>
+        <span class="detail-value">{{ pet.raca }}</span>
+      </div>
+      <div class="detail-card">
+        <span class="detail-label">Gênero</span>
+        <span class="detail-value">{{ pet.genero }}</span>
+      </div>
+      <div class="detail-card">
+        <span class="detail-label">Idade</span>
+        <span class="detail-value">{{ pet.idade }}</span>
+      </div>
+    </div>
+
+
+
 
   </div>
 

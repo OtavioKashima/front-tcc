@@ -26,7 +26,7 @@ export class PostagemPage implements OnInit {
   genero = '';
   idade: number | null = null;
   unidadeIdade = 'meses';
-  sub_tipo = 'normal'; // 🛡️ Define se o post é normal, urgente ou fixado
+  sub_tipo = 'normal'; // 🛡️ Define se o post é normal ou fixado
 
   // Variáveis para a imagem
   fotosSelecionadas: File[] = [];
@@ -103,7 +103,12 @@ export class PostagemPage implements OnInit {
 
     // 🛡️ Envia a classificação de destaque selecionada pelo administrador
     if (this.isAdmin) {
-      formData.append('sub_tipo', this.sub_tipo);
+      // Se o usuário selecionou "fixado", envia '1' para o backend. Se não, envia '0'.
+      const valorFixado = this.sub_tipo === 'fixado' ? '1' : '0';
+      formData.append('fixado', valorFixado);
+    } else {
+      // Se não for admin, garante que o banco receba 0 (não fixado)
+      formData.append('fixado', '0');
     }
 
     if (this.localizacao) formData.append('localizacao', this.localizacao);

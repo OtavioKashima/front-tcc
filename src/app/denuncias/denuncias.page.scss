@@ -7,7 +7,7 @@ ion-content {
 .pet-card {
   border-radius: 12px;
   background: #fff;
-  border: 2px solid var(--ion-color-primary, #eb445a); 
+  border: 2px solid var(--ion-color-primary, #eb445a);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   margin: 6px 0;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
@@ -24,7 +24,7 @@ ion-content {
 
   // Reduzindo os espaços internos do Ionic
   ion-card-header {
-    padding: 10px 12px 4px 12px !important; 
+    padding: 10px 12px 4px 12px !important;
   }
 
   ion-card-content {
@@ -102,6 +102,7 @@ ion-content {
 
   &.qtd-1 {
     grid-template-columns: 1fr;
+
     .foto-item {
       aspect-ratio: 21 / 9; // Bem achatado estilo capa
     }
@@ -113,6 +114,7 @@ ion-content {
 
   &.qtd-3 {
     grid-template-columns: repeat(2, 1fr);
+
     .foto-item:nth-child(1) {
       grid-column: span 2;
       aspect-ratio: 24 / 9;
@@ -122,6 +124,7 @@ ion-content {
   &.qtd-4,
   &.qtd-mais {
     grid-template-columns: repeat(2, 1fr);
+
     .foto-item {
       aspect-ratio: 4 / 3;
     }
@@ -180,5 +183,24 @@ ion-content {
   ion-icon {
     font-size: 64px;
     margin-bottom: 10px;
+  }
+}
+
+.busca-customizada {
+  background-color: #ffffff;
+  height: 38px;
+  margin: 6px 10px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+
+  ion-input {
+    --padding-start: 12px;
+    --padding-top: 0;
+    --padding-bottom: 0;
+    --background: transparent;
+    --color: #333333;
+    width: 100%;
+    font-size: 15px;
   }
 }

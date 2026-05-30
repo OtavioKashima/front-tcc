@@ -1,0 +1,81 @@
+<ion-content [scrollY]="true">
+
+  <div class="floating-back">
+    <button class="back-btn" (click)="voltar()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button>
+  </div>
+
+  <div class="profile-header">
+    <img [src]="perfil.fotoCapa" class="cover-photo" alt="Capa">
+
+    <div class="avatar-wrapper">
+      <img [src]="perfil.fotoPerfil" class="avatar-photo" alt="Perfil">
+      <div class="ong-badge" *ngIf="perfil.tipo === 'ong'">
+        <ion-icon name="shield-checkmark"></ion-icon> ONG Verificada
+      </div>
+    </div>
+  </div>
+
+  <div class="profile-info">
+    <h1 class="profile-name">{{ perfil.nome }}</h1>
+    <p class="profile-location">
+      <ion-icon name="location-outline"></ion-icon>
+      {{ perfil.cidade }} - {{ perfil.estado }}
+    </p>
+    <p class="profile-bio">{{ perfil.bio }}</p>
+  </div>
+
+  <div class="segment-wrapper">
+    <ion-segment [value]="abaAtiva" (ionChange)="trocarAba($event)" mode="md">
+      <ion-segment-button value="postagens">
+        <ion-label>Postagens</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="sobre">
+        <ion-label>Sobre</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="doacao" *ngIf="perfil.tipo === 'ong'" class="segment-doacao">
+        <ion-label><ion-icon name="heart"></ion-icon> Ajudar</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div class="tab-content">
+
+    <div *ngIf="abaAtiva === 'postagens'" class="fade-in">
+
+      <div class="empty-state" *ngIf="postagensUsuario.length === 0">
+        <ion-icon name="images-outline" style="font-size: 40px; color: #ccc;"></ion-icon>
+        <p>Este perfil ainda não fez nenhuma publicação.</p>
+      </div>
+
+      <div class="feed" *ngIf="postagensUsuario.length > 0">
+        <div class="denuncia-card" *ngFor="let post of postagensUsuario">
+          <div class="denuncia-header">
+            <span>{{ post.titulo }}</span>
+          </div>
+
+          <div class="denuncia-content">
+            <div class="post-imagem-container">
+              <img *ngIf="post.fotosArray && post.fotosArray.length > 0"
+                [src]="'http://localhost:3000/uploads/' + post.fotosArray[0]" alt="Foto da postagem"
+                class="post-imagem-unica">
+
+              <img *ngIf="!post.fotosArray || post.fotosArray.length === 0" src="assets/img-padrao.png" alt="Sem foto"
+                class="post-imagem-padrao" />
+            </div>
+
+            <div class="denuncia-info">
+              <span class="denuncia-badge" *ngIf="post.idade">{{ post.idade }}</span>
+              <p class="denuncia-descricao">{{ post.descricao }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

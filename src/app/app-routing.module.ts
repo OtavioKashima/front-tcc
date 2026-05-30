@@ -76,7 +76,11 @@ const routes: Routes = [
   {
     path: 'editar-postagem/:id', 
     loadChildren: () => import('./editar-postagem/editar-postagem.module').then(m => m.EditarPostagemPageModule)
+  },  {
+    path: 'perfil-publico',
+    loadChildren: () => import('./perfil-publico/perfil-publico.module').then( m => m.PerfilPublicoPageModule)
   }
+
 
 
 

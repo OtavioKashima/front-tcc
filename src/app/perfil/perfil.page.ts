@@ -32,6 +32,8 @@ export class PerfilPage implements OnInit {
   termoBusca: string = '';
   filtroSegmento: string = 'todas';
 
+  totalPostagens: number = 0;
+
   constructor(
     private http: HttpClient,
     private navCtrl: NavController,
@@ -78,6 +80,7 @@ export class PerfilPage implements OnInit {
       });
   }
 
+
   carregarMinhasPostagens() {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
@@ -86,13 +89,13 @@ export class PerfilPage implements OnInit {
       .subscribe({
         next: (res: any) => {
 
-          // Tratamento para transformar a string do banco em Array de fotos
-          this.postagens = res.map((post: any) => {
+          // 🟢 CORREÇÃO 1: Salvar na variável 'minhasPostagens' que é a base dos filtros
+          this.minhasPostagens = res.map((post: any) => {
             if (post.foto) {
               try {
                 post.fotosArray = JSON.parse(post.foto);
               } catch (e) {
-                post.fotosArray = [post.foto]; // Fallback se for só uma string
+                post.fotosArray = [post.foto];
               }
             } else {
               post.fotosArray = [];
@@ -100,28 +103,46 @@ export class PerfilPage implements OnInit {
             return post;
           });
 
+          // 🟢 CORREÇÃO 2: Chamar a função de filtro para renderizar a tela e a contagem
+          this.aplicarFiltrosEPaginacao();
+
         },
         error: (err) => console.error('Erro ao buscar postagens do perfil', err)
       });
   }
 
   aplicarFiltrosEPaginacao() {
-    let resultado = this.minhasPostagens.filter(post => {
-      const termo = this.termoBusca.toLowerCase();
+    // 1. Filtro de Aba (Recentes vs Todas)
+    let listaBase = this.minhasPostagens;
+
+    if (this.filtroSegmento === 'recentes') {
+      // 🟢 CORREÇÃO 3: Lógica de 1 semana (7 dias) usando a data_criacao
+      const umaSemanaAtras = new Date();
+      umaSemanaAtras.setDate(umaSemanaAtras.getDate() - 7);
+
+      listaBase = listaBase.filter(post => {
+        if (!post.data_criacao) return false; // Prevenção caso o post não tenha data
+        const dataPost = new Date(post.data_criacao);
+        return dataPost >= umaSemanaAtras;
+      });
+    }
+
+    // 2. Filtro de Busca
+    let resultado = listaBase.filter(post => {
+      const termo = this.termoBusca.toLowerCase().trim();
+      if (!termo) return true; // Se não tem busca, passa tudo
+
       const tituloMatch = post.titulo?.toLowerCase().includes(termo);
       const descMatch = post.descricao?.toLowerCase().includes(termo);
       return tituloMatch || descMatch;
     });
 
-    if (this.filtroSegmento === 'recentes') {
-      resultado = [...resultado].reverse();
-    }
-
+    // 3. Contagem e Paginação
     this.postagensFiltradas = resultado;
     this.totalPaginas = Math.ceil(this.postagensFiltradas.length / this.itensPorPagina) || 1;
 
     if (this.paginaAtual > this.totalPaginas) {
-      this.paginaAtual = this.totalPaginas;
+      this.paginaAtual = this.totalPaginas; // Garante que não fique numa página fantasma
     }
 
     const indexInicio = (this.paginaAtual - 1) * this.itensPorPagina;
@@ -207,7 +228,7 @@ export class PerfilPage implements OnInit {
               .subscribe({
                 next: () => {
                   // 1. Remove da tela
-                  this.postagens = this.postagens.filter(p => p.id !== post.id);
+                  this.minhasPostagens = this.minhasPostagens.filter(p => p.id !== post.id);
                   if (typeof this.aplicarFiltrosEPaginacao === 'function') {
                     this.aplicarFiltrosEPaginacao();
                   }

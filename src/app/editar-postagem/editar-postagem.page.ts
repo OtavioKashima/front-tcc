@@ -56,7 +56,7 @@ export class EditarPostagemPage implements OnInit {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
-    this.http.get(`http://localhost:3000/api/postagens/${id}`, { headers })
+    this.http.get(`http://localhost:3000/api/postagens//usuario/${id}`, { headers })
       .subscribe({
         next: (res: any) => {
           this.post = res;

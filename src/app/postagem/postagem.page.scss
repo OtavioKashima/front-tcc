@@ -456,21 +456,19 @@ label {
   box-shadow: 0 6px 20px rgba(252, 74, 26, 0.3) !important;
 }
 
-idade-wrapper {
+.idade-wrapper {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
   width: 100%;
 }
 
 .input-idade {
   flex: 1;
-  /* Ocupa metade do espaço */
 }
 
 .select-idade {
   flex: 1;
-  /* Ocupa a outra metade */
   height: 50px;
   display: flex;
   align-items: center;

@@ -66,14 +66,15 @@
     </span>
   </div>
 
-  <div class="sem-resultados" *ngIf="postagens && postagens.length === 0">
+  <div class="sem-resultados" *ngIf="postagensExibidas.length === 0">
     <ion-icon class="sem-resultados-icon" name="document-text-outline"></ion-icon>
-    <p>Você ainda não fez nenhuma postagem.</p>
-    <span class="sem-resultados-sub">Suas publicações aparecerão aqui.</span>
+    <p>Nenhuma postagem encontrada.</p>
+    <span class="sem-resultados-sub">Tente ajustar seus filtros ou busca.</span>
   </div>
 
-  <div class="feed" *ngIf="postagens && postagens.length > 0">
-    <div class="denuncia-card" *ngFor="let post of postagens">
+  <div class="feed" *ngIf="postagensExibidas.length > 0">
+
+    <div class="denuncia-card" *ngFor="let post of postagensExibidas">
 
       <div class="denuncia-header">
         <span>{{ post.titulo }}</span>
@@ -89,32 +90,29 @@
       </div>
 
       <div class="denuncia-content">
-
         <div class="post-imagem-container">
-
           <div *ngIf="post.fotosArray && post.fotosArray.length > 0"
             [class]="'grid-fotos qtd-' + (post.fotosArray.length > 4 ? 'mais' : post.fotosArray.length)">
-
             <div class="foto-item" *ngFor="let foto of post.fotosArray | slice:0:4; let i = index">
               <img [src]="'http://localhost:3000/uploads/' + foto" alt="Foto da postagem">
-
               <div class="overlay-mais" *ngIf="i === 3 && post.fotosArray.length > 4">
                 +{{ post.fotosArray.length - 4 }}
               </div>
             </div>
           </div>
-
           <img *ngIf="!post.fotosArray || post.fotosArray.length === 0" src="assets/img-padrao.png" alt="Sem foto"
             class="post-imagem-padrao" />
-
         </div>
 
         <div class="denuncia-info">
-          <span class="denuncia-badge" *ngIf="post.idade">{{ post.idade }} ano(s)</span>
+          <span class="denuncia-badge" *ngIf="post.idade">{{ post.idade }}</span>
           <p class="denuncia-descricao">{{ post.descricao }}</p>
         </div>
+      </div>
+    </div>
+  </div>
 
-      </div> </div> </div> <div class="paginacao-container" *ngIf="postagensExibidas.length > 0">
+  <div class="paginacao-container" *ngIf="postagensFiltradas.length > itensPorPagina">
     <ion-button fill="outline" size="small" (click)="paginaAnterior()"
       [disabled]="paginaAtual === 1">Anterior</ion-button>
     <span class="paginacao-texto">Pág {{ paginaAtual }} de {{ totalPaginas }}</span>
