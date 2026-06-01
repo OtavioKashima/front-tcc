@@ -36,14 +36,17 @@ export class EditarPostagemPage implements OnInit {
     private navCtrl: NavController,
     private toastController: ToastController,
     private alertController: AlertController,
-    private cdr: ChangeDetectorRef 
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
     this.postId = this.route.snapshot.paramMap.get('id');
 
-    const tipoUsuario = localStorage.getItem('tipo_usuario');
-    if (tipoUsuario === 'admin' || tipoUsuario === 'ong') {
+    // 🟢 CORREÇÃO: Lendo a nova variável 'admin' que salvamos no login
+    const nivelAdmin = localStorage.getItem('admin');
+
+    // Se for 1 (Admin) ou 2 (ONG), libera as opções avançadas
+    if (nivelAdmin === '1' || nivelAdmin === '2') {
       this.isAdminOuOng = true;
     }
 
@@ -56,7 +59,8 @@ export class EditarPostagemPage implements OnInit {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
 
-    this.http.get(`http://localhost:3000/api/postagens//usuario/${id}`, { headers })
+    // 🟢 CORREÇÃO: URL ajustada para buscar UMA postagem pelo ID dela
+    this.http.get(`http://localhost:3000/api/postagens/${id}`, { headers })
       .subscribe({
         next: (res: any) => {
           this.post = res;
@@ -114,7 +118,7 @@ export class EditarPostagemPage implements OnInit {
   onFileSelected(event: any) {
     const arquivos: FileList = event.target.files;
     if (arquivos && arquivos.length > 0) {
-      
+
       for (let i = 0; i < arquivos.length; i++) {
         const arquivo = arquivos[i];
         this.novosArquivos.push(arquivo); // Armazena o arquivo binário real para o PUT

@@ -37,17 +37,17 @@ export class PostagemPage implements OnInit {
   constructor(private http: HttpClient, private navCtrl: NavController) { }
 
   ngOnInit() {
-    const tipoUsuario = localStorage.getItem('tipo_usuario');
+    // 🟢 CORREÇÃO: Lê a nova chave 'admin' salva no Login (1 = Admin, 2 = ONG, 0 = Comum)
+    const nivelAdmin = localStorage.getItem('admin');
 
-    // 🔴 1. Verifica de forma isolada se o usuário é Administrador master
-    if (tipoUsuario === 'admin') {
+    if (nivelAdmin === '1') {
       this.isAdmin = true;
       this.isAdminOuOng = true;
-    } else if (tipoUsuario === 'ong') {
+    } else if (nivelAdmin === '2') {
       this.isAdmin = false;
       this.isAdminOuOng = true;
     } else {
-      // Se for usuário comum, bloqueia interações e força denúncia
+      // Se for usuário comum (0 ou não encontrado), bloqueia interações e força denúncia
       this.isAdmin = false;
       this.isAdminOuOng = false;
       this.tipoSelecionado = 'denuncia';

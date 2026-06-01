@@ -10,12 +10,14 @@
 
     <div class="intro">
       <div class="logo-circle">
-        <ion-icon [name]="tipoSelecionado === 'denuncia' ? 'alert-outline' : (tipoSelecionado === 'comunicado' ? 'megaphone-outline' : 'paw')" class="logo-icon"></ion-icon>
+        <ion-icon
+          [name]="tipoSelecionado === 'denuncia' ? 'alert-outline' : (tipoSelecionado === 'comunicado' ? 'megaphone-outline' : 'paw')"
+          class="logo-icon"></ion-icon>
       </div>
       <h2>Criar Postagem</h2>
       <p *ngIf="isAdminOuOng && !tipoSelecionado">Escolha o tipo de publicação para continuar</p>
       <p *ngIf="!isAdminOuOng">Área restrita para denúncias e relatos</p>
-      <p *ngIf="tipoSelecionado === 'adocao' || tipoSelecionado === 'doacao'">Preencha todos os campos para finalizar</p>
+      <p *ngIf="tipoSelecionado === 'adocao'">Preencha todos os campos para finalizar</p>
       <p *ngIf="tipoSelecionado === 'denuncia'">Preencha todos os campos para relatar a ocorrência</p>
       <p *ngIf="tipoSelecionado === 'comunicado'">Preencha os campos para publicar um aviso oficial</p>
     </div>
@@ -31,14 +33,13 @@
 
           <ion-select-option value="denuncia">🚨 Denúncia</ion-select-option>
           <ion-select-option value="adocao" *ngIf="isAdminOuOng">🏠 Adoção</ion-select-option>
-          <ion-select-option value="doacao" *ngIf="isAdminOuOng">🎁 Doação</ion-select-option>
-          <ion-select-option value="comunicado" *ngIf="isAdmin">📢 Comunicado Oficial</ion-select-option>
+          <ion-select-option value="comunicado" *ngIf="isAdminOuOng">📢 Comunicado Oficial</ion-select-option>
 
         </ion-select>
       </div>
     </ion-card>
 
-    <div *ngIf="tipoSelecionado === 'adocao' || tipoSelecionado === 'doacao'" class="campos-dinamicos">
+    <div *ngIf="tipoSelecionado === 'adocao'" class="campos-dinamicos">
 
       <div class="admin-badge-box" *ngIf="isAdmin">
         <label class="admin-label"><ion-icon name="options-outline"></ion-icon> Destaque da Postagem (Admin)</label>
@@ -100,12 +101,14 @@
           <div class="add-more-box" (click)="fileInputMulti.click()"><ion-icon name="add"></ion-icon></div>
         </div>
 
-        <input #fileInputMulti type="file" accept="image/*" multiple style="display:none" (change)="selecionarFoto($event)" />
+        <input #fileInputMulti type="file" accept="image/*" multiple style="display:none"
+          (change)="selecionarFoto($event)" />
       </div>
 
       <div class="campo">
         <label>Descrição:</label>
-        <ion-textarea class="custom-textarea" placeholder="Descreva o animal e detalhes de contato..." [(ngModel)]="descricao"></ion-textarea>
+        <ion-textarea class="custom-textarea" placeholder="Descreva o animal e detalhes de contato..."
+          [(ngModel)]="descricao"></ion-textarea>
       </div>
 
       <div class="btn-area">
@@ -125,7 +128,8 @@
 
       <div class="campo">
         <label>Descrição da denúncia:</label>
-        <ion-textarea class="custom-textarea" placeholder="Descreva o que está acontecendo..." [(ngModel)]="descricao"></ion-textarea>
+        <ion-textarea class="custom-textarea" placeholder="Descreva o que está acontecendo..."
+          [(ngModel)]="descricao"></ion-textarea>
       </div>
 
       <div class="campo">
@@ -143,7 +147,8 @@
           <div class="add-more-box" (click)="fileInputMulti.click()"><ion-icon name="add"></ion-icon></div>
         </div>
 
-        <input #fileInputMulti type="file" accept="image/*" multiple style="display:none" (change)="selecionarFoto($event)" />
+        <input #fileInputMulti type="file" accept="image/*" multiple style="display:none"
+          (change)="selecionarFoto($event)" />
       </div>
 
       <div class="campo">
@@ -159,8 +164,8 @@
       </div>
     </div>
 
-    <div *ngIf="tipoSelecionado === 'comunicado' && isAdmin" class="campos-dinamicos admin-panel-border">
-      
+    <div *ngIf="tipoSelecionado === 'comunicado'" class="campos-dinamicos admin-panel-border">
+
       <div class="campo">
         <label>Título do Comunicado:</label>
         <ion-input class="custom-input" placeholder="Ex: Campanha de Vacinação 2026" [(ngModel)]="titulo"></ion-input>
@@ -168,7 +173,8 @@
 
       <div class="campo">
         <label>Conteúdo do Aviso:</label>
-        <ion-textarea class="custom-textarea" placeholder="Escreva as informações oficiais aqui..." [(ngModel)]="descricao"></ion-textarea>
+        <ion-textarea class="custom-textarea" placeholder="Escreva as informações oficiais aqui..."
+          [(ngModel)]="descricao"></ion-textarea>
       </div>
 
       <div class="campo">
@@ -186,7 +192,8 @@
           <div class="add-more-box" (click)="fileInputMulti.click()"><ion-icon name="add"></ion-icon></div>
         </div>
 
-        <input #fileInputMulti type="file" accept="image/*" multiple style="display:none" (change)="selecionarFoto($event)" />
+        <input #fileInputMulti type="file" accept="image/*" multiple style="display:none"
+          (change)="selecionarFoto($event)" />
       </div>
 
       <div class="btn-area">

@@ -78,15 +78,18 @@ export class LoginPage {
     const identificadorLimpo = this.usuario.replace(/\D/g, '');
 
     this.http.post<any>(`${this.API_URL}/login`, {
-      identificador: identificadorLimpo, // Envia apenas os números!
+      identificador: identificadorLimpo,
       senha: this.senha
     }).subscribe({
       next: async (res) => {
+
+        console.log('Dados recebidos no login:', res);
+
         // Salva o Token normal
         localStorage.setItem('token', res.token);
 
-        // 🟢 ALTERAÇÃO AQUI: Salva o tipo de usuário vindo do backend ('admin' ou 'comum')
-        localStorage.setItem('tipo_usuario', res.tipo_usuario);
+        // 🟢 ALTERAÇÃO FEITA AQUI: Salva o nível do usuário
+        localStorage.setItem('admin', res.admin);
 
         await this.mostrarToast('Login realizado com sucesso!');
         this.navCtrl.navigateRoot('/tabs');

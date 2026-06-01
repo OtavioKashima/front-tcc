@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http'; // 🟢 IMPORTANTE ADICIONAR
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-perfil-publico',
@@ -11,25 +11,26 @@ import { HttpClient } from '@angular/common/http'; // 🟢 IMPORTANTE ADICIONAR
 })
 export class PerfilPublicoPage implements OnInit {
   abaAtiva: string = 'postagens';
-  usuarioId!: number; // Vai guardar o ID que veio da tela anterior
+  usuarioId!: number;
 
-  postagensUsuario: any[] = []; // Vai guardar as postagens dessa pessoa
+  postagens: any[] = []; 
 
-  perfil: any = {
+  usuario: any = {
     nome: 'Carregando...',
-    tipo: 'usuario',
-    fotoPerfil: 'assets/avatar-default.png',
-    fotoCapa: 'assets/cover-default.jpg',
+    admin: 0, // 🟢 Agora esperamos receber o nível de acesso
+    tipoDisplay: '', // 🟢 Variável que vai guardar o texto final (ONG, Admin, Usuário)
+    foto_perfil: null,
     bio: '',
     cidade: '',
-    estado: ''
+    estado: '',
+    telefone: ''
   };
 
   constructor(
     private router: Router,
     private navCtrl: NavController,
     private toastCtrl: ToastController,
-    private http: HttpClient // 🟢 INJETAR O HTTP
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -37,7 +38,6 @@ export class PerfilPublicoPage implements OnInit {
     if (nav?.extras?.state?.['usuario_id']) {
       this.usuarioId = nav.extras.state['usuario_id'];
       
-      // Dispara o carregamento dos dados reais do banco
       this.carregarDadosDoPerfil();
       this.carregarPostagensDoUsuario();
     }
@@ -46,22 +46,20 @@ export class PerfilPublicoPage implements OnInit {
   carregarDadosDoPerfil() {
     this.http.get(`http://localhost:3000/api/usuarios/${this.usuarioId}`).subscribe({
       next: (res: any) => {
-        this.perfil = res;
+        this.usuario = res;
         
-        // Formata as fotos com o caminho do seu servidor local
-        if (this.perfil.foto_perfil) {
-          this.perfil.fotoPerfil = `http://localhost:3000/uploads/${this.perfil.foto_perfil}`;
+        // 🟢 LÓGICA DE TRADUÇÃO DO TIPO DE USUÁRIO
+        if (this.usuario.admin === 1) {
+          this.usuario.tipoDisplay = 'Administrador';
+        } else if (this.usuario.admin === 2) {
+          this.usuario.tipoDisplay = 'ONG';
         } else {
-          this.perfil.fotoPerfil = 'assets/avatar-default.png';
+          this.usuario.tipoDisplay = 'Usuário Comum';
         }
-
-        // Se você tiver uma coluna de foto_capa, descomente abaixo:
-        // this.perfil.fotoCapa = this.perfil.foto_capa ? `http://localhost:3000/uploads/${this.perfil.foto_capa}` : 'assets/cover-default.jpg';
-        this.perfil.fotoCapa = 'assets/cover-default.jpg'; 
-
-        // Adapta as variáveis locais para o que o HTML espera
-        this.perfil.tipo = this.perfil.tipo_usuario || 'usuario'; 
-        this.perfil.chavePix = this.perfil.chave_pix;
+        
+        if (this.usuario.foto_perfil && !this.usuario.foto_perfil.startsWith('http')) {
+          this.usuario.foto_perfil = `http://localhost:3000/uploads/${this.usuario.foto_perfil}`;
+        }
       },
       error: (err) => console.error('Erro ao carregar dados do perfil público', err)
     });
@@ -72,12 +70,18 @@ export class PerfilPublicoPage implements OnInit {
       next: (res: any) => {
         const dadosReais = Array.isArray(res) ? res : [];
 
-        // Converte o campo 'foto' de string JSON para Array (exatamente como você faz no feed)
-        this.postagensUsuario = dadosReais.map((post: any) => {
+        this.postagens = dadosReais.map((post: any) => {
           if (post.foto) {
-            try { post.fotosArray = JSON.parse(post.foto); }
-            catch (e) { post.fotosArray = [post.foto]; }
-          } else { post.fotosArray = []; }
+            try { 
+              let fotosArray = JSON.parse(post.foto); 
+              post.foto = fotosArray[0]; 
+            }
+            catch (e) {}
+
+            if (post.foto && !post.foto.startsWith('http')) {
+              post.foto = `http://localhost:3000/uploads/${post.foto}`;
+            }
+          }
           return post;
         });
       },
