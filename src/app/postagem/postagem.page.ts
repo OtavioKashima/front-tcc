@@ -82,7 +82,7 @@ export class PostagemPage implements OnInit {
   }
 
   goBack(): void {
-    this.navCtrl.navigateBack('/tabs/doacoes');
+    this.navCtrl.navigateBack('/tabs');
   }
 
   enviarPostagem() {

@@ -14,8 +14,8 @@ const routes: Routes = [
         loadChildren: () => import('../adocoes/adocoes.module').then(m => m.AdocoesPageModule)
       },
       {
-        path: 'doacoes', // Rota completa: /tabs/doacoes
-        loadChildren: () => import('../doacoes/doacoes.module').then(m => m.DoacoesPageModule)
+        path: 'inicio', 
+        loadChildren: () => import('../inicio/inicio.module').then(m => m.InicioPageModule)
       },
       {
         path: 'denuncias', // Rota completa: /tabs/denuncias

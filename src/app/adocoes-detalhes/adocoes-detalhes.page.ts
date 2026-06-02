@@ -21,7 +21,7 @@ interface Pet {
   usuario_capa?: string;
   usuario_bio?: string;
   usuario_pix?: string;
-  tipo_usuario?: 'ong' | 'usuario';
+  tipo_usuario?: 'ong' | 'usuario' | 'admin';
   cidade?: string;
   estado?: string;
 }

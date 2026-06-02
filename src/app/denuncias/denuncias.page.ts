@@ -89,11 +89,11 @@ export class DenunciasPage implements OnInit {
     this.denunciasFiltradas = [...this.denuncias];
   }
 
-  abrirDetalhe(denuncia: Denuncia) {
-    this.navCtrl.navigateForward('/denuncias-detalhes', {
-      state: { pet: denuncia } // Passado como 'pet' para manter compatibilidade com sua tela de detalhes
-    });
-  }
+ irParaDetalhes(item: any) {
+  this.navCtrl.navigateForward('/denuncias-detalhes', {
+    state: { denuncia: item } // 🟢 O nome aqui TEM QUE SER 'denuncia'
+  });
+}
 
   goBack() {
     this.location.back();

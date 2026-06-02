@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs/feed"></ion-back-button>
+      <ion-back-button defaultHref="/tabs"></ion-back-button>
     </ion-buttons>
     <ion-title>{{ usuario?.nome }}</ion-title>
   </ion-toolbar>
@@ -12,7 +12,7 @@
 
   <div class="profile-header ion-padding ion-text-center">
     <div class="avatar-container">
-      <img [src]="usuario?.foto_perfil ? usuario.foto_perfil : 'assets/img/avatar-placeholder.png'" alt="Foto de Perfil">
+      <img [src]="usuario?.foto_perfil ? usuario.foto_perfil : 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="Foto de Perfil">
     </div>
     
     <h2 class="user-name">{{ usuario?.nome }}</h2>
@@ -49,7 +49,7 @@
     <ion-card *ngFor="let post of postagens" class="post-card">
       <ion-item lines="none" class="post-header">
         <ion-avatar slot="start">
-          <img [src]="usuario?.foto_perfil ? usuario.foto_perfil : 'assets/img/avatar-placeholder.png'">
+          <img [src]="usuario?.foto_perfil ? usuario.foto_perfil : 'https://ionicframework.com/docs/img/demos/avatar.svg'">
         </ion-avatar>
         <ion-label>
           <h3>{{ usuario?.nome }}</h3>

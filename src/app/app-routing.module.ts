@@ -79,6 +79,10 @@ const routes: Routes = [
   },  {
     path: 'perfil-publico',
     loadChildren: () => import('./perfil-publico/perfil-publico.module').then( m => m.PerfilPublicoPageModule)
+  },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
   }
 
 
