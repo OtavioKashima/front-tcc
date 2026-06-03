@@ -71,8 +71,16 @@ export class EditarPerfilPage implements OnInit {
     }
 
     const formData = new FormData();
-    formData.append('nome', this.usuario.nome);
-    formData.append('telefone', this.usuario.telefone);
+    formData.append('nome', this.usuario.nome || '');
+    formData.append('telefone', this.usuario.telefone || '');
+
+    // 🟢 Novos campos exclusivos da ONG adicionados ao FormData
+    if (this.usuario.admin == 2) {
+      formData.append('bio', this.usuario.bio || '');
+      formData.append('cidade', this.usuario.cidade || '');
+      formData.append('estado', this.usuario.estado || '');
+      formData.append('chave_pix', this.usuario.chave_pix || '');
+    }
 
     if (this.fotoSelecionada) {
       formData.append('foto', this.fotoSelecionada);

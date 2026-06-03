@@ -39,6 +39,39 @@
           maxlength="15">
       </div>
     </div>
+    <div *ngIf="usuario.admin == 2">
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <ion-icon name="information-circle-outline" class="input-icon"></ion-icon>
+          <input class="field-input" type="text" [(ngModel)]="usuario.bio"
+            placeholder="Biografia (Ex: Ajudando animais de rua)" maxlength="255">
+        </div>
+      </div>
+
+      <div class="input-group row-inputs">
+
+        <div class="input-wrapper input-cidade">
+          <ion-icon name="location-outline" class="input-icon"></ion-icon>
+          <input class="field-input" type="text" [(ngModel)]="usuario.cidade" placeholder="Cidade (Ex: Pompeia)"
+            maxlength="100">
+        </div>
+
+        <div class="input-wrapper input-uf">
+          <input class="field-input texto-uf" type="text" [(ngModel)]="usuario.estado" placeholder="UF" maxlength="2">
+        </div>
+
+      </div>
+
+      <div class="input-group">
+        <div class="input-wrapper">
+          <ion-icon name="cash-outline" class="input-icon"></ion-icon>
+          <input class="field-input" type="text" [(ngModel)]="usuario.chave_pix" placeholder="Chave PIX (Para doações)"
+            maxlength="255">
+        </div>
+      </div>
+
+    </div>
 
     <button class="salvar-btn" (click)="salvarPerfil()">
       <ion-icon name="checkmark-circle-outline"></ion-icon>

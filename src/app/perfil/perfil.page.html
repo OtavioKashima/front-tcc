@@ -43,6 +43,42 @@
       <ion-icon name="call-outline"></ion-icon> {{ usuario?.telefone }}
     </p>
   </div>
+  <div class="ong-info-container" *ngIf="usuario?.admin == 2">
+
+    <div class="ong-card" *ngIf="usuario.bio">
+      <div class="info-header">
+        <ion-icon name="book-outline"></ion-icon>
+        <h3>Sobre a ONG</h3>
+      </div>
+      <p class="ong-text">{{ usuario.bio }}</p>
+    </div>
+
+    <div class="ong-card" *ngIf="usuario.cidade || usuario.estado">
+      <div class="info-header">
+        <ion-icon name="location-outline"></ion-icon>
+        <h3>Localização</h3>
+      </div>
+      <p class="ong-text">
+        {{ usuario.cidade || 'Cidade não informada' }}
+        <span *ngIf="usuario.estado">- {{ usuario.estado | uppercase }}</span>
+      </p>
+    </div>
+
+    <div class="ong-card pix-card" *ngIf="usuario.chave_pix">
+      <div class="info-header">
+        <ion-icon name="heart-circle-outline" class="coracao-icone"></ion-icon>
+        <h3>Apoie nossa causa</h3>
+      </div>
+      <p class="pix-label">Chave PIX para doações:</p>
+
+      <div class="pix-box" (click)="copiarPix(usuario.chave_pix)">
+        <span class="pix-chave">{{ usuario.chave_pix }}</span>
+        <ion-icon name="copy-outline"></ion-icon>
+      </div>
+      <small class="pix-dica">Clique para copiar</small>
+    </div>
+
+  </div>
 
   <div class="filtros-container">
     <ion-searchbar placeholder="Buscar postagem..." (ionInput)="pesquisarPost($event)" animated="true"></ion-searchbar>

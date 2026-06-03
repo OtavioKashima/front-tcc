@@ -27,7 +27,6 @@
         <ion-card class="pet-card" (click)="irParaDetalhes(denuncia)">
 
           <div class="image-container">
-            <div class="category-badge">Denúncia</div>
 
             <div *ngIf="denuncia.fotosArray && denuncia.fotosArray.length > 0"
               [class]="'grid-fotos qtd-' + (denuncia.fotosArray.length > 4 ? 'mais' : denuncia.fotosArray.length)">
@@ -47,6 +46,10 @@
           </div>
 
           <ion-card-header>
+            <ion-card-subtitle class="pet-subtitle" style="display: flex; align-items: center; gap: 4px;">
+              <ion-icon name="location-outline"></ion-icon>
+              {{ denuncia.localizacao || denuncia.local || 'Localização não informada' }}
+            </ion-card-subtitle>
             <ion-card-title class="pet-title">{{ denuncia.titulo }}</ion-card-title>
           </ion-card-header>
 

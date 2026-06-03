@@ -250,4 +250,22 @@ export class PerfilPage implements OnInit {
 
     await alert.present();
   }
+  async copiarPix(chave: string) {
+    if (!chave) return;
+  
+    // Copia para a área de transferência do celular/PC
+    navigator.clipboard.writeText(chave).then(async () => {
+      // Exibe um toast de sucesso (certifique-se de ter o ToastController importado no construtor)
+      const toast = await this.toastController.create({
+        message: 'Chave PIX copiada com sucesso!',
+        duration: 2000,
+        color: 'success',
+        position: 'top',
+        icon: 'checkmark-circle'
+      });
+      toast.present();
+    }).catch(err => {
+      console.error('Erro ao copiar', err);
+    });
+  }
 }

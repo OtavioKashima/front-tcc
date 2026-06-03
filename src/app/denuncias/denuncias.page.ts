@@ -8,8 +8,10 @@ interface Denuncia {
   titulo: string;
   descricao: string;
   descricaoCompleta?: string;
-  foto?: string; // Vem como string do banco
-  fotosArray?: string[]; // Array que nós criamos para o frontend
+  foto?: string;
+  fotosArray?: string[];
+  localizacao?: string; // 📍 1. Adicionamos a localização aqui na Interface
+  local?: string; // (Opcional) Caso o banco retorne como 'local'
 }
 
 @Component({
@@ -23,7 +25,6 @@ export class DenunciasPage implements OnInit {
   showSearch = false;
   termoBusca = '';
 
-  // Nomes corrigidos para corresponder à lógica
   denuncias: Denuncia[] = [];
   denunciasFiltradas: Denuncia[] = [];
 
@@ -53,9 +54,16 @@ export class DenunciasPage implements OnInit {
           } else {
             denuncia.fotosArray = [];
           }
+
           if (!denuncia.descricaoCompleta) {
             denuncia.descricaoCompleta = denuncia.descricao || '';
           }
+
+          // 📍 2. Garantia extra: padroniza a variável de localização
+          if (!denuncia.localizacao && denuncia.local) {
+            denuncia.localizacao = denuncia.local;
+          }
+
           return denuncia;
         });
 
@@ -78,9 +86,12 @@ export class DenunciasPage implements OnInit {
       this.denunciasFiltradas = [...this.denuncias];
       return;
     }
+
+    // 📍 3. Agora a barra de pesquisa também encontra denúncias pelo local!
     this.denunciasFiltradas = this.denuncias.filter(d =>
       (d.titulo && d.titulo.toLowerCase().includes(termo)) ||
-      (d.descricaoCompleta && d.descricaoCompleta.toLowerCase().includes(termo))
+      (d.descricaoCompleta && d.descricaoCompleta.toLowerCase().includes(termo)) ||
+      (d.localizacao && d.localizacao.toLowerCase().includes(termo))
     );
   }
 
@@ -89,11 +100,11 @@ export class DenunciasPage implements OnInit {
     this.denunciasFiltradas = [...this.denuncias];
   }
 
- irParaDetalhes(item: any) {
-  this.navCtrl.navigateForward('/denuncias-detalhes', {
-    state: { denuncia: item } // 🟢 O nome aqui TEM QUE SER 'denuncia'
-  });
-}
+  irParaDetalhes(item: any) {
+    this.navCtrl.navigateForward('/denuncias-detalhes', {
+      state: { denuncia: item }
+    });
+  }
 
   goBack() {
     this.location.back();

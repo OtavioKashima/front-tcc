@@ -219,3 +219,39 @@
     box-shadow: 0 2px 8px rgba(62, 207, 142, 0.3);
   }
 }
+
+// ==========================================
+// GRUPO DE INPUTS LADO A LADO (CIDADE / UF)
+// ==========================================
+.row-inputs {
+  display: flex;
+  gap: 10px;
+}
+
+.input-cidade {
+  flex: 1; // Ocupa todo o espaço restante
+}
+
+.input-uf {
+  width: 70px; // 🟢 REDUZIDO: Largura bem pequena, ideal para 2 letras e Placeholder 'UF'
+  flex: none; // Impede que ele estique
+  
+  // 🟢 CORREÇÃO: Removemos o padding interno padrão (0 16px) do wrapper 
+  // que estava empurrando o texto para fora em larguras pequenas.
+  padding: 0; 
+  
+  // 🟢 CORREÇÃO: Garante o alinhamento flexível horizontal (caso necessário)
+  justify-content: center; 
+}
+
+.texto-uf {
+  // Mantém os estilos do .field-input base (herdado se houver classe, senão, copiar os estilos aqui)
+  // Como não alteramos o HTML, assumo que você manteve 'field-input' lá.
+  // Vou reforçar as regras necessárias para o alinhamento central aqui:
+  
+  width: 100%; // Garante que o input preencha a div pequena
+  text-align: center; // 🟢 Centraliza o Placeholder e o Texto digitado
+  text-transform: uppercase; // Força maiúsculo
+  padding: 0; // Remove espaçamentos internos do próprio input
+  margin: 0;
+}

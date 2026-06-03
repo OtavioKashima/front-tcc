@@ -1,100 +1,77 @@
-import { Component, OnInit } from '@angular/core'; // 👈 Importamos o OnInit
-import { Location } from '@angular/common';
-import { NavController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http'; // 👈 Importamos o HttpClient
-
-interface Pet {
-  titulo: string;
-  idade: string;
-  imagem: string;
-  descricao: string;
-  descricaoCompleta: string;
-}
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-doacoes',
   templateUrl: './doacoes.page.html',
   styleUrls: ['./doacoes.page.scss'],
-  standalone: false,
+  standalone: false
 })
 export class DoacoesPage implements OnInit {
+  ong: any = null;
+  valoresRapidos: number[] = [10, 20, 50, 100];
+  valorSelecionado: number | null = null;
+  valorDoacao: number | null = null;
+  processando: boolean = false;
 
-  showSearch = false;
-  termoBusca = '';
+  // Exemplos simulados para preencher a sua lista de cardsFiltrados no final da tela
+  cardsFiltrados = [
+    { titulo: 'Ração e Suplementos', descricao: 'Alimentação de qualidade para a recuperação.', imagem: 'assets/racao.jpg' },
+    { titulo: 'Medicamentos', descricao: 'Vacinas, vermífugos e tratamentos.', imagem: 'assets/vacina.jpg' }
+  ];
 
-  // 1. As listas começam vazias agora, aguardando o banco de dados
-  pets: Pet[] = [];
-  petsFiltrados: Pet[] = [];
+  constructor(private router: Router, private toastCtrl: ToastController) {
+    // 🟢 Recupera os dados da ONG passados pela tela Início
+    const navigation = this.router.getCurrentNavigation();
+    if (navigation?.extras?.state) {
+      this.ong = navigation.extras.state['ongSelecionada'];
+    }
+  }
 
-  constructor(
-    private location: Location,
-    private navCtrl: NavController,
-    private http: HttpClient // 👈 Injetamos o HttpClient no construtor
-  ) { }
-
-  // 2. Dispara a busca na API assim que a tela abre
   ngOnInit() {
-    this.carregarAdocoes();
+    if (!this.ong) {
+      // Se acessar direto sem clicar na ONG, volta pro inicio
+      this.router.navigate(['/tabs/inicio']);
+    }
   }
 
-  // 3. Função que busca os dados reais e converte para o formato da interface Pet
-  carregarAdocoes() {
-    this.http.get('http://localhost:3000/api/postagens/tipo/doacao')
-      .subscribe({
-        next: (res: any) => {
-          // Pega a resposta do banco e "molda" para encaixar no seu HTML
-          // No seu adocoes.page.ts, dentro do map:
-          this.pets = res.map((item: any) => ({
-            titulo: item.titulo,
-            idade: item.idade ? item.idade + ' ano(s)' : 'Idade não informada',
-            // Monta a URL para o seu servidor local
-            imagem: item.foto ? `http://localhost:3000/uploads/${item.foto}` : 'https://via.placeholder.com/300x300/e0e0e0/808080?text=Sem+Foto',
-            descricao: item.descricao.length > 60 ? item.descricao.substring(0, 60) + '...' : item.descricao,
-            descricaoCompleta: item.descricao
-          }));
-
-    // Alimenta a lista que vai para a tela
-    this.petsFiltrados = [...this.pets];
-  },
-  error: (err: any) => {
-          console.error('Erro ao buscar adoções da API', err);
-}
-      });
+  setValor(v: number) {
+    this.valorSelecionado = v;
+    this.valorDoacao = v;
   }
 
-// 👇 As funções dos botões continuam iguais!
+  async copiarPix() {
+    if (!this.ong?.chave_pix) {
+      this.mostrarToast('Esta ONG não cadastrou uma chave PIX.', 'warning');
+      return;
+    }
 
-toggleSearch() {
-  this.showSearch = !this.showSearch;
-  if (!this.showSearch) {
-    this.limparBusca();
+    navigator.clipboard.writeText(this.ong.chave_pix).then(() => {
+      this.mostrarToast('Chave PIX copiada! Abra o app do seu banco.', 'success');
+    }).catch(err => console.error('Erro', err));
   }
-}
 
-filtrar() {
-  const termo = this.termoBusca.toLowerCase().trim();
-  if (!termo) {
-    this.petsFiltrados = [...this.pets];
-    return;
+  processarDoacao() {
+    if (!this.valorDoacao) {
+      this.mostrarToast('Por favor, informe um valor.', 'warning');
+      return;
+    }
+
+    this.processando = true;
+
+    // Simula um processamento (aqui você poderia registrar no banco de dados)
+    setTimeout(() => {
+      this.processando = false;
+      this.mostrarToast('Tudo pronto! Copie a chave e faça a transferência.', 'success');
+      this.copiarPix();
+    }, 1000);
   }
-  this.petsFiltrados = this.pets.filter(pet =>
-    pet.titulo.toLowerCase().includes(termo) ||
-    pet.descricaoCompleta.toLowerCase().includes(termo) // Alterei para buscar na descrição completa para resultados melhores
-  );
-}
 
-limparBusca() {
-  this.termoBusca = '';
-  this.petsFiltrados = [...this.pets];
-}
-
-abrirDetalhe(pet: Pet) {
-  this.navCtrl.navigateForward('/doacoes-detalhes', {
-    state: { pet }
-  });
-}
-
-goBack() {
-  this.location.back();
-}
+  async mostrarToast(mensagem: string, cor: string) {
+    const toast = await this.toastCtrl.create({
+      message: mensagem, duration: 2500, color: cor, position: 'top'
+    });
+    toast.present();
+  }
 }

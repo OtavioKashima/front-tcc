@@ -481,3 +481,96 @@ ion-fab-button {
     // Transforma em um quadrado perfeito 2x2
   }
 }
+
+.ong-info-container {
+  padding: 10px 20px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ong-card {
+  background: #f8f9fa;
+  border-radius: 16px;
+  padding: 16px;
+  border: 1px solid #edf0f2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+
+  .info-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+
+    ion-icon {
+      font-size: 1.2rem;
+      color: var(--ion-color-primary, #3ecf8e);
+    }
+
+    .coracao-icone {
+      color: #ff4961; // Um vermelho/rosa para chamar atenção pra doação
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #333;
+    }
+  }
+
+  .ong-text {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+  }
+}
+
+// Estilos específicos para o bloco do PIX
+.pix-card {
+  background: rgba(62, 207, 142, 0.05);
+  border-color: rgba(62, 207, 142, 0.2);
+
+  .pix-label {
+    margin: 10px 0 6px;
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .pix-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px dashed #3ecf8e;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:active {
+      background: #f0fdf6;
+    }
+
+    .pix-chave {
+      font-weight: 600;
+      color: #2db376;
+      word-break: break-all;
+      margin-right: 10px;
+    }
+
+    ion-icon {
+      font-size: 1.4rem;
+      color: #3ecf8e;
+    }
+  }
+
+  .pix-dica {
+    display: block;
+    text-align: center;
+    margin-top: 8px;
+    color: #888;
+    font-size: 0.8rem;
+  }
+}

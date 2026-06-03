@@ -76,15 +76,24 @@ const routes: Routes = [
   {
     path: 'editar-postagem/:id', 
     loadChildren: () => import('./editar-postagem/editar-postagem.module').then(m => m.EditarPostagemPageModule)
-  },  {
+  },
+  {
     path: 'perfil-publico',
     loadChildren: () => import('./perfil-publico/perfil-publico.module').then( m => m.PerfilPublicoPageModule)
   },
   {
     path: 'inicio',
     loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
+  },
+  {
+    path: 'doacoes',
+    loadChildren: () => import('./doacoes/doacoes.module').then( m => m.DoacoesPageModule)
+  },  {
+    path: 'comunicado',
+    loadChildren: () => import('./comunicado/comunicado.module').then( m => m.ComunicadoPageModule)
   }
 
+  
 
 
 
