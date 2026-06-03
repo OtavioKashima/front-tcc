@@ -3,21 +3,23 @@ import { Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
 
-// Interface ajustada para refletir os dados de uma denúncia
 interface Denuncia {
   titulo: string;
-  imagem: string;
-  imagens?: string[];
-  fotos?: string[];
   descricao: string;
-  descricaoCompleta: string;
-  localizacao?: string; // 📍 Novo campo exclusivo para denúncias
+  descricaoCompleta?: string;
+  localizacao?: string;
+  local?: string;
+  fotosArray?: string[];
+  dataFormatada?: string;
+  created_at?: string;
+  data_criacao?: string;
 
-  // Dados do usuário que fez a denúncia
-  usuarios_id?: number;
-  usuario_nome?: string;
-  usuario_foto?: string;
-  tipo_usuario?: 'ong' | 'usuario' | 'admin';
+  usuario?: {
+    id?: number;
+    nome: string;
+    avatar: string;
+    localizacao?: string;
+  };
 }
 
 @Component({
@@ -28,16 +30,14 @@ interface Denuncia {
 })
 export class DenunciasDetalhesPage implements OnInit {
 
-  imagemAtiva: number = 0;
-  postagem: any;
-
   denuncia: Denuncia = {
     titulo: 'Carregando...',
-    imagem: '',
-    imagens: [],
     descricao: '',
-    descricaoCompleta: '',
-    localizacao: 'Não informada'
+    fotosArray: [],
+    usuario: {
+      nome: 'Carregando...',
+      avatar: 'assets/images/default-avatar.png'
+    }
   };
 
   constructor(
@@ -48,79 +48,93 @@ export class DenunciasDetalhesPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    // 🔴 CORREÇÃO AQUI: Mudamos de router.getCurrentNavigation() para history.state
     const state = history.state;
-
-    // Captura os dados caso venham como 'postagemSelecionada' ou como 'denuncia'
     const dadosDenuncia = state?.['postagemSelecionada'] || state?.['denuncia'];
 
     if (dadosDenuncia) {
       this.denuncia = { ...dadosDenuncia };
 
-      // 🟢 GARANTIA: Se o banco não tiver 'descricaoCompleta', usa a 'descricao' normal
+      // 1. Ajuste da Descrição
       if (!this.denuncia.descricaoCompleta && this.denuncia.descricao) {
         this.denuncia.descricaoCompleta = this.denuncia.descricao;
       }
 
-      const urlDoServidor = 'http://localhost:3000/uploads/';
-      let listaDeFotos: string[] = [];
+      // 2. Ajuste da Data
+      if (dadosDenuncia.data_criacao && !this.denuncia.created_at) {
+        this.denuncia.created_at = dadosDenuncia.data_criacao;
+      }
 
-      // Verifica se as fotos vieram como Array ou String JSON
-      if ((this.denuncia as any).fotosArray && (this.denuncia as any).fotosArray.length > 0) {
-        listaDeFotos = (this.denuncia as any).fotosArray;
-      } else if ((this.denuncia as any).foto) {
-        try {
-          listaDeFotos = JSON.parse((this.denuncia as any).foto);
-        } catch (e) {
-          listaDeFotos = [(this.denuncia as any).foto];
+      // 3. Ajuste de Fotos
+      if (!this.denuncia.fotosArray) {
+        if (dadosDenuncia.foto) {
+          try {
+            this.denuncia.fotosArray = JSON.parse(dadosDenuncia.foto);
+          } catch (e) {
+            this.denuncia.fotosArray = [dadosDenuncia.foto];
+          }
+        } else if (dadosDenuncia.imagem) {
+          this.denuncia.fotosArray = [dadosDenuncia.imagem];
+        } else {
+          this.denuncia.fotosArray = [];
         }
       }
 
-      if (listaDeFotos && listaDeFotos.length > 0) {
-        this.denuncia.imagens = listaDeFotos.map(nomeDaImagem => {
-          if (nomeDaImagem.startsWith('http')) return nomeDaImagem;
-          return `${urlDoServidor}${nomeDaImagem}`;
-        });
-      } else if (this.denuncia.imagem) {
-        const imagemCapa = this.denuncia.imagem.startsWith('http')
-          ? this.denuncia.imagem
-          : `${urlDoServidor}${this.denuncia.imagem}`;
-        this.denuncia.imagens = [imagemCapa];
-      } else {
-        this.denuncia.imagens = [];
+      // 4. Ajuste do Usuário
+      if (!this.denuncia.usuario) {
+        this.denuncia.usuario = {
+          id: dadosDenuncia.usuarios_id || dadosDenuncia.usuario_id,
+          nome: dadosDenuncia.usuario_nome || dadosDenuncia.nome_usuario || dadosDenuncia.nome_ong || 'Usuário Desconhecido',
+          avatar: dadosDenuncia.usuario_foto || dadosDenuncia.foto_usuario || dadosDenuncia.avatar_ong || dadosDenuncia.avatar || '',
+          localizacao: dadosDenuncia.localizacao_usuario || dadosDenuncia.localizacao || ''
+        };
       }
     }
 
-    // Injeta as propriedades de segurança da ONG
+    // 🟢 Aplica os dados do seu perfil logado APENAS se a denúncia for sua
     this.aplicarCriadorSeguranca();
+
+    // 🟢 Validação e formatação final do Avatar do Usuário
+    this.tratarAvatarUsuario();
   }
 
   aplicarCriadorSeguranca() {
     const ongSalva = localStorage.getItem('ong_perfil_atual');
 
-    if (ongSalva && this.denuncia) {
+    if (ongSalva && this.denuncia.usuario) {
       const ongData = JSON.parse(ongSalva);
-      let temp: any = this.denuncia;
 
-      temp.usuario_nome = temp.usuario_nome || temp.nome_usuario || temp.autor || ongData.nome;
-      temp.usuario_foto = temp.usuario_foto || temp.foto_usuario || ongData.avatar;
-      temp.tipo_usuario = 'ong';
-      temp.usuarios_id = temp.usuarios_id || ongData.id;
+      // 🚨 ERRO CORRIGIDO: Verifica se o ID de quem postou é IGUAL ao seu ID!
+      // Antes, ele injetava sua foto na postagem dos outros se eles não tivessem foto.
+      if (this.denuncia.usuario.id && ongData.id && this.denuncia.usuario.id === ongData.id) {
+        this.denuncia.usuario.nome = ongData.nome;
+        this.denuncia.usuario.avatar = ongData.avatar;
+      }
     }
   }
 
-  onScroll(event: any) {
-    const scrollLeft = event.target.scrollLeft;
-    const width = event.target.clientWidth;
-    this.imagemAtiva = Math.round(scrollLeft / width);
+  tratarAvatarUsuario() {
+    if (this.denuncia.usuario) {
+      // Força a variável a virar string para não quebrar em nulls puros e tira espaços
+      let avatar = String(this.denuncia.usuario.avatar).trim();
+
+      // Bloqueia qualquer variação de vazio ou erro do banco
+      if (!avatar || avatar === 'null' || avatar === 'undefined' || avatar === '[object Object]' || avatar === '') {
+        this.denuncia.usuario.avatar = 'assets/images/default-avatar.png';
+      }
+      // Se for uma foto real, mas sem o caminho do servidor, nós adicionamos
+      else if (!avatar.startsWith('http') && !avatar.startsWith('assets')) {
+        this.denuncia.usuario.avatar = 'http://localhost:3000/uploads/' + avatar;
+      }
+    }
   }
 
   async compartilhar() {
     if (navigator.share) {
       try {
+        const localShare = this.denuncia.localizacao || this.denuncia.local || 'Local não informado';
         await navigator.share({
           title: `Denúncia: ${this.denuncia.titulo}`,
-          text: `Ajude neste caso: ${this.denuncia.titulo}. Local: ${this.denuncia.localizacao}`
+          text: `Ajude neste caso: ${this.denuncia.titulo}. Local: ${localShare}`
         });
       } catch (err) {
         console.error('Erro ao compartilhar', err);
@@ -132,26 +146,16 @@ export class DenunciasDetalhesPage implements OnInit {
     this.location.back();
   }
 
-  irParaPerfilOng() {
-    const criadorId = (this.denuncia as any).usuarios_id;
+  verPerfilUsuario() {
+    const criadorId = this.denuncia.usuario?.id;
 
     if (!criadorId) {
-      console.error('ID do denunciante não encontrado.');
+      console.error('ID do usuário não encontrado.');
       return;
     }
 
     this.navCtrl.navigateForward('/perfil-publico', {
       state: { usuario_id: criadorId }
     });
-  }
-
-  async oferecerAjuda() {
-    const toast = await this.toastCtrl.create({
-      message: 'Redirecionando para contato com o denunciante...',
-      duration: 2000,
-      color: 'warning',
-      icon: 'alert-circle'
-    });
-    toast.present();
   }
 }

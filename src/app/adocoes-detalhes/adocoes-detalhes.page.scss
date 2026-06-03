@@ -55,7 +55,6 @@ ion-content {
   height: 360px;
   /* Altura fixa do carrossel */
   overflow: hidden;
-  /* 🟢 FIX: Fundo escuro para preencher os espaços vazios de fotos com proporções diferentes */
   background-color: #f5f7f6;
 }
 
@@ -63,9 +62,8 @@ ion-content {
 .hero-image {
   width: 100%;
   height: 100%;
-  /* 🔴 ANTES: object-fit: cover; (Preenchia tudo e cortava) */
-  /* 🟢 AGORA: object-fit: contain; (Mostra a foto INTEIRA, ajustando ao tamanho sem deformar) */
-  object-fit: contain;
+  /* 🟢 ALTERADO: 'cover' faz a imagem preencher todo o espaço do carrossel sem distorcer, cortando as sobras */
+  object-fit: cover;
   display: block;
 }
 
@@ -139,15 +137,18 @@ ion-content {
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #4eca88;
+  /* 🟢 ALTERADO: Removida a borda verde para preencher tudo */
+  border: none;
   flex-shrink: 0;
 }
 
 .owner-avatar--ong {
   border-radius: 10px;
-  object-fit: contain;
-  background: white;
-  padding: 2px;
+  /* 🟢 ALTERADO: 'cover' faz a imagem preencher 100% do espaço */
+  object-fit: cover;
+  /* 🟢 ALTERADO: Fundo transparente e padding zero para remover a "moldura" branca */
+  background: transparent;
+  padding: 0;
 }
 
 .owner-info {

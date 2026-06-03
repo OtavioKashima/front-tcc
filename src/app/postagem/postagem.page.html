@@ -28,12 +28,13 @@
           <ion-icon [name]="isAdmin ? 'shield-checkmark-outline' : 'paw-outline'"></ion-icon>
         </div>
 
-        <ion-select placeholder="Selecione o tipo de postagem" interface="popover" [value]="tipoSelecionado"
-          [disabled]="!isAdminOuOng" (ionChange)="mudarTipo($event)">
+        <ion-select placeholder="Selecione o tipo de postagem" interface="popover"
+          [interfaceOptions]="{ cssClass: 'meu-popover-verde' }" [value]="tipoSelecionado" [disabled]="!isAdminOuOng"
+          (ionChange)="mudarTipo($event)">
 
-          <ion-select-option value="denuncia">🚨 Denúncia</ion-select-option>
-          <ion-select-option value="adocao" *ngIf="isAdminOuOng">🏠 Adoção</ion-select-option>
-          <ion-select-option value="comunicado" *ngIf="isAdminOuOng">📢 Comunicado Oficial</ion-select-option>
+          <ion-select-option value="denuncia">Denúncia</ion-select-option>
+          <ion-select-option value="adocao" *ngIf="isAdminOuOng">Adoção</ion-select-option>
+          <ion-select-option value="comunicado" *ngIf="isAdminOuOng">Comunicado Oficial</ion-select-option>
 
         </ion-select>
       </div>
@@ -41,8 +42,8 @@
 
     <div *ngIf="tipoSelecionado === 'adocao'" class="campos-dinamicos">
 
-      <div class="admin-badge-box" *ngIf="isAdmin">
-        <label class="admin-label"><ion-icon name="options-outline"></ion-icon> Destaque da Postagem (Admin)</label>
+      <div class="admin-badge-box" *ngIf="isAdminOuOng">
+        <label class="admin-label"><ion-icon name="options-outline"></ion-icon> Destaque da Postagem</label>
         <div class="campo-select admin-select">
           <ion-select [(ngModel)]="sub_tipo">
             <ion-select-option value="normal">Postagem Normal</ion-select-option>

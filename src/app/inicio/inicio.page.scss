@@ -107,11 +107,14 @@ ion-title {
     min-width: 270px;
     max-width: 270px;
     /* Garante que todos tenham a mesma largura */
-    background: #fffcf4;
+    background: #f0fdf6;
+    /* Substituído pelo verde bem claro do app */
     border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 4px 14px rgba(255, 152, 0, 0.12);
-    border-left: 5px solid #ff9800;
+    box-shadow: 0 4px 14px rgba(62, 207, 142, 0.1);
+    /* Sombra suave em tom verde */
+    border-left: 5px solid #3ecf8e;
+    /* Borda lateral com o verde principal */
     cursor: pointer;
     scroll-snap-align: center;
     transition: transform 0.2s ease;
@@ -123,13 +126,15 @@ ion-title {
     .comunicado-header {
         display: flex;
         justify-content: space-between;
-        color: #ba8b61;
+        color: #54a792;
+        /* Texto superior em verde musgo suave */
         font-size: 0.8rem;
         margin-bottom: 10px;
         font-weight: 800;
 
         ion-icon {
-            color: #ff9800;
+            color: #3ecf8e;
+            /* Ícone do megafone em verde */
             font-size: 1.3rem;
         }
     }
@@ -138,13 +143,15 @@ ion-title {
         margin: 0 0 6px;
         font-size: 1.05rem;
         font-weight: 800;
-        color: #d84315;
+        color: #2bb877;
+        /* Título em verde médio em destaque */
     }
 
     p {
         margin: 0;
         font-size: 0.85rem;
-        color: #5d4037;
+        color: #55665e;
+        /* Descrição em cinza-esverdeado escuro legível */
         line-height: 1.5;
     }
 }

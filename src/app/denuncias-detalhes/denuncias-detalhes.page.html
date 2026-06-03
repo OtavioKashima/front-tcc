@@ -10,70 +10,49 @@
   </div>
 
   <div class="hero-image-wrapper">
+    <img *ngIf="denuncia.fotosArray && denuncia.fotosArray.length > 0"
+      [src]="'http://localhost:3000/uploads/' + denuncia.fotosArray[0]" [alt]="denuncia.titulo" class="hero-image">
 
-    <div class="carousel-container" (scroll)="onScroll($event)">
-      <img *ngFor="let img of denuncia.imagens" [src]="img" [alt]="denuncia.titulo" class="hero-image carousel-slide">
+    <div *ngIf="!denuncia.fotosArray || denuncia.fotosArray.length === 0" class="sem-foto-hero">
+      <ion-icon name="camera-outline"></ion-icon>
     </div>
 
     <div class="hero-overlay">
+      <div class="hero-badge hero-badge--denuncia">Denúncia</div>
       <h1 class="hero-title">{{ denuncia.titulo }}</h1>
     </div>
-
-    <div class="carousel-dots" *ngIf="denuncia.imagens && denuncia.imagens.length > 1">
-      <div class="dot" *ngFor="let img of denuncia.imagens; let i = index" [class.active]="i === imagemAtiva">
-      </div>
-    </div>
-
   </div>
 
   <div class="content-body">
 
-    <div class="owner-card" (click)="irParaPerfilOng()">
-      <img
-        [src]="denuncia.usuario_foto ? ('http://localhost:3000/uploads/' + denuncia.usuario_foto) : 'https://ionicframework.com/docs/img/demos/avatar.svg'"
-        (error)="img.src='https://ionicframework.com/docs/img/demos/avatar.svg'" #img alt="Foto do Denunciante"
-        class="owner-avatar owner-avatar--ong">
+    <div class="owner-card" (click)="verPerfilUsuario()" *ngIf="denuncia.usuario as usuario">
+
+      <img [src]="usuario.avatar" onerror="this.src='https://ionicframework.com/docs/img/demos/avatar.svg'" [alt]="usuario.nome"
+        class="owner-avatar">
 
       <div class="owner-info">
-        <span class="owner-label">Denunciante</span>
-        <span class="owner-name">{{ denuncia.usuario_nome || 'Usuário Desconhecido' }}</span>
+        <span class="owner-label">Publicado por</span>
+        <span class="owner-name">{{ usuario.nome }}</span>
       </div>
-      <ion-icon name="chevron-forward-outline" class="ong-arrow"></ion-icon>
+      <ion-icon name="chevron-forward-outline" class="owner-arrow"></ion-icon>
     </div>
 
     <div class="section">
-      <h2 class="section-title">Sobre o caso</h2>
+      <h2 class="section-title">Descrição da Denúncia</h2>
       <p class="section-text">{{ denuncia.descricaoCompleta || denuncia.descricao }}</p>
-    </div>
 
-    <div class="chips-row">
-      <div class="chip chip-alert">
-        <ion-icon name="alert-circle-outline"></ion-icon>
-        Atenção Urgente
-      </div>
-      <div class="chip">
-        <ion-icon name="help-buoy-outline"></ion-icon>
-        Precisa de Resgate
-      </div>
-    </div>
-
-    <div class="animal-details" *ngIf="denuncia.localizacao">
-      <div class="detail-card location-card">
-        <span class="detail-label">Localização da Ocorrência</span>
-        <span class="detail-value">
+      <div class="local-row">
+        <div class="local-item" *ngIf="denuncia.dataFormatada || denuncia.created_at">
+          <ion-icon name="time-outline"></ion-icon>
+          <span>{{ denuncia.dataFormatada || (denuncia.created_at | date:'dd/MM/yyyy') }}</span>
+        </div>
+        <div class="local-item" *ngIf="denuncia.local || denuncia.localizacao">
           <ion-icon name="location-outline"></ion-icon>
-          {{ denuncia.localizacao }}
-        </span>
+          <span>{{ denuncia.local || denuncia.localizacao }}</span>
+        </div>
       </div>
     </div>
 
   </div>
 
 </ion-content>
-
-<div class="bottom-bar">
-  <button class="action-btn" (click)="oferecerAjuda()">
-    <ion-icon name="hand-right-outline"></ion-icon>
-    Oferecer Ajuda
-  </button>
-</div>

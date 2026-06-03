@@ -190,37 +190,55 @@ export class AdocoesDetalhesPage implements OnInit {
   }
 
   aplicarCriadorSeguranca() {
-    const ongSalva = localStorage.getItem('ong_perfil_atual');
+    // 1. Descobre o tipo real da postagem e o ID do criador
+    const tipoReal = this.pet?.tipo_usuario || (this.postagem as any)?.tipo_usuario;
+    const criadorId = this.pet?.usuario_id || (this.pet as any)?.usuarios_id;
 
+    // 2. Unifica os nomes de variáveis que podem vir do banco (evita que a foto venha vazia)
+    if (this.pet) {
+      this.pet.usuario_nome = this.pet.usuario_nome || (this.pet as any).nome_usuario || (this.pet as any).nome_ong || 'Usuário Desconhecido';
+      // Procura a foto em todas as variáveis possíveis que sua API pode estar retornando
+      this.pet.usuario_foto = this.pet.usuario_foto || (this.pet as any).foto_usuario || (this.pet as any).avatar_ong || (this.pet as any).avatar || '';
+      this.pet.tipo_usuario = tipoReal || 'usuario';
+    }
+
+    if (this.postagem) {
+      this.postagem.usuario_nome = this.postagem.usuario_nome || this.postagem.nome_usuario || this.postagem.nome_ong || 'Usuário Desconhecido';
+      this.postagem.usuario_foto = this.postagem.usuario_foto || this.postagem.foto_usuario || this.postagem.avatar_ong || this.postagem.avatar || '';
+      this.postagem.tipo_usuario = tipoReal || 'usuario';
+    }
+
+    // 3. SE FOR ADMIN: Força os dados de administrador visualmente e encerra
+    if (tipoReal === 'admin') {
+      if (this.pet) {
+        this.pet.usuario_nome = 'Administrador do Sistema';
+        this.pet.usuario_foto = ''; 
+      }
+      if (this.postagem) {
+        this.postagem.usuario_nome = 'Administrador do Sistema';
+        this.postagem.usuario_foto = '';
+      }
+      return; 
+    }
+
+    // 4. CHECAGEM DO LOCALSTORAGE CORRETA:
+    // Só usa a foto salva no celular SE a postagem REALMENTE pertencer à pessoa logada!
+    const ongSalva = localStorage.getItem('ong_perfil_atual');
     if (ongSalva) {
       const ongData = JSON.parse(ongSalva);
-
-      if (this.pet) {
-        let petTemp: any = this.pet;
-
-        if (!petTemp.usuario) petTemp.usuario = {};
-
-        // Força o preenchimento de todas as variações de propriedades usadas no app
-        petTemp.usuario_nome = petTemp.usuario_nome || petTemp.nome_usuario || ongData.nome;
-        petTemp.nome_usuario = petTemp.nome_usuario || ongData.nome;
-        petTemp.usuario.nome = petTemp.usuario.nome || ongData.nome;
-
-        petTemp.usuario_foto = petTemp.usuario_foto || petTemp.foto_usuario || ongData.avatar;
-        petTemp.foto_usuario = petTemp.foto_usuario || ongData.avatar;
-        petTemp.usuario.avatar = petTemp.usuario.avatar || ongData.avatar;
-
-        // Garante que o rótulo "ONG Responsável" seja ativado
-        petTemp.tipo_usuario = 'ong';
-      }
-
-      if (this.postagem) {
-        let postagemTemp: any = this.postagem;
-        if (!postagemTemp.usuario) postagemTemp.usuario = {};
-
-        postagemTemp.usuario_nome = postagemTemp.usuario_nome || postagemTemp.nome_usuario || ongData.nome;
-        postagemTemp.nome_usuario = postagemTemp.nome_usuario || ongData.nome;
-        postagemTemp.usuario_foto = postagemTemp.usuario_foto || postagemTemp.foto_usuario || ongData.avatar;
-        postagemTemp.tipo_usuario = 'ong';
+      
+      // Verifica se o ID de quem postou bate com o seu ID
+      if (criadorId && ongData.id && criadorId === ongData.id) {
+        if (this.pet) {
+          this.pet.usuario_nome = ongData.nome;
+          this.pet.usuario_foto = ongData.avatar;
+          this.pet.tipo_usuario = 'ong';
+        }
+        if (this.postagem) {
+          this.postagem.usuario_nome = ongData.nome;
+          this.postagem.usuario_foto = ongData.avatar;
+          this.postagem.tipo_usuario = 'ong';
+        }
       }
     }
   }

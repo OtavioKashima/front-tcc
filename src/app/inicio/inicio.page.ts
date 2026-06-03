@@ -36,8 +36,13 @@ export class InicioPage implements OnInit {
   carregarOngs() {
     this.http.get('http://localhost:3000/api/ongs').subscribe({
       next: (res: any) => {
-        this.ongs = res;
-        this.ongsFiltradas = [...this.ongs]; // 🟢 Inicializa a lista filtrada com todos os dados
+        // 🟢 Filtra o resultado para garantir que não existam ONGs com o mesmo ID
+        const ongsUnicas = res.filter((ong: any, index: number, self: any[]) =>
+          index === self.findIndex((o) => o.id === ong.id)
+        );
+
+        this.ongs = ongsUnicas;
+        this.ongsFiltradas = [...this.ongs];
       },
       error: (err) => console.error('Erro ao buscar ONGs', err)
     });

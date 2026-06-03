@@ -102,12 +102,12 @@ export class PostagemPage implements OnInit {
     formData.append('descricao', this.descricao);
 
     // 🛡️ Envia a classificação de destaque selecionada pelo administrador
-    if (this.isAdmin) {
+    if (this.isAdminOuOng) {
       // Se o usuário selecionou "fixado", envia '1' para o backend. Se não, envia '0'.
       const valorFixado = this.sub_tipo === 'fixado' ? '1' : '0';
       formData.append('fixado', valorFixado);
     } else {
-      // Se não for admin, garante que o banco receba 0 (não fixado)
+      // Se for usuário comum, garante que o banco receba 0 (não fixado)
       formData.append('fixado', '0');
     }
 

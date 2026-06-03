@@ -1,7 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
+/* =========================================
+   ESTILO GLOBAL E FUNDO DA TELA
+   ========================================= */
 ion-content {
   --background: #f0fdf6;
+  /* Fundo verde água bem claro */
   --padding-top: 0;
 }
 
@@ -9,6 +13,9 @@ ion-content::part(scroll) {
   padding-top: 0 !important;
 }
 
+/* =========================================
+   BOTÃO VOLTAR FLUTUANTE
+   ========================================= */
 .floating-buttons {
   position: absolute;
   top: 12px;
@@ -24,6 +31,7 @@ ion-content::part(scroll) {
   justify-content: center;
   background: white;
   border: 2px solid #4eca88;
+  /* Verde principal */
   border-radius: 50%;
   width: 38px;
   height: 38px;
@@ -47,12 +55,16 @@ ion-content::part(scroll) {
   transition: color 0.2s ease;
 }
 
+/* =========================================
+   CONTAINER PRINCIPAL E INTRODUÇÃO
+   ========================================= */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 12px 28px 40px;
   max-width: 375px;
+  /* Limita largura em telas maiores */
   margin: 0 auto;
 }
 
@@ -78,6 +90,7 @@ ion-content::part(scroll) {
   width: 70px;
   height: 70px;
   background: linear-gradient(145deg, #66d9a6, #38b87a);
+  /* Degradê verde */
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -97,6 +110,7 @@ ion-content::part(scroll) {
   font-size: 0.85rem;
   font-weight: 800;
   color: #3ecf8e;
+  /* Verde brilhante */
   text-transform: uppercase;
   letter-spacing: 0.06em;
   margin: 0 0 4px;
@@ -110,9 +124,13 @@ ion-content::part(scroll) {
   font-family: 'Nunito', sans-serif;
   font-size: 0.85rem;
   color: #8a9e97;
+  /* Cinza esverdeado suave */
   margin: 0;
 }
 
+/* =========================================
+   CARD DE SELEÇÃO INICIAL
+   ========================================= */
 .select-card {
   width: 100%;
   background: #d6f5e8;
@@ -137,41 +155,25 @@ ion-content::part(scroll) {
   }
 }
 
-.icon-box ion-icon {
-  font-size: 1.4rem;
-  color: #3ecf8e;
-}
-
-ion-select {
-  font-family: 'Nunito', sans-serif;
-  color: #1e2d28;
-  --placeholder-color: #8a9e97;
-  --placeholder-opacity: 1;
-  --highlight-color-focused: #3ecf8e;
-  --highlight-color-valid: #3ecf8e;
-
-  &[disabled] {
-    opacity: 0.7;
-  }
-}
-
+/* 🟢 Estiliza a parte do texto visível do select */
 ion-select::part(text) {
-  color: #2d7a5e;
+  color: #1e5c42 !important;
+  /* Força verde escuro */
   font-weight: 700;
 }
 
+/* 🟢 Estiliza o ícone de seta do select */
 ion-select::part(icon) {
   color: #3ecf8e;
+  /* Verde brilhante */
 }
 
-ion-input {
-  --highlight-color-focused: #3ecf8e !important;
-  --highlight-color: #3ecf8e !important;
-  --border-color: #b2e8cf !important;
-  caret-color: #3ecf8e;
-}
-
+/* =========================================
+   CAMPOS DE FORMULÁRIO (INPUTS E TEXTAREAS)
+   ========================================= */
+ion-input,
 ion-textarea {
+  /* Cores de destaque padrão */
   --highlight-color-focused: #3ecf8e !important;
   --highlight-color: #3ecf8e !important;
   --border-color: #b2e8cf !important;
@@ -181,6 +183,7 @@ ion-textarea {
 .campos-dinamicos {
   width: 100%;
   background: #d6f5e8;
+  /* Fundo verde claro */
   border-radius: 24px;
   padding: 20px;
   margin-bottom: 16px;
@@ -202,9 +205,11 @@ label {
   letter-spacing: 0.06em;
 }
 
+/* Estilo padronizado para Input */
 .custom-input {
   --background: white;
   --color: #1e5c42;
+  /* Verde escuro */
   --placeholder-color: #8a9e97;
   --placeholder-opacity: 1;
   --placeholder-font-size: 0.85rem;
@@ -220,9 +225,11 @@ label {
   height: 50px;
 }
 
+/* Estilo padronizado para Textarea */
 .custom-textarea {
   --background: white;
   --color: #1e5c42;
+  /* Verde escuro */
   --placeholder-color: #8a9e97;
   --placeholder-opacity: 1;
   --placeholder-font-size: 0.85rem;
@@ -240,31 +247,13 @@ label {
   min-height: 100px;
 }
 
-.campo-select {
-  background: white;
-  border-radius: 14px;
-  padding: 4px 8px;
-  border: 1.5px solid #b2e8cf;
-
-  ion-select {
-    border-radius: 14px;
-    text-align: left;
-    font-size: 0.85rem;
-  }
-
-  ion-select::part(container) {
-    border-radius: 14px;
-  }
-
-  ion-select::part(text) {
-    text-align: left;
-    font-size: 0.85rem;
-  }
-}
-
+/* =========================================
+   SESSÃO DE FOTO E ADIÇÃO
+   ========================================= */
 .foto-box {
   height: 140px;
   border: 2px dashed #66d9a6;
+  /* Borda tracejada verde */
   border-radius: 14px;
   display: flex;
   flex-direction: column;
@@ -302,6 +291,7 @@ label {
     position: absolute;
     inset: 0;
     background: rgba(0, 0, 0, 0.35);
+    /* Sobreposição escura */
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -319,6 +309,9 @@ label {
   }
 }
 
+/* =========================================
+   BOTÕES DE AÇÃO PRINCIPAIS
+   ========================================= */
 .btn-area {
   margin-top: 8px;
 }
@@ -327,6 +320,7 @@ label {
   width: 100%;
   height: 52px;
   background: linear-gradient(135deg, #7dd9b0, #4ec98a);
+  /* Degradê verde brilhante */
   color: white;
   border: none;
   border-radius: 14px;
@@ -349,134 +343,5 @@ label {
   &:active {
     transform: scale(0.97);
     box-shadow: 0 3px 10px rgba(60, 184, 122, 0.2);
-  }
-}
-
-.fotos-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-.foto-thumbnail {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-  }
-
-  .remove-btn {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background: #ff4d4d;
-    color: white;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 6px rgba(255, 77, 77, 0.4);
-    cursor: pointer;
-
-    ion-icon {
-      font-size: 16px;
-    }
-  }
-}
-
-.add-more-box {
-  width: 80px;
-  height: 80px;
-  border: 2px dashed #66d9a6;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  cursor: pointer;
-  transition: all 0.2s ease;
-
-  ion-icon {
-    font-size: 32px;
-    color: #3ecf8e;
-  }
-
-  &:active {
-    background: #e8f7ef;
-  }
-}
-
-.admin-badge-box {
-  background: #fffcf0;
-  border: 1.5px dashed #f5a623;
-  border-radius: 16px;
-  padding: 12px;
-  margin-bottom: 18px;
-}
-
-.admin-label {
-  color: #d08a16 !important;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 6px;
-}
-
-.admin-select {
-  border-color: #f5a623 !important;
-
-  ion-select::part(text) {
-    color: #bc7a0b;
-    font-weight: 800;
-  }
-
-  ion-select::part(icon) {
-    color: #f5a623;
-  }
-}
-
-.admin-panel-border {
-  border: 1.5px solid #f5a623 !important;
-  background: #fffdf7 !important;
-}
-
-.admin-btn {
-  background: linear-gradient(135deg, #f7b733, #fc4a1a) !important;
-  box-shadow: 0 6px 20px rgba(252, 74, 26, 0.3) !important;
-}
-
-.idade-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-}
-
-.input-idade {
-  flex: 1;
-}
-
-.select-idade {
-  flex: 1;
-  height: 50px;
-  display: flex;
-  align-items: center;
-
-  ion-select {
-    width: 100%;
-    margin: 0;
-    padding-top: 0;
-    padding-bottom: 0;
   }
 }

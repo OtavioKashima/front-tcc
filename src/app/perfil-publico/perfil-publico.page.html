@@ -5,25 +5,28 @@
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
     </button>
 
-    <div class="right-floating-group">
+    <div class="right-floating-group" *ngIf="ong.admin === 2">
       <button class="float-btn" (click)="compartilharOng()">
         <ion-icon name="arrow-redo-outline" class="seta-voltar"></ion-icon>
       </button>
-
-      <button class="float-btn chat-profile-btn" *ngIf="ong.admin === 2" (click)="abrirChat()">
+      <button class="float-btn chat-profile-btn" (click)="abrirChat()">
         <ion-icon name="chatbubbles-outline" class="seta-voltar"></ion-icon>
       </button>
     </div>
+
+    <button class="float-btn" *ngIf="ong.admin === 0" (click)="compartilharOng()">
+      <ion-icon name="arrow-redo-outline" class="seta-voltar"></ion-icon>
+    </button>
   </div>
 
   <div class="hero-banner">
     <div class="hero-gradient"></div>
     <div class="hero-content">
-      <img [src]="ong.avatar" [alt]="'Logo ' + ong.nome" class="ong-logo">
-      <h1 class="ong-nome">{{ ong.nome }}</h1>
-      <span class="ong-cidade">
+      <img [src]="ong.avatar" [alt]="ong.nome" [class]="ong.admin === 2 ? 'ong-logo' : 'user-avatar'">
+      <h1 [class]="ong.admin === 2 ? 'ong-nome' : 'user-nome'">{{ ong.nome }}</h1>
+      <span [class]="ong.admin === 2 ? 'ong-cidade' : 'user-cidade'">
         <ion-icon name="location-outline"></ion-icon>
-        {{ ong.cidade }}
+        {{ ong.cidade || 'Local não informado' }}
       </span>
     </div>
   </div>
@@ -60,12 +63,6 @@
     </button>
   </div>
 
-  <div *ngIf="ong.admin === 0" style="padding: 20px 16px 5px 16px;">
-    <h2 style="font-size: 1.2rem; font-weight: 700; color: #333; margin: 0; letter-spacing: 0.3px;">Denúncias Publicadas
-    </h2>
-  </div>
-
-
   <div class="feed" *ngIf="tabAtiva === 'adocoes' && ong.admin === 2">
     <div *ngIf="postagens.length === 0" class="sem-resultados">
       <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>
@@ -83,8 +80,9 @@
           </div>
         </div>
         <div class="denuncia-acoes">
-          <button class="acao-btn" (click)="compartilhar(post); $event.stopPropagation()"><ion-icon
-              name="arrow-redo-outline"></ion-icon></button>
+          <button class="acao-btn" (click)="compartilhar(post); $event.stopPropagation()">
+            <ion-icon name="arrow-redo-outline"></ion-icon>
+          </button>
           <button class="acao-btn" (click)="salvar(post); $event.stopPropagation()">
             <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'" [class.saved]="post.saved"></ion-icon>
           </button>
@@ -93,17 +91,13 @@
 
       <div class="denuncia-content">
         <div class="post-imagem-container">
-          <div *ngIf="post.fotosArray && post.fotosArray.length > 0"
-            [class]="'grid-fotos qtd-' + (post.fotosArray.length > 4 ? 'mais' : post.fotosArray.length)">
-            <div class="foto-item" *ngFor="let foto of post.fotosArray | slice:0:4; let i = index">
-              <img [src]="'http://localhost:3000/uploads/' + foto" alt="Foto da postagem">
-              <div class="overlay-mais" *ngIf="i === 3 && post.fotosArray.length > 4">+{{ post.fotosArray.length - 4 }}
-              </div>
-            </div>
-          </div>
+          <img *ngIf="post.fotosArray && post.fotosArray.length > 0"
+            [src]="'http://localhost:3000/uploads/' + post.fotosArray[0]" alt="Foto da postagem"
+            class="post-imagem-unica">
           <img *ngIf="!post.fotosArray || post.fotosArray.length === 0" src="assets/img-padrao.png" alt="Sem foto"
             class="post-imagem-padrao" />
         </div>
+
         <div class="denuncia-info">
           <div class="badge-container">
             <span class="denuncia-badge" *ngIf="post.raca">{{ post.raca }}</span>
@@ -116,7 +110,7 @@
     </div>
   </div>
 
-  <div class="feed" *ngIf="tabAtiva === 'denuncias'">
+  <div class="feed" *ngIf="tabAtiva === 'denuncias' && ong.admin === 2">
     <div *ngIf="denuncias.length === 0" class="sem-resultados">
       <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
       <p>Nenhuma denúncia encontrada</p>
@@ -133,23 +127,20 @@
           </div>
         </div>
         <div class="denuncia-acoes">
-          <button class="acao-btn" (click)="compartilharDenuncia(d); $event.stopPropagation()"><ion-icon
-              name="arrow-redo-outline"></ion-icon></button>
+          <button class="acao-btn" (click)="compartilharDenuncia(d); $event.stopPropagation()">
+            <ion-icon name="arrow-redo-outline"></ion-icon>
+          </button>
         </div>
       </div>
 
       <div class="denuncia-content">
         <div class="post-imagem-container">
-          <div *ngIf="d.fotosArray && d.fotosArray.length > 0"
-            [class]="'grid-fotos qtd-' + (d.fotosArray.length > 4 ? 'mais' : d.admin_length)">
-            <div class="foto-item" *ngFor="let foto of d.fotosArray | slice:0:4; let i = index">
-              <img [src]="'http://localhost:3000/uploads/' + foto" alt="Foto da denúncia">
-              <div class="overlay-mais" *ngIf="i === 3 && d.fotosArray.length > 4">+{{ d.fotosArray.length - 4 }}</div>
-            </div>
-          </div>
+          <img *ngIf="d.fotosArray && d.fotosArray.length > 0"
+            [src]="'http://localhost:3000/uploads/' + d.fotosArray[0]" alt="Foto da denúncia" class="post-imagem-unica">
           <img *ngIf="!d.fotosArray || d.fotosArray.length === 0" src="assets/img-padrao.png" alt="Sem foto"
             class="post-imagem-padrao" />
         </div>
+
         <div class="denuncia-info">
           <div class="denuncia-meta" style="margin-bottom: 8px; color: #88c8a8; font-size: 0.85rem;">
             <ion-icon name="time-outline"></ion-icon> {{ d.tempo || 'Recente' }}
@@ -176,6 +167,59 @@
       <div class="comunicado-body">
         <h3>{{ aviso.titulo }}</h3>
         <p>{{ aviso.texto }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs-bar user-tabs-bar" *ngIf="ong.admin === 0">
+    <button class="tab-btn user-tab-btn active">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <span class="tab-label">Denúncias</span>
+    </button>
+  </div>
+
+  <div class="feed" *ngIf="ong.admin === 0">
+    <div *ngIf="denuncias.length === 0" class="sem-resultados">
+      <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhuma denúncia publicada ainda.</p>
+    </div>
+
+    <div class="denuncia-card" *ngFor="let d of denuncias" (click)="abrirDenuncia(d)">
+      <div class="denuncia-header" style="align-items: center;">
+        <div class="criador-info" style="display: flex; align-items: center; gap: 10px;">
+          <img [src]="ong.avatar" alt="Foto do criador"
+            style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd;">
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-weight: bold; font-size: 0.95rem; color: #333;">{{ ong.nome }}</span>
+            <span style="font-size: 0.8rem; color: #666;">{{ d.titulo || 'Denúncia' }}</span>
+          </div>
+        </div>
+        <div class="denuncia-acoes">
+          <button class="acao-btn" (click)="compartilharDenuncia(d); $event.stopPropagation()">
+            <ion-icon name="arrow-redo-outline"></ion-icon>
+          </button>
+          <button class="acao-btn" (click)="$event.stopPropagation()">
+            <ion-icon name="bookmark-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="denuncia-content">
+        <div class="post-imagem-container">
+          <img *ngIf="d.fotosArray && d.fotosArray.length > 0"
+            [src]="'http://localhost:3000/uploads/' + d.fotosArray[0]" alt="Foto da denúncia" class="post-imagem-unica">
+          <img *ngIf="!d.fotosArray || d.fotosArray.length === 0" src="assets/img-padrao.png" alt="Sem foto"
+            class="post-imagem-padrao" />
+        </div>
+
+        <div class="denuncia-info">
+          <div class="badge-container">
+            <span class="denuncia-badge" *ngIf="d.raca">{{ d.raca }}</span>
+            <span class="denuncia-badge" *ngIf="d.genero">{{ d.genero }}</span>
+            <span class="denuncia-badge" *ngIf="d.idade">{{ d.idade }}</span>
+          </div>
+          <p class="denuncia-descricao">{{ d.descricao }}</p>
+        </div>
       </div>
     </div>
   </div>
