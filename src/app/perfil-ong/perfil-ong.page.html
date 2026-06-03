@@ -1,6 +1,5 @@
 <ion-content [scrollY]="true">
 
-
   <div class="floating-buttons">
     <button class="float-btn" (click)="goBack()">
       <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
@@ -14,7 +13,7 @@
     <div class="hero-gradient"></div>
     <div class="hero-content">
       <img [src]="ong.avatar" [alt]="'Logo ' + ong.nome" class="ong-logo">
-      <h1 class="ong-nome">{{ ong.nome }}</h1>
+      <h1 class="ong-nome">{{ ong .nome }}</h1>
       <span class="ong-cidade">
         <ion-icon name="location-outline"></ion-icon>
         {{ ong.cidade }}
@@ -22,9 +21,12 @@
     </div>
   </div>
 
- 
   <div class="sobre-section">
     <p class="sobre-text">{{ ong.descricao }}</p>
+    <button class="doe-btn" (click)="abrirDoacao()">
+      <ion-icon name="heart"></ion-icon>
+      Doe para essa ONG
+    </button>
   </div>
 
   <div class="tabs-bar">
@@ -42,21 +44,32 @@
       <ion-icon name="alert-circle-outline"></ion-icon>
       <span class="tab-label">Denúncias</span>
     </button>
+    <button
+      class="tab-btn"
+      [class.active]="tabAtiva === 'comunicados'"
+      (click)="tabAtiva = 'comunicados'">
+      <ion-icon name="megaphone-outline"></ion-icon>
+      <span class="tab-label">Comunicados</span>
+    </button>
+    <button
+    
+    class="tab-btn"
+    (click)="abrirChat()">
+    <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+    <span class="tab-label">Chat</span>
+  </button>
   </div>
 
-  
+  <!-- Feed Adoções -->
   <div class="feed" *ngIf="tabAtiva === 'adocoes'">
-
     <div *ngIf="postagens.length === 0" class="sem-resultados">
       <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>
       <p>Nenhuma postagem encontrada</p>
     </div>
-
     <div
       class="adote-card"
       *ngFor="let post of postagens"
       (click)="abrirDetalhe(post)">
-
       <div class="adote-header">
         <span class="header-titulo">{{ post.titulo }}</span>
         <div class="adote-acoes">
@@ -71,7 +84,6 @@
           </button>
         </div>
       </div>
-
       <div class="adote-content">
         <img [src]="post.imagem" [alt]="post.titulo" class="adote-image">
         <div class="adote-info">
@@ -84,24 +96,19 @@
           <span class="adote-cta">Ver detalhes →</span>
         </div>
       </div>
-
     </div>
-
   </div>
 
-
+  <!-- Feed Denúncias -->
   <div class="feed" *ngIf="tabAtiva === 'denuncias'">
-
     <div *ngIf="denuncias.length === 0" class="sem-resultados">
       <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
       <p>Nenhuma denúncia encontrada</p>
     </div>
-
     <div
       class="denuncia-card"
       *ngFor="let d of denuncias"
       (click)="abrirDenuncia(d)">
-
       <div class="denuncia-header">
         <span class="header-titulo">{{ d.titulo }}</span>
         <div class="denuncia-acoes">
@@ -110,7 +117,6 @@
           </button>
         </div>
       </div>
-
       <div class="denuncia-content">
         <img [src]="d.imagem" [alt]="d.titulo" class="denuncia-image">
         <div class="denuncia-info">
@@ -125,9 +131,138 @@
           <span class="denuncia-cta">Ver denúncia →</span>
         </div>
       </div>
+    </div>
+  </div>
 
+  <!-- Feed Comunicados -->
+  <div class="feed" *ngIf="tabAtiva === 'comunicados'">
+    <div *ngIf="comunicados.length === 0" class="sem-resultados">
+      <ion-icon name="megaphone-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhum comunicado encontrado</p>
+    </div>
+    <div
+      class="comunicado-card"
+      *ngFor="let c of comunicados"
+      (click)="abrirComunicado(c)">
+
+      <div class="comunicado-header">
+        <span class="header-titulo">{{ c.titulo }}</span>
+        <div class="comunicado-acoes">
+          <button class="acao-btn" (click)="compartilharComunicado(c); $event.stopPropagation()">
+            <ion-icon name="arrow-redo-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="comunicado-content">
+        <img [src]="c.imagem" [alt]="c.titulo" class="comunicado-image">
+        <div class="comunicado-info">
+          <p class="comunicado-texto">{{ c.texto }}</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Feed Chat -->
+<div class="feed" *ngIf="tabAtiva === 'chat'">
+  <div class="sem-resultados">
+    <ion-icon name="chatbubble-ellipses-outline" class="sem-resultados-icon"></ion-icon>
+    <p>Em breve chats da ONG</p>
+  </div>
+</div>
+
+</ion-content>
+
+<!-- Modal de Doação -->
+<div class="doe-overlay" [class.open]="doacaoAberta" (click)="fecharDoacao()"></div>
+<div class="doe-sheet" [class.open]="doacaoAberta">
+  <div class="doe-sheet-handle"></div>
+
+  <ion-toolbar class="doe-toolbar">
+    <div class="doe-toolbar-content">
+      <ion-icon name="heart" class="doe-toolbar-icon"></ion-icon>
+      <span class="doe-toolbar-title">Doe</span>
+      <button class="doe-close-btn" (click)="fecharDoacao()">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+  </ion-toolbar>
+
+  <div class="doe-scroll">
+
+    <div class="doe-hero-banner">
+      <div class="paw-bg">🐾</div>
+      <div class="hero-text">
+        <span class="hero-tag">{{ ong.nome | uppercase }}</span>
+        <h2>Doe qualquer valor</h2>
+        <p>Sua contribuição vai direto para a ONG, que decide como melhor ajudar os animais.</p>
+      </div>
+    </div>
+
+    <div class="donate-block">
+      <p class="donate-subtitle">Escolha ou insira o valor que deseja doar:</p>
+
+      <div class="valor-rapido">
+        <button
+          *ngFor="let v of valoresRapidos"
+          [class.ativo]="valorSelecionado === v"
+          (click)="setValor(v)">
+          R$ {{ v }}
+        </button>
+      </div>
+
+      <div class="input-wrap">
+        <span class="input-prefix">R$</span>
+        <input
+          type="number"
+          [(ngModel)]="valorDoacao"
+          placeholder="Outro valor"
+          class="input-valor"
+          min="1"
+          (input)="valorSelecionado = null">
+      </div>
+
+      <div class="qrcode-container">
+        <img src="assets/qrcode.png" alt="QR Code Pix" class="qrcode-image">
+        <button class="copiar-pix-btn" (click)="copiarPix()">
+          <ion-icon name="copy-outline"></ion-icon>
+          Copiar chave Pix
+        </button>
+      </div>
+
+      <button
+        class="adopt-btn"
+        (click)="processarDoacao()"
+        [disabled]="processando">
+        <ion-icon name="paw"></ion-icon>
+        {{ processando ? 'Aguarde...' : 'Realizar Pagamento' }}
+      </button>
+    </div>
+
+    <div class="ong-info-card">
+      <div class="ong-info-header">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        Como sua doação é usada?
+      </div>
+      <p>A ONG recebe o valor e decide onde ele é mais necessário: ração, remédios, cirurgias, vacinas ou abrigo. Cada real conta!</p>
+    </div>
+
+    <div class="section-header">
+      <div class="section-header-line"></div>
+      <span class="section-title">Exemplos do que ajudamos</span>
+      <div class="section-header-line"></div>
+    </div>
+
+    <div class="donation-card" *ngFor="let card of todosCards">
+      <div class="donation-content">
+        <img [src]="card.imagem" [alt]="card.titulo" class="donation-image">
+        <div class="donation-info">
+          <strong>{{ card.titulo }}</strong>
+          <p>{{ card.descricao }}</p>
+        </div>
+      </div>
     </div>
 
   </div>
-
-</ion-content>
+</div>

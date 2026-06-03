@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+ion-content {
+  --background: #f0fdf6;
+}
+
+/* Botões flutuantes */
+.floating-buttons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 12px 0;
+}
+
+.float-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 2px solid #4eca88;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(78, 202, 136, 0.2);
+  transition: all 0.2s ease;
+  padding: 0;
+
+  &:active {
+    background: #4eca88;
+    .seta-voltar { color: white; }
+  }
+}
+
+.seta-voltar {
+  font-size: 20px;
+  color: #4eca88;
+  transition: color 0.2s ease;
+}
+
+/* Hero banner com imagem */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2d9e65, #4eca88);
+}
+
+.hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 55%);
+}
+
+.hero-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 0 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #4eca88;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  width: fit-content;
+
+  ion-icon { font-size: 13px; }
+}
+
+.hero-titulo {
+  font-family: 'Nunito', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: white;
+  margin: 0;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  line-height: 1.25;
+}
+
+/* Card ONG */
+.ong-card {
+  margin: 14px 16px 0;
+  background: white;
+  border-radius: 16px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+
+  &:active { opacity: 0.85; }
+}
+
+.ong-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: #f0fdf6;
+  padding: 4px;
+  border: 2px solid #4eca88;
+  flex-shrink: 0;
+}
+
+.ong-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ong-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #4eca88;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.ong-nome {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #2a5a45;
+}
+
+.ong-arrow {
+  font-size: 1.1rem;
+  color: #4eca88;
+}
+
+/* Cards de seção */
+.section-card {
+  margin: 12px 16px 0;
+  background: white;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+
+.section-title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #2a5a45;
+  margin: 0 0 8px;
+}
+
+.section-text {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #54a792;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Card meta (data + local) */
+.meta-card {
+  margin-bottom: 32px;
+}
+
+.meta-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.meta-icon {
+  font-size: 1.3rem;
+  color: #4eca88;
+  flex-shrink: 0;
+}
+
+.meta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta-label {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #aab5b0;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.meta-value {
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #2a5a45;
+}
+
+.meta-divider {
+  height: 1px;
+  background: #e8efeb;
+  margin: 12px 0;
+}

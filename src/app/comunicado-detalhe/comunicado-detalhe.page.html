@@ -1,0 +1,57 @@
+<ion-content [scrollY]="true">
+
+  <div class="floating-buttons">
+    <button class="float-btn" (click)="goBack()">
+      <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+    </button>
+    <button class="float-btn" (click)="compartilhar()">
+      <ion-icon name="arrow-redo-outline" class="seta-voltar"></ion-icon>
+    </button>
+  </div>
+
+  <!-- Hero com imagem do comunicado -->
+  <div class="hero-banner">
+    <img [src]="comunicado.imagem" [alt]="comunicado.titulo" class="hero-img">
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <span class="hero-tag">COMUNICADO</span>
+      <h1 class="hero-titulo">{{ comunicado.titulo }}</h1>
+    </div>
+  </div>
+
+  <!-- ONG Responsável -->
+  <div class="ong-card" (click)="verPerfilOng()">
+    <img [src]="ong.avatar" [alt]="ong.nome" class="ong-avatar">
+    <div class="ong-info">
+      <span class="ong-label">ONG Responsável</span>
+      <span class="ong-nome">{{ ong.nome }}</span>
+    </div>
+    <ion-icon name="chevron-forward-outline" class="ong-arrow"></ion-icon>
+  </div>
+
+  <!-- Descrição -->
+  <div class="section-card">
+    <h2 class="section-title">Descrição do Comunicado</h2>
+    <p class="section-text">{{ comunicado.texto }}</p>
+  </div>
+
+  <!-- Data e Local -->
+  <div class="section-card meta-card">
+    <div class="meta-row">
+      <ion-icon name="calendar-outline" class="meta-icon"></ion-icon>
+      <div class="meta-info">
+        <span class="meta-label">Data</span>
+        <span class="meta-value">{{ comunicado.dataFormatada }}</span>
+      </div>
+    </div>
+    <div class="meta-divider"></div>
+    <div class="meta-row">
+      <ion-icon name="location-outline" class="meta-icon"></ion-icon>
+      <div class="meta-info">
+        <span class="meta-label">Local</span>
+        <span class="meta-value">{{ comunicado.local }}</span>
+      </div>
+    </div>
+  </div>
+
+</ion-content>
