@@ -91,6 +91,10 @@ const routes: Routes = [
   },  {
     path: 'comunicado',
     loadChildren: () => import('./comunicado/comunicado.module').then( m => m.ComunicadoPageModule)
+  },
+  {
+    path: 'chat-ong',
+    loadChildren: () => import('./chat-ong/chat-ong.module').then( m => m.ChatOngPageModule)
   }
 
   

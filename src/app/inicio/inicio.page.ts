@@ -10,6 +10,10 @@ import { NavController } from '@ionic/angular';
   standalone: false
 })
 export class InicioPage implements OnInit {
+  // 🟢 Novas variáveis para a busca
+  termoBuscaOng: string = '';
+  ongsFiltradas: any[] = [];
+
   ongs: any[] = [];
   comunicados: any[] = [];
 
@@ -20,7 +24,6 @@ export class InicioPage implements OnInit {
     this.carregarOngs();
   }
 
-  // 🟢 Puxando do Banco via API
   carregarComunicados() {
     this.http.get('http://localhost:3000/api/postagens/tipo/comunicado').subscribe({
       next: (res: any) => {
@@ -30,14 +33,29 @@ export class InicioPage implements OnInit {
     });
   }
 
-  // 🟢 Puxando do Banco via API
   carregarOngs() {
     this.http.get('http://localhost:3000/api/ongs').subscribe({
       next: (res: any) => {
         this.ongs = res;
+        this.ongsFiltradas = [...this.ongs]; // 🟢 Inicializa a lista filtrada com todos os dados
       },
       error: (err) => console.error('Erro ao buscar ONGs', err)
     });
+  }
+
+  // 🟢 Nova função de filtro (Busca por Nome, Cidade ou Estado)
+  filtrarOngs() {
+    const termo = this.termoBuscaOng.toLowerCase().trim();
+    if (!termo) {
+      this.ongsFiltradas = [...this.ongs];
+      return;
+    }
+
+    this.ongsFiltradas = this.ongs.filter(ong =>
+      (ong.nome && ong.nome.toLowerCase().includes(termo)) ||
+      (ong.cidade && ong.cidade.toLowerCase().includes(termo)) ||
+      (ong.estado && ong.estado.toLowerCase().includes(termo))
+    );
   }
 
   getFotoUrl(foto_perfil: string) {
@@ -45,8 +63,10 @@ export class InicioPage implements OnInit {
     return `http://localhost:3000/uploads/${foto_perfil}`;
   }
 
-  abrirDoacao(ong: any) {
-    this.navCtrl.navigateForward('/doacoes', { state: { ongSelecionada: ong } });
+  abrirPerfilOng(ong: any) {
+    this.navCtrl.navigateForward('/perfil-publico', {
+      state: { usuario_id: ong.id }
+    });
   }
 
   abrirComunicado(aviso: any) {

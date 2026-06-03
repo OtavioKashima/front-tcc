@@ -10,8 +10,9 @@ interface Denuncia {
   descricaoCompleta?: string;
   foto?: string;
   fotosArray?: string[];
-  localizacao?: string; // 📍 1. Adicionamos a localização aqui na Interface
-  local?: string; // (Opcional) Caso o banco retorne como 'local'
+  localizacao?: string;
+  local?: string;
+  cidade?: string; // 🟢 Adicionado na Interface
 }
 
 @Component({
@@ -41,7 +42,6 @@ export class DenunciasPage implements OnInit {
   carregarDenuncias() {
     this.http.get('http://localhost:3000/api/postagens/tipo/denuncia').subscribe({
       next: (res: any) => {
-
         const dadosReais = Array.isArray(res) ? res : (res.data || res.postagens || []);
 
         this.denuncias = dadosReais.map((denuncia: any) => {
@@ -59,9 +59,9 @@ export class DenunciasPage implements OnInit {
             denuncia.descricaoCompleta = denuncia.descricao || '';
           }
 
-          // 📍 2. Garantia extra: padroniza a variável de localização
-          if (!denuncia.localizacao && denuncia.local) {
-            denuncia.localizacao = denuncia.local;
+          // 🟢 Pega o campo 'cidade' ou 'local' vindos do banco e centraliza em 'localizacao'
+          if (!denuncia.localizacao) {
+            denuncia.localizacao = denuncia.cidade || denuncia.local || '';
           }
 
           return denuncia;
@@ -87,11 +87,12 @@ export class DenunciasPage implements OnInit {
       return;
     }
 
-    // 📍 3. Agora a barra de pesquisa também encontra denúncias pelo local!
+    // 🟢 O filtro agora busca por título, descrição, localização ou cidade diretamente
     this.denunciasFiltradas = this.denuncias.filter(d =>
       (d.titulo && d.titulo.toLowerCase().includes(termo)) ||
       (d.descricaoCompleta && d.descricaoCompleta.toLowerCase().includes(termo)) ||
-      (d.localizacao && d.localizacao.toLowerCase().includes(termo))
+      (d.localizacao && d.localizacao.toLowerCase().includes(termo)) ||
+      (d.cidade && d.cidade.toLowerCase().includes(termo))
     );
   }
 

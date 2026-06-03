@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 interface Pet {
   titulo: string;
@@ -27,6 +28,7 @@ export class DoacoesDetalhesPage implements OnInit {
   };
 
   constructor(
+    private location: Location,
     private router: Router,
     private navCtrl: NavController
   ) {}
@@ -53,7 +55,7 @@ export class DoacoesDetalhesPage implements OnInit {
     }
   }
 
-  goBack(): void {
-    this.navCtrl.navigateBack('/tabs/doacoes');
+  goBack() {
+    this.location.back();
   }
 }

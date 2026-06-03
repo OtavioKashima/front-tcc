@@ -37,8 +37,9 @@
 
     <div class="owner-card" (click)="irParaPerfilOng()">
       <img
-        [src]="comunicado.usuario_foto ? ('http://localhost:3000/uploads/' + comunicado.usuario_foto) : 'https://ionicframework.com/docs/img/demos/avatar.svg'"
-        alt="Foto do Criador" class="owner-avatar owner-avatar--ong">
+        [src]="(comunicado.usuario_foto && comunicado.usuario_foto !== 'null') ? ('http://localhost:3000/uploads/' + comunicado.usuario_foto) : 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+        (error)="$any($event.target).src = 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="Foto do Criador"
+        class="owner-avatar owner-avatar--ong">
 
       <div class="owner-info">
         <span class="owner-label">{{ comunicado.tipo_usuario === 'ong' ? 'ONG Responsável' : 'Publicado por' }}</span>

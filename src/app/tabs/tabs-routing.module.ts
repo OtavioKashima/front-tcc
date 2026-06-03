@@ -32,7 +32,7 @@ const routes: Routes = [
       {
         // Redirecionamento padrão DENTRO das tabs
         path: '',
-        redirectTo: 'adocoes', // Ao navegar para /tabs, redireciona para /tabs/adocoes
+        redirectTo: 'inicio', // Ao navegar para /tabs, redireciona para /tabs/incio
         pathMatch: 'full'
       }
     ]

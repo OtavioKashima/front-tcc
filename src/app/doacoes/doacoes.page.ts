@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-doacoes',
@@ -21,7 +22,7 @@ export class DoacoesPage implements OnInit {
     { titulo: 'Medicamentos', descricao: 'Vacinas, vermífugos e tratamentos.', imagem: 'assets/vacina.jpg' }
   ];
 
-  constructor(private router: Router, private toastCtrl: ToastController) {
+  constructor(private router: Router, private toastCtrl: ToastController, private location: Location) {
     // 🟢 Recupera os dados da ONG passados pela tela Início
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras?.state) {
@@ -66,6 +67,10 @@ export class DoacoesPage implements OnInit {
       this.mostrarToast('Tudo pronto! Copie a chave e faça a transferência.', 'success');
       this.copiarPix();
     }, 1000);
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   async mostrarToast(mensagem: string, cor: string) {

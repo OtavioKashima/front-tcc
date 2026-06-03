@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 interface Comunicado {
   id?: number;
@@ -35,28 +36,27 @@ export class ComunicadoPage implements OnInit {
   };
 
   constructor(
+    private location: Location,
     private router: Router,
     private navCtrl: NavController,
     private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
-    const nav = this.router.getCurrentNavigation();
+    // 🔴 CORREÇÃO AQUI: Mudamos de router.getCurrentNavigation() para history.state
+    const state = history.state;
 
-    if (nav?.extras?.state?.['postagemSelecionada']) {
-      // Pegamos o objeto bruto que veio da tela anterior (igual adoções)
-      const dados = nav.extras.state['postagemSelecionada'];
+    // Captura os dados caso venham como 'postagemSelecionada' ou como 'comunicado'
+    const dadosBrutos = state?.['postagemSelecionada'] || state?.['comunicado'];
 
-      // Mapeamos EXATAMENTE conforme a sua query listarPorTipo
+    if (dadosBrutos) {
+      const dados = dadosBrutos;
+
       this.comunicado = {
         id: dados.id,
         titulo: dados.titulo,
-        // Se a sua tabela usa 'descricao', pegamos ela:
         texto: dados.descricao || dados.texto || '',
-        // A data pura do banco
         data: dados.data_criacao,
-
-        // Os campos do INNER JOIN que você passou no controller:
         usuarios_id: dados.usuarios_id,
         usuario_nome: dados.usuario_nome,
         usuario_foto: dados.usuario_foto,
@@ -66,7 +66,6 @@ export class ComunicadoPage implements OnInit {
       const urlDoServidor = 'http://localhost:3000/uploads/';
       let listaDeFotos: string[] = [];
 
-      // Processamento das fotos (idêntico ao que funciona nas outras telas)
       if (dados.fotosArray && dados.fotosArray.length > 0) {
         listaDeFotos = dados.fotosArray;
       } else if (dados.foto) {
@@ -77,7 +76,6 @@ export class ComunicadoPage implements OnInit {
         }
       }
 
-      // Aplica a URL do servidor
       if (listaDeFotos && listaDeFotos.length > 0) {
         this.comunicado.imagens = listaDeFotos.map(nomeDaImagem => {
           if (nomeDaImagem.startsWith('http')) return nomeDaImagem;
@@ -86,6 +84,24 @@ export class ComunicadoPage implements OnInit {
       } else {
         this.comunicado.imagens = [];
       }
+    }
+
+    // Injeta as propriedades de segurança da ONG
+    this.aplicarCriadorSeguranca();
+  }
+
+  // 🟢 FUNÇÃO DE SEGURANÇA (Adicione logo abaixo do ngOnInit)
+  aplicarCriadorSeguranca() {
+    const ongSalva = localStorage.getItem('ong_perfil_atual');
+
+    if (ongSalva && this.comunicado) {
+      const ongData = JSON.parse(ongSalva);
+      let temp: any = this.comunicado;
+
+      temp.usuario_nome = temp.usuario_nome || temp.nome_usuario || temp.autor || ongData.nome;
+      temp.usuario_foto = temp.usuario_foto || temp.foto_usuario || ongData.avatar;
+      temp.tipo_usuario = 'ong';
+      temp.usuarios_id = temp.usuarios_id || ongData.id;
     }
   }
 
@@ -108,8 +124,8 @@ export class ComunicadoPage implements OnInit {
     }
   }
 
-  goBack(): void {
-    this.navCtrl.navigateBack('/tabs/inicio');
+  goBack() {
+    this.location.back();
   }
 
   irParaPerfilOng() {

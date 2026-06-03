@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 // Interface ajustada para refletir os dados de uma denúncia
 interface Denuncia {
@@ -28,6 +29,7 @@ interface Denuncia {
 export class DenunciasDetalhesPage implements OnInit {
 
   imagemAtiva: number = 0;
+  postagem: any;
 
   denuncia: Denuncia = {
     titulo: 'Carregando...',
@@ -39,16 +41,21 @@ export class DenunciasDetalhesPage implements OnInit {
   };
 
   constructor(
+    private location: Location,
     private router: Router,
     private navCtrl: NavController,
     private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
-    const nav = this.router.getCurrentNavigation();
+    // 🔴 CORREÇÃO AQUI: Mudamos de router.getCurrentNavigation() para history.state
+    const state = history.state;
 
-    if (nav?.extras?.state?.['denuncia']) {
-      this.denuncia = { ...nav.extras.state['denuncia'] };
+    // Captura os dados caso venham como 'postagemSelecionada' ou como 'denuncia'
+    const dadosDenuncia = state?.['postagemSelecionada'] || state?.['denuncia'];
+
+    if (dadosDenuncia) {
+      this.denuncia = { ...dadosDenuncia };
 
       // 🟢 GARANTIA: Se o banco não tiver 'descricaoCompleta', usa a 'descricao' normal
       if (!this.denuncia.descricaoCompleta && this.denuncia.descricao) {
@@ -83,6 +90,23 @@ export class DenunciasDetalhesPage implements OnInit {
         this.denuncia.imagens = [];
       }
     }
+
+    // Injeta as propriedades de segurança da ONG
+    this.aplicarCriadorSeguranca();
+  }
+
+  aplicarCriadorSeguranca() {
+    const ongSalva = localStorage.getItem('ong_perfil_atual');
+
+    if (ongSalva && this.denuncia) {
+      const ongData = JSON.parse(ongSalva);
+      let temp: any = this.denuncia;
+
+      temp.usuario_nome = temp.usuario_nome || temp.nome_usuario || temp.autor || ongData.nome;
+      temp.usuario_foto = temp.usuario_foto || temp.foto_usuario || ongData.avatar;
+      temp.tipo_usuario = 'ong';
+      temp.usuarios_id = temp.usuarios_id || ongData.id;
+    }
   }
 
   onScroll(event: any) {
@@ -104,9 +128,8 @@ export class DenunciasDetalhesPage implements OnInit {
     }
   }
 
-  goBack(): void {
-    // 🟢 Volta para a aba de denúncias
-    this.navCtrl.navigateBack('/tabs/denuncias');
+  goBack() {
+    this.location.back();
   }
 
   irParaPerfilOng() {

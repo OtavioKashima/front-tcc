@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NavController, ToastController } from '@ionic/angular';
-import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-perfil-publico',
@@ -10,90 +11,235 @@ import { HttpClient } from '@angular/common/http';
   standalone: false
 })
 export class PerfilPublicoPage implements OnInit {
-  abaAtiva: string = 'postagens';
-  usuarioId!: number;
 
-  postagens: any[] = []; 
+  // Controle da Aba Selecionada ('adocoes' ou 'denuncias')
+  tabAtiva: string = 'adocoes';
+  adocoes: any[] = [];
 
-  usuario: any = {
-    nome: 'Carregando...',
-    admin: 0, // 🟢 Agora esperamos receber o nível de acesso
-    tipoDisplay: '', // 🟢 Variável que vai guardar o texto final (ONG, Admin, Usuário)
-    foto_perfil: null,
-    bio: '',
+  // Objeto principal da ONG/Usuário
+  ong: any = {
+    nome: '',
     cidade: '',
     estado: '',
-    telefone: ''
+    descricao: '',
+    avatar: 'https://ionicframework.com/docs/img/demos/avatar.svg',
+    admin: null // 🟢 Começa nulo até o banco responder
   };
 
+  // Arrays para armazenar as postagens
+  postagens: any[] = [];
+  denuncias: any[] = [];
+  comunicados: any[] = [];
+
+  // ID do usuário recebido da navegação
+  usuarioId: number = 0;
+
+  // URL base do servidor
+  readonly urlUploads = 'http://localhost:3000/uploads/';
+  readonly apiUrl = 'http://localhost:3000/api';
+
   constructor(
+    private location: Location,
     private router: Router,
     private navCtrl: NavController,
-    private toastCtrl: ToastController,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
+    // 1. Receber os dados da navegação (o state passado da tela Início)
     const nav = this.router.getCurrentNavigation();
     if (nav?.extras?.state?.['usuario_id']) {
       this.usuarioId = nav.extras.state['usuario_id'];
-      
-      this.carregarDadosDoPerfil();
-      this.carregarPostagensDoUsuario();
+      this.carregarPerfil();
+    } else {
+      // Se não houver ID (acesso direto à tela, etc.), volta pro início
+      this.goBack();
     }
   }
 
-  carregarDadosDoPerfil() {
-    this.http.get(`http://localhost:3000/api/usuarios/${this.usuarioId}`).subscribe({
+  // Busca os dados do usuário (ONG/Protetor)
+  carregarPerfil() {
+    this.http.get(`${this.apiUrl}/usuarios/${this.usuarioId}`).subscribe({
       next: (res: any) => {
-        this.usuario = res;
-        
-        // 🟢 LÓGICA DE TRADUÇÃO DO TIPO DE USUÁRIO
-        if (this.usuario.admin === 1) {
-          this.usuario.tipoDisplay = 'Administrador';
-        } else if (this.usuario.admin === 2) {
-          this.usuario.tipoDisplay = 'ONG';
-        } else {
-          this.usuario.tipoDisplay = 'Usuário Comum';
+        this.ong = {
+          id: this.usuarioId,
+          nome: res.nome,
+          cidade: res.cidade || 'Local não informado',
+          estado: res.estado || '',
+          descricao: res.bio || '',
+          avatar: res.foto_perfil ? `${this.urlUploads}${res.foto_perfil}` : 'https://ionicframework.com/docs/img/demos/avatar.svg',
+          foto_perfil: res.foto_perfil,
+          // 🟢 Garante que 'admin' seja tratado estritamente como número (0, 1 ou 2)
+          admin: res.admin !== undefined ? Number(res.admin) : 0
+        };
+
+        // 🟢 SE FOR USUÁRIO COMUM (admin === 0): Força a aba ativa a ser 'denuncias'
+        if (this.ong.admin === 0) {
+          this.tabAtiva = 'denuncias';
         }
-        
-        if (this.usuario.foto_perfil && !this.usuario.foto_perfil.startsWith('http')) {
-          this.usuario.foto_perfil = `http://localhost:3000/uploads/${this.usuario.foto_perfil}`;
-        }
+
+        this.carregarPostagensUsuario();
       },
-      error: (err) => console.error('Erro ao carregar dados do perfil público', err)
+      error: (err) => {
+        console.error('Erro ao buscar perfil:', err);
+        this.mostrarToast('Erro ao carregar perfil.');
+      }
     });
   }
 
-  carregarPostagensDoUsuario() {
-    this.http.get(`http://localhost:3000/api/postagens/usuario/${this.usuarioId}`).subscribe({
+  // Busca TODAS as postagens desse usuário específico
+  carregarPostagensUsuario() {
+    this.http.get(`${this.apiUrl}/postagens/usuario/${this.usuarioId}`).subscribe({
       next: (res: any) => {
-        const dadosReais = Array.isArray(res) ? res : [];
+        // Zera os arrays
+        this.postagens = [];
+        this.denuncias = [];
+        this.comunicados = [];
 
-        this.postagens = dadosReais.map((post: any) => {
+        // Filtra e formata as postagens conforme o tipo
+        res.forEach((post: any) => {
+
+          // Formata as imagens do grid
+          let fotosArray: string[] = [];
+          let imagemUrl = 'assets/img/placeholder.png';
+
           if (post.foto) {
-            try { 
-              let fotosArray = JSON.parse(post.foto); 
-              post.foto = fotosArray[0]; 
-            }
-            catch (e) {}
-
-            if (post.foto && !post.foto.startsWith('http')) {
-              post.foto = `http://localhost:3000/uploads/${post.foto}`;
+            try {
+              const fotosParsed = JSON.parse(post.foto);
+              if (Array.isArray(fotosParsed)) {
+                fotosArray = fotosParsed;
+                if (fotosParsed.length > 0) {
+                  imagemUrl = `${this.urlUploads}${fotosParsed[0]}`;
+                }
+              } else {
+                fotosArray = [post.foto];
+                imagemUrl = `${this.urlUploads}${post.foto}`;
+              }
+            } catch (e) {
+              fotosArray = [post.foto];
+              imagemUrl = `${this.urlUploads}${post.foto}`;
             }
           }
-          return post;
+
+          // 🟢 O PULO DO GATO: Injetamos o usuário criador aqui
+          const postFormatado = {
+            ...post, // Mantém dados originais do post (titulo, descricao, etc.)
+            id: post.id || post.id_postagem || post._id,
+            imagem: imagemUrl,
+            fotosArray: fotosArray,
+            saved: false,
+
+            // 1. Se a sua tela de detalhes procura por um objeto "usuario" (padrão do feed)
+            usuario: {
+              id: this.ong.id,
+              nome: this.ong.nome,
+              foto_perfil: this.ong.foto_perfil,
+              avatar: this.ong.avatar
+            },
+
+            // 2. Se a sua tela de detalhes procura por propriedades diretas (flat)
+            nome_usuario: this.ong.nome,
+            foto_usuario: this.ong.avatar,
+            usuario_id: this.ong.id
+          };
+
+          // Distribui nos arrays corretos usando o campo tipo_postagem
+          if (post.tipo_postagem === 'adocao') {
+            this.postagens.push(postFormatado);
+          } else if (post.tipo_postagem === 'denuncia') {
+            this.denuncias.push(postFormatado);
+          } else if (post.tipo_postagem === 'comunicado') {
+            this.comunicados.push(postFormatado);
+          }
         });
+
+        console.log('Postagens prontas com criador injetado:', this.postagens);
       },
-      error: (err) => console.error('Erro ao carregar postagens do usuário', err)
+      error: (err) => {
+        console.error('Erro ao buscar postagens:', err);
+      }
     });
   }
 
-  trocarAba(event: any) {
-    this.abaAtiva = event.detail.value;
+  // ==========================================
+  // NAVEGAÇÃO E AÇÕES
+  // ==========================================
+
+  goBack() {
+    this.location.back();
   }
 
-  voltar() {
-    this.navCtrl.back();
+  compartilharOng() {
+    this.mostrarToast(`Link para doar a ${this.ong.nome} copiado!`);
+  }
+
+  compartilhar(post: any) {
+    this.mostrarToast('Link de adoção copiado!');
+  }
+
+  compartilharDenuncia(post: any) {
+    this.mostrarToast('Link de denúncia copiado!');
+  }
+
+  salvar(post: any) {
+    post.saved = !post.saved;
+    const msg = post.saved ? 'Postagem salva.' : 'Removido dos salvos.';
+    this.mostrarToast(msg);
+  }
+
+  // Abrir detalhes de Adoção
+  abrirDetalhe(post: any) {
+    // Salva a ONG atual no "espelho de segurança" do navegador
+    localStorage.setItem('ong_perfil_atual', JSON.stringify(this.ong));
+
+    this.router.navigate(['/adocoes-detalhes'], {
+      state: { pet: post, postagemSelecionada: post }
+    });
+  }
+
+  abrirDenuncia(d: any) {
+    localStorage.setItem('ong_perfil_atual', JSON.stringify(this.ong));
+
+    this.router.navigate(['/denuncias-detalhes'], {
+      state: { pet: d, postagemSelecionada: d }
+    });
+  }
+
+  abrirComunicado(aviso: any) {
+    localStorage.setItem('ong_perfil_atual', JSON.stringify(this.ong));
+
+    // Ajuste a rota abaixo de acordo com o nome real da sua página de detalhes de comunicados
+    this.router.navigate(['/comunicado'], {
+      state: { comunicado: aviso }
+    });
+  }
+
+  irParaDoacao() {
+    this.navCtrl.navigateForward('/doacoes', { state: { ongSelecionada: this.ong } });
+  }
+
+  abrirDetalhes(post: any) {
+    this.router.navigate(['/comunicado'], { state: { postagemSelecionada: post } });
+  }
+
+  abrirChat() {
+    this.router.navigate(['/chat-ong'], {
+      state: {
+        ong: this.ong,
+        pet: null // Como entrou direto pelo perfil, não há contexto de um pet específico
+      }
+    });
+  }
+
+  // Helper para exibir mensagens rápidas na tela
+  async mostrarToast(mensagem: string) {
+    const toast = await this.toastCtrl.create({
+      message: mensagem,
+      duration: 2000,
+      position: 'bottom',
+      color: 'dark'
+    });
+    toast.present();
   }
 }

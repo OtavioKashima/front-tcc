@@ -1,68 +1,183 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/tabs"></ion-back-button>
-    </ion-buttons>
-    <ion-title>{{ usuario?.nome }}</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [scrollY]="true">
 
-<ion-content>
-  <div class="profile-banner"></div>
+  <div class="floating-buttons">
+    <button class="float-btn" (click)="goBack()">
+      <ion-icon name="arrow-back-outline" class="seta-voltar"></ion-icon>
+    </button>
 
-  <div class="profile-header ion-padding ion-text-center">
-    <div class="avatar-container">
-      <img [src]="usuario?.foto_perfil ? usuario.foto_perfil : 'https://ionicframework.com/docs/img/demos/avatar.svg'" alt="Foto de Perfil">
+    <div class="right-floating-group">
+      <button class="float-btn" (click)="compartilharOng()">
+        <ion-icon name="arrow-redo-outline" class="seta-voltar"></ion-icon>
+      </button>
+
+      <button class="float-btn chat-profile-btn" *ngIf="ong.admin === 2" (click)="abrirChat()">
+        <ion-icon name="chatbubbles-outline" class="seta-voltar"></ion-icon>
+      </button>
     </div>
-    
-    <h2 class="user-name">{{ usuario?.nome }}</h2>
-    <p class="user-type" *ngIf="usuario?.tipoDisplay">{{ usuario?.tipoDisplay | uppercase }}</p>
-    
-    <p class="user-bio ion-margin-vertical">
-      {{ usuario?.bio ? usuario.bio : 'Nenhuma biografia informada.' }}
-    </p>
+  </div>
 
-    <div class="user-details ion-justify-content-center">
-      <ion-chip *ngIf="usuario?.cidade" color="medium">
+  <div class="hero-banner">
+    <div class="hero-gradient"></div>
+    <div class="hero-content">
+      <img [src]="ong.avatar" [alt]="'Logo ' + ong.nome" class="ong-logo">
+      <h1 class="ong-nome">{{ ong.nome }}</h1>
+      <span class="ong-cidade">
         <ion-icon name="location-outline"></ion-icon>
-        <ion-label>{{ usuario?.cidade }} - {{ usuario?.estado }}</ion-label>
-      </ion-chip>
-      <ion-chip *ngIf="usuario?.telefone" color="medium">
-        <ion-icon name="call-outline"></ion-icon>
-        <ion-label>{{ usuario?.telefone }}</ion-label>
-      </ion-chip>
+        {{ ong.cidade }}
+      </span>
     </div>
   </div>
 
-  <hr class="divider">
+  <div class="sobre-section" *ngIf="ong.admin === 2">
+    <p class="sobre-text">{{ ong.descricao }}</p>
 
-  <div class="posts-section">
-    <ion-list-header>
-      <ion-label>Publicações de {{ usuario?.nome }}</ion-label>
-    </ion-list-header>
-
-    <div *ngIf="postagens.length === 0" class="ion-padding ion-text-center no-posts">
-      <ion-icon name="images-outline"></ion-icon>
-      <p>Este usuário ainda não fez nenhuma publicação.</p>
-    </div>
-
-    <ion-card *ngFor="let post of postagens" class="post-card">
-      <ion-item lines="none" class="post-header">
-        <ion-avatar slot="start">
-          <img [src]="usuario?.foto_perfil ? usuario.foto_perfil : 'https://ionicframework.com/docs/img/demos/avatar.svg'">
-        </ion-avatar>
-        <ion-label>
-          <h3>{{ usuario?.nome }}</h3>
-          <p>{{ post.data_criacao | date:'dd/MM/yyyy HH:mm' }}</p>
-        </ion-label>
-      </ion-item>
-
-      <ion-card-content>
-        <p class="post-description">{{ post.descricao }}</p>
-        <div class="post-images" *ngIf="post.foto">
-          <img [src]="post.foto">
+    <div class="doacao-container">
+      <button class="doacao-btn" (click)="irParaDoacao()">
+        <div class="doacao-icon-wrapper">
+          <ion-icon name="heart"></ion-icon>
         </div>
-      </ion-card-content>
-    </ion-card>
+        <div class="doacao-text">
+          <span class="doacao-title">Apoiar esta causa</span>
+          <span class="doacao-sub">Faça uma doação via PIX</span>
+        </div>
+        <ion-icon name="chevron-forward-outline" class="doacao-arrow"></ion-icon>
+      </button>
+    </div>
   </div>
+
+  <div class="tabs-bar" *ngIf="ong.admin === 2">
+    <button class="tab-btn" [class.active]="tabAtiva === 'adocoes'" (click)="tabAtiva = 'adocoes'">
+      <ion-icon name="paw-outline"></ion-icon>
+      <span class="tab-label">Adoções</span>
+    </button>
+    <button class="tab-btn" [class.active]="tabAtiva === 'denuncias'" (click)="tabAtiva = 'denuncias'">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <span class="tab-label">Denúncias</span>
+    </button>
+    <button class="tab-btn" [class.active]="tabAtiva === 'comunicados'" (click)="tabAtiva = 'comunicados'">
+      <ion-icon name="megaphone-outline"></ion-icon>
+      <span class="tab-label">Comunicados</span>
+    </button>
+  </div>
+
+  <div *ngIf="ong.admin === 0" style="padding: 20px 16px 5px 16px;">
+    <h2 style="font-size: 1.2rem; font-weight: 700; color: #333; margin: 0; letter-spacing: 0.3px;">Denúncias Publicadas
+    </h2>
+  </div>
+
+
+  <div class="feed" *ngIf="tabAtiva === 'adocoes' && ong.admin === 2">
+    <div *ngIf="postagens.length === 0" class="sem-resultados">
+      <ion-icon name="paw-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhuma postagem encontrada</p>
+    </div>
+
+    <div class="denuncia-card" *ngFor="let post of postagens" (click)="abrirDetalhe(post)">
+      <div class="denuncia-header" style="align-items: center;">
+        <div class="criador-info" style="display: flex; align-items: center; gap: 10px;">
+          <img [src]="ong.avatar" alt="Foto do criador"
+            style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd;">
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-weight: bold; font-size: 0.95rem; color: #333;">{{ ong.nome }}</span>
+            <span style="font-size: 0.8rem; color: #666;">{{ post.titulo }}</span>
+          </div>
+        </div>
+        <div class="denuncia-acoes">
+          <button class="acao-btn" (click)="compartilhar(post); $event.stopPropagation()"><ion-icon
+              name="arrow-redo-outline"></ion-icon></button>
+          <button class="acao-btn" (click)="salvar(post); $event.stopPropagation()">
+            <ion-icon [name]="post.saved ? 'bookmark' : 'bookmark-outline'" [class.saved]="post.saved"></ion-icon>
+          </button>
+        </div>
+      </div>
+
+      <div class="denuncia-content">
+        <div class="post-imagem-container">
+          <div *ngIf="post.fotosArray && post.fotosArray.length > 0"
+            [class]="'grid-fotos qtd-' + (post.fotosArray.length > 4 ? 'mais' : post.fotosArray.length)">
+            <div class="foto-item" *ngFor="let foto of post.fotosArray | slice:0:4; let i = index">
+              <img [src]="'http://localhost:3000/uploads/' + foto" alt="Foto da postagem">
+              <div class="overlay-mais" *ngIf="i === 3 && post.fotosArray.length > 4">+{{ post.fotosArray.length - 4 }}
+              </div>
+            </div>
+          </div>
+          <img *ngIf="!post.fotosArray || post.fotosArray.length === 0" src="assets/img-padrao.png" alt="Sem foto"
+            class="post-imagem-padrao" />
+        </div>
+        <div class="denuncia-info">
+          <div class="badge-container">
+            <span class="denuncia-badge" *ngIf="post.raca">{{ post.raca }}</span>
+            <span class="denuncia-badge" *ngIf="post.genero">{{ post.genero }}</span>
+            <span class="denuncia-badge" *ngIf="post.idade">{{ post.idade }}</span>
+          </div>
+          <p class="denuncia-descricao">{{ post.descricao }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feed" *ngIf="tabAtiva === 'denuncias'">
+    <div *ngIf="denuncias.length === 0" class="sem-resultados">
+      <ion-icon name="alert-circle-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhuma denúncia encontrada</p>
+    </div>
+
+    <div class="denuncia-card" *ngFor="let d of denuncias" (click)="abrirDenuncia(d)">
+      <div class="denuncia-header" style="align-items: center;">
+        <div class="criador-info" style="display: flex; align-items: center; gap: 10px;">
+          <img [src]="ong.avatar" alt="Foto do criador"
+            style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd;">
+          <div style="display: flex; flex-direction: column;">
+            <span style="font-weight: bold; font-size: 0.95rem; color: #333;">{{ d.autor || ong.nome }}</span>
+            <span style="font-size: 0.8rem; color: #666;">{{ d.titulo }}</span>
+          </div>
+        </div>
+        <div class="denuncia-acoes">
+          <button class="acao-btn" (click)="compartilharDenuncia(d); $event.stopPropagation()"><ion-icon
+              name="arrow-redo-outline"></ion-icon></button>
+        </div>
+      </div>
+
+      <div class="denuncia-content">
+        <div class="post-imagem-container">
+          <div *ngIf="d.fotosArray && d.fotosArray.length > 0"
+            [class]="'grid-fotos qtd-' + (d.fotosArray.length > 4 ? 'mais' : d.admin_length)">
+            <div class="foto-item" *ngFor="let foto of d.fotosArray | slice:0:4; let i = index">
+              <img [src]="'http://localhost:3000/uploads/' + foto" alt="Foto da denúncia">
+              <div class="overlay-mais" *ngIf="i === 3 && d.fotosArray.length > 4">+{{ d.fotosArray.length - 4 }}</div>
+            </div>
+          </div>
+          <img *ngIf="!d.fotosArray || d.fotosArray.length === 0" src="assets/img-padrao.png" alt="Sem foto"
+            class="post-imagem-padrao" />
+        </div>
+        <div class="denuncia-info">
+          <div class="denuncia-meta" style="margin-bottom: 8px; color: #88c8a8; font-size: 0.85rem;">
+            <ion-icon name="time-outline"></ion-icon> {{ d.tempo || 'Recente' }}
+          </div>
+          <p class="denuncia-descricao">{{ d.descricao }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feed" *ngIf="tabAtiva === 'comunicados' && ong.admin === 2">
+    <div *ngIf="comunicados.length === 0" class="sem-resultados sem-resultados-comunicado">
+      <ion-icon name="megaphone-outline" class="sem-resultados-icon"></ion-icon>
+      <p>Nenhum comunicado emitido</p>
+    </div>
+
+    <div class="comunicado-card-perfil" *ngFor="let aviso of comunicados" (click)="abrirComunicado(aviso)">
+      <div class="comunicado-header">
+        <div class="header-esquerda">
+          <ion-icon name="megaphone-outline"></ion-icon>
+          <span>{{ aviso.data_criacao | date:'dd/MM/yyyy' }}</span>
+        </div>
+      </div>
+      <div class="comunicado-body">
+        <h3>{{ aviso.titulo }}</h3>
+        <p>{{ aviso.texto }}</p>
+      </div>
+    </div>
+  </div>
+
 </ion-content>
