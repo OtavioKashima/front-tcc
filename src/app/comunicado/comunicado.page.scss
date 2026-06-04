@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght=400;600;700;800;900&display=swap');
 
 ion-content {
-  --background: #fffcf9; /* Tom de fundo levemente aquecido */
+  --background: #fffcf9;
+  /* Tom de fundo levemente aquecido */
 }
 
 .floating-buttons {
@@ -21,7 +22,8 @@ ion-content {
   align-items: center;
   justify-content: center;
   background: white;
-  border: 2px solid #ff9800; /* Alterado para Laranja Alerta */
+  border: 2px solid #ff9800;
+  /* Alterado para Laranja Alerta */
   border-radius: 50%;
   width: 38px;
   height: 38px;
@@ -31,14 +33,19 @@ ion-content {
   padding: 0;
 
   &:active {
-    background: #ff9800; /* Alterado para Laranja Alerta */
-    .seta-voltar { color: white; }
+    background: #ff9800;
+
+    /* Alterado para Laranja Alerta */
+    .seta-voltar {
+      color: white;
+    }
   }
 }
 
 .seta-voltar {
   font-size: 20px;
-  color: #ff9800; /* Alterado para Laranja Alerta */
+  color: #ff9800;
+  /* Alterado para Laranja Alerta */
   transition: color 0.2s ease;
 }
 
@@ -47,13 +54,15 @@ ion-content {
   width: 100%;
   height: 360px;
   overflow: hidden;
-  background-color: #fff3e0; /* Fundo suave âmbar para imagens transparentes */
+  background-color: #fff3e0;
+  /* Fundo suave âmbar para imagens transparentes */
 }
 
 .hero-image {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  /* A mágica acontece aqui: mudamos de contain para cover */
   display: block;
 }
 
@@ -62,8 +71,9 @@ ion-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #ffa726, #f57c00); /* Degradê Laranja Vivo */
-  
+  background: linear-gradient(135deg, #ffa726, #f57c00);
+  /* Degradê Laranja Vivo */
+
   ion-icon {
     font-size: 5rem;
     color: rgba(255, 255, 255, 0.6);
@@ -119,7 +129,8 @@ ion-content {
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 2px 12px rgba(255, 152, 0, 0.05); /* Sombra sutil quente */
+  box-shadow: 0 2px 12px rgba(255, 152, 0, 0.05);
+  /* Sombra sutil quente */
   cursor: pointer;
   transition: all 0.2s ease;
 
@@ -134,7 +145,8 @@ ion-content {
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #ff9800; /* Borda da foto do criador em laranja */
+  border: 2px solid #ff9800;
+  /* Borda da foto do criador em laranja */
   flex-shrink: 0;
 }
 
@@ -169,7 +181,8 @@ ion-content {
 
 .ong-arrow {
   font-size: 1.1rem;
-  color: #ff9800; /* Seta em laranja */
+  color: #ff9800;
+  /* Seta em laranja */
   flex-shrink: 0;
 }
 
@@ -178,7 +191,8 @@ ion-content {
   border-radius: 16px;
   padding: 20px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  border-top: 3px solid #ff9800; /* Linha sutil de destaque no bloco de texto */
+  border-top: 3px solid #ff9800;
+  /* Linha sutil de destaque no bloco de texto */
 }
 
 .section-title {
@@ -195,7 +209,8 @@ ion-content {
   font-family: 'Nunito', sans-serif;
   font-size: 0.95rem;
   font-weight: 600;
-  color: #5c534e; /* Leve tom terroso legível */
+  color: #5c534e;
+  /* Leve tom terroso legível */
   line-height: 1.8;
   margin: 0;
   white-space: pre-wrap;
@@ -211,7 +226,10 @@ ion-content {
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 
-  &::-webkit-scrollbar { display: none; }
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   -ms-overflow-style: none;
   scrollbar-width: none;
 }

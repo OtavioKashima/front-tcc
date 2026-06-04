@@ -92,59 +92,41 @@ export class PerfilPublicoPage implements OnInit {
   carregarPostagensUsuario() {
     this.http.get(`${this.apiUrl}/postagens/usuario/${this.usuarioId}`).subscribe({
       next: (res: any) => {
-        // Zera os arrays
         this.postagens = [];
         this.denuncias = [];
         this.comunicados = [];
 
-        // Filtra e formata as postagens conforme o tipo
         res.forEach((post: any) => {
-
-          // Formata as imagens do grid
+          // ... (seu código de formatação de imagens e postFormatado continua igual) ...
           let fotosArray: string[] = [];
           let imagemUrl = 'assets/img/placeholder.png';
 
           if (post.foto) {
             try {
               const fotosParsed = JSON.parse(post.foto);
-              if (Array.isArray(fotosParsed)) {
-                fotosArray = fotosParsed;
-                if (fotosParsed.length > 0) {
-                  imagemUrl = `${this.urlUploads}${fotosParsed[0]}`;
-                }
-              } else {
-                fotosArray = [post.foto];
-                imagemUrl = `${this.urlUploads}${post.foto}`;
-              }
+              fotosArray = Array.isArray(fotosParsed) ? fotosParsed : [post.foto];
+              if (fotosArray.length > 0) imagemUrl = `${this.urlUploads}${fotosArray[0]}`;
             } catch (e) {
               fotosArray = [post.foto];
               imagemUrl = `${this.urlUploads}${post.foto}`;
             }
           }
 
-          // 🟢 O PULO DO GATO: Injetamos o usuário criador aqui
           const postFormatado = {
-            ...post, // Mantém dados originais do post (titulo, descricao, etc.)
+            ...post,
             id: post.id || post.id_postagem || post._id,
             imagem: imagemUrl,
             fotosArray: fotosArray,
             saved: false,
-
-            // 1. Se a sua tela de detalhes procura por um objeto "usuario" (padrão do feed)
+            autor: this.ong.nome, // Post feito pela própria ONG
             usuario: {
               id: this.ong.id,
               nome: this.ong.nome,
               foto_perfil: this.ong.foto_perfil,
               avatar: this.ong.avatar
-            },
-
-            // 2. Se a sua tela de detalhes procura por propriedades diretas (flat)
-            nome_usuario: this.ong.nome,
-            foto_usuario: this.ong.avatar,
-            usuario_id: this.ong.id
+            }
           };
 
-          // Distribui nos arrays corretos usando o campo tipo_postagem
           if (post.tipo_postagem === 'adocao') {
             this.postagens.push(postFormatado);
           } else if (post.tipo_postagem === 'denuncia') {
@@ -154,11 +136,69 @@ export class PerfilPublicoPage implements OnInit {
           }
         });
 
-        console.log('Postagens prontas com criador injetado:', this.postagens);
+        // 🟢 AQUI ESTÁ A MUDANÇA: Se for uma ONG, busca também as denúncias direcionadas a ela
+        if (this.ong.admin === 2) {
+          this.carregarDenunciasDirecionadas();
+        }
+
       },
       error: (err) => {
         console.error('Erro ao buscar postagens:', err);
       }
+    });
+  }
+
+  // 🟢 NOVA FUNÇÃO: Busca as denúncias feitas POR OUTROS para esta ONG
+  carregarDenunciasDirecionadas() {
+    this.http.get(`${this.apiUrl}/postagens/direcionadas/${this.usuarioId}`).subscribe({
+      next: (res: any) => {
+        res.forEach((post: any) => {
+          // Formatação da imagem
+          let fotosArray: string[] = [];
+          let imagemUrl = 'assets/img/placeholder.png';
+
+          if (post.foto) {
+            try {
+              const fotosParsed = JSON.parse(post.foto);
+              fotosArray = Array.isArray(fotosParsed) ? fotosParsed : [post.foto];
+              if (fotosArray.length > 0) imagemUrl = `${this.urlUploads}${fotosArray[0]}`;
+            } catch (e) {
+              fotosArray = [post.foto];
+              imagemUrl = `${this.urlUploads}${post.foto}`;
+            }
+          }
+
+          const avatarAutor = post.foto_autor
+            ? `${this.urlUploads}${post.foto_autor}`
+            : 'https://ionicframework.com/docs/img/demos/avatar.svg';
+
+          const postFormatado = {
+            ...post,
+            id: post.id,
+            imagem: imagemUrl,
+            fotosArray: fotosArray,
+            saved: false,
+            autor: post.nome_autor,
+            usuario: {
+              id: post.usuarios_id,
+              nome: post.nome_autor,
+              foto_perfil: post.foto_autor,
+              avatar: avatarAutor
+            }
+          };
+
+          // 🚨 TRAVA CONTRA DUPLICATAS: Só adiciona se o ID ainda não existir na lista
+          const jaExiste = this.denuncias.some(d => d.id === postFormatado.id);
+
+          if (!jaExiste) {
+            this.denuncias.push(postFormatado);
+          }
+        });
+
+        // Reordenar por data mais recente
+        this.denuncias.sort((a, b) => new Date(b.data_criacao).getTime() - new Date(a.data_criacao).getTime());
+      },
+      error: (err) => console.error('Erro ao buscar denúncias direcionadas:', err)
     });
   }
 

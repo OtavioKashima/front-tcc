@@ -5,7 +5,7 @@
 
 .fab-add-button {
   --background: #ffffff;
-  --color: #4eca88;
+  --color: #3ecf8e;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-radius: 50%;
   --ripple-color: transparent;
@@ -15,7 +15,7 @@
   position: absolute;
   width: 70px;
   height: 70px;
-  background: linear-gradient(135deg, #66d9a6 0%, #4eca88 100%);
+  background: linear-gradient(135deg, #5ad9a3 0%, #3ecf8e 100%);
   border-radius: 50%;
   left: 50%;
   top: 50%;
@@ -24,7 +24,7 @@
 }
 
 .custom-tab-bar {
-  --background: linear-gradient(135deg, #66d9a6 0%, #4eca88 100%);
+  --background: linear-gradient(135deg, #5ad9a3 0%, #3ecf8e 100%);
   --color: #ffffff;
   --color-selected: #ffffff;
   border-top: none;

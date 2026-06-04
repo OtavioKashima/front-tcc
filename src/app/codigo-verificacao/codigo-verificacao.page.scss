@@ -27,7 +27,7 @@ ion-toolbar.toolbar-transparente {
 }
 
 .seta-voltar:hover {
-  background: #4eca88;
+  background: #3ecf8e;
   color: white;
 }
 
@@ -73,7 +73,7 @@ Logo
 .logo-circle {
   width: 82px;
   height: 82px;
-  background: linear-gradient(145deg, #66d9a6, #38b87a);
+  background: linear-gradient(145deg, #5ad9a3, #3ecf8e);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -190,7 +190,7 @@ Botão
 }
 
 .login-button {
-  --background: linear-gradient(135deg, #66d9a6, #38b87a);
+  --background: linear-gradient(135deg, #5ad9a3, #3ecf8e);
   --color: white;
   --border-radius: 12px;
   --box-shadow: 0 6px 24px rgba(78, 202, 136, 0.4);

@@ -34,6 +34,9 @@ export class PostagemPage implements OnInit {
   fotoSelecionada: File | null = null;
   fotoPreview: string | ArrayBuffer | null = null;
 
+  ongs: any[] = [];
+  ongDestino: string = ''; // Guarda o ID da ONG selecionada
+
   constructor(private http: HttpClient, private navCtrl: NavController) { }
 
   ngOnInit() {
@@ -53,6 +56,19 @@ export class PostagemPage implements OnInit {
       this.tipoSelecionado = 'denuncia';
       this.tipo_postagem = 'denuncia';
     }
+    this.carregarOngs();
+  }
+
+  carregarOngs() {
+    // 🟢 Coloque aqui a URL da sua rota existente que chama o listarOngs do usuariosController
+    this.http.get('http://localhost:3000/api/ongs').subscribe({
+      next: (res: any) => {
+        this.ongs = res; // O Angular vai pegar o id e o nome normalmente
+      },
+      error: (err: any) => {
+        console.error('Erro ao carregar ONGs', err);
+      }
+    });
   }
 
   mudarTipo(event: any) {
@@ -112,6 +128,9 @@ export class PostagemPage implements OnInit {
     }
 
     if (this.localizacao) formData.append('localizacao', this.localizacao);
+    if (this.tipo_postagem === 'denuncia' && this.ongDestino) {
+      formData.append('ong_id', this.ongDestino);
+    }
 
     if (this.tipo_postagem !== 'denuncia' && this.tipo_postagem !== 'comunicado') {
       if (this.raca) formData.append('raca', this.raca);

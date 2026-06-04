@@ -376,6 +376,31 @@ ion-fab-button {
   height: 80px;
 }
 
+// 🟢 IMAGEM DA POSTAGEM
+.post-imagem-container {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f0fdf6; // Fundo suave para não contrastar muito antes da foto carregar
+
+  // Imagem quando a postagem não tem foto nenhuma
+  .post-imagem-padrao {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+
+  // Imagem principal única da postagem
+  .post-imagem-unica {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+}
+
 .badge-multi-fotos {
   position: absolute;
   top: 10px;
@@ -393,95 +418,9 @@ ion-fab-button {
   }
 }
 
-.post-imagem-container {
-  position: relative;
-  width: 100%;
-  border-radius: 12px;
-  overflow: hidden;
-  background: #f0fdf6; // Fundo suave para não contrastar muito antes da foto carregar
-
-  .post-imagem-padrao {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-  }
-}
-
-.grid-fotos {
-  display: grid;
-  gap: 2px; // Divisória fina entre as fotos
-  width: 100%;
-
-  .foto-item {
-    position: relative;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    background-color: #ddd;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .overlay-mais {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6); // Fundo escurecido na última foto
-      color: white;
-      font-size: 2rem;
-      font-family: 'Nunito', sans-serif;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
-  // 📐 Comportamento 1 Foto
-  &.qtd-1 {
-    grid-template-columns: 1fr;
-
-    .foto-item {
-      aspect-ratio: 16 / 9;
-    }
-
-    // Fica panorâmica se for só uma
-  }
-
-  // 📐 Comportamento 2 Fotos
-  &.qtd-2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  // 📐 Comportamento 3 Fotos (1 maior no topo, 2 embaixo)
-  &.qtd-3 {
-    grid-template-columns: repeat(2, 1fr);
-
-    .foto-item:nth-child(1) {
-      grid-column: span 2;
-      aspect-ratio: 21 / 9;
-    }
-  }
-
-  // 📐 Comportamento 4 Fotos ou mais
-  &.qtd-4,
-  &.qtd-mais {
-    grid-template-columns: repeat(2, 1fr);
-
-    .foto-item {
-      aspect-ratio: 1 / 1;
-    }
-
-    // Transforma em um quadrado perfeito 2x2
-  }
-}
-
+// ==========================
+// BLOCOS DE INFORMAÇÃO ONG
+// ==========================
 .ong-info-container {
   padding: 10px 20px 30px;
   display: flex;

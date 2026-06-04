@@ -119,7 +119,7 @@
     <div class="denuncia-card" *ngFor="let d of denuncias" (click)="abrirDenuncia(d)">
       <div class="denuncia-header" style="align-items: center;">
         <div class="criador-info" style="display: flex; align-items: center; gap: 10px;">
-          <img [src]="ong.avatar" alt="Foto do criador"
+          <img [src]="d.usuario?.avatar || ong.avatar" alt="Foto do criador"
             style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 1px solid #ddd;">
           <div style="display: flex; flex-direction: column;">
             <span style="font-weight: bold; font-size: 0.95rem; color: #333;">{{ d.autor || ong.nome }}</span>

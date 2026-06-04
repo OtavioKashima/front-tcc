@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
 ion-toolbar.custom-toolbar {
-  --background: #4eca88;
+  --background: #3ecf8e;
   padding: 6px 0;
 }
 
@@ -89,7 +89,7 @@ ion-content {
   }
 
   &--meus {
-    background: #4eca88;
+    background: #3ecf8e;
     color: white;
     border-bottom-right-radius: 4px;
   }
@@ -132,7 +132,7 @@ ion-content {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: #4eca88;
+  background: #3ecf8e;
   border: none;
   display: flex;
   align-items: center;

@@ -19,7 +19,7 @@ body {
 
 ion-header,
 ion-toolbar {
-  --background: linear-gradient(135deg, #66d9a6 0%, #4eca88 100%);
+  --background: linear-gradient(135deg, #5ad9a3 0%, #3ecf8e 100%);
   background-color: #ffffff !important;
   color: #ffffff;
 }
@@ -98,7 +98,7 @@ ion-alert {
       border: 1.5px solid #b2e8cf !important;
 
       &:last-child {
-        background: linear-gradient(135deg, #7dd9b0, #4ec98a) !important;
+        background: linear-gradient(135deg, #5ad9a3, #3ecf8e) !important;
         color: white !important;
         border: none !important;
       }
